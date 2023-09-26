@@ -4,7 +4,7 @@
 
 ### «Angry Alpaca» erstellt das Spiel.
 
-1. Der Benutzer klickt auf «Spiel erstellen».
+1. Der Spieler «Angry Alpaca» klickt auf «Spiel erstellen».
 
 2. Die aktuelle URL wechselt auf `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
@@ -14,7 +14,7 @@
 
 	`cc69...` ist das Geheimnis des Spielers «Angry Alpaca» (playerSecret).
 
-	Die Kennungen und das Geheimnis werden im Frontend erstellt und beim Öffnen der WebSocket-Verbindung ans Backend übergeben.
+	Die Werte werden vom Frontend zufällig gewählt und in der aktuellen URL als Fragment gesetzt, damit sie bei einem Neuladen der Seite nicht verloren gehen.
 
 3. WS connect to `/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
