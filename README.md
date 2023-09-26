@@ -116,7 +116,7 @@
 
 ### Player «Brilliant Barracuda»
 
-1. User cliks on «Join game».
+1. User clicks on «Join game».
 
 2. Location changes to `navigate /frontend/game/`.
 
