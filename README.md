@@ -1,6 +1,6 @@
-=Protocol=
+# Protocol
 
-==Angry Alpaca==
+## Angry Alpaca
 
 1. Click: «Create game».
 
