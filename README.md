@@ -6,7 +6,7 @@
 
 1. Der Spieler klickt auf «Spiel erstellen».
 
-2. Die aktuelle URL wechselt auf `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
+2. Die URL im Browser wechselt auf `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
 	`c1a3...` ist die `game.id` und dient dazu, das Spiel zu identifizieren.
 
@@ -16,11 +16,11 @@
 
 	Die drei Werte werden vom Frontend zufällig gewählt und in der aktuellen URL als Fragment gesetzt, damit sie einen Reload der Seite überleben.
 
-3. WebSocket-Verbindung zu `/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543` öffnen.
+3. Das Frontend öffnet eine WebSocket-Verbindung zu `/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
     Die drei zuvor erzeugten Werte werden beim Öffnen der WebSocket-Verbindung an das Backend übergeben.
 
-4. WebSocket-Nachricht empfangen:
+4. Das Frontend empfängt eine WebSocket-Nachricht:
 
 		{
 		  "game": {
@@ -29,11 +29,11 @@
 		   }
 		}
 
-	Die `game.id` ist noch nicht bekannt.
+	Der Spielstatus `missing` zeigt an, dass Spiel noch nicht existiert.
 
-5. User clicks on «Next».
+5. Der Spieler klickt auf «Weiter».
 
-6. WS send:
+6. Das Frontend sendet eine WebSocket-Nachricht:
 
 		{
 		  "action" {
@@ -47,12 +47,14 @@
 		  }
 		}
 
-7. WS receive:
+	Das Backend erstellt das Spiel.
+
+7. Das Frontend empfängt eine WebSocket-Nachricht:
 
 		{
 		  "game": {
 		    "id": "c1a39696b19330a2",
-		    "status": "pending"
+		    "status": "waiting"
 		  },
 		  "map": {
 		    "id": 1
@@ -64,12 +66,14 @@
 		  }],
 		}
 
-8. WS receive:
+	Der Spielstatus `waiting` zeigt an, dass auf weitere Spieler gewartet wird.
+
+8. Das Frontend empfängt eine WebSocket-Nachricht:
 
 		{
 		  "game": {
 		    "id": "c1a39696b19330a2",
-		    "status": "pending"
+		    "status": "waiting"
 		  },
 		  "map": {
 		    "id": 1
@@ -85,7 +89,11 @@
 		  }]
 		}
 
-9. WS send:
+	Der Spieler «Brilliant Barracuda» nimmt ebenfalls am Spiel teil.
+
+9. Der Spieler klickt auf «Spiel starten».
+
+10. Das Frontend sendet eine WebSocket-Nachricht:
 
 		{
 		  "action" {
@@ -93,7 +101,7 @@
 		  }
 		}
 
-10. WS receive:
+11. Das Frontend erhält eine WebSocket-Nachricht:
 
 		{
 		  "game": {
@@ -121,6 +129,8 @@
 		  }
 		}
 
+	Der Spielstatus `game.status == "thinking"` zeigt an, dass der aktuelle Spieler `turn.player == "85a27a9f6c4eb393"` am Zug ist.
+
 ### «Brilliant Barracuda» joins the game.
 
 1. User clicks on «Join game».
@@ -135,7 +145,7 @@
 		  "games": [{
 		    "game": {
 		      "id": "c1a39696b19330a2",
-		      "status": "pending"
+		      "status": "waiting"
 		    },
 		    "map": {
 		      "id": 1
@@ -171,7 +181,7 @@
 		{
 		  "game": {
 		    "id": "c1a39696b19330a2",
-		    "status": "pending"
+		    "status": "waiting"
 		  },
 		  "map": {
 		    "id": 1
