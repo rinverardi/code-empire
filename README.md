@@ -16,12 +16,12 @@
 
 4. WS-receive
 
-	{
-	  "game": {
-	    "id": "c1a39696b19330a2",
-	    "status": "missing"
-	   }
-	}
+		{
+		  "game": {
+		    "id": "c1a39696b19330a2",
+		    "status": "missing"
+		   }
+		}
 
 5. Click «Next»
 	click "next"
