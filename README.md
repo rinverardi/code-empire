@@ -14,13 +14,13 @@
 
 	`cc69...` ist das `player.secret` und wird in der Folge vom Backend verwendet, um den Spieler zu authentifizieren. Dieser Wert ist geheim und darf nicht mit anderen Spielern geteilt werden.
 
-	Die drei Werte werden vom Frontend zufällig gewählt und in der aktuellen URL als Fragment gesetzt, damit sie einen Reload der Seite überleben.
+	Die drei Werte werden vom Frontend zufällig gewählt und in der aktuellen URL als Fragment gesetzt, damit sie bei einen Reload der Seite nicht veloren gehen.
 
 3. Das Frontend öffnet eine WebSocket-Verbindung zu `/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
     Die drei zuvor erzeugten Werte werden beim Öffnen der WebSocket-Verbindung an das Backend übergeben.
 
-4. Das Frontend empfängt eine WebSocket-Nachricht:
+4. Das Frontend empfängt eine WebSocket-Nachricht vom Backend:
 
 		{
 		  "game": {
@@ -33,7 +33,7 @@
 
 5. Der Spieler klickt auf «Weiter».
 
-6. Das Frontend sendet eine WebSocket-Nachricht:
+6. Das Frontend sendet eine WebSocket-Nachricht an das Backend:
 
 		{
 		  "action" {
@@ -47,9 +47,9 @@
 		  }
 		}
 
-	Das Backend erstellt das Spiel.
+	Aufgrund der Aktion `action.id == "create-game"` erstellt das Backend das Spiel.
 
-7. Das Frontend empfängt eine WebSocket-Nachricht:
+7. Das Frontend empfängt eine WebSocket-Nachricht vom Backend:
 
 		{
 		  "game": {
@@ -66,9 +66,9 @@
 		  }],
 		}
 
-	Der Spielstatus `waiting` zeigt an, dass auf weitere Spieler gewartet wird.
+	Der Spielstatus `game.status == "waiting"` zeigt an, dass auf weitere Spieler gewartet wird.
 
-8. Das Frontend empfängt eine WebSocket-Nachricht:
+8. Das Frontend empfängt eine WebSocket-Nachricht vom Backend:
 
 		{
 		  "game": {
@@ -89,11 +89,11 @@
 		  }]
 		}
 
-	Der Spieler «Brilliant Barracuda» nimmt ebenfalls am Spiel teil.
+	Ein weiterer Spieler «Brilliant Barracuda» tritt dem Spiel bei.
 
 9. Der Spieler klickt auf «Spiel starten».
 
-10. Das Frontend sendet eine WebSocket-Nachricht:
+10. Das Frontend sendet eine WebSocket-Nachricht an das Backend:
 
 		{
 		  "action" {
@@ -101,7 +101,9 @@
 		  }
 		}
 
-11. Das Frontend erhält eine WebSocket-Nachricht:
+	Aufgrund der Aktion `action.id == "start-game"` startet das Backend das Spiel.
+
+11. Das Frontend erhält eine WebSocket-Nachricht vom Backend:
 
 		{
 		  "game": {
@@ -129,17 +131,17 @@
 		  }
 		}
 
-	Der Spielstatus `game.status == "thinking"` zeigt an, dass der aktuelle Spieler `turn.player == "85a27a9f6c4eb393"` am Zug ist.
+	Der Spielstatus `game.status == "thinking"` zeigt an, dass das Spiel gestartet wurde und der aktuelle Spieler `turn.player == "85a27a9f6c4eb393"` am Zug ist.
 
-### «Brilliant Barracuda» joins the game.
+### «Brilliant Barracuda» nimmt am Spiel teil.
 
-1. User clicks on «Join game».
+1. Der Spieler klickt auf «Spiel beitreten».
 
-2. Location changes to `/frontend/game/`.
+2. Die URL im Browser wechselt auf `/frontend/game/`.
 
-3. WS connect to `/backend/game/`.
+3. Das Frontend öffnet eine WebSocket-Verbindung zu `/backend/game/`.
 
-4. WS receive:
+4. Das Frontend empfängt eine WebSocket-Nachricht vom Backend:
 
 		{
 		  "games": [{
@@ -153,30 +155,36 @@
 		  }]
 		}
 
-5. User clicks on «Next».
+	Der Spielstatus `game.status == "waiting"` zeigt an, dass auf weitere Spieler gewartet wird.
 
-6. Location changes to `/frontend/game/#c1a39696b19330a2.2127b1ce604ae64c.3e26eff6ea6da984`.
+5. Der Spieler klickt auf «Weiter.
 
-	`c1a3...` is the game ID.
+6. Die URL im Browser wechselt auf `/frontend/game/#c1a39696b19330a2.2127b1ce604ae64c.3e26eff6ea6da984`.
 
-	`2127...` is Brilliant Barracuda's player ID.
+	`c1a3...` ist die `game.id` und dient dazu, das Spiel zu identifizieren.
 
-	`3e26...` is Brilliant Barracuda's player secret.
+	`2127...` ist die `player.id` und dient dazu, den Spieler zu identifizieren.
 
-7. WS connect to `/backend/game/c1a39696b19330a2.2127b1ce604ae64c.3e26eff6ea6da984`.
+	`3e26...` ist das `player.secret` und wird in der Folge vom Backend verwendet, um den Spieler zu authentifizieren. Dieser Wert ist geheim und darf nicht mit anderen Spielern geteilt werden.
 
-8. WS send:
+	Die drei Werte werden vom Frontend zufällig gewählt und in der aktuellen URL als Fragment gesetzt, damit sie bei einen Reload der Seite nicht veloren gehen.
+
+7. Das Frontend öffnet eine WebSocket-Verbindung zu `/backend/game/c1a39696b19330a2.2127b1ce604ae64c.3e26eff6ea6da984`.
+
+8. Das Frontend sendet eine WebSocket-Nachricht an das Backend:
 
 		{
 		  "action" {
-		    "id": "join",
+		    "id": "join-game",
 		  },
 		  "player": {
 		    "name": "Brilliant Barracuda"
 		  }
 		}
 
-9. WS receive:
+	Aufgrund der Aktion `action.id == "join-game"` fügt das Backend den Spieler zum Spiel hinzu.
+
+9. Das Frontend empfängt eine WebSocket-Nachricht vom Backend:
 
 		{
 		  "game": {
@@ -195,7 +203,9 @@
 		  }]
 		}
 
-10. WS receive:
+	Der Spielstatus `game.status == "waiting"` zeigt an, dass auf weitere Spieler gewartet wird.
+
+10. Das Frontend empfängt eine WebSocket-Nachricht vom Backend:
 
 		{
 		  "game": {
@@ -222,6 +232,8 @@
 		    "player": "85a27a9f6c4eb393"
 		  }
 		}
+
+	Der Spielstatus `game.status == "thinking"` zeigt an, dass das Spiel gestartet wurde und der aktuelle Spieler `turn.player == "85a27a9f6c4eb393"` am Zug ist.
 
 ## In-Game Example
 
