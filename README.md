@@ -1,6 +1,8 @@
 # Protocol
 
-## Angry Alpaca
+## Pre-Game Example
+
+### Angry Alpaca
 
 1. Click: «Create game»
 
@@ -56,57 +58,61 @@
 		  }],
 		}
 
-	ws-recv {
-	          "game": {
-	            "id": "c1a39696b19330a2",
-	            "status": "created"
-	          },
-	          "map": {
-	            "id": 1
-	          },
-	          "players": [{
-	            "id": "85a27a9f6c4eb393",
-	            "name": "Angry Alpaca",
-	            "role": "master"
-	          }, {
-	            "id": "2127b1ce604ae64c",
-	            "name": "Brilliant Barracuda",
-	            "role": "participant"
-	          }]
-	        }
+8. WS receive:
 
-	ws-send {
-	          "action" {
-	            "id": "start",
-	          }
-	        }
+		{
+		  "game": {
+		    "id": "c1a39696b19330a2",
+		    "status": "created"
+		  },
+		  "map": {
+		    "id": 1
+		  },
+		  "players": [{
+		    "id": "85a27a9f6c4eb393",
+		    "name": "Angry Alpaca",
+		    "role": "master"
+		  }, {
+		    "id": "2127b1ce604ae64c",
+		    "name": "Brilliant Barracuda",
+		    "role": "participant"
+		  }]
+		}
 
-	ws-recv {
-	          "game": {
-	            "id": "c1a39696b19330a2",
-	            "status": "started"
-	          },
-	          "map": {
-	            "id": 1,
-	            "tiles": [
-	              ···
-	            ],
-	          },
-	          "players": [{
-	            "id": "85a27a9f6c4eb393",
-	            "name": "Angry Alpaca",
-	            "role": "master"
-	          }, {
-	            "id": "2127b1ce604ae64c",
-	            "name": "Brilliant Barracuda",
-	            "role": "participant"
-	          }],
-	          "round": {
-	            "number": 1,
-	            "player": "85a27a9f6c4eb393",
-	            "status": "thinking"
-	          }
-	        }
+9. WS send:
+
+		{
+		  "action" {
+		    "id": "start",
+		  }
+		}
+
+10. WS receive:
+
+		{
+		  "game": {
+		    "id": "c1a39696b19330a2",
+		    "status": "started"
+		  },
+		  "map": {
+		    "id": 1,
+		    "tiles": [ ... ],
+		  },
+		  "players": [{
+		    "id": "85a27a9f6c4eb393",
+		    "name": "Angry Alpaca",
+		    "role": "master"
+		  }, {
+		    "id": "2127b1ce604ae64c",
+		    "name": "Brilliant Barracuda",
+		    "role": "participant"
+		  }],
+		  "round": {
+		    "number": 1,
+		    "player": "85a27a9f6c4eb393",
+		    "status": "thinking"
+		  }
+		}
 
 Player "Brilliant Barracuda"
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
