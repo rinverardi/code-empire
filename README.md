@@ -8,11 +8,11 @@
 
 2. Die URL im Browser wechselt auf `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
-	`c1a3...` ist die `game.id` und dient dazu, das Spiel zu identifizieren.
+	`c1a3...` ist der Wert für `game.id` und dient dazu, das Spiel zu identifizieren.
 
-	`85a2...` ist die `player.id` und dient dazu, den Spieler zu identifizieren.
+	`85a2...` ist der Wert für `player.id` und dient dazu, den Spieler zu identifizieren.
 
-	`cc69...` ist das `player.secret` und wird in der Folge vom Backend verwendet, um den Spieler zu authentifizieren. Dieser Wert ist geheim und darf nicht mit anderen Spielern geteilt werden.
+	`cc69...` ist der Wert für `player.secret` und wird in der Folge vom Backend verwendet, um den Spieler zu authentifizieren. Dieser Wert ist geheim und darf nicht mit anderen Spielern geteilt werden.
 
 	Die drei Werte werden vom Frontend zufällig gewählt und in der aktuellen URL als Fragment gesetzt, damit sie bei einen Reload der Seite nicht veloren gehen.
 
@@ -161,11 +161,11 @@
 
 6. Die URL im Browser wechselt auf `/frontend/game/#c1a39696b19330a2.2127b1ce604ae64c.3e26eff6ea6da984`.
 
-	`c1a3...` ist die `game.id` und dient dazu, das Spiel zu identifizieren.
+	`c1a3...` ist der Wert für `game.id` und dient dazu, das Spiel zu identifizieren.
 
-	`2127...` ist die `player.id` und dient dazu, den Spieler zu identifizieren.
+	`2127...` ist der Wert für `player.id` und dient dazu, den Spieler zu identifizieren.
 
-	`3e26...` ist das `player.secret` und wird in der Folge vom Backend verwendet, um den Spieler zu authentifizieren. Dieser Wert ist geheim und darf nicht mit anderen Spielern geteilt werden.
+	`3e26...` ist der Wert für `player.secret` und wird in der Folge vom Backend verwendet, um den Spieler zu authentifizieren. Dieser Wert ist geheim und darf nicht mit anderen Spielern geteilt werden.
 
 	Die drei Werte werden vom Frontend zufällig gewählt und in der aktuellen URL als Fragment gesetzt, damit sie bei einen Reload der Seite nicht veloren gehen.
 
