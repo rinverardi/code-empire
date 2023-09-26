@@ -249,7 +249,7 @@
 			"direction": "north-east",
 		    "number": 1,
 		    "player": "85a27a9f6c4eb393",
-			"type": "move"
+		    "type": "move"
 		  }
 		}
 
@@ -319,7 +319,7 @@
 		  "turn": {
 		    "number": 2,
 		    "player": "85a27a9f6c4eb393",
-			"type": "build-village"
+		    "type": "build-village"
 		  }
 		}
 
