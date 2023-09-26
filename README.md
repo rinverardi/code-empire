@@ -4,21 +4,23 @@
 
 ### «Angry Alpaca» erstellt das Spiel.
 
-1. Der Spieler «Angry Alpaca» klickt auf «Spiel erstellen».
+1. Der Spieler klickt auf «Spiel erstellen».
 
 2. Die aktuelle URL wechselt auf `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
-	`c1a3...` ist die eindeutige Kennung des Spiels (gameId).
+	`c1a3...` ist die `game.id` und dient dazu, das Spiel zu identifizieren.
 
-	`85a2...` ist die eindeutige Kennung des Spielers «Angry Alpaca» (playerId).
+	`85a2...` ist die `player.id` und dient dazu, den Spieler zu identifizieren.
 
-	`cc69...` ist das Geheimnis des Spielers «Angry Alpaca» (playerSecret).
+	`cc69...` ist das `player.seceret` und und dient dazu, den Spieler zu authentifizieren. Dieser Wert darf nur mit dem Backend und nicht mit anderen Spielern geteilt werden.
 
-	Die Werte werden vom Frontend zufällig gewählt und in der aktuellen URL als Fragment gesetzt, damit sie bei einem Neuladen der Seite nicht verloren gehen.
+	Die drei Werte werden vom Frontend zufällig gewählt und in der aktuellen URL als Fragment gesetzt, damit sie einen Reload der Seite überleben.
 
-3. WS connect to `/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
+3. WebSocket-Verbindung zu `/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543` öffnen.
 
-4. WS receive:
+    Die drei zuvor erzeugten Werte werden beim Öffnen der WebSocket-Verbindung an das Backend übergeben.
+
+4. WebSocket-Nachricht empfangen:
 
 		{
 		  "game": {
@@ -26,6 +28,8 @@
 		    "status": "missing"
 		   }
 		}
+
+	Die `game.id` ist noch nicht bekannt.
 
 5. User clicks on «Next».
 
