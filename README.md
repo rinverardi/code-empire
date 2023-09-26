@@ -7,7 +7,9 @@
 2. Navigate to `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`
 
   `c1a3...` is the game ID
+
   `85a2...` is Angry Alpaca's player ID
+
   `cc69...` is Angry Alpaca's player secert
 
 3. WS connect

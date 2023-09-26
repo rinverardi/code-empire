@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Empire</title>
+  </head>
+  <body>
+    <form id="input-form">
+      <input type="text" id="message">
+      <input type="submit">
+    </form>
+    <div id="messages"></div>
+    <script>
+      class Id {
+        static generate() {
+          let result = "";
+
+          for (var i = 0; i < 16; i++) {
+            result += "0123456789abcdef".charAt(Math.floor(Math.random() * 16));
+          }
+
+          return result;
+        }
+
+        static normalize(id) {
+          return id.replace(/[^0-9a-f]/g, "").substring(0, 16);
+        }
+      }
+
+      class Session {
+        static getGameId() {
+          return Id.normalize(this.#init().split(".")[0]);
+        }
+
+        static getPlayerId() {
+          return Id.normalize(this.#init().split(".")[1]);
+        }
+
+        static #init() {
+          if (location.hash === "") {
+            location.hash += Id.generate() + "." + Id.generate();
+          }
+
+          return location.hash;
+        }
+      }
+
+      const gameId = Session.getGameId();
+      const playerId = Session.getPlayerId();
+
+      const connection = new WebSocket(`ws://localhost:8080/backend/${gameId}.${playerId}`);
+
+      connection.onmessage = event => {
+        let message = event.data
+
+        document.getElementById("messages").innerHTML += `${message}<br>`;
+      };
+
+      document.getElementById('input-form').addEventListener('submit', event => {
+        connection.send(document.getElementById("message").value);
+
+        event.preventDefault();
+      });
+    </script>
+  </body>
+</html>
