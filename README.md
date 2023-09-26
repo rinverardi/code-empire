@@ -46,7 +46,7 @@
 		{
 		  "game": {
 		    "id": "c1a39696b19330a2",
-		    "status": "created"
+		    "status": "pending"
 		  },
 		  "map": {
 		    "id": 1
@@ -63,7 +63,7 @@
 		{
 		  "game": {
 		    "id": "c1a39696b19330a2",
-		    "status": "created"
+		    "status": "pending"
 		  },
 		  "map": {
 		    "id": 1
@@ -92,7 +92,7 @@
 		{
 		  "game": {
 		    "id": "c1a39696b19330a2",
-		    "status": "started"
+		    "status": "running"
 		  },
 		  "map": {
 		    "id": 1,
@@ -152,7 +152,7 @@
 
 		{
 		  "action" {
-		    "id": "join_game",
+		    "id": "join",
 		  },
 		  "player": {
 		    "name": "Brilliant Barracuda"
@@ -178,28 +178,26 @@
 		  }]
 		}
 
-	ws-recv: {
-	           "game": {
-	             "id": "c1a39696b19330a2",
-	             "status": "running"
-	           },
-	           "map": {
-	             "id": 1,
-	             "tiles": [
-	               ···
-	             ],
-	           },
-	           "players": [{
-	             "id": "85a27a9f6c4eb393",
-	             "name": "Angry Alpaca"
-	           }, {
-	             "id": "2127b1ce604ae64c",
-	             "name": "Brilliant Barracuda"
-	           }],
-	           "turn": {
-	             "player": {
-	               "id": "85a27a9f6c4eb393"
-	             },
-	             "status": "thinking"
-	           }
-	         }
+10. WS receive:
+
+		{
+		  "game": {
+		    "id": "c1a39696b19330a2",
+		    "status": "running"
+		  },
+		  "map": {
+		    "id": 1,
+		    "tiles": [ ··· ],
+		  },
+		  "players": [{
+		    "id": "85a27a9f6c4eb393",
+		    "name": "Angry Alpaca"
+		  }, {
+		    "id": "2127b1ce604ae64c",
+		    "name": "Brilliant Barracuda"
+		  }],
+		  "turn": {
+		    "player": "85a27a9f6c4eb393",
+		    "status": "thinking"
+		  }
+		}
