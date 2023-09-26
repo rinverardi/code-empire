@@ -218,8 +218,8 @@
 		    "id": "execute_turn",
 		  },
 		  "turn": {
-			"direction": "north-east",
-			"type": "move"
+		    "direction": "north-east",
+		    "type": "move"
 		  }
 		}
 
