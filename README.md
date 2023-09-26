@@ -2,7 +2,7 @@
 
 ## Pre-Game Example
 
-### Player «Angry Alpaca»
+### «Angry Alpaca» creates the game.
 
 1. User clicks on «Create game».
 
@@ -31,7 +31,7 @@
 
 		{
 		  "action" {
-		    "id": "create",
+		    "id": "create_game",
 		  },
 		  "map": {
 		    "id": 1
@@ -83,7 +83,7 @@
 
 		{
 		  "action" {
-		    "id": "start",
+		    "id": "start_game",
 		  }
 		}
 
@@ -92,7 +92,7 @@
 		{
 		  "game": {
 		    "id": "c1a39696b19330a2",
-		    "status": "running"
+		    "status": "thinking"
 		  },
 		  "map": {
 		    "id": 1,
@@ -100,21 +100,22 @@
 		  },
 		  "players": [{
 		    "id": "85a27a9f6c4eb393",
+			"inventory": { ... },
 		    "name": "Angry Alpaca",
-		    "role": "master"
+		    "role": "owner"
 		  }, {
 		    "id": "2127b1ce604ae64c",
+			"inventory": { ... },
 		    "name": "Brilliant Barracuda",
 		    "role": "participant"
 		  }],
-		  "round": {
+		  "turn": {
 		    "number": 1,
-		    "player": "85a27a9f6c4eb393",
-		    "status": "thinking"
+		    "player": "85a27a9f6c4eb393"
 		  }
 		}
 
-### Player «Brilliant Barracuda»
+### «Brilliant Barracuda» joins the game.
 
 1. User clicks on «Join game».
 
@@ -183,7 +184,7 @@
 		{
 		  "game": {
 		    "id": "c1a39696b19330a2",
-		    "status": "running"
+		    "status": "thinking"
 		  },
 		  "map": {
 		    "id": 1,
@@ -191,13 +192,91 @@
 		  },
 		  "players": [{
 		    "id": "85a27a9f6c4eb393",
-		    "name": "Angry Alpaca"
+			"inventory": { ... },
+		    "name": "Angry Alpaca",
+			"role": "owner",
 		  }, {
 		    "id": "2127b1ce604ae64c",
-		    "name": "Brilliant Barracuda"
+			"inventory": { ... },
+		    "name": "Brilliant Barracuda",
+			"role": "participant"
 		  }],
 		  "turn": {
+		    "number": 1,
+		    "player": "85a27a9f6c4eb393"
+		  }
+		}
+
+## In-Game Example
+
+### «Angry Alpaca» executes a «move» turn.
+
+1. WS send:
+
+		{
+		  "action" {
+		    "id": "execute_turn",
+		  },
+		  "turn": {
+			"direction": "north-east",
+			"type": "move"
+		  }
+		}
+
+2. WS receive:
+
+		{
+		  "game": {
+		    "id": "c1a39696b19330a2",
+		    "status": "executing"
+		  },
+		  "map": {
+		    "id": 1,
+		    "tiles": [ ··· ],
+		  },
+		  "players": [{
+		    "id": "85a27a9f6c4eb393",
+			"inventory": { ... },
+		    "name": "Angry Alpaca",
+			"role": "owner",
+		  }, {
+		    "id": "2127b1ce604ae64c",
+			"inventory": { ... },
+		    "name": "Brilliant Barracuda",
+			"role": "participant"
+		  }],
+		  "turn": {
+			"direction": "north-east",
+		    "number": 1,
 		    "player": "85a27a9f6c4eb393",
+			"type": "move"
+		  }
+		}
+
+3. WS receive:
+
+		{
+		  "game": {
+		    "id": "c1a39696b19330a2",
 		    "status": "thinking"
+		  },
+		  "map": {
+		    "id": 1,
+		    "tiles": [ ··· ],
+		  },
+		  "players": [{
+		    "id": "85a27a9f6c4eb393",
+			"inventory": { ... },
+		    "name": "Angry Alpaca",
+			"role": "owner",
+		  }, {
+		    "id": "2127b1ce604ae64c",
+			"inventory": { ... },
+		    "name": "Brilliant Barracuda",
+			"role": "participant"
+		  }],
+		  "turn": {
+		    "number": 2,
+		    "player": "2127b1ce604ae64c"
 		  }
 		}
