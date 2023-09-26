@@ -29,7 +29,7 @@
 		   }
 		}
 
-	Der Spielstatus `missing` zeigt an, dass Spiel noch nicht existiert.
+	Der Spielstatus `game.status == "missing"` zeigt an, dass Spiel noch nicht existiert.
 
 5. Der Spieler klickt auf «Weiter».
 
