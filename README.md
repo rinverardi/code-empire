@@ -6,7 +6,7 @@
 
 1. User clicks on «Create game».
 
-2. Location changes to `https://.../frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
+2. Location changes to `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
 	`c1a3...` is the game ID.
 
@@ -14,7 +14,7 @@
 
 	`cc69...` is Angry Alpaca's player secret.
 
-3. WS connect: `wss://.../backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`
+3. WS connect to `/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
 4. WS receive:
 
@@ -118,9 +118,9 @@
 
 1. User clicks on «Join game».
 
-2. Location changes to `navigate /frontend/game/`.
+2. Location changes to `/frontend/game/`.
 
-3. WS connect: `wss://.../backend/game/`
+3. WS connect to `/backend/game/`.
 
 4. WS receive:
 
@@ -138,7 +138,7 @@
 
 5. User clicks on «Next».
 
-6. Location changes to `https://.../frontend/game/#c1a39696b19330a2.2127b1ce604ae64c.3e26eff6ea6da984`.
+6. Location changes to `/frontend/game/#c1a39696b19330a2.2127b1ce604ae64c.3e26eff6ea6da984`.
 
 	`c1a3...` is the game ID.
 
@@ -146,7 +146,7 @@
 
 	`3e26...` is Brilliant Barracuda's player secret.
 
-7. WS connect: `wss://.../backend/game/c1a39696b19330a2.2127b1ce604ae64c.3e26eff6ea6da984`
+7. WS connect to `/backend/game/c1a39696b19330a2.2127b1ce604ae64c.3e26eff6ea6da984`.
 
 8. WS send:
 
@@ -159,22 +159,24 @@
 		  }
 		}
 
-	ws-recv: {
-	           "game": {
-	             "id": "c1a39696b19330a2",
-	             "status": "pending"
-	           },
-	           "map": {
-	             "id": 1
-	           },
-	           "players": [{
-	             "id": "85a27a9f6c4eb393",
-	             "name": "Angry Alpaca"
-	           }, {
-	             "id": "2127b1ce604ae64c",
-	             "name": "Brilliant Barracuda"
-	           }]
-	         }
+9. WS receive:
+
+		{
+		  "game": {
+		    "id": "c1a39696b19330a2",
+		    "status": "pending"
+		  },
+		  "map": {
+		    "id": 1
+		  },
+		  "players": [{
+		    "id": "85a27a9f6c4eb393",
+		    "name": "Angry Alpaca"
+		  }, {
+		    "id": "2127b1ce604ae64c",
+		    "name": "Brilliant Barracuda"
+		  }]
+		}
 
 	ws-recv: {
 	           "game": {
