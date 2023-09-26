@@ -29,7 +29,7 @@
 		   }
 		}
 
-	Der Spielstatus `game.status == "missing"` zeigt an, dass Spiel noch nicht existiert.
+	Der Wert `game.status == "missing"` zeigt an, dass Spiel noch nicht existiert.
 
 5. Der Spieler klickt auf «Weiter».
 
@@ -66,7 +66,7 @@
 		  }],
 		}
 
-	Der Spielstatus `game.status == "waiting"` zeigt an, dass auf weitere Spieler gewartet wird.
+	Der Wert `game.status == "waiting"` zeigt an, dass auf weitere Spieler gewartet wird.
 
 8. Das Frontend empfängt eine WebSocket-Nachricht vom Backend:
 
@@ -131,7 +131,7 @@
 		  }
 		}
 
-	Der Spielstatus `game.status == "thinking"` zeigt an, dass das Spiel gestartet wurde und der aktuelle Spieler `turn.player == "85a27a9f6c4eb393"` am Zug ist.
+	Der Wert `game.status == "thinking"` zeigt an, dass das Spiel gestartet wurde und der aktuelle Spieler `turn.player == "85a27a9f6c4eb393"` am Zug ist.
 
 ### «Brilliant Barracuda» nimmt am Spiel teil.
 
@@ -155,7 +155,7 @@
 		  }]
 		}
 
-	Der Spielstatus `game.status == "waiting"` zeigt an, dass auf weitere Spieler gewartet wird.
+	Der Wert `game.status == "waiting"` zeigt an, dass auf weitere Spieler gewartet wird.
 
 5. Der Spieler klickt auf «Weiter.
 
@@ -203,7 +203,7 @@
 		  }]
 		}
 
-	Der Spielstatus `game.status == "waiting"` zeigt an, dass auf weitere Spieler gewartet wird.
+	Der Wert `game.status == "waiting"` zeigt an, dass auf weitere Spieler gewartet wird.
 
 10. Das Frontend empfängt eine WebSocket-Nachricht vom Backend:
 
@@ -233,13 +233,15 @@
 		  }
 		}
 
-	Der Spielstatus `game.status == "thinking"` zeigt an, dass das Spiel gestartet wurde und der aktuelle Spieler `turn.player == "85a27a9f6c4eb393"` am Zug ist.
+	Der Wert `game.status == "thinking"` zeigt an, dass das Spiel gestartet wurde und der aktuelle Spieler `turn.player == "85a27a9f6c4eb393"` am Zug ist.
 
-## In-Game Example
+## In-Game-Beispiel
 
-### «Angry Alpaca» executes a «move» turn.
+### «Angry Alpaca» führt einen Zug aus.
 
-1. WS send:
+1. Der Spieler bewegt seine Figur um ein Feld nach Nord-Osten.
+
+2. Das Frontend sendet eine WebSocket-Nachricht an das Backend:
 
 		{
 		  "action" {
@@ -251,7 +253,9 @@
 		  }
 		}
 
-2. WS receive:
+	Aufgrund der Aktion `action.id == "execute-turn"` führt das Backend den Zug aus.
+
+2. Das Frontend empfängt eine WebSocket-Nachricht vom Backend:
 
 		{
 		  "game": {
@@ -281,7 +285,9 @@
 		  }
 		}
 
-3. WS receive:
+	Der Wert `game.status == "executing"` zeigt an, dass gerade ein Zug ausgeführt wird. Das Frontend kann die Details im Ast `turn` nutzen, um den Zug animiert darzustellen.
+
+3. Das Frontend empfängt eine WebSocket-Nachricht vom Backend:
 
 		{
 		  "game": {
