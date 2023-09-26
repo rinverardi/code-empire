@@ -12,9 +12,9 @@
 
 	`cc69...` is Angry Alpaca's player secret.
 
-3. WS-connect:`wss://···/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`
+3. WS connect: `wss://···/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`
 
-4. WS-receive:
+4. WS receive:
 
 		{
 		  "game": {
@@ -25,7 +25,7 @@
 
 5. Click: «Next»
 
-6. WS-send:
+6. WS send:
 
 		{
 		  "action" {
@@ -39,20 +39,22 @@
 		  }
 		}
 
-	ws-recv {
-	          "game": {
-	            "id": "c1a39696b19330a2",
-	            "status": "created"
-	          },
-	          "map": {
-	            "id": 1
-	          },
-	          "players": [{
-	            "id": "85a27a9f6c4eb393",
-	            "name": "Angry Alpaca",
-	            "role": "master"
-	          }],
-	        }
+7. WS receive:
+
+		{
+		  "game": {
+		    "id": "c1a39696b19330a2",
+		    "status": "created"
+		  },
+		  "map": {
+		    "id": 1
+		  },
+		  "players": [{
+		    "id": "85a27a9f6c4eb393",
+		    "name": "Angry Alpaca",
+		    "role": "master"
+		  }],
+		}
 
 	ws-recv {
 	          "game": {
