@@ -1,18 +1,20 @@
-# Protocol
+# Protokoll
 
-## Pre-Game Example
+## Pre-Game-Beispiel
 
-### «Angry Alpaca» creates the game.
+### «Angry Alpaca» erstellt das Spiel.
 
-1. User clicks on «Create game».
+1. Der Benutzer klickt auf «Spiel erstellen».
 
-2. Location changes to `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
+2. Die aktuelle URL wechselt auf `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
-	`c1a3...` is the game ID.
+	`c1a3...` ist die eindeutige Kennung des Spiels (gameId).
 
-	`85a2...` is Angry Alpaca's player ID.
+	`85a2...` ist die eindeutige Kennung des Spielers «Angry Alpaca» (playerId).
 
-	`cc69...` is Angry Alpaca's player secret.
+	`cc69...` ist das Geheimnis des Spielers «Angry Alpaca» (playerSecret).
+
+	Die Kennungen und das Geheimnis werden im Frontend erstellt und beim Öffnen der WebSocket-Verbindung ans Backend übergeben.
 
 3. WS connect to `/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`.
 
