@@ -2,9 +2,9 @@
 
 ## Angry Alpaca
 
-1. Click on «Create game»
+1. Click: «Create game»
 
-2. Navigate to `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`
+2. Navigate: `/frontend/game/#c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`
 
 	`c1a3...` is the game ID.
 
@@ -12,9 +12,9 @@
 
 	`cc69...` is Angry Alpaca's player secret.
 
-3. WS-connect to `wss://···/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`
+3. WS-connect:`wss://···/backend/game/c1a39696b19330a2.85a27a9f6c4eb393.cc699821b844a543`
 
-4. WS-receive
+4. WS-receive:
 
 		{
 		  "game": {
@@ -23,20 +23,21 @@
 		   }
 		}
 
-5. Click «Next»
-	click "next"
+5. Click: «Next»
 
-	ws-send {
-	          "action" {
-	            "id": "create",
-	          },
-	          "map": {
-	            "id": 1
-	          },
-	          "player": {
-	            "name": "Angry Alpaca"
-	          }
-	        }
+6. WS-send:
+
+		{
+		  "action" {
+		    "id": "create",
+		  },
+		  "map": {
+		    "id": 1
+		  },
+		  "player": {
+		    "name": "Angry Alpaca"
+		  }
+		}
 
 	ws-recv {
 	          "game": {
