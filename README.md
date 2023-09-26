@@ -12,7 +12,7 @@
 
 	`85a2...` ist die `player.id` und dient dazu, den Spieler zu identifizieren.
 
-	`cc69...` ist das `player.secret` und und dient dazu, den Spieler zu authentifizieren. Dieser Wert darf nur mit dem Backend und nicht mit anderen Spielern geteilt werden.
+	`cc69...` ist das `player.secret` und und dient dazu, den Spieler zu authentifizieren. Dieser Wert ist geheim und wird nicht mit anderen Spielern geteilt.
 
 	Die drei Werte werden vom Frontend zufällig gewählt und in der aktuellen URL als Fragment gesetzt, damit sie einen Reload der Seite überleben.
 
