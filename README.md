@@ -31,7 +31,7 @@
 
 		{
 		  "action" {
-		    "id": "create_game",
+		    "id": "create-game",
 		  },
 		  "map": {
 		    "id": 1
@@ -83,7 +83,7 @@
 
 		{
 		  "action" {
-		    "id": "start_game",
+		    "id": "start-game",
 		  }
 		}
 
@@ -215,7 +215,7 @@
 
 		{
 		  "action" {
-		    "id": "execute_turn",
+		    "id": "execute-turn",
 		  },
 		  "turn": {
 		    "direction": "north-east",
@@ -278,5 +278,75 @@
 		  "turn": {
 		    "number": 2,
 		    "player": "2127b1ce604ae64c"
+		  }
+		}
+
+### «Brilliant Baracude» executes a «build village» turn.
+
+1. WS send:
+
+		{
+		  "action" {
+		    "id": "execute-turn",
+		  },
+		  "turn": {
+		    "type": "build-village"
+		  }
+		}
+
+2. WS receive:
+
+		{
+		  "game": {
+		    "id": "c1a39696b19330a2",
+		    "status": "executing"
+		  },
+		  "map": {
+		    "id": 1,
+		    "tiles": [ ··· ],
+		  },
+		  "players": [{
+		    "id": "85a27a9f6c4eb393",
+			"inventory": { ... },
+		    "name": "Angry Alpaca",
+			"role": "owner",
+		  }, {
+		    "id": "2127b1ce604ae64c",
+			"inventory": { ... },
+		    "name": "Brilliant Barracuda",
+			"role": "participant"
+		  }],
+		  "turn": {
+		    "number": 2,
+		    "player": "85a27a9f6c4eb393",
+			"type": "build-village"
+		  }
+		}
+
+3. WS receive:
+
+		{
+		  "game": {
+		    "id": "c1a39696b19330a2",
+		    "status": "thinking"
+		  },
+		  "map": {
+		    "id": 1,
+		    "tiles": [ ··· ],
+		  },
+		  "players": [{
+		    "id": "85a27a9f6c4eb393",
+			"inventory": { ... },
+		    "name": "Angry Alpaca",
+			"role": "owner",
+		  }, {
+		    "id": "2127b1ce604ae64c",
+			"inventory": { ... },
+		    "name": "Brilliant Barracuda",
+			"role": "participant"
+		  }],
+		  "turn": {
+		    "number": 3,
+		    "player": "85a27a9f6c4eb393"
 		  }
 		}
