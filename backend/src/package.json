@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "redis": "^4.6.10",
+    "upper-case": "^2.0.2",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "scripts": {
+    "start": "npx nodemon app.mjs"
+  }
+}

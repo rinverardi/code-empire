@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Empire</title>
+        <!-- <link rel="..." href="..."> -->
+        <!-- <script src="..."></script> -->
+    </head>
+    <body>
+        <script>
+            const webSocket = new WebSocket('ws://localhost:8001/games/ggg-ppp-sss');
+
+            webSocket.onmessage = (event) => {
+                console.log(event.data);
+
+                /*
+                document.getElementById('messages').innerHTML += 
+                    'Message from server: ' + event.data + "<br>";
+                };
+                webSocket.addEventListener("open", () => {
+                    console.log("We are connected");
+                });
+                function sendMessage(event) {
+                var inputMessage = document.getElementById('message')
+                webSocket.send(inputMessage.value)
+                inputMessage.value = ""
+                event.preventDefault();
+                */
+            }
+        </script>
+    </body>
+</html>
