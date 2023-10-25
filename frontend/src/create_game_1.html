@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="styles/bootstrap.min.css">
+        <link rel="stylesheet" href="styles/wireframes.css">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <title>Empire</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="area">Partie erstellen</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 mt-2">
+                    <div class="area">Karte:</div>
+                </div>
+                <div class="col-sm-6 mt-2">
+                    <select class="active can-expand control" id="input_map">
+                        <option value="0">Meaty Meadows</option>
+                        <option value="1">Nebulous Nirvana</option>
+                        <option value="2">Pristine Peaks</option>
+                    </select>
+                </div>
+                <div class="col-sm-6 mt-2">
+                    <div class="area">Dein Nickname:</div>
+                </div>
+                <div class="col-sm-6 mt-2">
+                    <input class="active can-edit control" id="input_name" value="Angry Alpaca">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 mt-2">
+                    <div class="active can-click control link" id="link_back">Zurück</div>
+                </div>
+                <div class="col-sm-6 mt-2">
+                    <div class="active can-click control link" id="link_next">Weiter</div>
+                </div>
+            </div>
+        </div>
+
+        <script src="scripts/navigation.js"></script>
+        <script src="scripts/lib/bootstrap.min.js"></script>
+
+        <script>
+            const wsParams = window.location.hash.substring(1);
+            const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
+
+            wsConnection.onmessage = event => {
+                const message = JSON.parse(event.data);
+
+                switch (message.game.status) {
+                    case 'executing':
+                    case 'thinking':
+                        window.location = `map.html#${wsParams}`;
+                        break;
+
+                    case 'missing':
+                        break;
+
+                    case 'waiting':
+                        window.location = `create_game_2.html#${wsParams}`;
+                        break;
+
+                    default:
+                        window.location = 'error.html';
+                        break;
+                }
+            };
+
+            Navigation.onClick('link_back', () => 'index.html');
+
+            document.getElementById('link_next').addEventListener('click', () => {
+                const message = {
+                    action: { id: "createGame" },
+                    map: { id: document.getElementById('input_map').value },
+                    player: { name: document.getElementById('input_name').value }
+                };
+
+                wsConnection.send(JSON.stringify(message));
+            });
+        </script>
+    </body>
+</html>

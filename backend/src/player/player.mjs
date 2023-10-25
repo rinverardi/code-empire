@@ -5,4 +5,10 @@ export class Player {
             participant: 'participant'
         });
     }
+
+    static get Status() {
+        return Object.freeze({
+            alive: 'alive'
+        });
+    }
 };

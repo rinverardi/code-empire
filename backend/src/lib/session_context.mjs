@@ -1,10 +1,13 @@
 import { createClient } from 'redis';
 
+import { Logger } from './logger.mjs';
+
 export class SessionContext {
     gameId;
     playerId;
     playerRole;
-    
+    playerSecret;
+
     #redisConnection;
     #wsConnection;
 
@@ -13,7 +16,11 @@ export class SessionContext {
     }
 
     async dedicatedRedisConnection() {
-        const redisConnection = await createClient().connect();
+        const redisClient = createClient();
+
+        redisClient.on('error', error => Logger.error('redis', error));
+
+        const redisConnection = await redisClient.connect();
 
         this.#wsConnection.on('close', () => redisConnection.disconnect());
 
@@ -21,13 +28,9 @@ export class SessionContext {
     }
 
     async sharedRedisConnection() {
-        if (this.#redisConnection == null) {
-            this.#redisConnection = await createClient().connect();
-
-            this.#wsConnection.on('close', () => this.#redisConnection.disconnect());
-        }
-
-        return this.#redisConnection;
+        return this.#redisConnection != null
+            ? this.#redisConnection
+            : this.#redisConnection = this.dedicatedRedisConnection();
     }
 
     wsConnection() {

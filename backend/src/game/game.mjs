@@ -6,6 +6,15 @@ export class Game {
         this.#id = id;
     }
 
+    static get Action() {
+        return Object.freeze({
+            createGame: 'createGame',
+            joinGame: 'joinGame',
+            leaveGame: 'leaveGame',
+            startGame: 'startGame'
+        });
+    }
+
     static get Key() {
         return Object.freeze({
             all: 'game:*'

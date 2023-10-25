@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="styles/bootstrap.min.css">
+        <link rel="stylesheet" href="styles/wireframes.css">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <title>Empire</title>
+    </head>
+    <body>
+        <script src="scripts/lib/bootstrap.min.js"></script>
+
+        <script>
+            const wsParams = window.location.hash.substring(1);
+            const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
+
+            wsConnection.onmessage = event => {
+                const message = JSON.parse(event.data);
+
+                switch (message.game.status) {
+                    case 'executing':
+                    case 'thinking':
+                        // TODO Implement me!
+                        break;
+
+                    default:
+                        window.location = 'error.html';
+                        break;
+                }
+            };
+        </script>
+    </body>
+</html>

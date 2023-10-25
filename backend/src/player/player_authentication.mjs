@@ -12,13 +12,16 @@ export class PlayerAuthentication {
 
         sessionContext.gameId = wsParams[0];
         sessionContext.playerId = wsParams[1];
+        sessionContext.playerSecret = wsParams[2];
 
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        for (const player of game.players) {
-            if (player.id === wsParams[1] && player.secret === wsParams[2]) {
-                sessionContext.playerRole = player.role;
-                break;
+        if (game != null) {
+            for (const player of game.players) {
+                if (player.id === wsParams[1] && player.secret === wsParams[2]) {
+                    sessionContext.playerRole = player.role;
+                    break;
+                }
             }
         }
 

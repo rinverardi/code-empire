@@ -1,8 +1,9 @@
 import { WebSocketServer } from 'ws';
 
-import { SessionContext as SessionContext } from './lib/session_context.mjs';
 import { GlobalConfig } from './lib/global_config.mjs';
 import { GlobalContext } from './lib/global_context.mjs';
+import { Logger } from './lib/logger.mjs';
+import { SessionContext as SessionContext } from './lib/session_context.mjs';
 
 class App extends GlobalContext {
   #routes = [
@@ -17,27 +18,30 @@ class App extends GlobalContext {
   ];
 
   async #handleGame(wsConnection, wsParams) {
-    const sessionContext = await this.playerAuthentication().authenticate(wsConnection, wsParams);
+    try {
+      const sessionContext = await this.playerAuthentication().authenticate(wsConnection, wsParams);
 
-    this.gameController().watchGame(sessionContext);
+      await this.gameController().watchGame(sessionContext);
+    } catch (exception) {
+      Logger.exception('App.handleGame', exception);
+    }
   }
 
-  #handleGameList(connection) {
-    const sessionContext = new SessionContext(connection);
+  async #handleGameList(wsConnection) {
+    try {
+      const sessionContext = new SessionContext(wsConnection);
 
-    this.gameController().watchGameList(sessionContext);
+      await this.gameController().watchGameList(sessionContext);
+    } catch (exception) {
+      Logger.exception('App.handleGameList', exception);
+    }
   }
 
   run() {
-    const server = new WebSocketServer({ port: GlobalConfig.backendPort });
+    const wsServer = new WebSocketServer({ port: GlobalConfig.backendPort });
 
-    server.on('connection', async (wsConnection, wsRequest) => {
-
-      // TODO Remove me!
-
-      wsConnection.on('close', () => console.log('[ws-close]'));
-      wsConnection.on('error', error => console.log(`[ws-error] ${error}`));
-      wsConnection.on('message', message => console.log(`[ws-message] ${message}`));
+    wsServer.on('connection', (wsConnection, wsRequest) => {
+      wsConnection.on('error', wsError => Logger.error('ws', wsError));
 
       for (const route of this.#routes) {
         const match = route.pattern.exec(wsRequest.url);

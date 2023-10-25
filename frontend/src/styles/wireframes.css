@@ -1,0 +1,190 @@
+@font-face {
+  font-family: 'Handwritten';
+  src: url('../fonts/handwritten.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Redacted';
+  src: url('../fonts/redacted.ttf') format('truetype');
+}
+
+* {
+  cursor: default;
+  font-family: 'Handwritten';
+  font-size: 20pt;
+}
+
+.absolute-n {
+  position: absolute;
+  left: 50%;
+  top: 0em;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.absolute-ne {
+  position: absolute;
+  right: 0em;
+  top: 0em;
+  white-space: nowrap;
+}
+
+.absolute-nw {
+  position: absolute;
+  left: 0em;
+  top: 0em;
+  white-space: nowrap;
+}
+
+.absolute-se {
+  bottom: 0em;
+  position: absolute;
+  right: 0em;
+  white-space: nowrap;
+}
+
+.absolute-sw {
+  bottom: 0em;
+  left: 0em;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.area {
+  background-image: url(../images/area.svg);
+  background-size: 100% 100%;
+  padding: 0.25em 0.5em;
+}
+
+body {
+  padding: 1em;
+}
+
+.control {
+  background-image: url(../images/control-inactive.svg);
+  background-size: 100% 100%;
+  border: none;
+  outline: none;
+  padding: 0.25em 0.5em;
+  width: 100%;
+}
+
+.control.active {
+  background-image: url(../images/control-active.svg);
+}
+
+.control.can-click {
+  cursor: pointer;
+}
+
+.control.can-edit {
+  cursor: text;
+}
+
+.control.can-expand {
+  cursor: pointer;
+  position: relative;
+  padding-right: 1.5em;
+}
+
+.hex {
+  background-image: url('../images/hex.svg');
+  clip-path: polygon(0 50%, 30% 0, 70% 0, 100% 50%, 70% 100%, 30% 100%);
+  cursor: pointer;
+  flex-shrink: 0;
+  height: 60px;
+  position: relative;
+  width: 80px;
+}
+
+.hex + .hex {
+  margin-left: 40px;
+}
+
+.hex.void {
+  background-image: url('../images/hex-void.svg');
+}
+
+.hex-row {
+  display: flex;
+}
+
+.hex-row + .hex-row {
+  margin-top: -28px;
+}
+
+.hex-row:nth-of-type(2n - 1) {
+  margin-left: 60px;
+}
+
+h1 {
+  margin: 0;
+  padding: 1em 0;
+  text-align: center;
+}
+
+h2 {
+  margin: 0;
+  padding: 0.5em 0;
+  text-align: center;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.map {
+  margin: auto auto;
+}
+
+.map-holder {
+  bottom: 0em;
+  display: flex;
+  left: 0em;
+  overflow: scroll;
+  position: absolute;
+  right: 0em;
+  top: 0em;
+}
+
+.popup {
+  background: white;
+  flex-grow: 1;
+  margin: auto auto;
+  max-width: 800px;
+  padding: 0.5em;
+}
+
+.popup-holder {
+  bottom: 0em;
+  display: flex;
+  left: 0em;
+  overflow: scroll;
+  position: absolute;
+  right: 0em;
+  top: 0em;
+}
+
+.redacted-image {
+  background-image: url(../images/redacted.svg);
+  background-position: center;
+  background-size: cover;
+}
+
+.redacted-text {
+  font-family: 'Redacted';
+}
+
+.shadow {
+  background: #000;
+  bottom: 0em;
+  left: 0em;
+  opacity: 0.4;
+  position: absolute;
+  right: 0em;
+  top: 0em;
+}
+
+.unavailable {
+  opacity: 0.4;
+}
