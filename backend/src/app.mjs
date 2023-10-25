@@ -1,65 +1,54 @@
 import { WebSocketServer } from 'ws';
 
-import { Config } from './lib/config.mjs';
-import { Context } from './lib/context.mjs';
+import { SessionContext as SessionContext } from './lib/session_context.mjs';
+import { GlobalConfig } from './lib/global_config.mjs';
+import { GlobalContext } from './lib/global_context.mjs';
 
-class App extends Context {
+class App extends GlobalContext {
   #routes = [
     {
-      "handler": (connection, request) => this.#haveGame(connection, request),
-      "pattern": /^\/games\/([a-z0-9]+)-([a-z0-9]+)-([a-z0-9]+)$/
+      handler: (wsConnection, wsParams) => this.#handleGame(wsConnection, wsParams),
+      pattern: /^\/games\/([a-z0-9]+)-([a-z0-9]+)-([a-z0-9]+)$/
     },
     {
-      "handler": (connection) => this.#listGames(connection),
-      "pattern": /^\/games\/$/
+      handler: (wsConnection) => this.#handleGameList(wsConnection),
+      pattern: /^\/games\/$/
     }
   ];
 
-  #haveGame(connection, parameters) {
-    this.gameController.haveGame(connection, parameters[0], parameters[1], parameters[2]);
+  async #handleGame(wsConnection, wsParams) {
+    const sessionContext = await this.playerAuthentication().authenticate(wsConnection, wsParams);
+
+    this.gameController().watchGame(sessionContext);
   }
 
-  #listGames(connection) {
-    this.gameController.listGames(connection);
+  #handleGameList(connection) {
+    const sessionContext = new SessionContext(connection);
+
+    this.gameController().watchGameList(sessionContext);
   }
 
   run() {
-    const server = new WebSocketServer({ port: Config.backendPort });
+    const server = new WebSocketServer({ port: GlobalConfig.backendPort });
 
-    server.on('connection', (connection, request) => {
-      const path = request.url;
+    server.on('connection', async (wsConnection, wsRequest) => {
 
+      // TODO Remove me!
+
+      wsConnection.on('close', () => console.log('[ws-close]'));
+      wsConnection.on('error', error => console.log(`[ws-error] ${error}`));
+      wsConnection.on('message', message => console.log(`[ws-message] ${message}`));
 
       for (const route of this.#routes) {
-        const match = route.pattern.exec(path);
+        const match = route.pattern.exec(wsRequest.url);
 
         if (match) {
-          route.handler(connection, match.slice(1));
+          route.handler(wsConnection, match.slice(1));
           return;
         }
       }
 
-      connection.close();
-
-      /*
-      console.log(`connected via ${request.url}`);
-    
-      connection.send('hello you');
-    
-      connection.on('close', () => console.log('disconnected'));
-    
-      connection.on('message', message => {
-        console.log('message');
-    
-        server.clients.forEach(client => {
-          client.send(`${message}`);
-        });
-      });
-    
-      connection.onerror = function () {
-        console.log('error');
-      };
-      */
+      wsConnection.close();
     });
   }
 }

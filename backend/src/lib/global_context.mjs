@@ -3,47 +3,55 @@ import { GameMapper } from "../game/game_mapper.mjs";
 import { GameRepository } from "../game/game_repository.mjs";
 import { GameService } from "../game/game_service.mjs";
 import { MapMapper } from "../map/map_mapper.mjs";
+import { PlayerAuthentication } from "../player/player_authentication.mjs";
 import { PlayerMapper } from "../player/player_mapper.mjs";
 
-export class Context {
+export class GlobalContext {
     #gameController;
     #gameMapper;
     #gameRepository;
     #gameService;
     #mapMapper;
+    #playerAuthentication;
     #playerMapper;
 
-    get gameController() {
+    gameController() {
         return this.#gameController
             ? this.#gameController
             : this.#gameController = new GameController(this);
     }
     
-    get gameMapper() {
+    gameMapper() {
         return this.#gameMapper
             ? this.#gameMapper
             : this.#gameMapper = new GameMapper(this);
     }
     
-    get gameRepository() {
+    gameRepository() {
         return this.#gameRepository
             ? this.#gameRepository
             : this.#gameRepository = new GameRepository();
     }
     
-    get gameService() {
+    gameService() {
         return this.#gameService
             ? this.#gameService
             : this.#gameService = new GameService(this);
     }
 
-    get mapMapper() {
+    mapMapper() {
         return this.#mapMapper
             ? this.#mapMapper
             : this.#mapMapper = new MapMapper();
     }
 
-    get playerMapper() {
+    playerAuthentication() {
+        return this.#playerAuthentication
+            ? this.#playerAuthentication
+            : this.#playerAuthentication = new PlayerAuthentication(this);
+    }
+
+    playerMapper() {
         return this.#playerMapper
             ? this.#playerMapper
             : this.#playerMapper = new PlayerMapper();

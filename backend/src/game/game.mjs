@@ -8,7 +8,7 @@ export class Game {
 
     static get Key() {
         return Object.freeze({
-            all: "game:*"
+            all: 'game:*'
         })
     }
 

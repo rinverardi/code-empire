@@ -1,21 +1,23 @@
-import { Game } from "./game.mjs";
-
 export class GameController {
     #gameService;
 
-    constructor(context) {
-        this.#gameService = context.gameService;
+    constructor(globalContext) {
+        this.#gameService = globalContext.gameService();
     }
 
-    async haveGame(connection, gameId) {
-        const game = await this.#gameService.loadGame(gameId);
+    watchGame(sessionContext) {
+        const wsConnection = sessionContext.wsConnection();
 
-        connection.send(JSON.stringify(game));
+        this.#gameService.watchGame(sessionContext, (game) => {
+            wsConnection.send(JSON.stringify(game));
+        });
     }
 
-    async listGames(connection) {
-        const games = await this.#gameService.listGamesByStatus(Game.Status.waiting);
+    watchGameList(sessionContext) {
+        const wsConnection = sessionContext.wsConnection();
 
-        connection.send(JSON.stringify(games));
+        this.#gameService.watchGameList(sessionContext, (gameList) => {
+            wsConnection.send(JSON.stringify(gameList));
+        });
     }
 };

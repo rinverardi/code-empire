@@ -1,5 +1,5 @@
 export class PlayerMapper {
-    mapForAnyone(source) {
+    map(sessionContext, source) {
         return {
             id: source.id,
             name: source.name,

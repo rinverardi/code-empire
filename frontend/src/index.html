@@ -4,30 +4,23 @@
     <head>
         <meta charset="utf-8">
         <title>Empire</title>
+
+        <!-- TODO Enable me! -->
+
         <!-- <link rel="..." href="..."> -->
         <!-- <script src="..."></script> -->
+
     </head>
     <body>
         <script>
+            // const webSocket = new WebSocket('ws://localhost:8001/games/');
             const webSocket = new WebSocket('ws://localhost:8001/games/ggg-ppp-sss');
 
-            webSocket.onmessage = (event) => {
-                console.log(event.data);
+            // TODO Remove me!
 
-                /*
-                document.getElementById('messages').innerHTML += 
-                    'Message from server: ' + event.data + "<br>";
-                };
-                webSocket.addEventListener("open", () => {
-                    console.log("We are connected");
-                });
-                function sendMessage(event) {
-                var inputMessage = document.getElementById('message')
-                webSocket.send(inputMessage.value)
-                inputMessage.value = ""
-                event.preventDefault();
-                */
-            }
+            webSocket.onclose = () => console.log('[ws-close]');
+            webSocket.onmessage = event => console.log(`[ws-message] ${event.data}`);
+            webSocket.onopen = () => console.log('[ws-open]');
         </script>
     </body>
 </html>

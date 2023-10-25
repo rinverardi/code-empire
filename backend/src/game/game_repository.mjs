@@ -1,33 +1,21 @@
-import { createClient } from 'redis';
-
 import { Game } from './game.mjs';
 
 export class GameRepository {
-    async listGames() {
+    async loadGame(sessionContext) {
+        const redisConnection = await sessionContext.sharedRedisConnection();
+
+        return await redisConnection.json.get(`game:${sessionContext.gameId}`);
+    }
+
+    async loadGameList(sessionContext) {
         const games = [];
 
-        const client = await createClient().connect();
+        const redisConnection = await sessionContext.sharedRedisConnection();
 
-        try {
-            const keys = client.scanIterator({ MATCH: Game.Key.all });
-
-            for await (const key of keys) {
-                games.push(await client.json.get(key));
-            }
-        } finally {
-            client.disconnect();
+        for await (const key of redisConnection.scanIterator({ MATCH: Game.Key.all })) {
+            games.push(await redisConnection.json.get(key));
         }
 
         return games;
-    }
-
-    async loadGame(gameId) {
-        const client = await createClient().connect();
-
-        try {
-            return await client.json.get(`game:${gameId}`);
-        } finally {
-            client.disconnect();
-        }
     }
 };

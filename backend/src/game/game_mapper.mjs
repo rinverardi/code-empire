@@ -1,24 +1,24 @@
 export class GameMapper {
     #mapMapper;
     #playerMapper;
-    
-    constructor(context) {
-        this.#mapMapper = context.mapMapper;
-        this.#playerMapper = context.playerMapper;
+
+    constructor(globalContext) {
+        this.#mapMapper = globalContext.mapMapper();
+        this.#playerMapper = globalContext.playerMapper();
     }
 
-    mapForAnyone(source) {
+    map(sessionContext, source) {
         const target = {
             game: {
                 id: source.game.id,
                 status: source.game.status
             },
-            map: this.#mapMapper.mapForAnyone(source.map),
+            map: this.#mapMapper.map(sessionContext, source.map),
             players: []
         };
 
         for (const player of source.players) {
-            target.players.push(this.#playerMapper.mapForAnyone(player));
+            target.players.push(this.#playerMapper.map(sessionContext, player));
         }
 
         return target;

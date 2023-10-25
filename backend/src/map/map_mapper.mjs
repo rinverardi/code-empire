@@ -1,7 +1,5 @@
 export class MapMapper {
-    mapForAnyone(source) {
-        return {
-            id: source.id,
-        };
+    map(sessionContext, source) {
+        return { id: source.id };
     }
 };
