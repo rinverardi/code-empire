@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="styles/bootstrap.min.css">
-        <link rel="stylesheet" href="styles/wireframes.css">
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<head>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/wireframes.css">
 
-        <title>Empire</title>
-    </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h1 class="redacted-image">Empire</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 mt-2">
-                    <div class="active can-click control link" id="link_create">Partie erstellen</div>
-                </div>
-                <div class="col-sm-6 mt-2">
-                    <div class="active can-click control link" id="link_join">Partie beitreten</div>
-                </div>
-                <div class="col-sm-6 mt-2">
-                    <div class="active can-click control link" id="link_show_instructions">Anleitung anzeigen</div>
-                </div>
-                <div class="col-sm-6 mt-2">
-                    <div class="active can-click control link" id="link_show_highscores">Highscores anzeigen</div>
-                </div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>Empire</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="redacted-image">Empire</h1>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-6 mt-2">
+                <div class="active can-click control link" id="link_create">Partie erstellen</div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="active can-click control link" id="link_join">Partie beitreten</div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="active can-click control link" id="link_show_instructions">Anleitung anzeigen</div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="active can-click control link" id="link_show_highscores">Highscores anzeigen</div>
+            </div>
+        </div>
+    </div>
 
-        <script src="scripts/navigation.js"></script>
-        <script src="scripts/random.js"></script>
-        <script src="scripts/lib/bootstrap.min.js"></script>
-        
-        <script>
-            Navigation.onClick('link_create', () => {
-                const gameId = Random.generateId();
-                const playerId = Random.generateId();
-                const playerSecret = Random.generateSecret();
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/random.js"></script>
+    <script src="scripts/lib/bootstrap.min.js"></script>
 
-                return `create_game_1.html#${gameId}-${playerId}-${playerSecret}`;
-            });
+    <script>
+        Navigation.onClick('link_create', () => {
+            const gameId = Random.generateId();
+            const playerId = Random.generateId();
+            const playerSecret = Random.generateSecret();
 
-            Navigation.onClick('link_show_highscores', () => 'show_highscores.html');
-            Navigation.onClick('link_show_instructions', () => 'show_instructions.html');
-        </script>
-    </body>
+            return `create_game_1.html#${gameId}-${playerId}-${playerSecret}`;
+        });
+
+        Navigation.onClick('link_show_highscores', () => 'show_highscores.html');
+        Navigation.onClick('link_show_instructions', () => 'show_instructions.html');
+    </script>
+</body>
+
 </html>

@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="styles/bootstrap.min.css">
-        <link rel="stylesheet" href="styles/wireframes.css">
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<head>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/wireframes.css">
 
-        <title>Empire</title>
-    </head>
-    <body>
-        <script src="scripts/lib/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-        <script>
-            const wsParams = window.location.hash.substring(1);
-            const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
+    <title>Empire</title>
+</head>
 
-            wsConnection.onmessage = event => {
-                const message = JSON.parse(event.data);
+<body>
+    <script src="scripts/lib/bootstrap.min.js"></script>
 
-                switch (message.game.status) {
-                    case 'executing':
-                    case 'thinking':
-                        // TODO Implement me!
-                        break;
+    <script>
+        const wsParams = window.location.hash.substring(1);
+        const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
 
-                    default:
-                        window.location = 'error.html';
-                        break;
-                }
-            };
-        </script>
-    </body>
+        wsConnection.onmessage = event => {
+            const message = JSON.parse(event.data);
+
+            switch (message.game.status) {
+                case 'executing':
+                case 'thinking':
+                    // TODO Implement me!
+                    break;
+
+                default:
+                    window.location = 'error.html';
+                    break;
+            }
+        };
+    </script>
+</body>
+
 </html>

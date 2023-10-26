@@ -1,70 +1,93 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="styles/bootstrap.min.css">
-        <link rel="stylesheet" href="styles/wireframes.css">
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<head>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/wireframes.css">
 
-        <title>Empire</title>
-    </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                  <h2 class="area">Auf Gegner warten</h2>
-                </div>
-              </div>
-            <div class="row">
-                <div class="col-sm-6 mt-2">
-                    <div class="area">Angry Alpaca ✓</div>
-                </div>
-                <div class="col-sm-6 mt-2">
-                    <div class="area">Brilliant Barracuda ✓</div>
-                </div>
-                <div class="col-sm-6 mt-2">
-                    <div class="area">leerer Slot</div>
-                </div>
-                <div class="col-sm-6 mt-2">
-                    <div class="area">leerer Slot</div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 mt-2">
-                    <div class="active can-click control link" id="link_start">Partie starten</div>
-                </div>
-                <div class="col-12 mt-2">
-                    <div class="active can-click control link" id="link_abort">Partie abbrechen</div>
-                </div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>Empire</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="area">Auf Gegner warten</h2>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-6 mt-2">
+                <div class="area">Angry Alpaca ✓</div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area">Brilliant Barracuda ✓</div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area">leerer Slot</div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area">leerer Slot</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-2">
+                <div class="active can-click control link" id="link_start">Partie starten</div>
+            </div>
+            <div class="col-12 mt-2">
+                <div class="active can-click control link" id="link_abort">Partie abbrechen</div>
+            </div>
+        </div>
+    </div>
 
-        <script src="scripts/lib/bootstrap.min.js"></script>
+    <script src="scripts/lib/bootstrap.min.js"></script>
 
-        <script>
-            const wsParams = window.location.hash.substring(1);
-            const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
+    <script>
+        const wsParams = window.location.hash.substring(1);
+        const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
 
-            wsConnection.onmessage = event => {
-                const message = JSON.parse(event.data);
+        wsConnection.onmessage = message => {
+            const messageData = JSON.parse(message.data);
 
-                switch (message.game.status) {
-                    case 'executing':
-                    case 'thinking':
-                        window.location = `map.html#${wsParams}`;
-                        break;
+            switch (messageData.game.status) {
+                case 'aborted':
+                    window.location = 'index.html';
+                    break;
 
-                    case 'waiting':
-                        // TODO Implement me!
-                        break;
+                case 'executing':
+                case 'thinking':
+                    window.location = `map.html#${wsParams}`;
+                    break;
 
-                    default:
-                        window.location = 'error.html';
-                        break;
-                }
+                case 'waiting':
+                    // TODO Implement me!
+                    break;
+
+                default:
+                    window.location = 'error.html';
+                    break;
+            }
+        };
+
+        document.getElementById('link_abort').addEventListener('click', () => {
+            const message = {
+                action: { id: 'abortGame' }
             };
-        </script>
-    </body>
+
+            wsConnection.send(JSON.stringify(message));
+        });
+
+        document.getElementById('link_start').addEventListener('click', () => {
+            const message = {
+                action: { id: 'startGame' }
+            };
+
+            wsConnection.send(JSON.stringify(message));
+        });
+    </script>
+</body>
+
 </html>

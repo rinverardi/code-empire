@@ -1,4 +1,4 @@
-import { SessionContext } from "../lib/session_context.mjs";
+import { SessionContext } from '../lib/session_context.mjs';
 
 export class PlayerAuthentication {
     #gameRepository;

@@ -1,6 +1,6 @@
-import { Game } from "./game.mjs";
-import { Logger } from "../lib/logger.mjs";
-import { Player } from "../player/player.mjs";
+import { Game } from './game.mjs';
+import { Logger } from '../lib/logger.mjs';
+import { Player } from '../player/player.mjs';
 
 export class GameService {
     #gameMapper;
@@ -11,7 +11,23 @@ export class GameService {
         this.#gameRepository = globalContext.gameRepository();
     }
 
+    async abortGame(sessionContext) {
+
+        // TODO Check the access!
+        // TODO Check the status!
+        
+        const game = await this.#gameRepository.loadGame(sessionContext);
+
+        game.game.status = Game.Status.aborted;
+
+        await this.#gameRepository.saveGame(sessionContext, game);
+        await this.#gameRepository.publishGame(sessionContext, game);
+    }
+
     async createGame(sessionContext, mapId, playerName) {
+
+        // TODO Check the status!
+
         const game = {
             game: {
                 id: sessionContext.gameId,
@@ -29,8 +45,8 @@ export class GameService {
             }]
         };
 
-        await this.#gameRepository.createGame(sessionContext, game);
-        await this.#gameRepository.publishGame(sessionContext);
+        await this.#gameRepository.saveGame(sessionContext, game);
+        await this.#gameRepository.publishGame(sessionContext, game);
     }
 
     async loadGame(sessionContext) {
@@ -38,7 +54,7 @@ export class GameService {
 
         return game != null
             ? this.#gameMapper.map(sessionContext, game)
-            : { game: { status: 'missing' } };
+            : { game: { status: Game.Status.missing } };
     }
 
     async loadGameList(sessionContext) {
@@ -49,13 +65,27 @@ export class GameService {
             .map(that => this.#gameMapper.map(sessionContext, that));
     }
 
+    async startGame(sessionContext) {
+
+        // TODO Check the access!
+        // TODO Check the status!
+        
+        const game = await this.#gameRepository.loadGame(sessionContext);
+
+        // TODO Populate the map!
+        // TODO Populate the messages!
+        // TODO Populate the players!
+        // TODO Populate the turn!
+
+        game.game.status = Game.Status.thinking;
+
+        await this.#gameRepository.saveGame(sessionContext, game);
+        await this.#gameRepository.publishGame(sessionContext, game);
+    }
+
     async watchGame(sessionContext, onUpdate) {
-        await this.#gameRepository.subscribeGame(sessionContext, async () => {
-            try {
-                onUpdate(await this.loadGame(sessionContext));
-            } catch (exception) {
-                Logger.exception('GameService.watchGame', exception);
-            }
+        await this.#gameRepository.subscribeGame(sessionContext, game => {
+            onUpdate(JSON.parse(game));
         });
 
         onUpdate(await this.loadGame(sessionContext));

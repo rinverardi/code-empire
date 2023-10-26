@@ -1,10 +1,10 @@
-import { GameController } from "../game/game_controller.mjs";
-import { GameMapper } from "../game/game_mapper.mjs";
-import { GameRepository } from "../game/game_repository.mjs";
-import { GameService } from "../game/game_service.mjs";
-import { MapMapper } from "../map/map_mapper.mjs";
-import { PlayerAuthentication } from "../player/player_authentication.mjs";
-import { PlayerMapper } from "../player/player_mapper.mjs";
+import { GameController } from '../game/game_controller.mjs';
+import { GameMapper } from '../game/game_mapper.mjs';
+import { GameRepository } from '../game/game_repository.mjs';
+import { GameService } from '../game/game_service.mjs';
+import { MapMapper } from '../map/map_mapper.mjs';
+import { PlayerAuthentication } from '../player/player_authentication.mjs';
+import { PlayerMapper } from '../player/player_mapper.mjs';
 
 export class GlobalContext {
     #gameController;

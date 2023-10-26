@@ -1,4 +1,5 @@
-import { Game } from "./game.mjs";
+import { Game } from './game.mjs';
+import { Logger } from '../lib/logger.mjs';
 
 export class GameController {
     #gameService;
@@ -10,11 +11,28 @@ export class GameController {
     async watchGame(sessionContext) {
         const wsConnection = sessionContext.wsConnection();
 
-        wsConnection.on('message', wsMessageJson => {
-            const wsMessage = JSON.parse(wsMessageJson);
+        wsConnection.on('message', async wsMessageJson => {
+            try {
+                const wsMessage = JSON.parse(wsMessageJson);
 
-            if (wsMessage.action.id === Game.Action.createGame) {
-                this.#gameService.createGame(sessionContext, wsMessage.map.id, wsMessage.player.name);
+                switch (wsMessage.action.id) {
+                    case Game.Action.abortGame:
+                        await this.#gameService.abortGame(sessionContext);
+                        break;
+                        
+                    case Game.Action.createGame:
+                        await this.#gameService.createGame(sessionContext, wsMessage.map.id, wsMessage.player.name);
+                        break;
+
+                    case Game.Action.startGame:
+                        await this.#gameService.startGame(sessionContext);
+                        break;
+
+                    default:
+                        // TODO Implement me!
+                }
+            } catch (exception) {
+                Logger.exception('GameController.watchGame', exception);
             }
         });
 
