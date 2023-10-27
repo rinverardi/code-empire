@@ -23,7 +23,7 @@ class App extends GlobalContext {
 
       await this.gameController().watchGame(sessionContext);
     } catch (exception) {
-      Logger.exception('App.handleGame', exception);
+      Logger.e('App.handleGame()', exception);
     }
   }
 
@@ -33,7 +33,7 @@ class App extends GlobalContext {
 
       await this.gameController().watchGameList(sessionContext);
     } catch (exception) {
-      Logger.exception('App.handleGameList', exception);
+      Logger.e('App.handleGameList()', exception);
     }
   }
 
@@ -41,7 +41,7 @@ class App extends GlobalContext {
     const wsServer = new WebSocketServer({ port: GlobalConfig.backendPort });
 
     wsServer.on('connection', (wsConnection, wsRequest) => {
-      wsConnection.on('error', wsError => Logger.error('ws', wsError));
+      wsConnection.on('error', wsError => Logger.e('ws', wsError));
 
       for (const route of this.#routes) {
         const match = route.pattern.exec(wsRequest.url);
@@ -51,6 +51,8 @@ class App extends GlobalContext {
           return;
         }
       }
+
+      Logger.w('App.run()', 'Unexpected route');
 
       wsConnection.close();
     });

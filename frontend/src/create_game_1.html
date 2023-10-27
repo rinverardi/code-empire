@@ -25,10 +25,7 @@
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="control-wrapper">
-                    <select class="active can-expand control" id="input_map">
-                        <option value="0">Meaty Meadows</option>
-                        <option value="1">Nebulous Nirvana</option>
-                        <option value="2">Pristine Peaks</option>
+                    <select class="active can-expand control" id="select">
                     </select>
                 </div>
             </div>
@@ -36,7 +33,7 @@
                 <div class="area">Dein Nickname:</div>
             </div>
             <div class="col-sm-6 mt-2">
-                <input class="active can-edit control" id="input_name" value="Angry Alpaca">
+                <input class="active can-edit control" id="input">
             </div>
         </div>
         <div class="row">
@@ -49,46 +46,83 @@
         </div>
     </div>
 
-    <script src="scripts/navigation.js"></script>
-    <script src="scripts/lib/bootstrap.min.js"></script>
+    <script type="module">
+        import { Action } from './scripts/action.js';
+        import { Config } from './scripts/config.js';
+        import { Game } from './scripts/game.js';
+        import { Navigation } from './scripts/navigation.js';
+        import { Player } from './scripts/player.js';
+        import { Translation } from './scripts/translation.js';
 
-    <script>
-        const wsParams = window.location.hash.substring(1);
-        const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
-
-        wsConnection.onmessage = wsMessage => {
+        function onWsMessage(wsMessage) {
             const gameMessage = JSON.parse(wsMessage.data);
 
             switch (gameMessage.game.status) {
-                case 'executing':
-                case 'thinking':
-                    window.location = `map.html#${wsParams}`;
+                case Game.Status.aborted:
+                case Game.Status.executing:
+                case Game.Status.thinking:
+                    location = 'error.html';
                     break;
 
-                case 'missing':
+                case Game.Status.missing:
                     break;
 
-                case 'waiting':
-                    window.location = `create_game_2.html#${wsParams}`;
+                case Game.Status.waiting:
+                    location = `create_game_2.html${location.hash}`;
                     break;
 
                 default:
-                    window.location = 'error.html';
-                    break;
+                    throw new RangeError('No such status');
             }
-        };
+        }
 
-        Navigation.onClick('link_back', () => 'index.html');
+        function wireInput() {
+            const input = document.getElementById('input');
 
-        document.getElementById('link_next').addEventListener('click', () => {
-            const message = {
-                action: { id: 'createGame' },
-                map: { id: parseInt(document.getElementById('input_map').value) },
-                player: { name: document.getElementById('input_name').value }
-            };
+            if (!input.value) {
+                input.value = Player.loadName();
 
-            wsConnection.send(JSON.stringify(message));
-        });
+                Player.saveName(input.value);
+            }
+
+            input.addEventListener('change', () => Player.saveName(input.value));
+        }
+
+        function wireLinkBack() {
+            Navigation.onClick('link_back', () => 'index.html');
+        }
+
+        function wireLinkNext() {
+            document.getElementById('link_next').addEventListener('click', () => {
+                const message = {
+                    action: { id: Action.createGame },
+                    map: { id: parseInt(document.getElementById('select').value) },
+                    player: { name: document.getElementById('input').value }
+                };
+
+                wsConnection.send(JSON.stringify(message));
+            });
+        }
+
+        function wireSelect() {
+            const input = document.getElementById('select');
+
+            for (let mapId = 0; mapId < 3; mapId++) {
+                const option = new Option(Translation.mapName(mapId), mapId);
+
+                input.add(option);
+            }
+        }
+
+        const wsParams = `${location.hash.slice(1)}-${Player.loadSecret()}`;
+        const wsConnection = new WebSocket(Config.urlForGames + wsParams);
+
+        wsConnection.onmessage = onWsMessage;
+
+        wireInput();
+        wireLinkBack();
+        wireLinkNext();
+        wireSelect();
     </script>
 </body>
 

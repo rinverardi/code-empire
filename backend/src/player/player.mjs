@@ -8,7 +8,8 @@ export class Player {
 
     static get Status() {
         return Object.freeze({
-            alive: 'alive'
+            alive: 'alive',
+            left: 'left'
         });
     }
 };

@@ -35,22 +35,36 @@
         </div>
     </div>
 
-    <script src="scripts/navigation.js"></script>
-    <script src="scripts/random.js"></script>
-    <script src="scripts/lib/bootstrap.min.js"></script>
+    <script type="module">
+        import { Navigation } from './scripts/navigation.js';
+        import { Player } from './scripts/player.js';
+        import { Random } from './scripts/random.js';
 
-    <script>
-        Navigation.onClick('link_create', () => {
-            const gameId = Random.generateId();
-            const playerId = Random.generateId();
-            const playerSecret = Random.generateSecret();
+        function wireLinkCreate() {
+            Navigation.onClick('link_create', () => {
+                const gameId = Random.generateId();
+                const playerId = Random.generateId();
 
-            return `create_game_1.html#${gameId}-${playerId}-${playerSecret}`;
-        });
+                return `create_game_1.html#${gameId}-${playerId}`;
+            });
+        }
 
-        Navigation.onClick('link_join', () => 'join_game_1.html');
-        Navigation.onClick('link_show_highscores', () => 'show_highscores.html');
-        Navigation.onClick('link_show_instructions', () => 'show_instructions.html');
+        function wireLinkJoin() {
+            Navigation.onClick('link_join', () => 'join_game_1.html');
+        }
+
+        function wireLinkShowHighscores() {
+            Navigation.onClick('link_show_highscores', () => 'show_highscores.html');
+        }
+
+        function wireLinkShowInstructions() {
+            Navigation.onClick('link_show_instructions', () => 'show_instructions.html');
+        }
+
+        wireLinkCreate();
+        wireLinkJoin();
+        wireLinkShowHighscores();
+        wireLinkShowInstructions();
     </script>
 </body>
 

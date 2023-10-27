@@ -88,16 +88,15 @@
         </div>
         <div class="row mt-2">
             <div class="col">
-                <div class="active can-click control link" id="link_close">Schliessen</div>
+                <div class="active can-click control link" id="link">Schliessen</div>
             </div>
         </div>
     </div>
 
-    <script src="scripts/navigation.js"></script>
-    <script src="scripts/lib/bootstrap.min.js"></script>
+    <script type="module">
+        import { Navigation } from './scripts/navigation.js';
 
-    <script>
-        Navigation.onClick('link_close', () => 'index.html');
+        Navigation.onClick('link', () => 'index.html');
     </script>
 </body>
 

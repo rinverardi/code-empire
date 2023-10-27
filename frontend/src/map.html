@@ -13,26 +13,33 @@
 </head>
 
 <body>
-    <script src="scripts/lib/bootstrap.min.js"></script>
+    <script type="module">
+        import { Config } from './scripts/config.js';
 
-    <script>
-        const wsParams = window.location.hash.substring(1);
-        const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
-
-        wsConnection.onmessage = wsMessage => {
+        function onWsMessage(wsMessage) {
             const gameMessage = JSON.parse(wsMessage.data);
 
             switch (gameMessage.game.status) {
-                case 'executing':
-                case 'thinking':
+                case Game.Status.aborted:
+                case Game.Status.executing:
+                case Game.Status.thinking:
                     // TODO Implement me!
                     break;
 
-                default:
-                    window.location = 'error.html';
+                case Game.Status.missing:
+                case Game.Status.waiting:
+                    location = 'error.html';
                     break;
+
+                default:
+                    throw new RangeError('No such status');
             }
-        };
+        }
+
+        const wsParams = location.hash.slice(1);
+        const wsConnection = new WebSocket(Config.urlForGames + wsParams);
+
+        wsConnection.onmessage = onWsMessage;
     </script>
 </body>
 

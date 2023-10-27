@@ -3,7 +3,8 @@ export class PlayerMapper {
         return {
             id: source.id,
             name: source.name,
-            role: source.role
+            role: source.role,
+            status: source.status
         };
     }
 };

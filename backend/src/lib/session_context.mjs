@@ -18,7 +18,7 @@ export class SessionContext {
     async dedicatedRedisConnection() {
         const redisClient = createClient();
 
-        redisClient.on('error', error => Logger.error('redis', error));
+        redisClient.on('error', error => Logger.e('redis', error));
 
         const redisConnection = await redisClient.connect();
 

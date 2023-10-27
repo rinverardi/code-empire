@@ -1,4 +1,4 @@
-class Translation {
+export class Translation {
     static mapName(mapId) {
         switch (mapId) {
             case 0:
@@ -14,4 +14,4 @@ class Translation {
                 throw new RangeError('No such map');
         };
     }
-}
+};

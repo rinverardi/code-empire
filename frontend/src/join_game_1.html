@@ -24,14 +24,14 @@
                 <div class="area">Partie:</div>
             </div>
             <div class="col-sm-6 mt-2">
-                <select class="active can-expand control" id="input_game">
+                <select class="active can-expand control" id="select">
                 </select>
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="area">Dein Nickname:</div>
             </div>
             <div class="col-sm-6 mt-2">
-                <input class="active can-edit control" id="input_name" value="Brilliant Barracuda">
+                <input class="active can-edit control" id="input">
             </div>
         </div>
         <div class="row">
@@ -44,23 +44,47 @@
         </div>
     </div>
 
-    <script src="scripts/game.js"></script>
-    <script src="scripts/navigation.js"></script>
-    <script src="scripts/translation.js"></script>
-    <script src="scripts/lib/bootstrap.min.js"></script>
+    <script type="module">
+        import { Config } from './scripts/config.js';
+        import { Game } from './scripts/game.js';
+        import { Navigation } from './scripts/navigation.js';
+        import { Player } from './scripts/player.js';
+        import { Random } from './scripts/random.js';
+        import { Translation } from './scripts/translation.js';
 
-    <script>
-        function addGame(gameMessage) {
-            const gameName = `${gameMessage.players[0].name}: ${Translation.mapName(gameMessage.map.id)}`;
-
-            const select = document.getElementById('input_game');
-            const selectOption = new Option(gameName, gameMessage.game.id);
+        function addGame(gameId, gameName) {
+            const select = document.getElementById('select');
+            const selectOption = new Option(gameName, gameId);
 
             select.add(selectOption);
         }
 
-        function removeGame(gameMessage) {
-            const select = document.getElementById('input_game');
+        function onWsMessage(wsMessage) {
+            const gameMessage = JSON.parse(wsMessage.data);
+
+            if (gameMessage.game.status === Game.Status.waiting) {
+                const gameName = `${Translation.mapName(gameMessage.map.id)} von ${gameMessage.players[0].name}`;
+
+                addGame(gameMessage.game.id, gameName);
+            } else {
+                removeGame(gameMessage.game.id);
+            }
+        }
+
+        function wireInput() {
+            const input = document.getElementById('input');
+
+            if (!input.value) {
+                input.value = Player.loadName();
+
+                Player.saveName(input.value);
+            }
+
+            input.addEventListener('change', () => Player.saveName(input.value));
+        }
+
+        function removeGame(gameId) {
+            const select = document.getElementById('select');
 
             for (let selectIndex = 0; selectIndex < select.length; selectIndex++) {
                 if (select[selectIndex].value === gameMessage.game.id) {
@@ -70,23 +94,26 @@
             }
         }
 
-        const wsConnection = new WebSocket('ws://localhost:8001/games/');
+        function wireLinkBack() {
+            Navigation.onClick('link_back', () => 'index.html');
+        }
 
-        wsConnection.onmessage = wsMessage => {
-            const gameMessage = JSON.parse(wsMessage.data);
+        function wireLinkNext() {
+            Navigation.onClick('link_next', () => {
+                const gameId = document.getElementById('select').value;
+                const playerId = Random.generateId();
 
-            if (gameMessage.game.status === Game.Status.waiting) {
-                addGame(gameMessage);
-            } else {
-                removeGame(gameMessage);
-            }
-        };
+                return `join_game_2.html#${gameId}-${playerId}`;
+            });
+        }
 
-        Navigation.onClick('link_back', () => 'index.html');
+        const wsConnection = new WebSocket(Config.urlForGames);
 
-        document.getElementById('link_next').addEventListener('click', () => {
-            // TODO Implement me!
-        });
+        wsConnection.onmessage = onWsMessage;
+
+        wireInput();
+        wireLinkBack();
+        wireLinkNext();
     </script>
 </body>
 

@@ -29,6 +29,9 @@ export class GameRepository {
     }
 
     async saveGame(sessionContext, game) {
+
+        // TODO Use optimistic locking!
+
         const redisConnection = await sessionContext.sharedRedisConnection();
         const redisKey = `${Game.Key.game}:${sessionContext.gameId}`;
 

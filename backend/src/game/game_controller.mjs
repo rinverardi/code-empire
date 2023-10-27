@@ -1,4 +1,4 @@
-import { Game } from './game.mjs';
+import { Action } from '../lib/action.mjs';
 import { Logger } from '../lib/logger.mjs';
 
 export class GameController {
@@ -16,20 +16,31 @@ export class GameController {
                 const actionMessage = JSON.parse(wsMessage);
 
                 switch (actionMessage.action.id) {
-                    case Game.Action.abortGame:
+                    case Action.abortGame:
                         await this.#gameService.abortGame(sessionContext);
                         break;
                         
-                    case Game.Action.createGame:
+                    case Action.createGame:
                         await this.#gameService.createGame(sessionContext, actionMessage.map.id, actionMessage.player.name);
                         break;
 
-                    case Game.Action.startGame:
+                    case Action.joinGame:
+                        await this.#gameService.joinGame(sessionContext, actionMessage.player.name);
+                        break;
+
+                    case Action.leaveGame:
+                        await this.#gameService.leaveGame(sessionContext);
+                        break;
+
+                    case Action.startGame:
                         await this.#gameService.startGame(sessionContext);
                         break;
+                    
+                    default:
+                        throw new RangeError('No such action');
                 }
             } catch (exception) {
-                Logger.exception('GameController.watchGame', exception);
+                Logger.e('GameController.watchGame()', exception);
             }
         });
 

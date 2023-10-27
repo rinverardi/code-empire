@@ -1,9 +1,9 @@
 export class Logger {
-    static error(where, what) {
-        console.error(`🔴️ ${where}: ${what}`);
+    static e(where, what) {
+        console.error(`E ${where}: ${what}`);
      }
 
-     static exception(where, what) {
-        console.error(`🔴️ ${where}: ${what}`);
+     static w(where, what) {
+        console.warn(`W ${where}: ${what}`);
      }
  }

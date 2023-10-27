@@ -34,11 +34,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 mt-2">
-                <div class="active can-click control link" id="link_start">Partie starten</div>
-            </div>
-            <div class="col-12 mt-2">
-                <div class="active can-click control link" id="link_abort">Partie abbrechen</div>
+            <div class="col mt-2">
+                <div class="active can-click control link" id="link">Partie verlassen</div>
             </div>
         </div>
     </div>
@@ -49,8 +46,33 @@
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
+        function didLeaveGame(gameMessage) {
+            const playerId = Player.id;
+
+            return gameMessage.players.some(that => that.id === playerId && that.status === Player.Status.left);
+        }
+
+        function joinGame() {
+            const message = {
+                action: { id: Action.joinGame },
+                player: { name: Player.loadName() }
+            };
+
+            wsConnection.send(JSON.stringify(message));
+        }
+
+        function leaveGame() {
+            const message = {
+                action: { id: Action.leaveGame }
+            };
+
+            wsConnection.send(JSON.stringify(message));
+        }
+
         function onWsMessage(wsMessage) {
             const gameMessage = JSON.parse(wsMessage.data);
+
+            console.log(gameMessage);
 
             switch (gameMessage.game.status) {
                 case Game.Status.aborted:
@@ -67,7 +89,11 @@
                     break;
 
                 case Game.Status.waiting:
-                    updateSlots(gameMessage);
+                    if (didLeaveGame(gameMessage)) {
+                        location = 'index.html';
+                    } else {
+                        updateSlots(gameMessage);
+                    }
                     break;
 
                 default:
@@ -75,9 +101,14 @@
             }
         }
 
+        function onWsOpen() {
+            joinGame();
+        }
+
         function updateSlots(gameMessage) {
             const players = gameMessage.players.filter(that => that.status !== Player.Status.left);
 
+            console.log(players);
             for (let slotIndex = 0; slotIndex < Config.slots; slotIndex++) {
                 const slot = document.getElementById(`slot_${slotIndex}`);
 
@@ -87,33 +118,17 @@
             }
         }
 
-        function wireLinkAbort() {
-            document.getElementById('link_abort').addEventListener('click', () => {
-                const message = {
-                    action: { id: Action.abortGame }
-                };
-
-                wsConnection.send(JSON.stringify(message));
-            });
-        }
-
-        function wireLinkStart() {
-            document.getElementById('link_start').addEventListener('click', () => {
-                const message = {
-                    action: { id: Action.startGame }
-                };
-
-                wsConnection.send(JSON.stringify(message));
-            });
+        function wireLink() {
+            document.getElementById('link').addEventListener('click', leaveGame);
         }
 
         const wsParams = `${location.hash.slice(1)}-${Player.loadSecret()}`;
         const wsConnection = new WebSocket(Config.urlForGames + wsParams);
 
         wsConnection.onmessage = onWsMessage;
+        wsConnection.onopen = onWsOpen;
 
-        wireLinkAbort();
-        wireLinkStart();
+        wireLink();
     </script>
 </body>
 
