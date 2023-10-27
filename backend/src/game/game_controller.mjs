@@ -19,7 +19,7 @@ export class GameController {
                     case Action.abortGame:
                         await this.#gameService.abortGame(sessionContext);
                         break;
-                        
+
                     case Action.createGame:
                         await this.#gameService.createGame(sessionContext, actionMessage.map.id, actionMessage.player.name);
                         break;
@@ -35,7 +35,7 @@ export class GameController {
                     case Action.startGame:
                         await this.#gameService.startGame(sessionContext);
                         break;
-                    
+
                     default:
                         throw new RangeError('No such action');
                 }

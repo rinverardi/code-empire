@@ -37,16 +37,12 @@
 
     <script type="module">
         import { Navigation } from './scripts/navigation.js';
-        import { Player } from './scripts/player.js';
         import { Random } from './scripts/random.js';
 
         function wireLinkCreate() {
-            Navigation.onClick('link_create', () => {
-                const gameId = Random.generateId();
-                const playerId = Random.generateId();
+            const gameId = Random.generateId();
 
-                return `create_game_1.html#${gameId}-${playerId}`;
-            });
+            Navigation.onClick('link_create', () => `create_game_1.html#${gameId}`);
         }
 
         function wireLinkJoin() {

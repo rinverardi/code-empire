@@ -101,9 +101,8 @@
         function wireLinkNext() {
             Navigation.onClick('link_next', () => {
                 const gameId = document.getElementById('select').value;
-                const playerId = Random.generateId();
 
-                return `join_game_2.html#${gameId}-${playerId}`;
+                return `join_game_2.html#${gameId}`;
             });
         }
 

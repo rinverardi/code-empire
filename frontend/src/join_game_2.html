@@ -47,7 +47,7 @@
         import { Player } from './scripts/player.js';
 
         function didLeaveGame(gameMessage) {
-            const playerId = Player.id;
+            const playerId = Player.loadId();
 
             return gameMessage.players.some(that => that.id === playerId && that.status === Player.Status.left);
         }
@@ -71,8 +71,6 @@
 
         function onWsMessage(wsMessage) {
             const gameMessage = JSON.parse(wsMessage.data);
-
-            console.log(gameMessage);
 
             switch (gameMessage.game.status) {
                 case Game.Status.aborted:
@@ -108,7 +106,6 @@
         function updateSlots(gameMessage) {
             const players = gameMessage.players.filter(that => that.status !== Player.Status.left);
 
-            console.log(players);
             for (let slotIndex = 0; slotIndex < Config.slots; slotIndex++) {
                 const slot = document.getElementById(`slot_${slotIndex}`);
 
@@ -122,7 +119,9 @@
             document.getElementById('link').addEventListener('click', leaveGame);
         }
 
-        const wsParams = `${location.hash.slice(1)}-${Player.loadSecret()}`;
+        const gameId = location.hash.slice(1);
+
+        const wsParams = `${gameId}-${Player.loadId()}-${Player.loadSecret()}`;
         const wsConnection = new WebSocket(Config.urlForGames + wsParams);
 
         wsConnection.onmessage = onWsMessage;

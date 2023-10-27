@@ -3,7 +3,6 @@ import { GameMapper } from '../game/game_mapper.mjs';
 import { GameRepository } from '../game/game_repository.mjs';
 import { GameService } from '../game/game_service.mjs';
 import { MapMapper } from '../map/map_mapper.mjs';
-import { PlayerAuthentication } from '../player/player_authentication.mjs';
 import { PlayerMapper } from '../player/player_mapper.mjs';
 
 export class GlobalContext {
@@ -12,7 +11,6 @@ export class GlobalContext {
     #gameRepository;
     #gameService;
     #mapMapper;
-    #playerAuthentication;
     #playerMapper;
 
     gameController() {
@@ -43,12 +41,6 @@ export class GlobalContext {
         return this.#mapMapper
             ? this.#mapMapper
             : this.#mapMapper = new MapMapper();
-    }
-
-    playerAuthentication() {
-        return this.#playerAuthentication
-            ? this.#playerAuthentication
-            : this.#playerAuthentication = new PlayerAuthentication(this);
     }
 
     playerMapper() {

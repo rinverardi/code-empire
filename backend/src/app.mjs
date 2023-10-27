@@ -19,7 +19,7 @@ class App extends GlobalContext {
 
   async #handleGame(wsConnection, wsParams) {
     try {
-      const sessionContext = await this.playerAuthentication().authenticate(wsConnection, wsParams);
+      const sessionContext = new SessionContext(wsConnection, wsParams);
 
       await this.gameController().watchGame(sessionContext);
     } catch (exception) {

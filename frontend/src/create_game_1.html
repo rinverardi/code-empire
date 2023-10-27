@@ -114,7 +114,9 @@
             }
         }
 
-        const wsParams = `${location.hash.slice(1)}-${Player.loadSecret()}`;
+        const gameId = location.hash.slice(1);
+
+        const wsParams = `${gameId}-${Player.loadId()}-${Player.loadSecret()}`;
         const wsConnection = new WebSocket(Config.urlForGames + wsParams);
 
         wsConnection.onmessage = onWsMessage;

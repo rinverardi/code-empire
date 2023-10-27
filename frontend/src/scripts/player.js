@@ -8,14 +8,14 @@ export class Player {
         return `${adjective[0].toUpperCase()}${adjective.slice(1)} ${animal[0].toUpperCase()}${animal.slice(1)}`;
     }
 
-    static get id() {
-        const match = /^#[a-z0-9]+-([a-z0-9]+)$/.exec(location.hash);
+    static loadId() {
+        let id = window.sessionStorage.getItem(Player.Attribute.id);
 
-        if (!match) {
-            throw new RangeError('Invalid hash');
+        if (!id) {
+            Player.saveId(id = Random.generateId());
         }
 
-        return match[1];
+        return id;
     }
 
     static loadName() {
@@ -38,6 +38,10 @@ export class Player {
         return secret;
     }
 
+    static saveId(id) {
+        window.sessionStorage.setItem(Player.Attribute.id, id);
+    }
+
     static saveName(name) {
         window.sessionStorage.setItem(Player.Attribute.name, name);
     }
@@ -48,6 +52,7 @@ export class Player {
 
     static get Attribute() {
         return Object.freeze({
+            id: 'playerId',
             name: 'playerName',
             secret: 'playerSecret'
         });
