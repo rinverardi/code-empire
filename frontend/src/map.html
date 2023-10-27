@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="de">
 
 <head>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
@@ -19,10 +19,10 @@
         const wsParams = window.location.hash.substring(1);
         const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
 
-        wsConnection.onmessage = event => {
-            const message = JSON.parse(event.data);
+        wsConnection.onmessage = wsMessage => {
+            const gameMessage = JSON.parse(wsMessage.data);
 
-            switch (message.game.status) {
+            switch (gameMessage.game.status) {
                 case 'executing':
                 case 'thinking':
                     // TODO Implement me!

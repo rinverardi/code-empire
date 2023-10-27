@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="de">
 
 <head>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
@@ -48,6 +48,7 @@
             return `create_game_1.html#${gameId}-${playerId}-${playerSecret}`;
         });
 
+        Navigation.onClick('link_join', () => 'join_game_1.html');
         Navigation.onClick('link_show_highscores', () => 'show_highscores.html');
         Navigation.onClick('link_show_instructions', () => 'show_instructions.html');
     </script>

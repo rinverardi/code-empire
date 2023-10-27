@@ -1,5 +1,4 @@
 import { Game } from './game.mjs';
-import { Logger } from '../lib/logger.mjs';
 import { Player } from '../player/player.mjs';
 
 export class GameService {
@@ -15,7 +14,7 @@ export class GameService {
 
         // TODO Check the access!
         // TODO Check the status!
-        
+
         const game = await this.#gameRepository.loadGame(sessionContext);
 
         game.game.status = Game.Status.aborted;
@@ -26,6 +25,7 @@ export class GameService {
 
     async createGame(sessionContext, mapId, playerName) {
 
+        // TODO Check the limit!
         // TODO Check the status!
 
         const game = {
@@ -69,7 +69,7 @@ export class GameService {
 
         // TODO Check the access!
         // TODO Check the status!
-        
+
         const game = await this.#gameRepository.loadGame(sessionContext);
 
         // TODO Populate the map!
@@ -85,21 +85,27 @@ export class GameService {
 
     async watchGame(sessionContext, onUpdate) {
         await this.#gameRepository.subscribeGame(sessionContext, game => {
-            onUpdate(JSON.parse(game));
+            const parsedGame = JSON.parse(game);
+            const mappedGame = this.#gameMapper.map(sessionContext, parsedGame);
+
+            onUpdate(mappedGame);
         });
 
         onUpdate(await this.loadGame(sessionContext));
     }
 
     async watchGameList(sessionContext, onUpdate) {
-        await this.#gameRepository.subscribeGameList(sessionContext, async () => {
-            try {
-                onUpdate(await this.loadGameList(sessionContext));
-            } catch (exception) {
-                Logger.exception('GameService.watchGameList', exception);
-            }
+        await this.#gameRepository.subscribeGameList(sessionContext, async game => {
+            const parsedGame = JSON.parse(game);
+            const mappedGame = this.#gameMapper.map(sessionContext, parsedGame);
+
+            onUpdate(mappedGame);
         });
 
-        onUpdate(await this.loadGameList(sessionContext));
+        const gameList = await this.loadGameList(sessionContext);
+
+        for (const game of gameList) {
+            onUpdate(game);
+        }
     }
 };

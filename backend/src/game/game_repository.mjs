@@ -44,8 +44,8 @@ export class GameRepository {
 
     async subscribeGameList(sessionContext, handler) {
         const redisConnection = await sessionContext.dedicatedRedisConnection();
-        const redisKey = Game.Key.games;
+        const redisKey = `${Game.Key.game}:*`;
 
-        redisConnection.subscribe(redisKey, handler);
+        redisConnection.pSubscribe(redisKey, handler);
     }
 };

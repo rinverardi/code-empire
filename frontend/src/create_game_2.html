@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="de">
 
 <head>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
@@ -49,10 +49,10 @@
         const wsParams = window.location.hash.substring(1);
         const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
 
-        wsConnection.onmessage = message => {
-            const messageData = JSON.parse(message.data);
+        wsConnection.onmessage = wsMessage => {
+            const gameMessage = JSON.parse(wsMessage.data);
 
-            switch (messageData.game.status) {
+            switch (gameMessage.game.status) {
                 case 'aborted':
                     window.location = 'index.html';
                     break;

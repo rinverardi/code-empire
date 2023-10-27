@@ -16,27 +16,22 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="area">Partie erstellen</h2>
+                <h1 class="area">Partie beitreten</h2>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 mt-2">
-                <div class="area">Karte:</div>
+                <div class="area">Partie:</div>
             </div>
             <div class="col-sm-6 mt-2">
-                <div class="control-wrapper">
-                    <select class="active can-expand control" id="input_map">
-                        <option value="0">Meaty Meadows</option>
-                        <option value="1">Nebulous Nirvana</option>
-                        <option value="2">Pristine Peaks</option>
-                    </select>
-                </div>
+                <select class="active can-expand control" id="input_game">
+                </select>
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="area">Dein Nickname:</div>
             </div>
             <div class="col-sm-6 mt-2">
-                <input class="active can-edit control" id="input_name" value="Angry Alpaca">
+                <input class="active can-edit control" id="input_name" value="Brilliant Barracuda">
             </div>
         </div>
         <div class="row">
@@ -49,45 +44,48 @@
         </div>
     </div>
 
+    <script src="scripts/game.js"></script>
     <script src="scripts/navigation.js"></script>
+    <script src="scripts/translation.js"></script>
     <script src="scripts/lib/bootstrap.min.js"></script>
 
     <script>
-        const wsParams = window.location.hash.substring(1);
-        const wsConnection = new WebSocket(`ws://localhost:8001/games/${wsParams}`);
+        function addGame(gameMessage) {
+            const gameName = `${gameMessage.players[0].name}: ${Translation.mapName(gameMessage.map.id)}`;
+
+            const select = document.getElementById('input_game');
+            const selectOption = new Option(gameName, gameMessage.game.id);
+
+            select.add(selectOption);
+        }
+
+        function removeGame(gameMessage) {
+            const select = document.getElementById('input_game');
+
+            for (let selectIndex = 0; selectIndex < select.length; selectIndex++) {
+                if (select[selectIndex].value === gameMessage.game.id) {
+                    select.remove(selectIndex);
+                    return;
+                }
+            }
+        }
+
+        const wsConnection = new WebSocket('ws://localhost:8001/games/');
 
         wsConnection.onmessage = wsMessage => {
             const gameMessage = JSON.parse(wsMessage.data);
 
-            switch (gameMessage.game.status) {
-                case 'executing':
-                case 'thinking':
-                    window.location = `map.html#${wsParams}`;
-                    break;
-
-                case 'missing':
-                    break;
-
-                case 'waiting':
-                    window.location = `create_game_2.html#${wsParams}`;
-                    break;
-
-                default:
-                    window.location = 'error.html';
-                    break;
+            if (gameMessage.game.status === Game.Status.waiting) {
+                addGame(gameMessage);
+            } else {
+                removeGame(gameMessage);
             }
         };
 
         Navigation.onClick('link_back', () => 'index.html');
 
         document.getElementById('link_next').addEventListener('click', () => {
-            const message = {
-                action: { id: 'createGame' },
-                map: { id: parseInt(document.getElementById('input_map').value) },
-                player: { name: document.getElementById('input_name').value }
-            };
-
-            wsConnection.send(JSON.stringify(message));
+            // TODO Implement me!
         });
     </script>
 </body>

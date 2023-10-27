@@ -11,25 +11,22 @@ export class GameController {
     async watchGame(sessionContext) {
         const wsConnection = sessionContext.wsConnection();
 
-        wsConnection.on('message', async wsMessageJson => {
+        wsConnection.on('message', async wsMessage => {
             try {
-                const wsMessage = JSON.parse(wsMessageJson);
+                const actionMessage = JSON.parse(wsMessage);
 
-                switch (wsMessage.action.id) {
+                switch (actionMessage.action.id) {
                     case Game.Action.abortGame:
                         await this.#gameService.abortGame(sessionContext);
                         break;
                         
                     case Game.Action.createGame:
-                        await this.#gameService.createGame(sessionContext, wsMessage.map.id, wsMessage.player.name);
+                        await this.#gameService.createGame(sessionContext, actionMessage.map.id, actionMessage.player.name);
                         break;
 
                     case Game.Action.startGame:
                         await this.#gameService.startGame(sessionContext);
                         break;
-
-                    default:
-                        // TODO Implement me!
                 }
             } catch (exception) {
                 Logger.exception('GameController.watchGame', exception);
