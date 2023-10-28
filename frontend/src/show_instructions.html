@@ -3,6 +3,8 @@
 <html lang="de">
 
 <head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/wireframes.css">
 
@@ -69,15 +71,17 @@
         </div>
         <div class="row">
             <div class="col mt-2">
-                <div class="active can-click control link" id="link_close">Schliessen</div>
+                <div class="active can-click control link" id="link">Schliessen</div>
             </div>
         </div>
     </div>
 
     <script type="module">
-        import { Navigation } from './scripts/navigation.js';
+        import { Context } from './scripts/context.js';
 
-        Navigation.onClick('link_close', () => 'index.html');
+        const context = new Context();
+
+        context.navigation().wireClick('link', () => 'index.html');
     </script>
 </body>
 

@@ -3,9 +3,11 @@
 <html lang="de">
 
 <head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/wireframes.css">
-
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -48,20 +50,15 @@
 
     <script type="module">
         import { Action } from './scripts/action.js';
-        import { Config } from './scripts/config.js';
+        import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
-        import { Navigation } from './scripts/navigation.js';
-        import { Player } from './scripts/player.js';
-        import { Translation } from './scripts/translation.js';
 
-        function onWsMessage(wsMessage) {
-            const gameMessage = JSON.parse(wsMessage.data);
-
-            switch (gameMessage.game.status) {
+        function onMessage(message) {
+            switch (message.game.status) {
                 case Game.Status.aborted:
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    location = 'error.html';
+                    location = 'on_error.html';
                     break;
 
                 case Game.Status.missing:
@@ -80,27 +77,27 @@
             const input = document.getElementById('input');
 
             if (!input.value) {
-                input.value = Player.loadName();
+                input.value = context.player().loadName();
 
-                Player.saveName(input.value);
+                context.player().saveName(input.value);
             }
 
-            input.addEventListener('change', () => Player.saveName(input.value));
+            input.addEventListener('change', () => context.player().saveName(input.value));
         }
 
         function wireLinkBack() {
-            Navigation.onClick('link_back', () => 'index.html');
+            context.navigation().wireClick('link_back', () => 'index.html');
         }
 
         function wireLinkNext() {
-            document.getElementById('link_next').addEventListener('click', () => {
+            context.navigation().wireClick('link_next', () => {
                 const message = {
                     action: { id: Action.createGame },
                     map: { id: parseInt(document.getElementById('select').value) },
                     player: { name: document.getElementById('input').value }
                 };
 
-                wsConnection.send(JSON.stringify(message));
+                context.communication().sendMessage(message);
             });
         }
 
@@ -108,18 +105,15 @@
             const input = document.getElementById('select');
 
             for (let mapId = 0; mapId < 3; mapId++) {
-                const option = new Option(Translation.mapName(mapId), mapId);
+                const option = new Option(context.translation().mapName(mapId), mapId);
 
                 input.add(option);
             }
         }
 
-        const gameId = location.hash.slice(1);
+        const context = new Context();
 
-        const wsParams = `${gameId}-${Player.loadId()}-${Player.loadSecret()}`;
-        const wsConnection = new WebSocket(Config.urlForGames + wsParams);
-
-        wsConnection.onmessage = onWsMessage;
+        context.communication().connectGame(onMessage);
 
         wireInput();
         wireLinkBack();

@@ -3,6 +3,8 @@
 <html lang="de">
 
 <head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/wireframes.css">
 
@@ -43,22 +45,23 @@
     <script type="module">
         import { Action } from './scripts/action.js';
         import { Config } from './scripts/config.js';
+        import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
-        function didLeaveGame(gameMessage) {
-            const playerId = Player.loadId();
+        function didLeaveGame(message) {
+            const playerId = context.player().loadId();
 
-            return gameMessage.players.some(that => that.id === playerId && that.status === Player.Status.left);
+            return message.players.some(that => that.id === playerId && that.status === Player.Status.left);
         }
 
         function joinGame() {
             const message = {
                 action: { id: Action.joinGame },
-                player: { name: Player.loadName() }
+                player: { name: context.player().loadName() }
             };
 
-            wsConnection.send(JSON.stringify(message));
+            context.communication().sendMessage(message);
         }
 
         function leaveGame() {
@@ -66,13 +69,11 @@
                 action: { id: Action.leaveGame }
             };
 
-            wsConnection.send(JSON.stringify(message));
+            context.communication().sendMessage(message);
         }
 
-        function onWsMessage(wsMessage) {
-            const gameMessage = JSON.parse(wsMessage.data);
-
-            switch (gameMessage.game.status) {
+        function onMessage(message) {
+            switch (message.game.status) {
                 case Game.Status.aborted:
                     location = 'index.html';
                     break;
@@ -83,14 +84,14 @@
                     break;
 
                 case Game.Status.missing:
-                    location = 'error.html';
+                    location = 'on_error.html';
                     break;
 
                 case Game.Status.waiting:
-                    if (didLeaveGame(gameMessage)) {
+                    if (didLeaveGame(message)) {
                         location = 'index.html';
                     } else {
-                        updateSlots(gameMessage);
+                        updateSlots(message);
                     }
                     break;
 
@@ -99,33 +100,29 @@
             }
         }
 
-        function onWsOpen() {
+        function onOpen() {
             joinGame();
         }
 
-        function updateSlots(gameMessage) {
-            const players = gameMessage.players.filter(that => that.status !== Player.Status.left);
+        function updateSlots(message) {
+            const players = message.players.filter(that => that.status !== Player.Status.left);
 
-            for (let slotIndex = 0; slotIndex < Config.slots; slotIndex++) {
-                const slot = document.getElementById(`slot_${slotIndex}`);
+            for (let index = 0; index < Config.slots; index++) {
+                const slot = document.getElementById(`slot_${index}`);
 
-                slot.textContent = slotIndex >= players.length
+                slot.textContent = index >= players.length
                     ? 'leerer Slot'
-                    : players[slotIndex].name;
+                    : players[index].name;
             }
         }
 
         function wireLink() {
-            document.getElementById('link').addEventListener('click', leaveGame);
+            context.navigation().wireClick('link', leaveGame);
         }
 
-        const gameId = location.hash.slice(1);
+        const context = new Context();
 
-        const wsParams = `${gameId}-${Player.loadId()}-${Player.loadSecret()}`;
-        const wsConnection = new WebSocket(Config.urlForGames + wsParams);
-
-        wsConnection.onmessage = onWsMessage;
-        wsConnection.onopen = onWsOpen;
+        context.communication().connectGame(onMessage, onOpen);
 
         wireLink();
     </script>

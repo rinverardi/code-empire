@@ -1,5 +1,11 @@
 export class Navigation {
-    static onClick(id, handler) {
-        document.getElementById(id).addEventListener('click', () => location = handler());
+    wireClick(id, handler) {
+        document.getElementById(id).addEventListener('click', () => {
+            const location = handler();
+
+            if (location) {
+                window.location = location;
+            }
+        });
     }
 };

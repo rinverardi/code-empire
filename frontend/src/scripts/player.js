@@ -1,52 +1,56 @@
-import { Random } from './random.js';
-
 export class Player {
-    static #generateName() {
-        const adjective = Random.pickAdjective();
-        const animal = Random.pickAnimal();
+    #random;
+
+    constructor(context) {
+        this.#random = context.random();
+    }
+
+    #generateName() {
+        const adjective = this.#random.pickAdjective();
+        const animal = this.#random.pickAnimal();
 
         return `${adjective[0].toUpperCase()}${adjective.slice(1)} ${animal[0].toUpperCase()}${animal.slice(1)}`;
     }
 
-    static loadId() {
+    loadId() {
         let id = window.sessionStorage.getItem(Player.Attribute.id);
 
         if (!id) {
-            Player.saveId(id = Random.generateId());
+            this.saveId(id = this.#random.generateId());
         }
 
         return id;
     }
 
-    static loadName() {
+    loadName() {
         let name = window.sessionStorage.getItem(Player.Attribute.name);
 
         if (!name) {
-            Player.saveName(name = Player.#generateName());
+            this.saveName(name = this.#generateName());
         }
 
         return name;
     }
 
-    static loadSecret() {
+    loadSecret() {
         let secret  = window.sessionStorage.getItem(Player.Attribute.secret);
 
         if (!secret) {
-            Player.saveSecret(secret = Random.generateSecret());
+            this.saveSecret(secret = this.#random.generateSecret());
         }
 
         return secret;
     }
 
-    static saveId(id) {
+    saveId(id) {
         window.sessionStorage.setItem(Player.Attribute.id, id);
     }
 
-    static saveName(name) {
+    saveName(name) {
         window.sessionStorage.setItem(Player.Attribute.name, name);
     }
 
-    static saveSecret(secret) {
+    saveSecret(secret) {
         window.sessionStorage.setItem(Player.Attribute.secret, secret);
     }
 

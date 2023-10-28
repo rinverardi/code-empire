@@ -1,5 +1,5 @@
 export class Translation {
-    static mapName(mapId) {
+    mapName(mapId) {
         switch (mapId) {
             case 0:
                 return 'Meaty Meadows';

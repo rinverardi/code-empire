@@ -3,6 +3,8 @@
 <html lang="de">
 
 <head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/wireframes.css">
 
@@ -45,12 +47,8 @@
     </div>
 
     <script type="module">
-        import { Config } from './scripts/config.js';
+        import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
-        import { Navigation } from './scripts/navigation.js';
-        import { Player } from './scripts/player.js';
-        import { Random } from './scripts/random.js';
-        import { Translation } from './scripts/translation.js';
 
         function addGame(gameId, gameName) {
             const select = document.getElementById('select');
@@ -59,15 +57,14 @@
             select.add(selectOption);
         }
 
-        function onWsMessage(wsMessage) {
-            const gameMessage = JSON.parse(wsMessage.data);
+        function onMessage(message) {
+            if (message.game.status === Game.Status.waiting) {
+                const mapName = context.translation().mapName(message.map.id);
+                const playerName = message.players[0].name;
 
-            if (gameMessage.game.status === Game.Status.waiting) {
-                const gameName = `${Translation.mapName(gameMessage.map.id)} von ${gameMessage.players[0].name}`;
-
-                addGame(gameMessage.game.id, gameName);
+                addGame(message.game.id, `${mapName} von ${playerName}`);
             } else {
-                removeGame(gameMessage.game.id);
+                removeGame(message.game.id);
             }
         }
 
@@ -75,40 +72,40 @@
             const input = document.getElementById('input');
 
             if (!input.value) {
-                input.value = Player.loadName();
+                input.value = context.player().loadName();
 
-                Player.saveName(input.value);
+                context.player().saveName(input.value);
             }
 
-            input.addEventListener('change', () => Player.saveName(input.value));
+            input.addEventListener('change', () => context.player().saveName(input.value));
         }
 
         function removeGame(gameId) {
             const select = document.getElementById('select');
 
-            for (let selectIndex = 0; selectIndex < select.length; selectIndex++) {
-                if (select[selectIndex].value === gameMessage.game.id) {
-                    select.remove(selectIndex);
+            for (let index = 0; index < select.length; index++) {
+                if (select[index].value === gameMessage.game.id) {
+                    select.remove(index);
                     return;
                 }
             }
         }
 
         function wireLinkBack() {
-            Navigation.onClick('link_back', () => 'index.html');
+            context.navigation().wireClick('link_back', () => 'index.html');
         }
 
         function wireLinkNext() {
-            Navigation.onClick('link_next', () => {
+            context.navigation().wireClick('link_next', () => {
                 const gameId = document.getElementById('select').value;
 
                 return `join_game_2.html#${gameId}`;
             });
         }
 
-        const wsConnection = new WebSocket(Config.urlForGames);
+        const context = new Context();
 
-        wsConnection.onmessage = onWsMessage;
+        context.communication().connectGameList(onMessage);
 
         wireInput();
         wireLinkBack();

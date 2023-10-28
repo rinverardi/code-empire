@@ -1,5 +1,5 @@
 export class Random {
-    static #generate(length) {
+    #generate(length) {
         const alphabet = 'abcdefghijklmnopqrstuvwxyz012345';
         const integers = new Int8Array(length);
 
@@ -8,15 +8,15 @@ export class Random {
         return Array.from(integers, that => alphabet[that & 31]).join('');
     }
 
-    static generateId() {
+    generateId() {
         return this.#generate(8);
     }
 
-    static generateSecret() {
+    generateSecret() {
         return this.#generate(32);
     }
 
-    static pickAdjective() {
+    pickAdjective() {
         const adjectives = [
             'abandoned', 'able', 'absolute', 'academic', 'acceptable', 'acclaimed', 'accomplished', 'accurate', 'aching',
             'acidic', 'acrobatic', 'active', 'actual', 'adept', 'admirable', 'admired', 'adolescent', 'adorable', 'adored',
@@ -155,7 +155,7 @@ export class Random {
         return adjectives[Math.floor(Math.random() * adjectives.length)];
     }
 
-    static pickAnimal() {
+    pickAnimal() {
         const animals = [
             'aardvark', 'aardwolf', 'albatross', 'alligator', 'alpaca', 'amphibian', 'anaconda', 'angelfish', 'anglerfish',
             'ant', 'anteater', 'antelope', 'antlion', 'ape', 'aphid', 'armadillo', 'asp', 'baboon', 'badger', 'bandicoot',

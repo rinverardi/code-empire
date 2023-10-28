@@ -3,6 +3,8 @@
 <html lang="de">
 
 <head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/wireframes.css">
 
@@ -46,13 +48,12 @@
     <script type="module">
         import { Action } from './scripts/action.js';
         import { Config } from './scripts/config.js';
+        import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
-        function onWsMessage(wsMessage) {
-            const gameMessage = JSON.parse(wsMessage.data);
-
-            switch (gameMessage.game.status) {
+        function onMessage(message) {
+            switch (message.game.status) {
                 case Game.Status.aborted:
                     location = 'index.html';
                     break;
@@ -63,11 +64,11 @@
                     break;
 
                 case Game.Status.missing:
-                    location = 'error.html';
+                    location = 'on_error.html';
                     break;
 
                 case Game.Status.waiting:
-                    updateSlots(gameMessage);
+                    updateSlots(message);
                     break;
 
                 default:
@@ -78,41 +79,38 @@
         function updateSlots(gameMessage) {
             const players = gameMessage.players.filter(that => that.status !== Player.Status.left);
 
-            for (let slotIndex = 0; slotIndex < Config.slots; slotIndex++) {
-                const slot = document.getElementById(`slot_${slotIndex}`);
+            for (let index = 0; index < Config.slots; index++) {
+                const slot = document.getElementById(`slot_${index}`);
 
-                slot.textContent = slotIndex >= players.length
+                slot.textContent = index >= players.length
                     ? 'leerer Slot'
-                    : players[slotIndex].name;
+                    : players[index].name;
             }
         }
 
         function wireLinkAbort() {
-            document.getElementById('link_abort').addEventListener('click', () => {
+            context.navigation().wireClick('link_abort', () => {
                 const message = {
                     action: { id: Action.abortGame }
                 };
 
-                wsConnection.send(JSON.stringify(message));
+                context.communication().sendMessage(message);
             });
         }
 
         function wireLinkStart() {
-            document.getElementById('link_start').addEventListener('click', () => {
+            context.navigation().wireClick('link_start', () => {
                 const message = {
                     action: { id: Action.startGame }
                 };
 
-                wsConnection.send(JSON.stringify(message));
+                context.communication().sendMessage(message);
             });
         }
 
-        const gameId = location.hash.slice(1);
+        const context = new Context();
 
-        const wsParams = `${gameId}-${Player.loadId()}-${Player.loadSecret()}`;
-        const wsConnection = new WebSocket(Config.urlForGames + wsParams);
-
-        wsConnection.onmessage = onWsMessage;
+        context.communication().connectGame(onMessage);
 
         wireLinkAbort();
         wireLinkStart();

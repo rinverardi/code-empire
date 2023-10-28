@@ -3,6 +3,8 @@
 <html lang="de">
 
 <head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/wireframes.css">
 
@@ -14,21 +16,22 @@
 
 <body>
     <script type="module">
-        import { Config } from './scripts/config.js';
+        import { Context } from './scripts/context.js';
+        import { Game } from './scripts/game.js';
 
-        function onWsMessage(wsMessage) {
-            const gameMessage = JSON.parse(wsMessage.data);
-
-            switch (gameMessage.game.status) {
+        function onMessage(message) {
+            switch (message.game.status) {
                 case Game.Status.aborted:
                 case Game.Status.executing:
                 case Game.Status.thinking:
+
                     // TODO Implement me!
+
                     break;
 
                 case Game.Status.missing:
                 case Game.Status.waiting:
-                    location = 'error.html';
+                    location = 'on_error.html';
                     break;
 
                 default:
@@ -36,12 +39,9 @@
             }
         }
 
-        const gameId = location.hash.slice(1);
+        const context = new Context();
 
-        const wsParams = `${gameId}-${Player.loadId()}-${Player.loadSecret()}`;
-        const wsConnection = new WebSocket(Config.urlForGames + wsParams);
-
-        wsConnection.onmessage = onWsMessage;
+        context.communication().connectGame(onMessage);
     </script>
 </body>
 

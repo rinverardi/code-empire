@@ -3,9 +3,10 @@
 <html lang="de">
 
 <head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/wireframes.css">
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -36,26 +37,27 @@
     </div>
 
     <script type="module">
-        import { Navigation } from './scripts/navigation.js';
-        import { Random } from './scripts/random.js';
+        import { Context } from './scripts/context.js';
 
         function wireLinkCreate() {
-            const gameId = Random.generateId();
+            const gameId = context.random().generateId();
 
-            Navigation.onClick('link_create', () => `create_game_1.html#${gameId}`);
+            context.navigation().wireClick('link_create', () => `create_game_1.html#${gameId}`);
         }
 
         function wireLinkJoin() {
-            Navigation.onClick('link_join', () => 'join_game_1.html');
+            context.navigation().wireClick('link_join', () => 'join_game_1.html');
         }
 
         function wireLinkShowHighscores() {
-            Navigation.onClick('link_show_highscores', () => 'show_highscores.html');
+            context.navigation().wireClick('link_show_highscores', () => 'show_highscores.html');
         }
 
         function wireLinkShowInstructions() {
-            Navigation.onClick('link_show_instructions', () => 'show_instructions.html');
+            context.navigation().wireClick('link_show_instructions', () => 'show_instructions.html');
         }
+
+        const context = new Context();
 
         wireLinkCreate();
         wireLinkJoin();
