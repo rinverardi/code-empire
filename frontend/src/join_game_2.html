@@ -80,7 +80,7 @@
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    location = `map.html${location.hash}`;
+                    location = 'map.html' + location.hash;
                     break;
 
                 case Game.Status.missing:
@@ -108,7 +108,7 @@
             const players = message.players.filter(that => that.status !== Player.Status.left);
 
             for (let index = 0; index < Config.slots; index++) {
-                const slot = document.getElementById(`slot_${index}`);
+                const slot = document.getElementById('slot_' + index);
 
                 slot.textContent = index >= players.length
                     ? 'leerer Slot'

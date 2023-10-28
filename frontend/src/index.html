@@ -42,7 +42,7 @@
         function wireLinkCreate() {
             const gameId = context.random().generateId();
 
-            context.navigation().wireClick('link_create', () => `create_game_1.html#${gameId}`);
+            context.navigation().wireClick('link_create', () => 'create_game_1.html#' + gameId);
         }
 
         function wireLinkJoin() {
