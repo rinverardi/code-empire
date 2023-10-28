@@ -12,31 +12,21 @@ export class Context {
     #translation;
 
     communication() {
-        return this.#communication
-            ? this.#communication
-            : this.#communication = new Communication(this);
+        return this.#communication ? this.#communication : this.#communication = new Communication(this);
     }
 
     navigation() {
-        return this.#navigation
-            ? this.#navigation
-            : this.#navigation = new Navigation();
+        return this.#navigation ? this.#navigation : this.#navigation = new Navigation();
     }
 
     player() {
-        return this.#player
-            ? this.#player
-            : this.#player = new Player(this);
+        return this.#player ? this.#player : this.#player = new Player(this);
     }
 
     random() {
-        return this.#random
-            ? this.#random
-            : this.#random = new Random();
+        return this.#random ? this.#random : this.#random = new Random();
     }
     translation() {
-        return this.#translation
-            ? this.#translation
-            : this.#translation = new Translation();
+        return this.#translation ? this.#translation : this.#translation = new Translation();
     }
 };

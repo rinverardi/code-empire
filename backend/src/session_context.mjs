@@ -18,22 +18,20 @@ export class SessionContext {
     }
 
     get gameId() {
-        return this.#wsParams[0];
+        return this.#wsParams ? this.#wsParams[0] : null;
     }
 
     get playerId() {
-        return this.#wsParams[1];
+        return this.#wsParams ? this.#wsParams[1] : null;
     }
 
     get playerSecret() {
-        return this.#wsParams[2];
+        return this.#wsParams ? this.#wsParams[2] : null;
     }
 
     async redisConnection(share) {
         if (share) {
-            return this.#redisConnection
-                ? this.#redisConnection
-                : this.#redisConnection = this.redisConnection(false);
+            return this.#redisConnection ? this.#redisConnection : this.#redisConnection = this.redisConnection(false);
         } else {
             const redisClient = this.#redisClient.duplicate();
             const redisConnection = await redisClient.connect();

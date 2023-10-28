@@ -1,4 +1,4 @@
-export class MapResource {
+export class Structure {
     static get Type() {
         return Object.freeze({
             city: 'c',
