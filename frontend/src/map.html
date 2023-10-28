@@ -21,6 +21,8 @@
         import { Game } from './scripts/game.js';
 
         function onMessage(message) {
+            console.log(message);
+
             switch (message.game.status) {
                 case Game.Status.aborted:
                 case Game.Status.executing:

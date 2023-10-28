@@ -18,7 +18,9 @@
 .area {
     background-image: url(../images/area.svg);
     background-size: 100% 100%;
+    overflow: hidden;
     padding: 0.25em 0.5em;
+    text-overflow: ellipsis;
 }
 
 body {
@@ -31,8 +33,10 @@ body {
     background-size: 100% 100%;
     border: none;
     outline: none;
+    overflow: hidden;
     padding: 0.25em 0.5em;
     text-align: left;
+    text-overflow: ellipsis;
     width: 100%;
 }
 
@@ -68,6 +72,14 @@ h2 {
 
 .link:hover {
     text-decoration: underline;
+}
+
+.ready::after {
+    content: '✓';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .redacted-image {

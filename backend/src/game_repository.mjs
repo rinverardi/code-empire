@@ -30,7 +30,7 @@ export class GameRepository {
 
     async saveGame(sessionContext, game) {
 
-        // TODO Use optimistic locking!
+        // TODO Lock me!
 
         const redisConnection = await sessionContext.redisConnection(true);
         const redisKey = `${Game.Key.game}:${sessionContext.gameId}`;

@@ -9,7 +9,7 @@ export class Random {
     }
 
     generateId() {
-        return this.#generate(8);
+        return this.#generate(16);
     }
 
     generateSecret() {

@@ -1,5 +1,5 @@
-import { Action } from '../lib/action.mjs';
-import { Logger } from '../lib/logger.mjs';
+import { Action } from './action.mjs';
+import { Logger } from './logger.mjs';
 
 export class GameController {
     #gameService;

@@ -1,11 +1,4 @@
 export class Game {
-    #id;
-    #players = {};
-
-    constructor(id) {
-        this.#id = id;
-    }
-
     static get Key() {
         return Object.freeze({
             game: 'game',

@@ -1,5 +1,8 @@
 export class MapMapper {
     map(sessionContext, source) {
-        return { id: source.id };
+
+        // TODO Filter me!
+
+        return source;
     }
 };

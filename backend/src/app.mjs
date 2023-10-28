@@ -1,9 +1,9 @@
 import { WebSocketServer } from 'ws';
 
-import { GlobalConfig } from './lib/global_config.mjs';
-import { GlobalContext } from './lib/global_context.mjs';
-import { Logger } from './lib/logger.mjs';
-import { SessionContext as SessionContext } from './lib/session_context.mjs';
+import { GlobalConfig } from './global_config.mjs';
+import { GlobalContext } from './global_context.mjs';
+import { Logger } from './logger.mjs';
+import { SessionContext as SessionContext } from './session_context.mjs';
 
 class App extends GlobalContext {
   #routes = [

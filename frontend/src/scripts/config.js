@@ -1,5 +1,8 @@
 export const Config = Object.freeze({
     slots: 4,
-    urlForGames: 'ws://localhost:8001/games/',
-    urlForHighscores: 'ws://localhost:8001/highscores'
+
+    // TODO Fix me!
+
+    urlForGames: 'ws://tux:8001/games/',
+    urlForHighscores: 'ws://tux:8001/highscores'
 });
