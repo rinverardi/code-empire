@@ -5,7 +5,9 @@
 <head>
     <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
+
+    <link rel="stylesheet" href="styles/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/transitions.css">
     <link rel="stylesheet" href="styles/wireframes.css">
 
     <meta charset="utf-8">
@@ -23,21 +25,33 @@
         </div>
         <div class="row">
             <div class="col-sm-6 mt-2">
-                <div class="area" id="slot_0">&nbsp;</div>
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned" id="slot_0"></div>
+                </div>
             </div>
             <div class="col-sm-6 mt-2">
-                <div class="area" id="slot_1">&nbsp;</div>
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned" id="slot_1"></div>
+                </div>
             </div>
             <div class="col-sm-6 mt-2">
-                <div class="area" id="slot_2">&nbsp;</div>
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned" id="slot_2"></div>
+                </div>
             </div>
             <div class="col-sm-6 mt-2">
-                <div class="area" id="slot_3">&nbsp;</div>
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned" id="slot_3"></div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col mt-2">
-                <div class="active can-click control link" id="link">Partie verlassen</div>
+                <button class="can-click control link" id="link">Partie verlassen</button>
             </div>
         </div>
     </div>
@@ -110,9 +124,12 @@
             for (let index = 0; index < Config.slots; index++) {
                 const slot = document.getElementById('slot_' + index);
 
-                slot.textContent = index >= players.length
-                    ? 'leerer Slot'
-                    : players[index].name;
+                if (index < players.length) {
+                    slot.parentElement.classList.add('assigned');
+                    slot.textContent = players[index].name;
+                } else {
+                    slot.parentElement.classList.remove('assigned');
+                }
             }
         }
 

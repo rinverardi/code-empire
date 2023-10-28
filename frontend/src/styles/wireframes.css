@@ -1,94 +1,95 @@
 @font-face {
-  font-family: 'Handwritten';
-  src: url('../fonts/handwritten.ttf') format('truetype');
+    font-family: 'Handwritten';
+    src: url('../fonts/handwritten.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Redacted';
-  src: url('../fonts/redacted.ttf') format('truetype');
+    font-family: 'Redacted';
+    src: url('../fonts/redacted.ttf') format('truetype');
 }
 
 * {
-  cursor: default;
-  font-family: 'Handwritten';
-  font-size: 20pt;
-  color: #fff;
+    cursor: default;
+    font-family: 'Handwritten';
+    font-size: 20pt;
+    color: #fff;
 }
 
 .area {
-  background-image: url(../images/area.svg);
-  background-size: 100% 100%;
-  padding: 0.25em 0.5em;
+    background-image: url(../images/area.svg);
+    background-size: 100% 100%;
+    padding: 0.25em 0.5em;
 }
 
 body {
-  background: #222;
-  padding: 1em;
+    background: #222;
+    padding: 1em;
 }
 
 .control {
-  background-image: url(../images/control-inactive.svg);
-  background-size: 100% 100%;
-  border: none;
-  outline: none;
-  padding: 0.25em 0.5em;
-  width: 100%;
-}
-
-.control.active {
-  background-image: url(../images/control-active.svg);
+    background-image: url(../images/control.svg);
+    background-size: 100% 100%;
+    border: none;
+    outline: none;
+    padding: 0.25em 0.5em;
+    text-align: left;
+    width: 100%;
 }
 
 .control.can-click {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .control.can-edit {
-  cursor: text;
+    cursor: text;
 }
 
 .control.can-expand {
-  cursor: pointer;
-  position: relative;
-  padding-right: 1.5em;
+    cursor: pointer;
+    position: relative;
+    padding-right: 1.5em;
 }
 
 h1 {
-  margin: 0;
-  padding: 1em 0;
-  text-align: center;
+    margin: 0;
+    padding: 1em 0;
+    text-align: center;
 }
 
 h2 {
-  margin: 0;
-  padding: 0.5em 0;
-  text-align: center;
+    margin: 0;
+    padding: 0.5em 0;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
 }
 
 .link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .redacted-image {
-  background-image: url(../images/redacted.svg);
-  background-position: center;
-  background-size: cover;
+    background-image: url(../images/redacted.svg);
+    background-position: center;
+    background-size: cover;
 }
 
 .redacted-text {
-  font-family: 'Redacted';
+    font-family: 'Redacted';
 }
 
 select {
-  appearance: none;
+    appearance: none;
 }
 
 select option {
-  background: #666;
-  color: #fff;
+    background: #666;
+    color: #fff;
 }
 
 ::selection {
-  background: #fff;
-  color: #333;
+    background: #fff;
+    color: #333;
 }

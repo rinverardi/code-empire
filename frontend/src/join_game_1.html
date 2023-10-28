@@ -5,7 +5,9 @@
 <head>
     <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
+
+    <link rel="stylesheet" href="styles/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/transitions.css">
     <link rel="stylesheet" href="styles/wireframes.css">
 
     <meta charset="utf-8">
@@ -26,22 +28,23 @@
                 <div class="area">Partie:</div>
             </div>
             <div class="col-sm-6 mt-2">
-                <select class="active can-expand control" id="select">
+                <div class="area" id="select_placeholder">keine Partien</div>
+                <select class="can-expand control hidden" id="select">
                 </select>
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="area">Dein Nickname:</div>
             </div>
             <div class="col-sm-6 mt-2">
-                <input class="active can-edit control" id="input">
+                <input class="can-edit control" id="input">
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 mt-2">
-                <div class="active can-click control link" id="link_back">Zurück</div>
+                <button class="can-click control link" id="link_back">Zurück</button>
             </div>
             <div class="col-sm-6 mt-2">
-                <div class="active can-click control link" id="link_next">Weiter</div>
+                <button class="can-click control link" disabled id="link_next">Weiter</button>
             </div>
         </div>
     </div>
@@ -55,6 +58,11 @@
             const selectOption = new Option(gameName, gameId);
 
             select.add(selectOption);
+
+            const selectPlaceholder = document.getElementById('select-placeholder');
+
+            updateLink();
+            updateSelect();
         }
 
         function onMessage(message) {
@@ -84,10 +92,36 @@
             const select = document.getElementById('select');
 
             for (let index = 0; index < select.length; index++) {
-                if (select[index].value === gameMessage.game.id) {
+                if (select[index].value === gameId) {
                     select.remove(index);
-                    return;
+                    break;
                 }
+            }
+
+            updateLink();
+            updateSelect();
+        }
+
+        function updateLink() {
+            const link = document.getElementById('link_next');
+
+            if (document.getElementById('select').value) {
+                link.disabled = false;
+            } else {
+                link.disabled = true;
+            }
+        }
+
+        function updateSelect() {
+            const select = document.getElementById('select');
+            const selectPlaceholder = document.getElementById('select_placeholder');
+
+            if (select.length) {
+                select.classList.remove('hidden');
+                selectPlaceholder.classList.add('hidden');
+            } else {
+                select.classList.add('hidden');
+                selectPlaceholder.classList.remove('hidden');
             }
         }
 
@@ -103,6 +137,19 @@
             });
         }
 
+        function wireSelect() {
+            const link = document.getElementById('link_next');
+            const select = document.getElementById('select');
+
+            select.addEventListener('change', () => {
+                if (select.value) {
+                    link.classList.remove('hidden');
+                } else {
+                    link.classList.add('hidden');
+                }
+            });
+        }
+
         const context = new Context();
 
         context.communication().connectGameList(onMessage);
@@ -110,6 +157,7 @@
         wireInput();
         wireLinkBack();
         wireLinkNext();
+        wireSelect();
     </script>
 </body>
 
