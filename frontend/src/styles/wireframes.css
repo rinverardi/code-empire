@@ -76,6 +76,7 @@ h2 {
 
 .map {
     margin: auto auto;
+    position: relative;
 }
 
 .map-container {
@@ -93,11 +94,19 @@ h2 {
 }
 
 .map-row+.map-row {
-    margin-top: -34px;
+    margin-top: -20px;
 }
 
 .map-row:nth-of-type(2n - 1) {
-    margin-left: 57px;
+    margin-left: 40px;
+}
+
+.player {
+    left: 50%;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-75%);
 }
 
 .ready::after {
@@ -134,16 +143,12 @@ select option {
 
 .tile {
     background-image: url('../images/tile.svg');
-    clip-path: polygon(0 30px, 24px 0, 56px 0, 80px 30px, 80px 35px, 56px 65px, 24px 65px, 0 35px);
+    clip-path: polygon(40px 0, 80px 15px, 80px 50px, 40px 65px, 0 50px, 0 15px);
     cursor: pointer;
     flex-shrink: 0;
     height: 65px;
     position: relative;
     width: 80px;
-}
-
-.tile+.tile {
-    margin-left: 34px;
 }
 
 .tile-forest {
@@ -152,6 +157,10 @@ select option {
 
 .tile-grass {
     background-image: url('../images/tile-grass.svg');
+}
+
+.tile-hill {
+    background-image: url('../images/tile-hill.svg');
 }
 
 .tile-mountain {

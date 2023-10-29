@@ -1,6 +1,24 @@
-<svg height="65" width="80" xmlns="http://www.w3.org/2000/svg">
-    <polygon fill="#664" points="0,30 24,0 56,0 80,30 56,60 24,60"/>
-    <polygon fill="#111" points="0,30 24,60 56,60 80,30 80,35 56,65 24,65 0,35"/>
-    <polygon fill="#fff" opacity="0.15" points="0,30 24,0 56,0 54,3 26,3 4,30"/>
-    <polygon fill="#000" opacity="0.2" points="80,30 56,60 24,60 24,57 54,57 76,30"/>
+<svg height="65" width="80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <g id="tree">
+            <polygon fill="#764" points="0,-15 12,12 4,15 -4,15 -12,12" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <polygon fill="#000" opacity="0.3" points="0,-15 -4,15 -12,12"/>
+            <polygon fill="#fff" opacity="0.2" points="0,-15 12,12 4,15"/>
+        </g>
+    </defs>
+    
+    <polygon fill="#000" points="40,60 80,45 80,50 40,65 0,50 0,45"/>
+    <polygon fill="#764" points="40,0 80,15 80,45 40,60 0,45 0,15" stroke="#000" stroke-width="1"/>
+
+    <g transform="translate(22 25) scale(0.8 0.8)">
+        <use xlink:href="#tree"/>
+    </g>
+
+    <g transform="translate(57 27)">
+        <use xlink:href="#tree"/>
+    </g>
+
+    <g transform="translate(38 31) scale(1.2 1.2)">
+        <use xlink:href="#tree"/>
+    </g>
 </svg>
