@@ -1,12 +1,22 @@
 <svg height="65" width="80" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Draw the shadow. -->
+
     <polygon fill="#000" points="40,60 80,45 80,50 40,65 0,50 0,45"/>
+
+    <!-- Draw the tile background. -->
+
     <polygon fill="#bbb" points="40,0 80,15 80,45 40,60 0,45 0,15"/>
+
+    <!-- Draw the tile foreground. -->
 
     <polygon fill="#fff" points="40,0 56,6 56,18 40,24 24,18 24,6"/>
 
     <polygon fill="#000" opacity="0.2" points="40,0 80,15 80,45"/>
     <polygon fill="#000" opacity="0.2" points="40,0 40,60 0,45"/>
     <polygon fill="#000" opacity="0.4" points="40,0 0,45 0,15"/>
+
+    <!-- Draw the outline. -->
 
     <polygon fill="none" points="40,0 80,15 80,45 40,60 0,45 0,15" stroke="#000" stroke-width="1"/>
 </svg>
