@@ -143,6 +143,13 @@ export class GameService {
         game.structures = [];
     }
 
+    #populateTurn(game) {
+        game.turn = {
+            number: 1,
+            player: game.players[0].id
+        }
+    }
+
     async startGame(sessionContext) {
 
         // TODO Check the access!
@@ -161,6 +168,7 @@ export class GameService {
         this.#populatePlayers(game);
         this.#populateResources(game);
         this.#populateStructures(game);
+        this.#populateTurn(game);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);

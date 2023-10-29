@@ -16,84 +16,55 @@
 </head>
 
 <body>
-    <div class="map-container">
-        <div class="map">
-            <div class="map-row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="map-row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="map-row">
-                <div class="tile"></div>
-                <div class="tile tile-hill"></div>
-                <div class="tile tile-hill"></div>
-                <div class="tile tile-forest"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="map-row">
-                <div class="tile"></div>
-                <div class="tile tile-forest"></div>
-                <div class="tile tile-forest"></div>
-                <div class="tile tile-grass"></div>
-                <div class="tile tile-grass"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="map-row">
-                <div class="tile"></div>
-                <div class="tile tile-grass"></div>
-                <div class="tile tile-grass"></div>
-                <div class="tile tile-mountain"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="map-row">
-                <div class="tile"></div>
-                <div class="tile tile-grass"></div>
-                <div class="tile tile-grass"></div>
-                <div class="tile tile-mountain"></div>
-                <div class="tile tile-water"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="map-row">
-                <div class="tile"></div>
-                <div class="tile tile-grass"></div>
-                <div class="tile tile-water"></div>
-                <div class="tile tile-water"></div>
-                <div class="tile tile-water"></div>
-            </div>
-            <div class="map-row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="map-row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="player current">
-                <img src="images/player.svg"/>
-            </div>
-        </div>
+    <div id="map-container">
+    </div>
+    <div class="absolute-nw can-click control">
+        🧪️×7<br>
+        🍎️×9<br>
+        🪙️×15<br>
+        🗡️×8
+    </div>
+    <div class="absolute-sw can-click control">
+        Rangliste
+    </div>
+    <div class="absolute-ne can-click control">
+        Menü
+    </div>
+    <div class="absolute-se can-click control">
+        Nachrichten
+    </div>
+    <div class="area" id="notification">
     </div>
 
     <script type="module">
         import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
+
+        function populateMap(message) {
+            const map = document.getElementById('map');
+
+            if (!map) {
+                const mapContainer = document.getElementById('map-container');
+
+                mapContainer.appendChild(context.map().renderMap(message.map.tiles));
+
+                // TODO Scroll to current player!
+
+                scrollToCenter();
+            }
+        }
+
+        function populateNotification(message) {
+            const notififcation = document.getElementById('notification');
+
+            notification.classList.remove('visible');
+
+            if (message.game.status === Game.Status.thinking) {
+                notififcation.textContent = `${Game.findCurrentPlayer(message).name} ist am Zug.`;
+
+                notification.classList.add('visible');
+            }
+        }
 
         function onMessage(message) {
             switch (message.game.status) {
@@ -107,6 +78,8 @@
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
+                    populateNotification(message);
+                    populateMap(message);
                     break;
 
                 case Game.Status.missing:
@@ -117,6 +90,14 @@
                 default:
                     throw new RangeError('No such status');
             }
+        }
+
+        function scrollToCenter() {
+            const mapContainer = document.getElementById("map-container");
+
+            mapContainer.scroll(
+                (mapContainer.scrollWidth - mapContainer.clientWidth) / 2,
+                (mapContainer.scrollHeight - mapContainer.clientHeight) / 2);
         }
 
         const context = new Context();

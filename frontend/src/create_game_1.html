@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="styles/lib/bootstrap.min.css">
     <link rel="stylesheet" href="styles/empire.css">
-    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -28,7 +28,7 @@
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="control-wrapper">
-                    <select class="can-expand control" id="select">
+                    <select class="can-expand control full-width" id="select">
                     </select>
                 </div>
             </div>
@@ -36,15 +36,15 @@
                 <div class="area">Dein Nickname:</div>
             </div>
             <div class="col-sm-6 mt-2">
-                <input class="can-edit control" id="input">
+                <input class="can-edit control full-width" id="input">
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 mt-2">
-                <button class="can-click control link" id="link_back">Zurück</button>
+                <button class="can-click control full-width link" id="link_back">Zurück</button>
             </div>
             <div class="col-sm-6 mt-2">
-                <button class="can-click control link" id="link_next">Weiter</button>
+                <button class="can-click control full-width link" id="link_next">Weiter</button>
             </div>
         </div>
     </div>
@@ -57,9 +57,12 @@
         function onMessage(message) {
             switch (message.game.status) {
                 case Game.Status.aborted:
+                    location = 'on_error.html';
+                    break;
+
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    location = 'on_error.html';
+                    location = 'map.html' + location.hash;
                     break;
 
                 case Game.Status.missing:

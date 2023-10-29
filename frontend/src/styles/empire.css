@@ -8,11 +8,73 @@
     src: url('../fonts/redacted.ttf') format('truetype');
 }
 
+@keyframes bounce {
+    from {
+        transform: translateX(-50%) translateY(-75%);
+    }
+
+    to {
+        transform: translateX(-50%) translateY(-95%);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 3em;
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        bottom: 3em;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
 * {
     cursor: default;
     font-family: 'Handwritten';
     font-size: 20pt;
     color: #fff;
+}
+
+.absolute-ne {
+    position: absolute;
+    right: 0em;
+    top: 0em;
+    white-space: nowrap;
+}
+
+.absolute-nw {
+    position: absolute;
+    left: 0em;
+    top: 0em;
+    white-space: nowrap;
+}
+
+.absolute-se {
+    bottom: 0em;
+    position: absolute;
+    right: 0em;
+    white-space: nowrap;
+}
+
+.absolute-sw {
+    bottom: 0em;
+    left: 0em;
+    position: absolute;
+    white-space: nowrap;
 }
 
 .area {
@@ -39,7 +101,6 @@ body {
     text-overflow: ellipsis;
     transition-duration: 1s;
     transition-property: opacity;
-    width: 100%;
 }
 
 .control.can-click {
@@ -58,6 +119,10 @@ body {
 
 .control:disabled {
     opacity: 0.3;
+}
+
+.full-width {
+    width: 100%;
 }
 
 h1 {
@@ -80,18 +145,19 @@ h2 {
     text-decoration: underline;
 }
 
-.map {
+#map {
     margin: auto auto;
     position: relative;
 }
 
-.map-container {
+#map-container {
     bottom: 0;
     display: flex;
     left: 0;
     overflow: scroll;
     position: absolute;
     right: 0;
+    scroll-behavior: smooth;
     top: 0;
 }
 
@@ -107,6 +173,19 @@ h2 {
     margin-left: 40px;
 }
 
+#notification {
+    bottom: 3em;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    visibility: hidden;
+}
+
+#notification.visible {
+    animation: fade-in 1s forwards, fade-out 1s 3s forwards;
+    visibility: visible;
+}
+
 .player {
     left: 50%;
     pointer-events: none;
@@ -115,18 +194,8 @@ h2 {
     transform: translateX(-50%) translateY(-75%);
 }
 
-@keyframes player {
-    0% {
-        transform: translateX(-50%) translateY(-75%);
-    }
-
-    100% {
-        transform: translateX(-50%) translateY(-95%);
-    }
-}
-
 .player.current {
-    animation: player 0.5s alternate infinite;
+    animation: bounce 0.5s alternate infinite;
 }
 
 .ready::after {
@@ -202,22 +271,22 @@ select option {
     width: 80px;
 }
 
-.tile-forest {
+.tile-f {
     background-image: url('../images/tile-forest.svg');
 }
 
-.tile-grass {
+.tile-g {
     background-image: url('../images/tile-grass.svg');
 }
 
-.tile-hill {
+.tile-h {
     background-image: url('../images/tile-hill.svg');
 }
 
-.tile-mountain {
+.tile-m {
     background-image: url('../images/tile-mountain.svg');
 }
 
-.tile-water {
+.tile-w {
     background-image: url('../images/tile-water.svg');
 }

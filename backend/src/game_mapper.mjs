@@ -33,6 +33,10 @@ export class GameMapper {
             target.structures = this.#structureMapper.map(sessionContext, source.structures);
         }
 
+        if (source.turn) {
+            target.turn = source.turn;
+        }
+
         return target;
     }
 };
