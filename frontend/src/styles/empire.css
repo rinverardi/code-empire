@@ -37,6 +37,8 @@ body {
     padding: 0.25em 0.5em;
     text-align: left;
     text-overflow: ellipsis;
+    transition-duration: 1s;
+    transition-property: opacity;
     width: 100%;
 }
 
@@ -52,6 +54,10 @@ body {
     cursor: pointer;
     position: relative;
     padding-right: 1.5em;
+}
+
+.control:disabled {
+    opacity: 0.3;
 }
 
 h1 {
@@ -109,6 +115,20 @@ h2 {
     transform: translateX(-50%) translateY(-75%);
 }
 
+@keyframes player {
+    0% {
+        transform: translateX(-50%) translateY(-75%);
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-95%);
+    }
+}
+
+.player.current {
+    animation: player 0.5s alternate infinite;
+}
+
 .ready::after {
     content: '✓';
     position: absolute;
@@ -139,6 +159,37 @@ select option {
 ::selection {
     background: #fff;
     color: #333;
+}
+
+.slot {
+    display: grid;
+}
+
+.slot * {
+    grid-column: 1;
+    grid-row: 1;
+    transition-duration: 1s;
+    transition-property: opacity, transform;
+}
+
+.slot.assigned .if-assigned {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slot:not(.assigned) .if-assigned {
+    opacity: 0;
+    transform: translateX(1em);
+}
+
+.slot.assigned .if-unassigned {
+    opacity: 0;
+    transform: translateX(1em);
+}
+
+.slot:not(.assigned) .if-unassigned {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .tile {
