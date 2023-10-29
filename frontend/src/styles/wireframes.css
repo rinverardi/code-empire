@@ -74,6 +74,32 @@ h2 {
     text-decoration: underline;
 }
 
+.map {
+    margin: auto auto;
+}
+
+.map-container {
+    bottom: 0;
+    display: flex;
+    left: 0;
+    overflow: scroll;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.map-row {
+    display: flex;
+}
+
+.map-row+.map-row {
+    margin-top: -34px;
+}
+
+.map-row:nth-of-type(2n - 1) {
+    margin-left: 57px;
+}
+
 .ready::after {
     content: '✓';
     position: absolute;
@@ -104,4 +130,34 @@ select option {
 ::selection {
     background: #fff;
     color: #333;
+}
+
+.tile {
+    background-image: url('../images/tile.svg');
+    clip-path: polygon(0 30px, 24px 0, 56px 0, 80px 30px, 80px 35px, 56px 65px, 24px 65px, 0 35px);
+    cursor: pointer;
+    flex-shrink: 0;
+    height: 65px;
+    position: relative;
+    width: 80px;
+}
+
+.tile+.tile {
+    margin-left: 34px;
+}
+
+.tile-forest {
+    background-image: url('../images/tile-forest.svg');
+}
+
+.tile-grass {
+    background-image: url('../images/tile-grass.svg');
+}
+
+.tile-mountain {
+    background-image: url('../images/tile-mountain.svg');
+}
+
+.tile-water {
+    background-image: url('../images/tile-water.svg');
 }

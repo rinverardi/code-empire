@@ -16,20 +16,78 @@
 </head>
 
 <body>
+    <div class="map-container">
+        <div class="map">
+            <div class="map-row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="map-row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="map-row">
+                <div class="tile"></div>
+                <div class="tile tile-forest"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="map-row">
+                <div class="tile"></div>
+                <div class="tile tile-forest"></div>
+                <div class="tile tile-grass"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="map-row">
+                <div class="tile"></div>
+                <div class="tile tile-grass">
+                    <img src="images/player.svg">
+                </div>
+                <div class="tile"></div>
+            </div>
+            <div class="map-row">
+                <div class="tile"></div>
+                <div class="tile tile-grass"></div>
+                <div class="tile tile-mountain"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="map-row">
+                <div class="tile"></div>
+                <div class="tile tile-water"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="map-row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="map-row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
         import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
 
         function onMessage(message) {
-            console.log(message);
-
             switch (message.game.status) {
+
+                // TODO Implement me!
+
                 case Game.Status.aborted:
+                    break;
+
+                // TODO Implement me!
+
                 case Game.Status.executing:
                 case Game.Status.thinking:
-
-                    // TODO Implement me!
-
                     break;
 
                 case Game.Status.missing:
