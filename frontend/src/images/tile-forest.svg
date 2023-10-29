@@ -1,0 +1,31 @@
+<svg height="65" width="80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <g id="tree">
+            <polygon fill="#764" points="0,-15 12,12 4,15 -4,15 -12,12" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <polygon fill="#000" opacity="0.3" points="0,-15 -4,15 -12,12"/>
+            <polygon fill="#fff" opacity="0.2" points="0,-15 12,12 4,15"/>
+        </g>
+    </defs>
+    
+    <!-- Draw the shadow. -->
+
+    <polygon fill="#000" points="40,60 80,45 80,50 40,65 0,50 0,45"/>
+
+    <!-- Draw the tile background. -->
+
+    <polygon fill="#764" points="40,0 80,15 80,45 40,60 0,45 0,15" stroke="#000" stroke-width="1"/>
+
+    <!-- Draw the tile foreground. -->
+
+    <g transform="translate(22 25) scale(0.8 0.8)">
+        <use xlink:href="#tree"/>
+    </g>
+
+    <g transform="translate(57 27)">
+        <use xlink:href="#tree"/>
+    </g>
+
+    <g transform="translate(38 31) scale(1.2 1.2)">
+        <use xlink:href="#tree"/>
+    </g>
+</svg>

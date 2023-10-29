@@ -1,0 +1,10 @@
+<svg height="80" width="80" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Draw the shadow. -->
+
+    <polygon fill="#000" points="40,60 80,45 80,50 40,65 0,50 0,45"/>
+
+    <!-- Draw the tile background. -->
+
+    <polygon fill="#333" points="40,0 80,15 80,45 40,60 0,45 0,15" stroke="#000" stroke-width="1"/>
+</svg>

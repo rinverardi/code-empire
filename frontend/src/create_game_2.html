@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
+
+    <link rel="stylesheet" href="styles/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/empire.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>Empire</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="area">Auf Gegner warten</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mt-2">
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned ready" id="slot_0"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned ready" id="slot_1"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned ready" id="slot_2"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned ready" id="slot_3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-2">
+                <button class="can-click control full-width link" id="link_start">Partie starten</button>
+            </div>
+            <div class="col-12 mt-2">
+                <button class="can-click control full-width link" id="link_abort">Partie abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { Action } from './scripts/action.js';
+        import { Config } from './scripts/config.js';
+        import { Context } from './scripts/context.js';
+        import { Game } from './scripts/game.js';
+        import { Player } from './scripts/player.js';
+
+        function onMessage(message) {
+            switch (message.game.status) {
+                case Game.Status.aborted:
+                    location = 'index.html';
+                    break;
+
+                case Game.Status.executing:
+                case Game.Status.thinking:
+                    location = 'map.html' + location.hash;
+                    break;
+
+                case Game.Status.missing:
+                    location = 'on_error.html';
+                    break;
+
+                case Game.Status.waiting:
+                    updateSlots(message);
+                    break;
+
+                default:
+                    throw new RangeError('No such status');
+            }
+        }
+
+        function updateSlots(gameMessage) {
+            const players = gameMessage.players.filter(that => that.status !== Player.Status.left);
+
+            for (let index = 0; index < Config.slots; index++) {
+                const slot = document.getElementById('slot_' + index);
+
+                if (index < players.length) {
+                    slot.parentElement.classList.add('assigned');
+                    slot.textContent = players[index].name;
+                } else {
+                    slot.parentElement.classList.remove('assigned');
+                }
+            }
+        }
+
+        function wireLinkAbort() {
+            context.navigation().wireClick('link_abort', () => {
+                const message = {
+                    action: { id: Action.abortGame }
+                };
+
+                context.communication().sendMessage(message);
+            });
+        }
+
+        function wireLinkStart() {
+            context.navigation().wireClick('link_start', () => {
+                const message = {
+                    action: { id: Action.startGame }
+                };
+
+                context.communication().sendMessage(message);
+            });
+        }
+
+        const context = new Context();
+
+        context.communication().connectGame(onMessage);
+
+        wireLinkAbort();
+        wireLinkStart();
+    </script>
+</body>
+
+</html>

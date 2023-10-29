@@ -1,0 +1,11 @@
+{
+  "background_color": "#222",
+  "display": "standalone",
+  "icons": [{
+    "sizes": "512x512",
+    "src": "images/player.png",
+    "type": "image/png"
+  }],
+  "name": "Empire",
+  "theme_color": "#222"
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
+
+    <link rel="stylesheet" href="styles/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/empire.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>Empire</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="area">Partie beitreten</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mt-2">
+                <div class="area">Partie:</div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area" id="select_placeholder">keine Partien</div>
+                <select class="can-expand control full-width hidden" id="select">
+                </select>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area">Dein Nickname:</div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <input class="can-edit control full-width" id="input">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mt-2">
+                <button class="can-click control full-width link" id="link_back">Zurück</button>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <button class="can-click control full-width link" disabled id="link_next">Weiter</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { Context } from './scripts/context.js';
+        import { Game } from './scripts/game.js';
+
+        function addGame(gameId, gameName) {
+            const select = document.getElementById('select');
+            const selectOption = new Option(gameName, gameId);
+
+            select.add(selectOption);
+
+            const selectPlaceholder = document.getElementById('select-placeholder');
+
+            updateLink();
+            updateSelect();
+        }
+
+        function onMessage(message) {
+            if (message.game.status === Game.Status.waiting) {
+                const mapName = context.translation().mapName(message.map.id);
+                const playerName = message.players[0].name;
+
+                addGame(message.game.id, `${mapName} von ${playerName}`);
+            } else {
+                removeGame(message.game.id);
+            }
+        }
+
+        function wireInput() {
+            const input = document.getElementById('input');
+
+            if (!input.value) {
+                input.value = context.player().loadName();
+
+                context.player().saveName(input.value);
+            }
+
+            input.addEventListener('change', () => context.player().saveName(input.value));
+        }
+
+        function removeGame(gameId) {
+            const select = document.getElementById('select');
+
+            for (let index = 0; index < select.length; index++) {
+                if (select[index].value === gameId) {
+                    select.remove(index);
+                    break;
+                }
+            }
+
+            updateLink();
+            updateSelect();
+        }
+
+        function updateLink() {
+            const link = document.getElementById('link_next');
+
+            if (document.getElementById('select').value) {
+                link.disabled = false;
+            } else {
+                link.disabled = true;
+            }
+        }
+
+        function updateSelect() {
+            const select = document.getElementById('select');
+            const selectPlaceholder = document.getElementById('select_placeholder');
+
+            if (select.length) {
+                select.classList.remove('hidden');
+                selectPlaceholder.classList.add('hidden');
+            } else {
+                select.classList.add('hidden');
+                selectPlaceholder.classList.remove('hidden');
+            }
+        }
+
+        function wireLinkBack() {
+            context.navigation().wireClick('link_back', () => 'index.html');
+        }
+
+        function wireLinkNext() {
+            context.navigation().wireClick('link_next', () => {
+                const gameId = document.getElementById('select').value;
+
+                return 'join_game_2.html#' + gameId;
+            });
+        }
+
+        function wireSelect() {
+            const link = document.getElementById('link_next');
+            const select = document.getElementById('select');
+
+            select.addEventListener('change', () => {
+                if (select.value) {
+                    link.classList.remove('hidden');
+                } else {
+                    link.classList.add('hidden');
+                }
+            });
+        }
+
+        const context = new Context();
+
+        context.communication().connectGameList(onMessage);
+
+        wireInput();
+        wireLinkBack();
+        wireLinkNext();
+        wireSelect();
+    </script>
+</body>
+
+</html>

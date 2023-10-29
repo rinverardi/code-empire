@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
+
+    <link rel="stylesheet" href="styles/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/empire.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>Empire</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="area">Auf Gegner warten</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mt-2">
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned ready" id="slot_0"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned ready" id="slot_1"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned ready" id="slot_2"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area slot">
+                    <div class="if-unassigned">leerer Slot</div>
+                    <div class="if-assigned ready" id="slot_3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-2">
+                <button class="can-click control full-width link" id="link">Partie verlassen</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { Action } from './scripts/action.js';
+        import { Config } from './scripts/config.js';
+        import { Context } from './scripts/context.js';
+        import { Game } from './scripts/game.js';
+        import { Player } from './scripts/player.js';
+
+        function didLeaveGame(message) {
+            const playerId = context.player().loadId();
+
+            return message.players.some(that => that.id === playerId && that.status === Player.Status.left);
+        }
+
+        function joinGame() {
+            const message = {
+                action: { id: Action.joinGame },
+                player: { name: context.player().loadName() }
+            };
+
+            context.communication().sendMessage(message);
+        }
+
+        function leaveGame() {
+            const message = {
+                action: { id: Action.leaveGame }
+            };
+
+            context.communication().sendMessage(message);
+        }
+
+        function onMessage(message) {
+            switch (message.game.status) {
+                case Game.Status.aborted:
+                    location = 'index.html';
+                    break;
+
+                case Game.Status.executing:
+                case Game.Status.thinking:
+                    location = 'map.html' + location.hash;
+                    break;
+
+                case Game.Status.missing:
+                    location = 'on_error.html';
+                    break;
+
+                case Game.Status.waiting:
+                    if (didLeaveGame(message)) {
+                        location = 'index.html';
+                    } else {
+                        updateSlots(message);
+                    }
+                    break;
+
+                default:
+                    throw new RangeError('No such status');
+            }
+        }
+
+        function onOpen() {
+            joinGame();
+        }
+
+        function updateSlots(message) {
+            const players = message.players.filter(that => that.status !== Player.Status.left);
+
+            for (let index = 0; index < Config.slots; index++) {
+                const slot = document.getElementById('slot_' + index);
+
+                if (index < players.length) {
+                    slot.parentElement.classList.add('assigned');
+                    slot.textContent = players[index].name;
+                } else {
+                    slot.parentElement.classList.remove('assigned');
+                }
+            }
+        }
+
+        function wireLink() {
+            context.navigation().wireClick('link', leaveGame);
+        }
+
+        const context = new Context();
+
+        context.communication().connectGame(onMessage, onOpen);
+
+        wireLink();
+    </script>
+</body>
+
+</html>

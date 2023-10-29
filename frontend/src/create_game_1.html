@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
+
+    <link rel="stylesheet" href="styles/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/empire.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>Empire</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="area">Partie erstellen</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mt-2">
+                <div class="area">Karte:</div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="control-wrapper">
+                    <select class="can-expand control full-width" id="select">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <div class="area">Dein Nickname:</div>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <input class="can-edit control full-width" id="input">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mt-2">
+                <button class="can-click control full-width link" id="link_back">Zurück</button>
+            </div>
+            <div class="col-sm-6 mt-2">
+                <button class="can-click control full-width link" id="link_next">Weiter</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { Action } from './scripts/action.js';
+        import { Context } from './scripts/context.js';
+        import { Game } from './scripts/game.js';
+
+        function onMessage(message) {
+            switch (message.game.status) {
+                case Game.Status.aborted:
+                    location = 'on_error.html';
+                    break;
+
+                case Game.Status.executing:
+                case Game.Status.thinking:
+                    location = 'map.html' + location.hash;
+                    break;
+
+                case Game.Status.missing:
+                    break;
+
+                case Game.Status.waiting:
+                    location = 'create_game_2.html' + location.hash;
+                    break;
+
+                default:
+                    throw new RangeError('No such status');
+            }
+        }
+
+        function wireInput() {
+            const input = document.getElementById('input');
+
+            if (!input.value) {
+                input.value = context.player().loadName();
+
+                context.player().saveName(input.value);
+            }
+
+            input.addEventListener('change', () => context.player().saveName(input.value));
+        }
+
+        function wireLinkBack() {
+            context.navigation().wireClick('link_back', () => 'index.html');
+        }
+
+        function wireLinkNext() {
+            context.navigation().wireClick('link_next', () => {
+                const message = {
+                    action: { id: Action.createGame },
+                    map: { id: parseInt(document.getElementById('select').value) },
+                    player: { name: document.getElementById('input').value }
+                };
+
+                context.communication().sendMessage(message);
+            });
+        }
+
+        function wireSelect() {
+            const input = document.getElementById('select');
+
+            for (let mapId = 0; mapId < 3; mapId++) {
+                const option = new Option(context.translation().mapName(mapId), mapId);
+
+                input.add(option);
+            }
+        }
+
+        const context = new Context();
+
+        context.communication().connectGame(onMessage);
+
+        wireInput();
+        wireLinkBack();
+        wireLinkNext();
+        wireSelect();
+    </script>
+</body>
+
+</html>
