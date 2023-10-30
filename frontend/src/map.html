@@ -23,7 +23,7 @@
         🪙️×15<br>
         🗡️×8
     </div>
-    <div class="absolute-sw can-click control link">
+    <div class="absolute-sw can-click control link" id="link_open_scores">
         Rangliste
     </div>
     <div class="absolute-ne can-click control link" id="link_open_menu">
@@ -139,6 +139,69 @@
                 <div class="row mt-2">
                     <div class="col-12">
                         <div class="can-click control link" id="link_close_chat">Partie fortsetzen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden popup-holder" id="scores">
+        <div class="popup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="area">
+                            #1
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="area">
+                            🪙️×15
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="area">
+                            Angry Alpaca
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-2">
+                        <div class="area">
+                            #2
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="area">
+                            🪙️×12
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="area">
+                            Broken Beaver
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-2">
+                        <div class="area">
+                            #3
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="area">
+                            🪙️×9
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="area">
+                            Cuddly Cougar
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="can-click control link" id="link_close_scores">Partie fortsetzen</div>
                     </div>
                 </div>
             </div>
@@ -274,6 +337,14 @@
             });
         }
 
+        function wireLinkCloseScores() {
+            document.getElementById('link_close_scores').addEventListener('click', () => {
+                const popup = document.getElementById('scores');
+
+                popup.classList.add('hidden');
+            });
+        }
+
         function wireLinkLeaveGame() {
             document.getElementById('link_leave_game').addEventListener('click', () => {
                 const message = {
@@ -309,6 +380,14 @@
             });
         }
 
+        function wireLinkOpenScores() {
+            document.getElementById('link_open_scores').addEventListener('click', () => {
+                const popup = document.getElementById('scores');
+
+                popup.classList.remove('hidden');
+            });
+        }
+
         const context = new Context();
 
         let didUpdateMap = false;
@@ -319,10 +398,12 @@
         wireLinkCloseActions();
         wireLinkCloseChat();
         wireLinkCloseMenu();
+        wireLinkCloseScores();
         wireLinkLeaveGame();
         wireLinkOpenActions();
         wireLinkOpenChat();
         wireLinkOpenMenu();
+        wireLinkOpenScores();
     </script>
 </body>
 
