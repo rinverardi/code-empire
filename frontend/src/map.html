@@ -60,7 +60,9 @@
             notification.classList.remove('visible');
 
             if (message.game.status === Game.Status.thinking) {
-                notififcation.textContent = `${Game.findCurrentPlayer(message).name} ist am Zug.`;
+                const player = context.gameHelper().findCurrentPlayer(message);
+
+                notififcation.textContent = `${player.name} ist am Zug.`;
 
                 notification.classList.add('visible');
             }

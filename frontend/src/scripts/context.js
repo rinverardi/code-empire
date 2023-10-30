@@ -1,4 +1,5 @@
 import { Communication } from './communication.js';
+import { GameHelper } from './game.js';
 import { Map } from './map.js';
 import { Navigation } from './navigation.js';
 import { Player } from './player.js';
@@ -7,6 +8,7 @@ import { Translation } from './translation.js';
 
 export class Context {
     #communication;
+    #gameHelper;
     #map;
     #navigation;
     #player;
@@ -15,6 +17,10 @@ export class Context {
 
     communication() {
         return this.#communication ? this.#communication : this.#communication = new Communication(this);
+    }
+
+    gameHelper() {
+        return this.#gameHelper ? this.#gameHelper : this.#gameHelper = new GameHelper();
     }
 
     map() {
