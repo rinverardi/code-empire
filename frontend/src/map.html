@@ -17,7 +17,7 @@
 
 <body>
     <div id="map-container"></div>
-    <div class="absolute-nw can-click control link">
+    <div class="absolute-nw can-click control link" id="link_open_actions">
         🧪️×7<br>
         🍎️×9<br>
         🪙️×15<br>
@@ -31,6 +31,58 @@
     </div>
     <div class="absolute-se can-click control link">
         Nachrichten
+    </div>
+
+    <div class="hidden popup-holder" id="actions">
+        <div class="popup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="area can-click control">
+                            Dorf gründen
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="area">
+                            🍎️×2
+                            🪙️×5
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-6">
+                        <div class="area unavailable">
+                            Dorf zu Stadt ausbauen
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="area">
+                            <span class="unavailable">🧪️×8</span>
+                            🍎️×12
+                            🪙️×8
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-6">
+                        <div class="area can-click control">
+                            Fabrik errichten
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="area">
+                            🧪️×8
+                            🪙️×8
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="can-click control link" id="link_close_actions">Partie fortsetzen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="hidden popup-holder" id="menu">
@@ -138,6 +190,14 @@
             }
         }
 
+        function wireLinkCloseActions() {
+            document.getElementById('link_close_actions').addEventListener('click', () => {
+                const popup = document.getElementById('actions');
+
+                popup.classList.add('hidden');
+            });
+        }
+
         function wireLinkCloseMenu() {
             document.getElementById('link_close_menu').addEventListener('click', () => {
                 const popup = document.getElementById('menu');
@@ -157,6 +217,14 @@
             });
         }
 
+        function wireLinkOpenActions() {
+            document.getElementById('link_open_actions').addEventListener('click', () => {
+                const popup = document.getElementById('actions');
+
+                popup.classList.remove('hidden');
+            });
+        }
+
         function wireLinkOpenMenu() {
             document.getElementById('link_open_menu').addEventListener('click', () => {
                 const popup = document.getElementById('menu');
@@ -172,8 +240,10 @@
 
         context.communication().connectGame(onMessage);
 
+        wireLinkCloseActions();
         wireLinkCloseMenu();
         wireLinkLeaveGame();
+        wireLinkOpenActions();
         wireLinkOpenMenu();
     </script>
 </body>
