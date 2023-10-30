@@ -5,7 +5,7 @@ export class GameRepository {
         const redisConnection = await sessionContext.redisConnection(true);
         const redisKey = `${Game.Key.game}:${sessionContext.gameId}`;
 
-        return await redisConnection.json.get(redisKey);
+        return JSON.parse(await redisConnection.get(redisKey));
     }
 
     async loadGameList(sessionContext) {
@@ -15,7 +15,9 @@ export class GameRepository {
         const redisKey = `${Game.Key.game}:*`;
 
         for await (const key of redisConnection.scanIterator({ MATCH: redisKey })) {
-            games.push(await redisConnection.json.get(key));
+            const game = JSON.parse(await redisConnection.json.get(key));
+
+            games.push(game);
         }
 
         return games;
@@ -35,7 +37,7 @@ export class GameRepository {
         const redisConnection = await sessionContext.redisConnection(true);
         const redisKey = `${Game.Key.game}:${sessionContext.gameId}`;
 
-        await redisConnection.json.set(redisKey, '.', game);
+        await redisConnection.set(redisKey, JSON.stringify(game));
     }
 
     async subscribeGame(sessionContext, handler) {
