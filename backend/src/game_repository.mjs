@@ -15,7 +15,7 @@ export class GameRepository {
         const redisKey = `${Game.Key.game}:*`;
 
         for await (const key of redisConnection.scanIterator({ MATCH: redisKey })) {
-            const game = JSON.parse(await redisConnection.json.get(key));
+            const game = JSON.parse(await redisConnection.get(key));
 
             games.push(game);
         }
