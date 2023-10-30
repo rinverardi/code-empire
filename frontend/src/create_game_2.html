@@ -68,6 +68,7 @@
         function onMessage(message) {
             switch (message.game.status) {
                 case Game.Status.aborted:
+                case Game.Status.missing:
                     context.gameHelper().removeId();
 
                     location = 'index.html';
@@ -76,10 +77,6 @@
                 case Game.Status.executing:
                 case Game.Status.thinking:
                     location = 'map.html';
-                    break;
-
-                case Game.Status.missing:
-                    location = 'on_error.html';
                     break;
 
                 case Game.Status.waiting:

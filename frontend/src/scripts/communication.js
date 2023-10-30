@@ -3,6 +3,7 @@ import { Config } from './config.js';
 export class Communication {
     #connection;
     #gameHelper;
+    #notificationHelper;
     #onMessage;
     #onOpen;
     #playerHelper;
@@ -10,6 +11,7 @@ export class Communication {
 
     constructor(context) {
         this.#gameHelper = context.gameHelper();
+        this.#notificationHelper = context.notificationHelper();
         this.#playerHelper = context.playerHelper();
     }
 
@@ -42,11 +44,11 @@ export class Communication {
     }
 
     #handleClose() {
-        setTimeout(() => location = 'on_disconnect.html', 2000);
+        setTimeout(() => this.#notificationHelper.showError('Die Verbindung zum Server wurden getrennt!'), 2000);
     }
 
     #handleError() {
-        location = 'on_error.html';
+        this.#notificationHelper.showError('Die Verbindung zum Server ist fehlerhaft!');
     }
 
     #handleMessage(message) {

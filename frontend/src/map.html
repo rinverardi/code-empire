@@ -32,7 +32,6 @@
     <div class="absolute-se can-click control">
         Nachrichten
     </div>
-    <div class="area" id="notification"></div>
 
     <script type="module">
         import { Context } from './scripts/context.js';
@@ -56,16 +55,18 @@
             if (message.game.status === Game.Status.thinking) {
                 const player = context.gameHelper().findCurrentPlayer(message);
 
-                context.notificationHelper().show(`${player.name} ist am Zug.`);
+                context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
             }
         }
 
         function onMessage(message) {
             switch (message.game.status) {
-
-                // TODO Implement me!
-
                 case Game.Status.aborted:
+                case Game.Status.missing:
+                case Game.Status.waiting:
+                    context.gameHelper().removeId();
+
+                    location = 'index.html';
                     break;
 
                 // TODO Implement me!
@@ -74,11 +75,6 @@
                 case Game.Status.thinking:
                     populateNotification(message);
                     populateMap(message);
-                    break;
-
-                case Game.Status.missing:
-                case Game.Status.waiting:
-                    location = 'on_error.html';
                     break;
 
                 default:
