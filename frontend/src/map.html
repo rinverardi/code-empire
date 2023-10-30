@@ -33,12 +33,12 @@
         Nachrichten
     </div>
 
-    <div class="hidden popup-holder" id="actions">
+    <div class="popup-holder" id="actions">
         <div class="popup">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="area can-click control">
+                        <div class="can-click control">
                             Dorf gründen
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-sm-6">
-                        <div class="area unavailable">
+                        <div class="can-click control">
                             Dorf zu Stadt ausbauen
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-sm-6">
-                        <div class="area can-click control">
+                        <div class="can-click control">
                             Fabrik errichten
                         </div>
                     </div>
@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <div class="hidden popup-holder" id="chat">
+    <div class="popup-holder" id="chat">
         <div class="popup">
             <div class="container">
                 <div class="row">
@@ -131,7 +131,7 @@
                         <input class="can-edit control full-width" value="Bow before your new master!">
                     </div>
                     <div class="col-sm-3 mt-2">
-                        <div class="can-click control link">
+                        <div class="can-click control">
                             Senden
                         </div>
                     </div>
@@ -145,7 +145,7 @@
         </div>
     </div>
 
-    <div class="hidden popup-holder" id="scores">
+    <div class="popup-holder" id="scores">
         <div class="popup">
             <div class="container">
                 <div class="row">
@@ -208,7 +208,7 @@
         </div>
     </div>
 
-    <div class="hidden popup-holder" id="menu">
+    <div class="popup-holder" id="menu">
         <div class="popup">
             <div class="container">
                 <div class="row">
@@ -313,38 +313,6 @@
             }
         }
 
-        function wireLinkCloseActions() {
-            document.getElementById('link_close_actions').addEventListener('click', () => {
-                const popup = document.getElementById('actions');
-
-                popup.classList.add('hidden');
-            });
-        }
-
-        function wireLinkCloseChat() {
-            document.getElementById('link_close_chat').addEventListener('click', () => {
-                const popup = document.getElementById('chat');
-
-                popup.classList.add('hidden');
-            });
-        }
-
-        function wireLinkCloseMenu() {
-            document.getElementById('link_close_menu').addEventListener('click', () => {
-                const popup = document.getElementById('menu');
-
-                popup.classList.add('hidden');
-            });
-        }
-
-        function wireLinkCloseScores() {
-            document.getElementById('link_close_scores').addEventListener('click', () => {
-                const popup = document.getElementById('scores');
-
-                popup.classList.add('hidden');
-            });
-        }
-
         function wireLinkLeaveGame() {
             document.getElementById('link_leave_game').addEventListener('click', () => {
                 const message = {
@@ -356,38 +324,6 @@
             });
         }
 
-        function wireLinkOpenActions() {
-            document.getElementById('link_open_actions').addEventListener('click', () => {
-                const popup = document.getElementById('actions');
-
-                popup.classList.remove('hidden');
-            });
-        }
-
-        function wireLinkOpenChat() {
-            document.getElementById('link_open_chat').addEventListener('click', () => {
-                const popup = document.getElementById('chat');
-
-                popup.classList.remove('hidden');
-            });
-        }
-
-        function wireLinkOpenMenu() {
-            document.getElementById('link_open_menu').addEventListener('click', () => {
-                const popup = document.getElementById('menu');
-
-                popup.classList.remove('hidden');
-            });
-        }
-
-        function wireLinkOpenScores() {
-            document.getElementById('link_open_scores').addEventListener('click', () => {
-                const popup = document.getElementById('scores');
-
-                popup.classList.remove('hidden');
-            });
-        }
-
         const context = new Context();
 
         let didUpdateMap = false;
@@ -395,15 +331,12 @@
 
         context.communication().connectGame(onMessage);
 
-        wireLinkCloseActions();
-        wireLinkCloseChat();
-        wireLinkCloseMenu();
-        wireLinkCloseScores();
+        context.navigation().wirePopup('link_open_actions', 'link_close_actions', 'actions');
+        context.navigation().wirePopup('link_open_chat', 'link_close_chat', 'chat');
+        context.navigation().wirePopup('link_open_menu', 'link_close_menu', 'menu');
+        context.navigation().wirePopup('link_open_scores', 'link_close_scores', 'scores');
+
         wireLinkLeaveGame();
-        wireLinkOpenActions();
-        wireLinkOpenChat();
-        wireLinkOpenMenu();
-        wireLinkOpenScores();
     </script>
 </body>
 

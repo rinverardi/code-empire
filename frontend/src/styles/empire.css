@@ -213,10 +213,18 @@ h2 {
     bottom: 0em;
     display: flex;
     left: 0em;
+    opacity: 0;
     overflow: scroll;
     position: absolute;
     right: 0em;
     top: 0em;
+    transition-duration: 0.5s;
+    transition-property: opacity;
+    visibility: hidden;
+}
+
+.popup-holder.open {
+    opacity: 1;
 }
 
 .ready::after {
