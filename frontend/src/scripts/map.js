@@ -4,28 +4,36 @@ export class MapBuilder {
 
         target.id = 'map';
 
-        for (const sourceRow of source) {
-            target.appendChild(this.buildRow(sourceRow));
+        for (let index = 0; index < source.length; index++) {
+            const element = this.#buildRow(source[index]);
+
+            element.dataset.index = index;
+
+            target.appendChild(element);
         }
 
         return target;
     }
 
-    buildRow(source) {
+    #buildRow(source) {
         const target = document.createElement('div');
 
         target.classList = ['map-row'];
 
-        for (const sourceTile of source) {
-            if (sourceTile !== ' ') {
-                target.appendChild(this.buildTile(sourceTile));
+        for (let index = 0; index < source.length; index++) {
+            if (source[index] !== ' ') {
+                const element = this.#buildTile(source[index]);
+
+                element.dataset.index = index;
+
+                target.appendChild(element);
             }
         }
 
         return target;
     }
 
-    buildTile(source) {
+    #buildTile(source) {
         const target = document.createElement('div');
 
         target.classList = source === '-' ? ['tile'] : ['tile tile-' + source];
