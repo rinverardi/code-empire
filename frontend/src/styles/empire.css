@@ -43,10 +43,11 @@
 }
 
 * {
+    color: #fff;
     cursor: default;
     font-family: 'Handwritten';
     font-size: 20pt;
-    color: #fff;
+    overscroll-behavior: none;
 }
 
 .absolute-ne {
