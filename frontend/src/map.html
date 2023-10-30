@@ -44,7 +44,7 @@
             if (!map) {
                 const mapContainer = document.getElementById('map-container');
 
-                mapContainer.appendChild(context.map().renderMap(message.map.tiles));
+                mapContainer.appendChild(context.mapBuilder().build(message.map.tiles));
 
                 // TODO Scroll to current player!
 

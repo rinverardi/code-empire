@@ -1,6 +1,6 @@
 import { Communication } from './communication.js';
 import { GameHelper } from './game.js';
-import { Map } from './map.js';
+import { MapBuilder } from './map.js';
 import { Navigation } from './navigation.js';
 import { NotificationHelper } from './notifications.js';
 import { Player } from './player.js';
@@ -10,7 +10,7 @@ import { Translation } from './translation.js';
 export class Context {
     #communication;
     #gameHelper;
-    #map;
+    #mapBuilder;
     #navigation;
     #notificationHelper;
     #player;
@@ -25,8 +25,8 @@ export class Context {
         return this.#gameHelper ? this.#gameHelper : this.#gameHelper = new GameHelper();
     }
 
-    map() {
-        return this.#map ? this.#map : this.#map = new Map();
+    mapBuilder() {
+        return this.#mapBuilder ? this.#mapBuilder : this.#mapBuilder = new MapBuilder();
     }
 
     navigation() {
