@@ -4,5 +4,5 @@ export const Config = Object.freeze({
     // TODO Fix me!
 
     urlForGames: 'ws://tux:8001/games/',
-    urlForHighscores: 'ws://tux:8001/highscores'
+    urlForHighscores: 'ws://tux:8001/highscores/'
 });
