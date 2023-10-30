@@ -2,6 +2,7 @@ import { Communication } from './communication.js';
 import { GameHelper } from './game.js';
 import { Map } from './map.js';
 import { Navigation } from './navigation.js';
+import { NotificationHelper } from './notifications.js';
 import { Player } from './player.js';
 import { Random } from './random.js';
 import { Translation } from './translation.js';
@@ -11,6 +12,7 @@ export class Context {
     #gameHelper;
     #map;
     #navigation;
+    #notificationHelper;
     #player;
     #random;
     #translation;
@@ -29,6 +31,10 @@ export class Context {
 
     navigation() {
         return this.#navigation ? this.#navigation : this.#navigation = new Navigation();
+    }
+
+    notificationHelper() {
+        return this.#notificationHelper ? this.#notificationHelper : this.#notificationHelper = new NotificationHelper();
     }
 
     player() {

@@ -16,8 +16,7 @@
 </head>
 
 <body>
-    <div id="map-container">
-    </div>
+    <div id="map-container"></div>
     <div class="absolute-nw can-click control">
         🧪️×7<br>
         🍎️×9<br>
@@ -33,8 +32,7 @@
     <div class="absolute-se can-click control">
         Nachrichten
     </div>
-    <div class="area" id="notification">
-    </div>
+    <div class="area" id="notification"></div>
 
     <script type="module">
         import { Context } from './scripts/context.js';
@@ -55,16 +53,10 @@
         }
 
         function populateNotification(message) {
-            const notififcation = document.getElementById('notification');
-
-            notification.classList.remove('visible');
-
             if (message.game.status === Game.Status.thinking) {
                 const player = context.gameHelper().findCurrentPlayer(message);
 
-                notififcation.textContent = `${player.name} ist am Zug.`;
-
-                notification.classList.add('visible');
+                context.notificationHelper().show(`${player.name} ist am Zug.`);
             }
         }
 
