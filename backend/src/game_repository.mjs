@@ -27,7 +27,7 @@ export class GameRepository {
         const redisConnection = await sessionContext.redisConnection(true);
         const redisKey = `${Game.Key.game}:${sessionContext.gameId}`;
 
-        redisConnection.publish(redisKey, JSON.stringify(game));
+        redisConnection.publish(redisKey, this.#stringify(game));
     }
 
     async saveGame(sessionContext, game) {
@@ -37,7 +37,11 @@ export class GameRepository {
         const redisConnection = await sessionContext.redisConnection(true);
         const redisKey = `${Game.Key.game}:${sessionContext.gameId}`;
 
-        await redisConnection.set(redisKey, JSON.stringify(game));
+        await redisConnection.set(redisKey, this.#stringify(game));
+    }
+
+    #stringify(value) {
+        return JSON.stringify(value, null, 4);
     }
 
     async subscribeGame(sessionContext, handler) {
