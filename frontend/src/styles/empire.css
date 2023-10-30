@@ -10,11 +10,11 @@
 
 @keyframes bounce {
     from {
-        transform: translateX(-50%) translateY(-75%);
+        transform: translateX(-50%) translateY(-50%);
     }
 
     to {
-        transform: translateX(-50%) translateY(-95%);
+        transform: translateX(-50%) translateY(-70%);
     }
 }
 
@@ -197,15 +197,13 @@ h2 {
 }
 
 .player {
-    left: 50%;
     pointer-events: none;
     position: absolute;
-    top: 50%;
-    transform: translateX(-50%) translateY(-75%);
+    transform: translateX(-50%) translateY(-50%);
 }
 
 .player.current {
-    animation: bounce 0.5s alternate infinite;
+    animation: bounce 0.3s alternate infinite;
 }
 
 .ready::after {

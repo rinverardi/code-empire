@@ -124,6 +124,7 @@ export class GameService {
         for (const player of game.players) {
             player.health = GlobalConfig.playerHealth;
             player.inventory = {}
+            player.position = [2, 1];
             player.visibility = game.map.tiles.map(that => that.replace(/[^ ]/g, Player.Visibility.none));
 
             for (const item in Inventory.Item) {

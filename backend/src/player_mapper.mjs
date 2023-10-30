@@ -20,6 +20,10 @@ export class PlayerMapper {
             target.inventory = this.#inventoryMapper.map(sessionContext, source.inventory);
         }
 
+        // TODO Check the visibility!
+
+        target.position = source.position;
+
         return target;
     }
 };

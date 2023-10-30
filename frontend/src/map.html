@@ -37,28 +37,6 @@
         import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
 
-        function populateMap(message) {
-            const map = document.getElementById('map');
-
-            if (!map) {
-                const mapContainer = document.getElementById('map-container');
-
-                mapContainer.appendChild(context.mapBuilder().build(message.map.tiles));
-
-                // TODO Scroll to current player!
-
-                scrollToCenter();
-            }
-        }
-
-        function populateNotification(message) {
-            if (message.game.status === Game.Status.thinking) {
-                const player = context.gameHelper().findCurrentPlayer(message);
-
-                context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
-            }
-        }
-
         function onMessage(message) {
             switch (message.game.status) {
                 case Game.Status.aborted:
@@ -73,8 +51,9 @@
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    populateNotification(message);
-                    populateMap(message);
+                    showNotification(message);
+                    updateMap(message);
+                    updatePlayers(message);
                     break;
 
                 default:
@@ -90,7 +69,50 @@
                 (mapContainer.scrollHeight - mapContainer.clientHeight) / 2);
         }
 
+        function showNotification(message) {
+            if (message.game.status === Game.Status.thinking) {
+                const player = context.gameHelper().findCurrentPlayer(message);
+
+                context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
+            }
+        }
+
+        function updateMap(message) {
+            if (!didUpdateMap) {
+                didUpdateMap = true;
+
+                const mapContainer = document.getElementById('map-container');
+
+                mapContainer.appendChild(context.mapBuilder().build(message.map.tiles));
+
+                // TODO Scroll to current player!
+
+                scrollToCenter();
+            }
+        }
+
+        function updatePlayers(message) {
+            if (!didUpdatePlayers) {
+                didUpdatePlayers = true;
+
+                const map = document.getElementById('map');
+
+                for (const player of message.players) {
+                    const element = context.playerBuilder().build(player);
+
+                    if (player.id === message.turn.player) {
+                        element.classList.add('current');
+                    }
+
+                    map.appendChild(element);
+                }
+            }
+        }
+
         const context = new Context();
+
+        let didUpdateMap = false;
+        let didUpdatePlayers = false;
 
         context.communication().connectGame(onMessage);
     </script>
