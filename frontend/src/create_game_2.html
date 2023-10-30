@@ -89,8 +89,8 @@
             }
         }
 
-        function updateSlots(gameMessage) {
-            const players = gameMessage.players.filter(that => that.status !== Player.Status.left);
+        function updateSlots(message) {
+            const players = message.players.filter(that => that.status !== Player.Status.left);
 
             for (let index = 0; index < Config.slots; index++) {
                 const slot = document.getElementById('slot_' + index);
