@@ -17,25 +17,50 @@
 
 <body>
     <div id="map-container"></div>
-    <div class="absolute-nw can-click control">
+    <div class="absolute-nw can-click control link">
         🧪️×7<br>
         🍎️×9<br>
         🪙️×15<br>
         🗡️×8
     </div>
-    <div class="absolute-sw can-click control">
+    <div class="absolute-sw can-click control link">
         Rangliste
     </div>
-    <div class="absolute-ne can-click control">
+    <div class="absolute-ne can-click control link" id="link_open_menu">
         Menü
     </div>
-    <div class="absolute-se can-click control">
+    <div class="absolute-se can-click control link">
         Nachrichten
     </div>
 
+    <div class="hidden popup-holder" id="menu">
+        <div class="popup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12" id="link_close_menu">
+                        <div class="can-click control link">Partie fortsetzen</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-2" id="link_leave_game">
+                        <div class="can-click control link">Partie verlassen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
+        import { Action } from './scripts/action.js';
         import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
+        import { Player } from './scripts/player.js';
+
+        function didLeaveGame(message) {
+            const playerId = context.playerHelper().loadId();
+
+            return message.players.some(that => that.id === playerId && that.status === Player.Status.left);
+        }
 
         function onMessage(message) {
             switch (message.game.status) {
@@ -51,9 +76,13 @@
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    showNotification(message);
-                    updateMap(message);
-                    updatePlayers(message);
+                    if (didLeaveGame(message)) {
+                        location = 'index.html';
+                    } else {
+                        showNotification(message);
+                        updateMap(message);
+                        updatePlayers(message);
+                    }
                     break;
 
                 default:
@@ -109,12 +138,43 @@
             }
         }
 
+        function wireLinkCloseMenu() {
+            document.getElementById('link_close_menu').addEventListener('click', () => {
+                const popup = document.getElementById('menu');
+
+                popup.classList.add('hidden');
+            });
+        }
+
+        function wireLinkLeaveGame() {
+            document.getElementById('link_leave_game').addEventListener('click', () => {
+                const message = {
+                    action: { id: Action.leaveGame }
+                };
+
+                context.communication().sendMessage(message);
+                context.gameHelper().removeId();
+            });
+        }
+
+        function wireLinkOpenMenu() {
+            document.getElementById('link_open_menu').addEventListener('click', () => {
+                const popup = document.getElementById('menu');
+
+                popup.classList.remove('hidden');
+            });
+        }
+
         const context = new Context();
 
         let didUpdateMap = false;
         let didUpdatePlayers = false;
 
         context.communication().connectGame(onMessage);
+
+        wireLinkCloseMenu();
+        wireLinkLeaveGame();
+        wireLinkOpenMenu();
     </script>
 </body>
 

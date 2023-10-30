@@ -139,7 +139,7 @@ h2 {
 }
 
 .hidden {
-    display: none;
+    visibility: hidden;
 }
 
 .link:hover {
@@ -197,6 +197,26 @@ h2 {
 
 .player.current {
     animation: bounce 0.3s alternate infinite;
+}
+
+.popup {
+    background: #444;
+    filter: drop-shadow(0 0 20px #000);
+    flex-grow: 1;
+    margin: auto auto;
+    max-width: 30em;
+    padding: 0.5em;
+}
+
+.popup-holder {
+    background-color: rgb(0 0 0 / 0.5);
+    bottom: 0em;
+    display: flex;
+    left: 0em;
+    overflow: scroll;
+    position: absolute;
+    right: 0em;
+    top: 0em;
 }
 
 .ready::after {
