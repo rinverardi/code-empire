@@ -62,7 +62,7 @@
         import { Player } from './scripts/player.js';
 
         function didLeaveGame(message) {
-            const playerId = context.player().loadId();
+            const playerId = context.playerHelper().loadId();
 
             return message.players.some(that => that.id === playerId && that.status === Player.Status.left);
         }
@@ -70,7 +70,7 @@
         function joinGame() {
             const message = {
                 action: { id: Action.joinGame },
-                player: { name: context.player().loadName() }
+                player: { name: context.playerHelper().loadName() }
             };
 
             context.communication().sendMessage(message);

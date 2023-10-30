@@ -4,11 +4,11 @@ export class Communication {
     #connection;
     #onMessage;
     #onOpen;
-    #player;
+    #playerHelper;
     #url;
 
     constructor(context) {
-        this.#player = context.player();
+        this.#playerHelper = context.playerHelper();
     }
 
     #connect() {
@@ -24,7 +24,7 @@ export class Communication {
         this.#onMessage = onMessage;
         this.#onOpen = onOpen;
 
-        const parameters = [location.hash.slice(1), this.#player.loadId(), this.#player.loadSecret()];
+        const parameters = [location.hash.slice(1), this.#playerHelper.loadId(), this.#playerHelper.loadSecret()];
 
         this.#url = Config.urlForGames + parameters.join('-');
 

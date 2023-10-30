@@ -79,12 +79,12 @@
             const input = document.getElementById('input');
 
             if (!input.value) {
-                input.value = context.player().loadName();
+                input.value = context.playerHelper().loadName();
 
-                context.player().saveName(input.value);
+                context.playerHelper().saveName(input.value);
             }
 
-            input.addEventListener('change', () => context.player().saveName(input.value));
+            input.addEventListener('change', () => context.playerHelper().saveName(input.value));
         }
 
         function removeGame(gameId) {

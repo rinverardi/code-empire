@@ -1,4 +1,20 @@
 export class Player {
+    static get Attribute() {
+        return Object.freeze({
+            id: 'playerId',
+            name: 'playerName',
+            secret: 'playerSecret'
+        });
+    }
+
+    static get Status() {
+        return Object.freeze({
+            left: 'left'
+        });
+    }
+};
+
+export class PlayerHelper {
     #random;
 
     constructor(context) {
@@ -33,7 +49,7 @@ export class Player {
     }
 
     loadSecret() {
-        let secret  = window.sessionStorage.getItem(Player.Attribute.secret);
+        let secret = window.sessionStorage.getItem(Player.Attribute.secret);
 
         if (!secret) {
             this.saveSecret(secret = this.#random.generateSecret());
@@ -53,18 +69,4 @@ export class Player {
     saveSecret(secret) {
         window.sessionStorage.setItem(Player.Attribute.secret, secret);
     }
-
-    static get Attribute() {
-        return Object.freeze({
-            id: 'playerId',
-            name: 'playerName',
-            secret: 'playerSecret'
-        });
-    }
-
-    static get Status() {
-        return Object.freeze({
-            left: 'left'
-        });
-    }
-};
+}
