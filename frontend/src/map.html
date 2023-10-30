@@ -16,8 +16,7 @@
 </head>
 
 <body>
-    <div id="map-container">
-    </div>
+    <div id="map-container"></div>
     <div class="absolute-nw can-click control">
         🧪️×7<br>
         🍎️×9<br>
@@ -33,8 +32,6 @@
     <div class="absolute-se can-click control">
         Nachrichten
     </div>
-    <div class="area" id="notification">
-    </div>
 
     <script type="module">
         import { Context } from './scripts/context.js';
@@ -46,7 +43,7 @@
             if (!map) {
                 const mapContainer = document.getElementById('map-container');
 
-                mapContainer.appendChild(context.map().renderMap(message.map.tiles));
+                mapContainer.appendChild(context.mapBuilder().build(message.map.tiles));
 
                 // TODO Scroll to current player!
 
@@ -55,23 +52,21 @@
         }
 
         function populateNotification(message) {
-            const notififcation = document.getElementById('notification');
-
-            notification.classList.remove('visible');
-
             if (message.game.status === Game.Status.thinking) {
-                notififcation.textContent = `${Game.findCurrentPlayer(message).name} ist am Zug.`;
+                const player = context.gameHelper().findCurrentPlayer(message);
 
-                notification.classList.add('visible');
+                context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
             }
         }
 
         function onMessage(message) {
             switch (message.game.status) {
-
-                // TODO Implement me!
-
                 case Game.Status.aborted:
+                case Game.Status.missing:
+                case Game.Status.waiting:
+                    context.gameHelper().removeId();
+
+                    location = 'index.html';
                     break;
 
                 // TODO Implement me!
@@ -80,11 +75,6 @@
                 case Game.Status.thinking:
                     populateNotification(message);
                     populateMap(message);
-                    break;
-
-                case Game.Status.missing:
-                case Game.Status.waiting:
-                    location = 'on_error.html';
                     break;
 
                 default:

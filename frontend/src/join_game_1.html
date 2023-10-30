@@ -79,12 +79,12 @@
             const input = document.getElementById('input');
 
             if (!input.value) {
-                input.value = context.player().loadName();
+                input.value = context.playerHelper().loadName();
 
-                context.player().saveName(input.value);
+                context.playerHelper().saveName(input.value);
             }
 
-            input.addEventListener('change', () => context.player().saveName(input.value));
+            input.addEventListener('change', () => context.playerHelper().saveName(input.value));
         }
 
         function removeGame(gameId) {
@@ -130,9 +130,9 @@
 
         function wireLinkNext() {
             context.navigation().wireClick('link_next', () => {
-                const gameId = document.getElementById('select').value;
+                context.gameHelper().saveId(document.getElementById('select').value);
 
-                return 'join_game_2.html#' + gameId;
+                return 'join_game_2.html';
             });
         }
 

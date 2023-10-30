@@ -62,7 +62,7 @@
         import { Player } from './scripts/player.js';
 
         function didLeaveGame(message) {
-            const playerId = context.player().loadId();
+            const playerId = context.playerHelper().loadId();
 
             return message.players.some(that => that.id === playerId && that.status === Player.Status.left);
         }
@@ -70,7 +70,7 @@
         function joinGame() {
             const message = {
                 action: { id: Action.joinGame },
-                player: { name: context.player().loadName() }
+                player: { name: context.playerHelper().loadName() }
             };
 
             context.communication().sendMessage(message);
@@ -82,21 +82,21 @@
             };
 
             context.communication().sendMessage(message);
+            context.gameHelper().removeId();
         }
 
         function onMessage(message) {
             switch (message.game.status) {
                 case Game.Status.aborted:
+                case Game.Status.missing:
+                    context.gameHelper().removeId();
+
                     location = 'index.html';
                     break;
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    location = 'map.html' + location.hash;
-                    break;
-
-                case Game.Status.missing:
-                    location = 'on_error.html';
+                    location = 'map.html';
                     break;
 
                 case Game.Status.waiting:

@@ -1,15 +1,19 @@
 import { Communication } from './communication.js';
-import { Map } from './map.js';
+import { GameHelper } from './game.js';
+import { MapBuilder } from './map.js';
 import { Navigation } from './navigation.js';
-import { Player } from './player.js';
+import { NotificationHelper } from './notifications.js';
+import { PlayerHelper } from './player.js';
 import { Random } from './random.js';
 import { Translation } from './translation.js';
 
 export class Context {
     #communication;
-    #map;
+    #gameHelper;
+    #mapBuilder;
     #navigation;
-    #player;
+    #notificationHelper;
+    #playerHelper;
     #random;
     #translation;
 
@@ -17,16 +21,24 @@ export class Context {
         return this.#communication ? this.#communication : this.#communication = new Communication(this);
     }
 
-    map() {
-        return this.#map ? this.#map : this.#map = new Map();
+    gameHelper() {
+        return this.#gameHelper ? this.#gameHelper : this.#gameHelper = new GameHelper(this);
+    }
+
+    mapBuilder() {
+        return this.#mapBuilder ? this.#mapBuilder : this.#mapBuilder = new MapBuilder();
     }
 
     navigation() {
         return this.#navigation ? this.#navigation : this.#navigation = new Navigation();
     }
 
-    player() {
-        return this.#player ? this.#player : this.#player = new Player(this);
+    notificationHelper() {
+        return this.#notificationHelper ? this.#notificationHelper : this.#notificationHelper = new NotificationHelper();
+    }
+
+    playerHelper() {
+        return this.#playerHelper ? this.#playerHelper : this.#playerHelper = new PlayerHelper(this);
     }
 
     random() {

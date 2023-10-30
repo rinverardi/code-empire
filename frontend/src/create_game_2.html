@@ -68,16 +68,15 @@
         function onMessage(message) {
             switch (message.game.status) {
                 case Game.Status.aborted:
+                case Game.Status.missing:
+                    context.gameHelper().removeId();
+
                     location = 'index.html';
                     break;
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    location = 'map.html' + location.hash;
-                    break;
-
-                case Game.Status.missing:
-                    location = 'on_error.html';
+                    location = 'map.html';
                     break;
 
                 case Game.Status.waiting:
@@ -89,8 +88,8 @@
             }
         }
 
-        function updateSlots(gameMessage) {
-            const players = gameMessage.players.filter(that => that.status !== Player.Status.left);
+        function updateSlots(message) {
+            const players = message.players.filter(that => that.status !== Player.Status.left);
 
             for (let index = 0; index < Config.slots; index++) {
                 const slot = document.getElementById('slot_' + index);
@@ -111,6 +110,7 @@
                 };
 
                 context.communication().sendMessage(message);
+                context.gameHelper().removeId();
             });
         }
 

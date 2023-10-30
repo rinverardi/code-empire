@@ -1,14 +1,8 @@
 export class Game {
-    static findCurrentPlayer(message) {
-        console.log(message);
-        
-        const playerId = message.turn.player;
-
-        for (const player of message.players) {
-            if (player.id === playerId) {
-                return player;
-            }
-        }
+    static get Attribute() {
+        return Object.freeze({
+            id: 'gameId'
+        });
     }
 
     static get Status() {
@@ -21,3 +15,39 @@ export class Game {
         });
     }
 };
+
+export class GameHelper {
+    #random;
+
+    constructor(context) {
+        this.#random = context.random();
+    }
+
+    findCurrentPlayer(message) {
+        const playerId = message.turn.player;
+
+        for (const player of message.players) {
+            if (player.id === playerId) {
+                return player;
+            }
+        }
+    }
+
+    loadId() {
+        let id = window.sessionStorage.getItem(Game.Attribute.id);
+
+        if (!id) {
+            this.saveId(id = this.#random.generateId());
+        }
+
+        return id;
+    }
+
+    removeId() {
+        window.sessionStorage.removeItem(Game.Attribute.id);
+    }
+
+    saveId(id) {
+        window.sessionStorage.setItem(Game.Attribute.id, id);
+    }
+}

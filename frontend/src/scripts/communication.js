@@ -2,13 +2,17 @@ import { Config } from './config.js';
 
 export class Communication {
     #connection;
+    #gameHelper;
+    #notificationHelper;
     #onMessage;
     #onOpen;
-    #player;
+    #playerHelper;
     #url;
 
     constructor(context) {
-        this.#player = context.player();
+        this.#gameHelper = context.gameHelper();
+        this.#notificationHelper = context.notificationHelper();
+        this.#playerHelper = context.playerHelper();
     }
 
     #connect() {
@@ -24,7 +28,7 @@ export class Communication {
         this.#onMessage = onMessage;
         this.#onOpen = onOpen;
 
-        const parameters = [location.hash.slice(1), this.#player.loadId(), this.#player.loadSecret()];
+        const parameters = [this.#gameHelper.loadId(), this.#playerHelper.loadId(), this.#playerHelper.loadSecret()];
 
         this.#url = Config.urlForGames + parameters.join('-');
 
@@ -40,11 +44,11 @@ export class Communication {
     }
 
     #handleClose() {
-        setTimeout(() => location = 'on_disconnect.html', 2000);
+        setTimeout(() => this.#notificationHelper.showError('Die Verbindung zum Server wurden getrennt!'), 2000);
     }
 
     #handleError() {
-        location = 'on_error.html';
+        this.#notificationHelper.showError('Die Verbindung zum Server ist fehlerhaft!');
     }
 
     #handleMessage(message) {

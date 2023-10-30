@@ -25,14 +25,14 @@
     }
 
     to {
-        bottom: 3em;
+        bottom: 2em;
         opacity: 1;
     }
 }
 
 @keyframes fade-out {
     from {
-        bottom: 3em;
+        bottom: 2em;
         opacity: 1;
     }
 
@@ -159,7 +159,12 @@ h2 {
     position: absolute;
     right: 0;
     scroll-behavior: smooth;
+    scrollbar-width: none;
     top: 0;
+}
+
+#map-container::-webkit-scrollbar {
+    display: none;
 }
 
 .map-row {
@@ -174,17 +179,21 @@ h2 {
     margin-left: 40px;
 }
 
-#notification {
-    bottom: 3em;
+.notification {
+    animation: fade-in 1s forwards, fade-out 1s 3s forwards;
+    border-radius: 0.25em;
     left: 50%;
+    padding: 0.25em 0.5em;
     position: absolute;
     transform: translateX(-50%);
-    visibility: hidden;
 }
 
-#notification.visible {
-    animation: fade-in 1s forwards, fade-out 1s 3s forwards;
-    visibility: visible;
+.notification.is-error {
+    background-color: #c44;
+}
+
+.notification.is-information {
+    background-color: #66c;
 }
 
 .player {

@@ -57,19 +57,21 @@
         function onMessage(message) {
             switch (message.game.status) {
                 case Game.Status.aborted:
-                    location = 'on_error.html';
+                    context.gameHelper().removeId();
+
+                    location = 'index.html';
                     break;
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    location = 'map.html' + location.hash;
+                    location = 'map.html';
                     break;
 
                 case Game.Status.missing:
                     break;
 
                 case Game.Status.waiting:
-                    location = 'create_game_2.html' + location.hash;
+                    location = 'create_game_2.html';
                     break;
 
                 default:
@@ -81,12 +83,12 @@
             const input = document.getElementById('input');
 
             if (!input.value) {
-                input.value = context.player().loadName();
+                input.value = context.playerHelper().loadName();
 
-                context.player().saveName(input.value);
+                context.playerHelper().saveName(input.value);
             }
 
-            input.addEventListener('change', () => context.player().saveName(input.value));
+            input.addEventListener('change', () => context.playerHelper().saveName(input.value));
         }
 
         function wireLinkBack() {
