@@ -29,7 +29,7 @@
     <div class="absolute-ne can-click control link" id="link_open_menu">
         Menü
     </div>
-    <div class="absolute-se can-click control link">
+    <div class="absolute-se can-click control link" id="link_open_chat">
         Nachrichten
     </div>
 
@@ -79,6 +79,66 @@
                 <div class="row mt-2">
                     <div class="col-12">
                         <div class="can-click control link" id="link_close_actions">Partie fortsetzen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden popup-holder" id="chat">
+        <div class="popup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="area">
+                            Angry Alpaca
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="area">
+                            20:15
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="area redacted-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-9">
+                        <div class="area">
+                            Brilliant Barracuda
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="area">
+                            20:16
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="area redacted-text">
+                            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9 mt-2">
+                        <input class="can-edit control full-width" value="Bow before your new master!">
+                    </div>
+                    <div class="col-sm-3 mt-2">
+                        <div class="can-click control link">
+                            Senden
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="can-click control link" id="link_close_chat">Partie fortsetzen</div>
                     </div>
                 </div>
             </div>
@@ -198,6 +258,14 @@
             });
         }
 
+        function wireLinkCloseChat() {
+            document.getElementById('link_close_chat').addEventListener('click', () => {
+                const popup = document.getElementById('chat');
+
+                popup.classList.add('hidden');
+            });
+        }
+
         function wireLinkCloseMenu() {
             document.getElementById('link_close_menu').addEventListener('click', () => {
                 const popup = document.getElementById('menu');
@@ -225,6 +293,14 @@
             });
         }
 
+        function wireLinkOpenChat() {
+            document.getElementById('link_open_chat').addEventListener('click', () => {
+                const popup = document.getElementById('chat');
+
+                popup.classList.remove('hidden');
+            });
+        }
+
         function wireLinkOpenMenu() {
             document.getElementById('link_open_menu').addEventListener('click', () => {
                 const popup = document.getElementById('menu');
@@ -241,9 +317,11 @@
         context.communication().connectGame(onMessage);
 
         wireLinkCloseActions();
+        wireLinkCloseChat();
         wireLinkCloseMenu();
         wireLinkLeaveGame();
         wireLinkOpenActions();
+        wireLinkOpenChat();
         wireLinkOpenMenu();
     </script>
 </body>
