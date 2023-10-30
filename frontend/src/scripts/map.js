@@ -1,6 +1,6 @@
 export class MapBuilder {
     build(source) {
-        const target = document.createElement('map');
+        const target = document.createElement('div');
 
         target.id = 'map';
 
