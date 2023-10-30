@@ -10,11 +10,11 @@
 
 @keyframes bounce {
     from {
-        transform: translateX(-50%) translateY(-75%);
+        transform: translateX(-50%) translateY(-50%);
     }
 
     to {
-        transform: translateX(-50%) translateY(-95%);
+        transform: translateX(-50%) translateY(-70%);
     }
 }
 
@@ -25,14 +25,14 @@
     }
 
     to {
-        bottom: 2em;
+        bottom: 3em;
         opacity: 1;
     }
 }
 
 @keyframes fade-out {
     from {
-        bottom: 2em;
+        bottom: 3em;
         opacity: 1;
     }
 
@@ -139,7 +139,7 @@ h2 {
 }
 
 .hidden {
-    display: none;
+    visibility: hidden;
 }
 
 .link:hover {
@@ -181,31 +181,50 @@ h2 {
 
 .notification {
     animation: fade-in 1s forwards, fade-out 1s 3s forwards;
-    border-radius: 0.25em;
+    background-image: url(../images/area.svg);
+    background-size: 100% 100%;
     left: 50%;
     padding: 0.25em 0.5em;
     position: absolute;
     transform: translateX(-50%);
 }
 
-.notification.is-error {
-    background-color: #c44;
-}
-
-.notification.is-information {
-    background-color: #66c;
-}
-
 .player {
-    left: 50%;
     pointer-events: none;
     position: absolute;
-    top: 50%;
-    transform: translateX(-50%) translateY(-75%);
+    transform: translateX(-50%) translateY(-50%);
 }
 
 .player.current {
-    animation: bounce 0.5s alternate infinite;
+    animation: bounce 0.3s alternate infinite;
+}
+
+.popup {
+    background: #444;
+    filter: drop-shadow(0 0 20px #000);
+    flex-grow: 1;
+    margin: auto auto;
+    max-width: 30em;
+    padding: 0.5em;
+}
+
+.popup-holder {
+    background-color: rgb(0 0 0 / 0.5);
+    bottom: 0em;
+    display: flex;
+    left: 0em;
+    opacity: 0;
+    overflow: scroll;
+    position: absolute;
+    right: 0em;
+    top: 0em;
+    transition-duration: 0.5s;
+    transition-property: opacity;
+    visibility: hidden;
+}
+
+.popup-holder.open {
+    opacity: 1;
 }
 
 .ready::after {

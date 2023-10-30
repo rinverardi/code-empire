@@ -17,46 +17,224 @@
 
 <body>
     <div id="map-container"></div>
-    <div class="absolute-nw can-click control">
+    <div class="absolute-nw can-click control link" id="link_open_actions">
         🧪️×7<br>
         🍎️×9<br>
         🪙️×15<br>
         🗡️×8
     </div>
-    <div class="absolute-sw can-click control">
+    <div class="absolute-sw can-click control link" id="link_open_scores">
         Rangliste
     </div>
-    <div class="absolute-ne can-click control">
+    <div class="absolute-ne can-click control link" id="link_open_menu">
         Menü
     </div>
-    <div class="absolute-se can-click control">
+    <div class="absolute-se can-click control link" id="link_open_chat">
         Nachrichten
     </div>
 
+    <div class="popup-holder" id="actions">
+        <div class="popup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="can-click control">
+                            Dorf gründen
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="area">
+                            🍎️×2
+                            🪙️×5
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-6">
+                        <div class="can-click control">
+                            Dorf zu Stadt ausbauen
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="area">
+                            <span class="unavailable">🧪️×8</span>
+                            🍎️×12
+                            🪙️×8
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-6">
+                        <div class="can-click control">
+                            Fabrik errichten
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="area">
+                            🧪️×8
+                            🪙️×8
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="can-click control link" id="link_close_actions">Partie fortsetzen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-holder" id="chat">
+        <div class="popup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="area">
+                            Angry Alpaca
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="area">
+                            20:15
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="area redacted-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-9">
+                        <div class="area">
+                            Brilliant Barracuda
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="area">
+                            20:16
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="area redacted-text">
+                            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9 mt-2">
+                        <input class="can-edit control full-width" value="Bow before your new master!">
+                    </div>
+                    <div class="col-sm-3 mt-2">
+                        <div class="can-click control">
+                            Senden
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="can-click control link" id="link_close_chat">Partie fortsetzen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-holder" id="scores">
+        <div class="popup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="area">
+                            #1
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="area">
+                            🪙️×15
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="area">
+                            Angry Alpaca
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-2">
+                        <div class="area">
+                            #2
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="area">
+                            🪙️×12
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="area">
+                            Broken Beaver
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-2">
+                        <div class="area">
+                            #3
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="area">
+                            🪙️×9
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="area">
+                            Cuddly Cougar
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="can-click control link" id="link_close_scores">Partie fortsetzen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-holder" id="menu">
+        <div class="popup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12" id="link_close_menu">
+                        <div class="can-click control link">Partie fortsetzen</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-2" id="link_leave_game">
+                        <div class="can-click control link">Partie verlassen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
+        import { Action } from './scripts/action.js';
         import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
+        import { Player } from './scripts/player.js';
 
-        function populateMap(message) {
-            const map = document.getElementById('map');
+        function didLeaveGame(message) {
+            const playerId = context.playerHelper().loadId();
 
-            if (!map) {
-                const mapContainer = document.getElementById('map-container');
-
-                mapContainer.appendChild(context.mapBuilder().build(message.map.tiles));
-
-                // TODO Scroll to current player!
-
-                scrollToCenter();
-            }
-        }
-
-        function populateNotification(message) {
-            if (message.game.status === Game.Status.thinking) {
-                const player = context.gameHelper().findCurrentPlayer(message);
-
-                context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
-            }
+            return message.players.some(that => that.id === playerId && that.status === Player.Status.left);
         }
 
         function onMessage(message) {
@@ -73,8 +251,13 @@
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    populateNotification(message);
-                    populateMap(message);
+                    if (didLeaveGame(message)) {
+                        location = 'index.html';
+                    } else {
+                        showNotification(message);
+                        updateMap(message);
+                        updatePlayers(message);
+                    }
                     break;
 
                 default:
@@ -90,9 +273,70 @@
                 (mapContainer.scrollHeight - mapContainer.clientHeight) / 2);
         }
 
+        function showNotification(message) {
+            if (message.game.status === Game.Status.thinking) {
+                const player = context.gameHelper().findCurrentPlayer(message);
+
+                context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
+            }
+        }
+
+        function updateMap(message) {
+            if (!didUpdateMap) {
+                didUpdateMap = true;
+
+                const mapContainer = document.getElementById('map-container');
+
+                mapContainer.appendChild(context.mapBuilder().build(message.map.tiles));
+
+                // TODO Scroll to current player!
+
+                scrollToCenter();
+            }
+        }
+
+        function updatePlayers(message) {
+            if (!didUpdatePlayers) {
+                didUpdatePlayers = true;
+
+                const map = document.getElementById('map');
+
+                for (const player of message.players) {
+                    const element = context.playerBuilder().build(player);
+
+                    if (player.id === message.turn.player) {
+                        element.classList.add('current');
+                    }
+
+                    map.appendChild(element);
+                }
+            }
+        }
+
+        function wireLinkLeaveGame() {
+            document.getElementById('link_leave_game').addEventListener('click', () => {
+                const message = {
+                    action: { id: Action.leaveGame }
+                };
+
+                context.communication().sendMessage(message);
+                context.gameHelper().removeId();
+            });
+        }
+
         const context = new Context();
 
+        let didUpdateMap = false;
+        let didUpdatePlayers = false;
+
         context.communication().connectGame(onMessage);
+
+        context.navigation().wirePopup('link_open_actions', 'link_close_actions', 'actions');
+        context.navigation().wirePopup('link_open_chat', 'link_close_chat', 'chat');
+        context.navigation().wirePopup('link_open_menu', 'link_close_menu', 'menu');
+        context.navigation().wirePopup('link_open_scores', 'link_close_scores', 'scores');
+
+        wireLinkLeaveGame();
     </script>
 </body>
 

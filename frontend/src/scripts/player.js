@@ -14,6 +14,21 @@ export class Player {
     }
 };
 
+export class PlayerBuilder {
+    build(source) {
+        const target = document.createElement('img');
+
+        target.classList.add('player');
+
+        target.src = 'images/player.svg';
+
+        target.style.left = `${source.position[0] * 40 + 40}px`;
+        target.style.top = `${source.position[1] * 45 + 20}px`;
+
+        return target;
+    }
+}
+
 export class PlayerHelper {
     #random;
 
