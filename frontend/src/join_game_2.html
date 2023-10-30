@@ -82,17 +82,20 @@
             };
 
             context.communication().sendMessage(message);
+            context.gameHelper().removeId();
         }
 
         function onMessage(message) {
             switch (message.game.status) {
                 case Game.Status.aborted:
+                    context.gameHelper().removeId();
+
                     location = 'index.html';
                     break;
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    location = 'map.html' + location.hash;
+                    location = 'map.html';
                     break;
 
                 case Game.Status.missing:

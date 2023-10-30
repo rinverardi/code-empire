@@ -22,7 +22,7 @@ export class Context {
     }
 
     gameHelper() {
-        return this.#gameHelper ? this.#gameHelper : this.#gameHelper = new GameHelper();
+        return this.#gameHelper ? this.#gameHelper : this.#gameHelper = new GameHelper(this);
     }
 
     mapBuilder() {

@@ -44,9 +44,7 @@
         import { Context } from './scripts/context.js';
 
         function wireLinkCreate() {
-            const gameId = context.random().generateId();
-
-            context.navigation().wireClick('link_create', () => 'create_game_1.html#' + gameId);
+            context.navigation().wireClick('link_create', () => 'create_game_1.html');
         }
 
         function wireLinkJoin() {

@@ -2,12 +2,14 @@ import { Config } from './config.js';
 
 export class Communication {
     #connection;
+    #gameHelper;
     #onMessage;
     #onOpen;
     #playerHelper;
     #url;
 
     constructor(context) {
+        this.#gameHelper = context.gameHelper();
         this.#playerHelper = context.playerHelper();
     }
 
@@ -24,7 +26,7 @@ export class Communication {
         this.#onMessage = onMessage;
         this.#onOpen = onOpen;
 
-        const parameters = [location.hash.slice(1), this.#playerHelper.loadId(), this.#playerHelper.loadSecret()];
+        const parameters = [this.#gameHelper.loadId(), this.#playerHelper.loadId(), this.#playerHelper.loadSecret()];
 
         this.#url = Config.urlForGames + parameters.join('-');
 
