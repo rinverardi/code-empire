@@ -159,7 +159,12 @@ h2 {
     position: absolute;
     right: 0;
     scroll-behavior: smooth;
+    scrollbar-width: none;
     top: 0;
+}
+
+#map-container::-webkit-scrollbar {
+    display: none;
 }
 
 .map-row {
