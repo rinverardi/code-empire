@@ -25,14 +25,14 @@
     }
 
     to {
-        bottom: 2em;
+        bottom: 3em;
         opacity: 1;
     }
 }
 
 @keyframes fade-out {
     from {
-        bottom: 2em;
+        bottom: 3em;
         opacity: 1;
     }
 
@@ -181,19 +181,12 @@ h2 {
 
 .notification {
     animation: fade-in 1s forwards, fade-out 1s 3s forwards;
-    border-radius: 0.25em;
+    background-image: url(../images/area.svg);
+    background-size: 100% 100%;
     left: 50%;
     padding: 0.25em 0.5em;
     position: absolute;
     transform: translateX(-50%);
-}
-
-.notification.is-error {
-    background-color: #c44;
-}
-
-.notification.is-information {
-    background-color: #66c;
 }
 
 .player {
