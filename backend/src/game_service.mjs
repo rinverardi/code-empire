@@ -158,9 +158,6 @@ export class GameService {
 
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        // TODO Populate the players!
-        // TODO Populate the turn!
-
         game.game.status = Game.Status.thinking;
 
         this.#populateGame(game);

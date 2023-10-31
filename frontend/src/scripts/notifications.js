@@ -1,7 +1,5 @@
 export class NotificationHelper {
     #show(message) {
-        console.log(message);
-
         const notification = document.createElement('div');
 
         notification.classList.add('notification');
