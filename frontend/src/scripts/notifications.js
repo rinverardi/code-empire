@@ -1,22 +1,22 @@
 export class NotificationHelper {
-    #show(message, messageClass) {
+    #show(message) {
+        console.log(message);
+
         const notification = document.createElement('div');
 
         notification.classList.add('notification');
-        notification.classList.add(messageClass);
-
         notification.textContent = message;
 
-        const body = document.getElementsByTagName('body')[0];
+        document.body.appendChild(notification);
 
-        body.appendChild(notification);
+        setTimeout(() => notification.remove(), 4000);
     }
 
     showError(message) {
-        this.#show(message, 'is-error');
+        this.#show(message);
     }
 
     showInformation(message) {
-        this.#show(message, 'is-information');
+        this.#show(message);
     }
 }
