@@ -18,27 +18,27 @@
     }
 }
 
-@keyframes fade-in {
+@keyframes slide-in {
     from {
-        bottom: 0;
         opacity: 0;
+        transform: translateX(-50%) translateY(0);
     }
 
     to {
-        bottom: 3em;
         opacity: 1;
+        transform: translateX(-50%) translateY(-3em);
     }
 }
 
-@keyframes fade-out {
+@keyframes slide-out {
     from {
-        bottom: 3em;
         opacity: 1;
+        transform: translateX(-50%) translateY(-3em);
     }
 
     to {
-        bottom: 0;
         opacity: 0;
+        transform: translateX(-50%) translateY(0);
     }
 }
 
@@ -180,13 +180,13 @@ h2 {
 }
 
 .notification {
-    animation: fade-in 1s forwards, fade-out 1s 3s forwards;
+    animation: slide-in 1s forwards, slide-out 1s forwards 3s;
     background-image: url(../images/area.svg);
     background-size: 100% 100%;
+    bottom: 0;
     left: 50%;
     padding: 0.25em 0.5em;
     position: absolute;
-    transform: translateX(-50%);
 }
 
 .player {
