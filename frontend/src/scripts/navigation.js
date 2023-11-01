@@ -1,8 +1,26 @@
+import { Player } from './player.js';
+
 export class Navigation {
     #gameHelper;
+    #playerHelper;
 
     constructor(context) {
         this.#gameHelper = context.gameHelper();
+        this.#playerHelper = context.playerHelper();
+    }
+
+    continuePlaying() {
+        location = 'map.html';
+    }
+
+    continueWaiting(message) {
+        const player = this.#playerHelper.getPlayer(message);
+
+        if (player) {
+            location = player.role === Player.Role.master ? 'create_game_2.html' : 'join_game_2.html';
+        } else {
+            this.startOver();
+        }
     }
 
     startOver() {

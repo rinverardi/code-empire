@@ -7,6 +7,12 @@ export class Player {
         });
     }
 
+    static get Role() {
+        return Object.freeze({
+            master: 'master'
+        });
+    }
+
     static get Status() {
         return Object.freeze({
             left: 'left'
@@ -39,9 +45,11 @@ export class PlayerHelper {
     getPlayer(message) {
         const playerId = this.loadId();
 
-        for (const player of message.players) {
-            if (player.id === playerId) {
-                return player;
+        if (message.players) {
+            for (const player of message.players) {
+                if (player.id === playerId) {
+                    return player;
+                }
             }
         }
     }
