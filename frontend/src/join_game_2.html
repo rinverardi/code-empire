@@ -61,12 +61,6 @@
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
-        function didLeaveGame(message) {
-            const playerId = context.playerHelper().loadId();
-
-            return message.players.some(that => that.id === playerId && that.status === Player.Status.left);
-        }
-
         function joinGame() {
             const message = {
                 action: { id: Action.joinGame },
@@ -77,6 +71,8 @@
         }
 
         function leaveGame() {
+            isLeaving = true;
+
             const message = {
                 action: { id: Action.leaveGame }
             };
@@ -98,7 +94,9 @@
                     break;
 
                 case Game.Status.waiting:
-                    if (didLeaveGame(message)) {
+                    const player = context.playerHelper().getPlayer(message);
+
+                    if (isLeaving && player.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
                         updateSlots(message);
@@ -134,6 +132,8 @@
         }
 
         const context = new Context();
+
+        let isLeaving = false;
 
         context.communication().connectGame(onMessage, onOpen);
 

@@ -74,17 +74,23 @@ export class GameService {
     }
 
     async leaveGame(sessionContext) {
+
+        // TODO Check the status!
+
         const game = await this.#gameRepository.loadGame(sessionContext);
 
         game.players = game.players.filter(that => that.id !== sessionContext.playerId);
 
+        if (game.players.length) {
+            game.players.push({
+                id: sessionContext.playerId,
+                status: Player.Status.left
+            });
+        } else {
+            game.game.status = Game.Status.aborted;
+        }
+
         await this.#gameRepository.saveGame(sessionContext, game);
-
-        game.players.push({
-            id: sessionContext.playerId,
-            status: Player.Status.left
-        });
-
         await this.#gameRepository.publishGame(sessionContext, game);
     }
 
