@@ -89,9 +89,7 @@
             switch (message.game.status) {
                 case Game.Status.aborted:
                 case Game.Status.missing:
-                    context.gameHelper().removeId();
-
-                    location = 'index.html';
+                    context.navigation().startOver();
                     break;
 
                 case Game.Status.executing:
@@ -101,7 +99,7 @@
 
                 case Game.Status.waiting:
                     if (didLeaveGame(message)) {
-                        location = 'index.html';
+                        context.navigation().startOver();
                     } else {
                         updateSlots(message);
                     }

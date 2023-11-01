@@ -1,4 +1,16 @@
 export class Navigation {
+    #gameHelper;
+
+    constructor(context) {
+        this.#gameHelper = context.gameHelper();
+    }
+
+    startOver() {
+        this.#gameHelper.removeId();
+
+        location = 'index.html';
+    }
+
     wireClick(control, handler) {
         document.getElementById(control).addEventListener('click', () => {
             const location = handler();

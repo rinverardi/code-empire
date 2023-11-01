@@ -43,6 +43,16 @@ export class PlayerHelper {
         return `${adjective[0].toUpperCase()}${adjective.slice(1)} ${animal[0].toUpperCase()}${animal.slice(1)}`;
     }
 
+    getPlayer(message) {
+        const playerId = this.loadId();
+
+        for (const player of message.players) {
+            if (player.id === playerId) {
+                return player;
+            }
+        }
+    }
+
     loadId() {
         let id = window.sessionStorage.getItem(Player.Attribute.id);
 

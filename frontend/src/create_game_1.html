@@ -57,9 +57,7 @@
         function onMessage(message) {
             switch (message.game.status) {
                 case Game.Status.aborted:
-                    context.gameHelper().removeId();
-
-                    location = 'index.html';
+                    context.navigation().startOver();
                     break;
 
                 case Game.Status.executing:

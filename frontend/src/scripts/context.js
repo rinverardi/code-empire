@@ -33,7 +33,7 @@ export class Context {
     }
 
     navigation() {
-        return this.#navigation ? this.#navigation : this.#navigation = new Navigation();
+        return this.#navigation ? this.#navigation : this.#navigation = new Navigation(this);
     }
 
     notificationHelper() {

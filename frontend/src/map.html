@@ -231,28 +231,22 @@
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
-        function didLeaveGame(message) {
-            const playerId = context.playerHelper().loadId();
-
-            return message.players.some(that => that.id === playerId && that.status === Player.Status.left);
-        }
-
         function onMessage(message) {
             switch (message.game.status) {
                 case Game.Status.aborted:
                 case Game.Status.missing:
                 case Game.Status.waiting:
-                    context.gameHelper().removeId();
-
-                    location = 'index.html';
+                    context.navigation().startOver();
                     break;
 
                 // TODO Implement me!
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    if (didLeaveGame(message)) {
-                        location = 'index.html';
+                    const player = context.playerHelper().getPlayer(message);
+
+                    if (player.status === Player.Status.left) {
+                        context.navigation().startOver();
                     } else {
                         showNotification(message);
                         updateMap(message);
