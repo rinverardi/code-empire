@@ -59,11 +59,7 @@ export class GameService {
 
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        for (const player of game.players) {
-            if (player.id === sessionContext.playerId) {
-                return;
-            }
-        }
+        game.players = game.players.filter(that => that.id !== sessionContext.playerId);
 
         game.players.push({
             id: sessionContext.playerId,
