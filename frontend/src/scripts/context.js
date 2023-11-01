@@ -6,6 +6,7 @@ import { NotificationHelper } from './notifications.js';
 import { PlayerBuilder, PlayerHelper } from './player.js';
 import { Random } from './random.js';
 import { Translation } from './translation.js';
+import { TurnHelper } from './turn.js';
 
 export class Context {
     #communication;
@@ -17,6 +18,7 @@ export class Context {
     #playerHelper;
     #random;
     #translation;
+    #turnHelper;
 
     communication() {
         return this.#communication ? this.#communication : this.#communication = new Communication(this);
@@ -49,7 +51,12 @@ export class Context {
     random() {
         return this.#random ? this.#random : this.#random = new Random();
     }
+
     translation() {
         return this.#translation ? this.#translation : this.#translation = new Translation();
+    }
+
+    turnHelper() {
+        return this.#turnHelper ? this.#turnHelper : this.#turnHelper = new TurnHelper();
     }
 };

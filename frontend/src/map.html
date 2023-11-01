@@ -275,7 +275,7 @@
 
         function showNotification(message) {
             if (message.game.status === Game.Status.thinking) {
-                const player = context.gameHelper().findCurrentPlayer(message);
+                const player = context.turnHelper().getPlayer(message);
 
                 context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
             }
