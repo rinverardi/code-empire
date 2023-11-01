@@ -62,14 +62,14 @@
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    location = 'map.html';
+                    context.navigation().continuePlaying();
                     break;
 
                 case Game.Status.missing:
                     break;
 
                 case Game.Status.waiting:
-                    location = 'create_game_2.html';
+                    context.navigation().continueWaiting(message);
                     break;
 
                 default:

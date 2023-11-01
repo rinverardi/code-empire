@@ -74,7 +74,7 @@
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    location = 'map.html';
+                    context.navigation().continuePlaying();
                     break;
 
                 case Game.Status.waiting:

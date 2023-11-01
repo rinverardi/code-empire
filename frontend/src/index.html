@@ -5,7 +5,7 @@
 <head>
     <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
-    
+
     <link rel="manifest" href="manifest.json">
 
     <link rel="stylesheet" href="styles/lib/bootstrap.min.css">
@@ -32,7 +32,8 @@
                 <button class="can-click control full-width link" id="link_join">Partie beitreten</button>
             </div>
             <div class="col-sm-6 mt-2">
-                <button class="can-click control full-width link" id="link_show_instructions">Anleitung anzeigen</button>
+                <button class="can-click control full-width link" id="link_show_instructions">Anleitung
+                    anzeigen</button>
             </div>
             <div class="col-sm-6 mt-2">
                 <button class="can-click control full-width link" id="link_show_highscores">Highscores anzeigen</button>
@@ -42,6 +43,28 @@
 
     <script type="module">
         import { Context } from './scripts/context.js';
+        import { Game } from './scripts/game.js';
+        import { Player } from './scripts/player.js';
+
+        function onMessage(message) {
+            switch (message.game.status) {
+                case Game.Status.aborted:
+                case Game.Status.missing:
+                    break;
+
+                case Game.Status.executing:
+                case Game.Status.thinking:
+                    context.navigation().continuePlaying();
+                    break;
+
+                case Game.Status.waiting:
+                    context.navigation().continueWaiting(message);
+                    break;
+
+                default:
+                    throw new RangeError('No such status');
+            }
+        }
 
         function wireLinkCreate() {
             context.navigation().wireClick('link_create', () => 'create_game_1.html');
@@ -60,6 +83,8 @@
         }
 
         const context = new Context();
+
+        context.communication().connectGame(onMessage);
 
         wireLinkCreate();
         wireLinkJoin();

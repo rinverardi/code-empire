@@ -90,17 +90,20 @@
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    location = 'map.html';
+                    context.navigation().continuePlaying();
                     break;
 
                 case Game.Status.waiting:
-                    const player = context.playerHelper().getPlayer(message);
+                    if (isLeaving) {
+                        const player = context.playerHelper().getPlayer(message);
 
-                    if (isLeaving && player.status === Player.Status.left) {
-                        context.navigation().startOver();
-                    } else {
-                        updateSlots(message);
+                        if (!player || player.status === Player.Status.left) {
+                            context.navigation().startOver();
+                            return;
+                        }
                     }
+
+                    updateSlots(message);
                     break;
 
                 default:
