@@ -23,16 +23,6 @@ export class GameHelper {
         this.#random = context.random();
     }
 
-    findCurrentPlayer(message) {
-        const playerId = message.turn.player;
-
-        for (const player of message.players) {
-            if (player.id === playerId) {
-                return player;
-            }
-        }
-    }
-
     loadId() {
         let id = window.sessionStorage.getItem(Game.Attribute.id);
 

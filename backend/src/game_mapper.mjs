@@ -3,12 +3,14 @@ export class GameMapper {
     #playerMapper;
     #resourceMapper;
     #structureMapper;
+    #turnMapper;
 
     constructor(globalContext) {
         this.#mapMapper = globalContext.mapMapper();
         this.#playerMapper = globalContext.playerMapper();
         this.#resourceMapper = globalContext.resourceMapper();
         this.#structureMapper = globalContext.structureMapper();
+        this.#turnMapper = globalContext.turnMapper();
     }
 
     map(sessionContext, source) {
@@ -34,7 +36,7 @@ export class GameMapper {
         }
 
         if (source.turn) {
-            target.turn = source.turn;
+            target.turn = this.#turnMapper.map(sessionContext, source.turn);
         }
 
         return target;

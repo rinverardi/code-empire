@@ -7,6 +7,7 @@ import { MapMapper } from './map_mapper.mjs';
 import { PlayerMapper } from './player_mapper.mjs';
 import { ResourceMapper } from './resource_mapper.mjs';
 import { StructureMapper } from './structure_mapper.mjs';
+import { TurnMapper } from './turn_mapper.mjs';
 
 export class GlobalContext {
     #gameController;
@@ -18,6 +19,7 @@ export class GlobalContext {
     #playerMapper;
     #resourceMapper;
     #structureMapper;
+    #turnMapper;
 
     gameController() {
         return this.#gameController ? this.#gameController : this.#gameController = new GameController(this);
@@ -53,5 +55,9 @@ export class GlobalContext {
 
     structureMapper() {
         return this.#structureMapper ? this.#structureMapper : this.#structureMapper = new StructureMapper();
+    }
+
+    turnMapper() {
+        return this.#turnMapper ? this.#turnMapper : this.#turnMapper = new TurnMapper();
     }
 };

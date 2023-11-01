@@ -44,7 +44,7 @@ export class Communication {
     }
 
     #handleClose() {
-        setTimeout(() => this.#notificationHelper.showError('Die Verbindung zum Server wurden getrennt!'), 2000);
+        setTimeout(() => this.#notificationHelper.showError('Die Verbindung zum Server wurde getrennt!'), 2000);
     }
 
     #handleError() {

@@ -36,11 +36,14 @@ export class PlayerHelper {
         this.#random = context.random();
     }
 
-    #generateName() {
-        const adjective = this.#random.pickAdjective();
-        const animal = this.#random.pickAnimal();
+    getPlayer(message) {
+        const playerId = this.loadId();
 
-        return `${adjective[0].toUpperCase()}${adjective.slice(1)} ${animal[0].toUpperCase()}${animal.slice(1)}`;
+        for (const player of message.players) {
+            if (player.id === playerId) {
+                return player;
+            }
+        }
     }
 
     loadId() {
@@ -57,7 +60,7 @@ export class PlayerHelper {
         let name = window.sessionStorage.getItem(Player.Attribute.name);
 
         if (!name) {
-            this.saveName(name = this.#generateName());
+            this.saveName(name = `${this.#random.pickAdjective()} ${this.#random.pickAnimal()}`);
         }
 
         return name;
