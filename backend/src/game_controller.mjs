@@ -3,9 +3,11 @@ import { Logger } from './logger.mjs';
 
 export class GameController {
     #gameService;
+    #playerService;
 
     constructor(globalContext) {
         this.#gameService = globalContext.gameService();
+        this.#playerService = globalContext.playerService();
     }
 
     async watchGame(sessionContext) {
@@ -25,11 +27,11 @@ export class GameController {
                         break;
 
                     case Action.joinGame:
-                        await this.#gameService.joinGame(sessionContext, action.player.name);
+                        await this.#playerService.joinGame(sessionContext, action.player.name);
                         break;
 
                     case Action.leaveGame:
-                        await this.#gameService.leaveGame(sessionContext);
+                        await this.#playerService.leaveGame(sessionContext);
                         break;
 
                     case Action.startGame:

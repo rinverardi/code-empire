@@ -5,6 +5,7 @@ import { GameService } from './game_service.mjs';
 import { InventoryMapper } from './inventory_mapper.mjs';
 import { MapMapper } from './map_mapper.mjs';
 import { PlayerMapper } from './player_mapper.mjs';
+import { PlayerService } from './player_service.mjs';
 import { ResourceMapper } from './resource_mapper.mjs';
 import { StructureMapper } from './structure_mapper.mjs';
 import { TurnMapper } from './turn_mapper.mjs';
@@ -17,6 +18,7 @@ export class GlobalContext {
     #inventoryMapper;
     #mapMapper;
     #playerMapper;
+    #playerService;
     #resourceMapper;
     #structureMapper;
     #turnMapper;
@@ -47,6 +49,10 @@ export class GlobalContext {
 
     playerMapper() {
         return this.#playerMapper ? this.#playerMapper : this.#playerMapper = new PlayerMapper(this);
+    }
+
+    playerService() {
+        return this.#playerService ? this.#playerService : this.#playerService = new PlayerService(this);
     }
 
     resourceMapper() {
