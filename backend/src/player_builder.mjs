@@ -3,6 +3,12 @@ import { Inventory } from './inventory.mjs';
 import { Player } from './player.mjs';
 
 export class PlayerBuilder {
+    #inventoryBuilder;
+
+    constructor(globalContext) {
+        this.#inventoryBuilder = globalContext.inventoryBuilder();
+    }
+
     buildPlayer(sessionContext, playerName, playerRole) {
         return {
             id: sessionContext.playerId,
@@ -16,11 +22,7 @@ export class PlayerBuilder {
     populatePlayers(game) {
         for (const player of game.players) {
             player.health = GlobalConfig.playerHealth;
-            player.inventory = {}
-
-            for (const item in Inventory.Item) {
-                player.inventory[item] = 0;
-            }
+            player.inventory = this.#inventoryBuilder.buildInventory();
 
             // TODO Fix me!
 

@@ -3,6 +3,7 @@ import { GameController } from './game_controller.mjs';
 import { GameMapper } from './game_mapper.mjs';
 import { GameRepository } from './game_repository.mjs';
 import { GameService } from './game_service.mjs';
+import { InventoryBuilder } from './inventory_builder.mjs';
 import { InventoryMapper } from './inventory_mapper.mjs';
 import { MapMapper } from './map_mapper.mjs';
 import { PlayerBuilder } from './player_builder.mjs';
@@ -18,6 +19,7 @@ export class GlobalContext {
     #gameMapper;
     #gameRepository;
     #gameService;
+    #inventoryBuilder;
     #inventoryMapper;
     #mapMapper;
     #playerBuilder;
@@ -45,6 +47,10 @@ export class GlobalContext {
 
     gameService() {
         return this.#gameService ? this.#gameService : this.#gameService = new GameService(this);
+    }
+
+    inventoryBuilder() {
+        return this.#inventoryBuilder ? this.#inventoryBuilder : this.#inventoryBuilder = new InventoryBuilder();
     }
 
     inventoryMapper() {
