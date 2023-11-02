@@ -3,9 +3,11 @@ import { Player } from './player.mjs';
 
 export class PlayerService {
     #gameRepository;
+    #playerBuilder;
 
     constructor(globalContext) {
         this.#gameRepository = globalContext.gameRepository();
+        this.#playerBuilder = globalContext.playerBuilder();
     }
 
     async joinGame(sessionContext, playerName) {
@@ -17,13 +19,9 @@ export class PlayerService {
 
         game.players = game.players.filter(that => that.id !== sessionContext.playerId);
 
-        game.players.push({
-            id: sessionContext.playerId,
-            name: playerName,
-            role: Player.Role.participant,
-            status: Player.Status.alive,
-            secret: sessionContext.playerSecret
-        });
+        const player = this.#playerBuilder.buildPlayer(sessionContext, playerName, Player.Role.participant);
+
+        game.players.push(player);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);

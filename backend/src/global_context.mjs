@@ -5,6 +5,7 @@ import { GameRepository } from './game_repository.mjs';
 import { GameService } from './game_service.mjs';
 import { InventoryMapper } from './inventory_mapper.mjs';
 import { MapMapper } from './map_mapper.mjs';
+import { PlayerBuilder } from './player_builder.mjs';
 import { PlayerMapper } from './player_mapper.mjs';
 import { PlayerService } from './player_service.mjs';
 import { ResourceMapper } from './resource_mapper.mjs';
@@ -19,6 +20,7 @@ export class GlobalContext {
     #gameService;
     #inventoryMapper;
     #mapMapper;
+    #playerBuilder;
     #playerMapper;
     #playerService;
     #resourceMapper;
@@ -26,7 +28,7 @@ export class GlobalContext {
     #turnMapper;
 
     gameBuilder() {
-        return this.#gameBuilder ? this.#gameBuilder : this.#gameBuilder = new GameBuilder();
+        return this.#gameBuilder ? this.#gameBuilder : this.#gameBuilder = new GameBuilder(this);
     }
 
     gameController() {
@@ -51,6 +53,10 @@ export class GlobalContext {
 
     mapMapper() {
         return this.#mapMapper ? this.#mapMapper : this.#mapMapper = new MapMapper();
+    }
+
+    playerBuilder() {
+        return this.#playerBuilder ? this.#playerBuilder : this.#playerBuilder = new PlayerBuilder(this);
     }
 
     playerMapper() {
