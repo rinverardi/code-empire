@@ -1,12 +1,12 @@
-import { GameBuilder } from './game_builder.mjs';
+import { GameManager } from './game_manager.mjs';
 import { GameController } from './game_controller.mjs';
 import { GameMapper } from './game_mapper.mjs';
 import { GameRepository } from './game_repository.mjs';
 import { GameService } from './game_service.mjs';
-import { InventoryBuilder } from './inventory_builder.mjs';
+import { InventoryManager } from './inventory_manager.mjs';
 import { InventoryMapper } from './inventory_mapper.mjs';
 import { MapMapper } from './map_mapper.mjs';
-import { PlayerBuilder } from './player_builder.mjs';
+import { PlayerManager } from './player_manager.mjs';
 import { PlayerMapper } from './player_mapper.mjs';
 import { PlayerService } from './player_service.mjs';
 import { ResourceMapper } from './resource_mapper.mjs';
@@ -14,23 +14,23 @@ import { StructureMapper } from './structure_mapper.mjs';
 import { TurnMapper } from './turn_mapper.mjs';
 
 export class GlobalContext {
-    #gameBuilder;
+    #gameManager;
     #gameController;
     #gameMapper;
     #gameRepository;
     #gameService;
-    #inventoryBuilder;
+    #inventoryManager;
     #inventoryMapper;
     #mapMapper;
-    #playerBuilder;
+    #playerManager;
     #playerMapper;
     #playerService;
     #resourceMapper;
     #structureMapper;
     #turnMapper;
 
-    gameBuilder() {
-        return this.#gameBuilder ? this.#gameBuilder : this.#gameBuilder = new GameBuilder(this);
+    gameManager() {
+        return this.#gameManager ? this.#gameManager : this.#gameManager = new GameManager(this);
     }
 
     gameController() {
@@ -49,8 +49,8 @@ export class GlobalContext {
         return this.#gameService ? this.#gameService : this.#gameService = new GameService(this);
     }
 
-    inventoryBuilder() {
-        return this.#inventoryBuilder ? this.#inventoryBuilder : this.#inventoryBuilder = new InventoryBuilder();
+    inventoryManager() {
+        return this.#inventoryManager ? this.#inventoryManager : this.#inventoryManager = new InventoryManager();
     }
 
     inventoryMapper() {
@@ -61,8 +61,8 @@ export class GlobalContext {
         return this.#mapMapper ? this.#mapMapper : this.#mapMapper = new MapMapper();
     }
 
-    playerBuilder() {
-        return this.#playerBuilder ? this.#playerBuilder : this.#playerBuilder = new PlayerBuilder(this);
+    playerManager() {
+        return this.#playerManager ? this.#playerManager : this.#playerManager = new PlayerManager(this);
     }
 
     playerMapper() {

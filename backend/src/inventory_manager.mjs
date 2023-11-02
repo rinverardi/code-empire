@@ -1,6 +1,6 @@
 import { Inventory } from "./inventory.mjs";
 
-export class InventoryBuilder {
+export class InventoryManager {
     buildInventory() {
         const inventory = {}
 

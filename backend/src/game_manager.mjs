@@ -2,15 +2,15 @@ import { Game } from './game.mjs';
 import { Map } from './map.mjs';
 import { Player } from './player.mjs';
 
-export class GameBuilder {
-    #playerBuilder;
+export class GameManager {
+    #playerManager;
 
     constructor(globalContext) {
-        this.#playerBuilder = globalContext.playerBuilder();
+        this.#playerManager = globalContext.playerManager();
     }
 
     buildGame(sessionContext, mapId, playerName) {
-        const player = this.#playerBuilder.buildPlayer(sessionContext, playerName, Player.Role.master);
+        const player = this.#playerManager.buildPlayer(sessionContext, playerName, Player.Role.master);
 
         return {
             id: sessionContext.gameId,
@@ -31,7 +31,7 @@ export class GameBuilder {
         this.#populateStructures(game);
         this.#populateTurn(game);
 
-        this.#playerBuilder.populatePlayers(game);
+        this.#playerManager.populatePlayers(game);
     }
 
     // TODO Extract me!
