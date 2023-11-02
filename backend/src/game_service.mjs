@@ -81,13 +81,13 @@ export class GameService {
 
         game.players = game.players.filter(that => that.id !== sessionContext.playerId);
 
-        if (game.players.length) {
-            game.players.push({
-                id: sessionContext.playerId,
-                status: Player.Status.left
-            });
-        } else {
-            game.game.status = Game.Status.aborted;
+        game.players.push({
+            id: sessionContext.playerId,
+            status: Player.Status.left
+        });
+
+        if (game.players.every(that => that.status === Player.Status.left)) {
+            game.status = Game.Status.aborted;
         }
 
         await this.#gameRepository.saveGame(sessionContext, game);
