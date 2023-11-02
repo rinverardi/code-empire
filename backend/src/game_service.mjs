@@ -1,8 +1,4 @@
 import { Game } from './game.mjs';
-import { GlobalConfig } from './global_config.mjs';
-import { Inventory } from './inventory.mjs';
-import { Map } from './map.mjs';
-import { Player } from './player.mjs';
 
 export class GameService {
     #gameBuilder;
@@ -55,56 +51,6 @@ export class GameService {
             .map(that => this.#gameMapper.map(sessionContext, that));
     }
 
-    #populate(game) {
-        game.status = Game.Status.thinking;
-
-        this.#populateMap(game);
-        this.#populateMessages(game);
-        this.#populatePlayers(game);
-        this.#populateResources(game);
-        this.#populateStructures(game);
-        this.#populateTurn(game);
-    }
-
-    #populateMap(game) {
-        game.map.tiles = Map.Template[game.map.id];
-    }
-
-    #populateMessages(game) {
-        game.messages = []
-    }
-
-    #populatePlayers(game) {
-        for (const player of game.players) {
-            player.health = GlobalConfig.playerHealth;
-            player.inventory = {}
-            player.position = [2, 1];
-            player.visibility = game.map.tiles.map(that => that.replace(/[^ ]/g, Player.Visibility.none));
-
-            for (const item in Inventory.Item) {
-                player.inventory[item] = 0;
-            }
-        }
-    }
-
-    #populateResources(game) {
-        game.resources = [];
-
-        // TODO Implement me!
-
-    }
-
-    #populateStructures(game) {
-        game.structures = [];
-    }
-
-    #populateTurn(game) {
-        game.turn = {
-            number: 1,
-            player: game.players[0].id
-        }
-    }
-
     async startGame(sessionContext) {
 
         // TODO Check the access!
@@ -112,7 +58,7 @@ export class GameService {
 
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        this.#populate(game);
+        this.#gameBuilder.populateGame(game);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
