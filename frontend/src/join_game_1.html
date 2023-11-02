@@ -64,14 +64,14 @@
             updateSelect();
         }
 
-        function onMessage(message) {
-            if (message.game.status === Game.Status.waiting) {
-                const mapName = context.translation().mapName(message.map.id);
-                const playerName = message.players[0].name;
+        function onMessage(game) {
+            if (game.status === Game.Status.waiting) {
+                const mapName = context.translation().mapName(game.map.id);
+                const playerName = game.players[0].name;
 
-                addGame(message.game.id, `${mapName} von ${playerName}`);
+                addGame(game.id, `${mapName} von ${playerName}`);
             } else {
-                removeGame(message.game.id);
+                removeGame(game.id);
             }
         }
 

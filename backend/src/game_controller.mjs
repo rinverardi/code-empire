@@ -13,19 +13,19 @@ export class GameController {
 
         wsConnection.on('message', async wsMessage => {
             try {
-                const actionMessage = JSON.parse(wsMessage);
+                const action = JSON.parse(wsMessage);
 
-                switch (actionMessage.action.id) {
+                switch (action.id) {
                     case Action.abortGame:
                         await this.#gameService.abortGame(sessionContext);
                         break;
 
                     case Action.createGame:
-                        await this.#gameService.createGame(sessionContext, actionMessage.map.id, actionMessage.player.name);
+                        await this.#gameService.createGame(sessionContext, action.map.id, action.player.name);
                         break;
 
                     case Action.joinGame:
-                        await this.#gameService.joinGame(sessionContext, actionMessage.player.name);
+                        await this.#gameService.joinGame(sessionContext, action.player.name);
                         break;
 
                     case Action.leaveGame:

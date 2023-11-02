@@ -20,7 +20,7 @@ export class GameService {
 
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        game.game.status = Game.Status.aborted;
+        game.status = Game.Status.aborted;
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
@@ -32,10 +32,7 @@ export class GameService {
         // TODO Check the status!
 
         const game = {
-            game: {
-                id: sessionContext.gameId,
-                status: Game.Status.waiting
-            },
+            id: sessionContext.gameId,
             map: {
                 id: mapId
             },
@@ -45,7 +42,8 @@ export class GameService {
                 role: Player.Role.master,
                 status: Player.Status.alive,
                 secret: sessionContext.playerSecret
-            }]
+            }],
+            status: Game.Status.waiting
         };
 
         await this.#gameRepository.saveGame(sessionContext, game);
@@ -99,19 +97,26 @@ export class GameService {
 
         return game
             ? this.#gameMapper.map(sessionContext, game)
-            : { game: { status: Game.Status.missing } };
+            : { status: Game.Status.missing };
     }
 
     async loadGameList(sessionContext) {
         const gameList = await this.#gameRepository.loadGameList(sessionContext);
 
         return gameList
-            .filter(that => that.game.status === Game.Status.waiting)
+            .filter(that => that.status === Game.Status.waiting)
             .map(that => this.#gameMapper.map(sessionContext, that));
     }
 
-    #populateGame(game) {
-        game.game.status = Game.Status.thinking;
+    #populate(game) {
+        game.status = Game.Status.thinking;
+
+        this.#populateMap(game);
+        this.#populateMessages(game);
+        this.#populatePlayers(game);
+        this.#populateResources(game);
+        this.#populateStructures(game);
+        this.#populateTurn(game);
     }
 
     #populateMap(game) {
@@ -160,15 +165,7 @@ export class GameService {
 
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        game.game.status = Game.Status.thinking;
-
-        this.#populateGame(game);
-        this.#populateMap(game);
-        this.#populateMessages(game);
-        this.#populatePlayers(game);
-        this.#populateResources(game);
-        this.#populateStructures(game);
-        this.#populateTurn(game);
+        this.#populate(game);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);

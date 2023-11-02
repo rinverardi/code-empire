@@ -46,8 +46,8 @@
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
-        function onMessage(message) {
-            switch (message.game.status) {
+        function onMessage(game) {
+            switch (game.status) {
                 case Game.Status.aborted:
                 case Game.Status.missing:
                     break;
@@ -58,7 +58,7 @@
                     break;
 
                 case Game.Status.waiting:
-                    context.navigation().continueWaiting(message);
+                    context.navigation().continueWaiting(game);
                     break;
 
                 default:
