@@ -1,6 +1,4 @@
 import { Game } from './game.mjs';
-import { GlobalConfig } from './global_config.mjs';
-import { Inventory } from './inventory.mjs';
 import { Map } from './map.mjs';
 import { Player } from './player.mjs';
 
@@ -29,10 +27,11 @@ export class GameBuilder {
 
         this.#populateMap(game);
         this.#populateMessages(game);
-        this.#populatePlayers(game);
         this.#populateResources(game);
         this.#populateStructures(game);
         this.#populateTurn(game);
+
+        this.#playerBuilder.populatePlayerList(game);
     }
 
     // TODO Extract me!
@@ -45,21 +44,6 @@ export class GameBuilder {
 
     #populateMessages(game) {
         game.messages = []
-    }
-
-    // TODO Extract me!
-
-    #populatePlayers(game) {
-        for (const player of game.players) {
-            player.health = GlobalConfig.playerHealth;
-            player.inventory = {}
-            player.position = [2, 1];
-            player.visibility = game.map.tiles.map(that => that.replace(/[^ ]/g, Player.Visibility.none));
-
-            for (const item in Inventory.Item) {
-                player.inventory[item] = 0;
-            }
-        }
     }
 
     // TODO Extract me!
