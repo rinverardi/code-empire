@@ -13,22 +13,20 @@ export class PlayerBuilder {
         };
     }
 
-    populatePlayer(player) {
-        player.health = GlobalConfig.playerHealth;
-        player.inventory = {}
-
-        // TODO Fix me!
-
-        player.position = [2, 1];
-
-        for (const item in Inventory.Item) {
-            player.inventory[item] = 0;
-        }
-    }
-
-    populatePlayerList(game) {
+    populatePlayers(game) {
         for (const player of game.players) {
-            this.populatePlayer(player);
+            player.health = GlobalConfig.playerHealth;
+            player.inventory = {}
+
+            for (const item in Inventory.Item) {
+                player.inventory[item] = 0;
+            }
+
+            // TODO Fix me!
+
+            player.position = [2, 1];
+
+            // TODO Fix me!
 
             player.visibility = game.map.tiles.map(that => that.replace(/[^ ]/g, Player.Visibility.none));
         }

@@ -31,7 +31,7 @@ export class GameBuilder {
         this.#populateStructures(game);
         this.#populateTurn(game);
 
-        this.#playerBuilder.populatePlayerList(game);
+        this.#playerBuilder.populatePlayers(game);
     }
 
     // TODO Extract me!
