@@ -1,3 +1,4 @@
+import { GameBuilder } from './game_builder.mjs';
 import { GameController } from './game_controller.mjs';
 import { GameMapper } from './game_mapper.mjs';
 import { GameRepository } from './game_repository.mjs';
@@ -11,6 +12,7 @@ import { StructureMapper } from './structure_mapper.mjs';
 import { TurnMapper } from './turn_mapper.mjs';
 
 export class GlobalContext {
+    #gameBuilder;
     #gameController;
     #gameMapper;
     #gameRepository;
@@ -22,6 +24,10 @@ export class GlobalContext {
     #resourceMapper;
     #structureMapper;
     #turnMapper;
+
+    gameBuilder() {
+        return this.#gameBuilder ? this.#gameBuilder : this.#gameBuilder = new GameBuilder();
+    }
 
     gameController() {
         return this.#gameController ? this.#gameController : this.#gameController = new GameController(this);

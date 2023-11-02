@@ -5,10 +5,12 @@ import { Map } from './map.mjs';
 import { Player } from './player.mjs';
 
 export class GameService {
+    #gameBuilder;
     #gameMapper;
     #gameRepository;
 
     constructor(globalContext) {
+        this.#gameBuilder = globalContext.gameBuilder();
         this.#gameMapper = globalContext.gameMapper();
         this.#gameRepository = globalContext.gameRepository();
     }
@@ -31,20 +33,7 @@ export class GameService {
         // TODO Check the limit!
         // TODO Check the status!
 
-        const game = {
-            id: sessionContext.gameId,
-            map: {
-                id: mapId
-            },
-            players: [{
-                id: sessionContext.playerId,
-                name: playerName,
-                role: Player.Role.master,
-                status: Player.Status.alive,
-                secret: sessionContext.playerSecret
-            }],
-            status: Game.Status.waiting
-        };
+        const game = this.#gameBuilder.buildGame(sessionContext, mapId, playerName);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
