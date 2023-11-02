@@ -65,8 +65,8 @@
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
-        function onMessage(message) {
-            switch (message.game.status) {
+        function onMessage(game) {
+            switch (game.status) {
                 case Game.Status.aborted:
                 case Game.Status.missing:
                     context.navigation().startOver();
@@ -78,7 +78,7 @@
                     break;
 
                 case Game.Status.waiting:
-                    updateSlots(message);
+                    updateSlots(game);
                     break;
 
                 default:
@@ -86,8 +86,8 @@
             }
         }
 
-        function updateSlots(message) {
-            const players = message.players.filter(that => that.status !== Player.Status.left);
+        function updateSlots(game) {
+            const players = game.players.filter(that => that.status !== Player.Status.left);
 
             for (let index = 0; index < Config.slots; index++) {
                 const slot = document.getElementById('slot_' + index);
@@ -103,22 +103,18 @@
 
         function wireLinkAbort() {
             context.navigation().wireClick('link_abort', () => {
-                const message = {
-                    action: { id: Action.abortGame }
-                };
+                const action = { id: Action.abortGame };
 
-                context.communication().sendMessage(message);
+                context.communication().sendMessage(action);
                 context.gameHelper().removeId();
             });
         }
 
         function wireLinkStart() {
             context.navigation().wireClick('link_start', () => {
-                const message = {
-                    action: { id: Action.startGame }
-                };
+                const action = { id: Action.startGame };
 
-                context.communication().sendMessage(message);
+                context.communication().sendMessage(action);
             });
         }
 

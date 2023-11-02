@@ -15,12 +15,10 @@ export class GameMapper {
 
     map(sessionContext, source) {
         const target = {
-            game: {
-                id: source.game.id,
-                status: source.game.status
-            },
+            id: source.id,
             map: this.#mapMapper.map(sessionContext, source.map),
-            players: []
+            players: [],
+            status: source.status
         };
 
         for (const player of source.players) {

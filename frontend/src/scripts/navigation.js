@@ -13,8 +13,8 @@ export class Navigation {
         location = 'map.html';
     }
 
-    continueWaiting(message) {
-        const player = this.#playerHelper.getPlayer(message);
+    continueWaiting(game) {
+        const player = this.#playerHelper.getPlayer(game);
 
         if (player) {
             location = player.role === Player.Role.master ? 'create_game_2.html' : 'join_game_2.html';

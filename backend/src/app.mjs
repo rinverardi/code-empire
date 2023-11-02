@@ -12,7 +12,7 @@ class App extends GlobalContext {
       pattern: /^\/games\/([a-z0-9]+)-([a-z0-9]+)-([a-z0-9]+)$/
     },
     {
-      handler: (wsConnection) => this.#handleGameList(wsConnection),
+      handler: wsConnection => this.#handleGameList(wsConnection),
       pattern: /^\/games\/$/
     }
   ];

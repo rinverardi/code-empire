@@ -42,11 +42,11 @@ export class PlayerHelper {
         this.#random = context.random();
     }
 
-    getPlayer(message) {
+    getPlayer(game) {
         const playerId = this.loadId();
 
-        if (message.players) {
-            for (const player of message.players) {
+        if (game.players) {
+            for (const player of game.players) {
                 if (player.id === playerId) {
                     return player;
                 }

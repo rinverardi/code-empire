@@ -44,11 +44,11 @@ export class Communication {
     }
 
     #handleClose() {
-        setTimeout(() => this.#notificationHelper.showError('Die Verbindung zum Server wurde getrennt!'), 2000);
+        setTimeout(() => this.#notificationHelper.showError('Die Verbindung wurde getrennt!'), 2000);
     }
 
     #handleError() {
-        this.#notificationHelper.showError('Die Verbindung zum Server ist fehlerhaft!');
+        this.#notificationHelper.showError('Die Verbindung ist fehlerhaft!');
     }
 
     #handleMessage(message) {

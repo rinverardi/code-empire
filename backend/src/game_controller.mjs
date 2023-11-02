@@ -3,9 +3,11 @@ import { Logger } from './logger.mjs';
 
 export class GameController {
     #gameService;
+    #playerService;
 
     constructor(globalContext) {
         this.#gameService = globalContext.gameService();
+        this.#playerService = globalContext.playerService();
     }
 
     async watchGame(sessionContext) {
@@ -13,23 +15,23 @@ export class GameController {
 
         wsConnection.on('message', async wsMessage => {
             try {
-                const actionMessage = JSON.parse(wsMessage);
+                const action = JSON.parse(wsMessage);
 
-                switch (actionMessage.action.id) {
+                switch (action.id) {
                     case Action.abortGame:
                         await this.#gameService.abortGame(sessionContext);
                         break;
 
                     case Action.createGame:
-                        await this.#gameService.createGame(sessionContext, actionMessage.map.id, actionMessage.player.name);
+                        await this.#gameService.createGame(sessionContext, action.map.id, action.player.name);
                         break;
 
                     case Action.joinGame:
-                        await this.#gameService.joinGame(sessionContext, actionMessage.player.name);
+                        await this.#playerService.joinGame(sessionContext, action.player.name);
                         break;
 
                     case Action.leaveGame:
-                        await this.#gameService.leaveGame(sessionContext);
+                        await this.#playerService.leaveGame(sessionContext);
                         break;
 
                     case Action.startGame:
@@ -44,7 +46,7 @@ export class GameController {
             }
         });
 
-        await this.#gameService.watchGame(sessionContext, (game) => {
+        await this.#gameService.watchGame(sessionContext, game => {
             wsConnection.send(JSON.stringify(game));
         });
     }
@@ -52,7 +54,7 @@ export class GameController {
     async watchGameList(sessionContext) {
         const wsConnection = sessionContext.wsConnection();
 
-        await this.#gameService.watchGameList(sessionContext, (gameList) => {
+        await this.#gameService.watchGameList(sessionContext, gameList => {
             wsConnection.send(JSON.stringify(gameList));
         });
     }

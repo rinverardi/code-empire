@@ -54,8 +54,8 @@
         import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
 
-        function onMessage(message) {
-            switch (message.game.status) {
+        function onMessage(game) {
+            switch (game.status) {
                 case Game.Status.aborted:
                     context.navigation().startOver();
                     break;
@@ -69,7 +69,7 @@
                     break;
 
                 case Game.Status.waiting:
-                    context.navigation().continueWaiting(message);
+                    context.navigation().continueWaiting(game);
                     break;
 
                 default:
@@ -95,13 +95,13 @@
 
         function wireLinkNext() {
             context.navigation().wireClick('link_next', () => {
-                const message = {
-                    action: { id: Action.createGame },
+                const action = {
+                    id: Action.createGame,
                     map: { id: parseInt(document.getElementById('select').value) },
                     player: { name: document.getElementById('input').value }
                 };
 
-                context.communication().sendMessage(message);
+                context.communication().sendMessage(action);
             });
         }
 

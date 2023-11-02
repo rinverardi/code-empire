@@ -2,7 +2,7 @@ import { Communication } from './communication.js';
 import { GameHelper } from './game.js';
 import { MapBuilder } from './map.js';
 import { Navigation } from './navigation.js';
-import { NotificationHelper } from './notifications.js';
+import { NotificationHelper } from './notification.js';
 import { PlayerBuilder, PlayerHelper } from './player.js';
 import { Random } from './random.js';
 import { Translation } from './translation.js';

@@ -231,8 +231,8 @@
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
-        function onMessage(message) {
-            switch (message.game.status) {
+        function onMessage(game) {
+            switch (game.status) {
                 case Game.Status.aborted:
                 case Game.Status.missing:
                 case Game.Status.waiting:
@@ -243,14 +243,14 @@
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    const player = context.playerHelper().getPlayer(message);
+                    const player = context.playerHelper().getPlayer(game);
 
                     if (player.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
-                        showNotification(message);
-                        updateMap(message);
-                        updatePlayers(message);
+                        showNotification(game);
+                        updateMap(game);
+                        updatePlayers(game);
                     }
                     break;
 
@@ -267,21 +267,21 @@
                 (mapContainer.scrollHeight - mapContainer.clientHeight) / 2);
         }
 
-        function showNotification(message) {
-            if (message.game.status === Game.Status.thinking) {
-                const player = context.turnHelper().getPlayer(message);
+        function showNotification(game) {
+            if (game.status === Game.Status.thinking) {
+                const player = context.turnHelper().getPlayer(game);
 
                 context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
             }
         }
 
-        function updateMap(message) {
+        function updateMap(game) {
             if (!didUpdateMap) {
                 didUpdateMap = true;
 
                 const mapContainer = document.getElementById('map-container');
 
-                mapContainer.appendChild(context.mapBuilder().build(message.map.tiles));
+                mapContainer.appendChild(context.mapBuilder().build(game.map.tiles));
 
                 // TODO Scroll to current player!
 
@@ -289,16 +289,16 @@
             }
         }
 
-        function updatePlayers(message) {
+        function updatePlayers(game) {
             if (!didUpdatePlayers) {
                 didUpdatePlayers = true;
 
                 const map = document.getElementById('map');
 
-                for (const player of message.players) {
+                for (const player of game.players) {
                     const element = context.playerBuilder().build(player);
 
-                    if (player.id === message.turn.player) {
+                    if (player.id === game.turn.player) {
                         element.classList.add('current');
                     }
 
@@ -309,11 +309,9 @@
 
         function wireLinkLeaveGame() {
             document.getElementById('link_leave_game').addEventListener('click', () => {
-                const message = {
-                    action: { id: Action.leaveGame }
-                };
+                const action = { id: Action.leaveGame };
 
-                context.communication().sendMessage(message);
+                context.communication().sendMessage(action);
                 context.gameHelper().removeId();
             });
         }

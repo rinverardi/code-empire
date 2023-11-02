@@ -62,27 +62,25 @@
         import { Player } from './scripts/player.js';
 
         function joinGame() {
-            const message = {
-                action: { id: Action.joinGame },
+            const action = {
+                id: Action.joinGame,
                 player: { name: context.playerHelper().loadName() }
             };
 
-            context.communication().sendMessage(message);
+            context.communication().sendMessage(action);
         }
 
         function leaveGame() {
             isLeaving = true;
 
-            const message = {
-                action: { id: Action.leaveGame }
-            };
+            const action = { id: Action.leaveGame };
 
-            context.communication().sendMessage(message);
+            context.communication().sendMessage(action);
             context.gameHelper().removeId();
         }
 
-        function onMessage(message) {
-            switch (message.game.status) {
+        function onMessage(game) {
+            switch (game.status) {
                 case Game.Status.aborted:
                 case Game.Status.missing:
                     context.navigation().startOver();
@@ -95,7 +93,7 @@
 
                 case Game.Status.waiting:
                     if (isLeaving) {
-                        const player = context.playerHelper().getPlayer(message);
+                        const player = context.playerHelper().getPlayer(game);
 
                         if (!player || player.status === Player.Status.left) {
                             context.navigation().startOver();
@@ -103,7 +101,7 @@
                         }
                     }
 
-                    updateSlots(message);
+                    updateSlots(game);
                     break;
 
                 default:
@@ -115,8 +113,8 @@
             joinGame();
         }
 
-        function updateSlots(message) {
-            const players = message.players.filter(that => that.status !== Player.Status.left);
+        function updateSlots(game) {
+            const players = game.players.filter(that => that.status !== Player.Status.left);
 
             for (let index = 0; index < Config.slots; index++) {
                 const slot = document.getElementById('slot_' + index);

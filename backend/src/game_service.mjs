@@ -1,14 +1,12 @@
 import { Game } from './game.mjs';
-import { GlobalConfig } from './global_config.mjs';
-import { Inventory } from './inventory.mjs';
-import { Map } from './map.mjs';
-import { Player } from './player.mjs';
 
 export class GameService {
+    #gameBuilder;
     #gameMapper;
     #gameRepository;
 
     constructor(globalContext) {
+        this.#gameBuilder = globalContext.gameBuilder();
         this.#gameMapper = globalContext.gameMapper();
         this.#gameRepository = globalContext.gameRepository();
     }
@@ -20,7 +18,7 @@ export class GameService {
 
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        game.game.status = Game.Status.aborted;
+        game.status = Game.Status.aborted;
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
@@ -31,64 +29,7 @@ export class GameService {
         // TODO Check the limit!
         // TODO Check the status!
 
-        const game = {
-            game: {
-                id: sessionContext.gameId,
-                status: Game.Status.waiting
-            },
-            map: {
-                id: mapId
-            },
-            players: [{
-                id: sessionContext.playerId,
-                name: playerName,
-                role: Player.Role.master,
-                status: Player.Status.alive,
-                secret: sessionContext.playerSecret
-            }]
-        };
-
-        await this.#gameRepository.saveGame(sessionContext, game);
-        await this.#gameRepository.publishGame(sessionContext, game);
-    }
-
-    async joinGame(sessionContext, playerName) {
-
-        // TODO Check the limit!
-        // TODO Check the status!
-
-        const game = await this.#gameRepository.loadGame(sessionContext);
-
-        game.players = game.players.filter(that => that.id !== sessionContext.playerId);
-
-        game.players.push({
-            id: sessionContext.playerId,
-            name: playerName,
-            role: Player.Role.participant,
-            status: Player.Status.alive,
-            secret: sessionContext.playerSecret
-        });
-
-        await this.#gameRepository.saveGame(sessionContext, game);
-        await this.#gameRepository.publishGame(sessionContext, game);
-    }
-
-    async leaveGame(sessionContext) {
-
-        // TODO Check the status!
-
-        const game = await this.#gameRepository.loadGame(sessionContext);
-
-        game.players = game.players.filter(that => that.id !== sessionContext.playerId);
-
-        if (game.players.length) {
-            game.players.push({
-                id: sessionContext.playerId,
-                status: Player.Status.left
-            });
-        } else {
-            game.game.status = Game.Status.aborted;
-        }
+        const game = this.#gameBuilder.buildGame(sessionContext, mapId, playerName);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
@@ -99,58 +40,15 @@ export class GameService {
 
         return game
             ? this.#gameMapper.map(sessionContext, game)
-            : { game: { status: Game.Status.missing } };
+            : { status: Game.Status.missing };
     }
 
     async loadGameList(sessionContext) {
         const gameList = await this.#gameRepository.loadGameList(sessionContext);
 
         return gameList
-            .filter(that => that.game.status === Game.Status.waiting)
+            .filter(that => that.status === Game.Status.waiting)
             .map(that => this.#gameMapper.map(sessionContext, that));
-    }
-
-    #populateGame(game) {
-        game.game.status = Game.Status.thinking;
-    }
-
-    #populateMap(game) {
-        game.map.tiles = Map.Template[game.map.id];
-    }
-
-    #populateMessages(game) {
-        game.messages = []
-    }
-
-    #populatePlayers(game) {
-        for (const player of game.players) {
-            player.health = GlobalConfig.playerHealth;
-            player.inventory = {}
-            player.position = [2, 1];
-            player.visibility = game.map.tiles.map(that => that.replace(/[^ ]/g, Player.Visibility.none));
-
-            for (const item in Inventory.Item) {
-                player.inventory[item] = 0;
-            }
-        }
-    }
-
-    #populateResources(game) {
-        game.resources = [];
-
-        // TODO Implement me!
-
-    }
-
-    #populateStructures(game) {
-        game.structures = [];
-    }
-
-    #populateTurn(game) {
-        game.turn = {
-            number: 1,
-            player: game.players[0].id
-        }
     }
 
     async startGame(sessionContext) {
@@ -160,15 +58,7 @@ export class GameService {
 
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        game.game.status = Game.Status.thinking;
-
-        this.#populateGame(game);
-        this.#populateMap(game);
-        this.#populateMessages(game);
-        this.#populatePlayers(game);
-        this.#populateResources(game);
-        this.#populateStructures(game);
-        this.#populateTurn(game);
+        this.#gameBuilder.populateGame(game);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);

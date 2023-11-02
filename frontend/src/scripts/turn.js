@@ -1,8 +1,8 @@
 export class TurnHelper {
-    getPlayer(message) {
-        const playerId = message.turn.player;
+    getPlayer(game) {
+        const playerId = game.turn.player;
 
-        for (const player of message.players) {
+        for (const player of game.players) {
             if (player.id === playerId) {
                 return player;
             }
