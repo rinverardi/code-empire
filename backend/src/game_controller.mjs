@@ -44,7 +44,7 @@ export class GameController {
             }
         });
 
-        await this.#gameService.watchGame(sessionContext, (game) => {
+        await this.#gameService.watchGame(sessionContext, game => {
             wsConnection.send(JSON.stringify(game));
         });
     }
@@ -52,7 +52,7 @@ export class GameController {
     async watchGameList(sessionContext) {
         const wsConnection = sessionContext.wsConnection();
 
-        await this.#gameService.watchGameList(sessionContext, (gameList) => {
+        await this.#gameService.watchGameList(sessionContext, gameList => {
             wsConnection.send(JSON.stringify(gameList));
         });
     }
