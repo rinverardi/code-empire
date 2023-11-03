@@ -175,7 +175,7 @@ h2 {
     margin-top: -20px;
 }
 
-.map-row:nth-of-type(2n - 1) {
+.map-row:nth-of-type(2n) {
     margin-left: 40px;
 }
 
