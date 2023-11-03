@@ -54,7 +54,7 @@ export class GameManager {
 
     startRound(game) { }
 
-    // TODO Implement me!
-
-    startTurn(game) { }
+    startTurn(game) {
+        this.#turnManager.startTurn(game);
+    }
 };

@@ -59,6 +59,7 @@ export class GameService {
         const game = await this.#gameRepository.loadGame(sessionContext);
 
         this.#gameManager.startGame(game);
+        this.#gameManager.startTurn(game);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);

@@ -100,7 +100,7 @@ export class GlobalContext {
     }
 
     turnManager() {
-        return this.#turnManager ? this.#turnManager : this.#turnManager = new TurnManager();
+        return this.#turnManager ? this.#turnManager : this.#turnManager = new TurnManager(this);
     }
 
     turnMapper() {
