@@ -1,4 +1,4 @@
-import { Inventory } from "./inventory.mjs";
+import { Inventory } from './inventory.mjs';
 
 export class InventoryManager {
     buildInventory() {
