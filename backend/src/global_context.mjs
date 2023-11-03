@@ -1,3 +1,4 @@
+import { GameAccess } from './game_access.mjs';
 import { GameManager } from './game_manager.mjs';
 import { GameController } from './game_controller.mjs';
 import { GameMapper } from './game_mapper.mjs';
@@ -16,6 +17,7 @@ import { TurnManager } from './turn_manager.mjs';
 import { TurnMapper } from './turn_mapper.mjs';
 
 export class GlobalContext {
+    #gameAccess;
     #gameManager;
     #gameController;
     #gameMapper;
@@ -32,6 +34,10 @@ export class GlobalContext {
     #structureMapper;
     #turnManager;
     #turnMapper;
+
+    gameAccess() {
+        return this.#gameAccess ? this.#gameAccess : this.#gameAccess = new GameAccess();
+    }
 
     gameManager() {
         return this.#gameManager ? this.#gameManager : this.#gameManager = new GameManager(this);
