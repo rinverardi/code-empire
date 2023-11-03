@@ -12,16 +12,20 @@ export class GameManager {
     }
 
     buildGame(sessionContext, mapId, playerName) {
-        const player = this.#playerManager.buildPlayer(sessionContext, playerName, Player.Role.master);
-
-        return {
+        const game = {
             id: sessionContext.gameId,
             map: {
                 id: mapId
             },
-            players: [player],
+            players: [],
             status: Game.Status.waiting
         };
+
+        const player = this.#playerManager.buildPlayer(sessionContext, playerName, Player.Role.master);
+
+        game.players.push(player);
+
+        return game;
     }
 
     // TODO Implement me!
