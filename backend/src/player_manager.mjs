@@ -1,6 +1,7 @@
 import { GlobalConfig } from './global_config.mjs';
 import { Map } from './map.mjs';
 import { Player } from './player.mjs';
+import { Visibility } from './visibility.mjs';
 
 export class PlayerManager {
     #inventoryManager;
@@ -44,7 +45,7 @@ export class PlayerManager {
 
             // TODO Fix me!
 
-            player.visibility = game.map.tiles.map(that => that.replace(/[^ ]/g, Player.Visibility.none));
+            player.visibility = game.map.tiles.map(that => that.replace(/[^ ]/g, Visibility.clear));
         }
     }
 };

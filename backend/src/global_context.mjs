@@ -15,6 +15,7 @@ import { ResourceMapper } from './resource_mapper.mjs';
 import { StructureMapper } from './structure_mapper.mjs';
 import { TurnManager } from './turn_manager.mjs';
 import { TurnMapper } from './turn_mapper.mjs';
+import { VisibilityAccess } from './visibility_access.mjs';
 
 export class GlobalContext {
     #gameAccess;
@@ -34,6 +35,7 @@ export class GlobalContext {
     #structureMapper;
     #turnManager;
     #turnMapper;
+    #visibilityAccess;
 
     gameAccess() {
         return this.#gameAccess ? this.#gameAccess : this.#gameAccess = new GameAccess();
@@ -101,5 +103,9 @@ export class GlobalContext {
 
     turnMapper() {
         return this.#turnMapper ? this.#turnMapper : this.#turnMapper = new TurnMapper();
+    }
+
+    visibilityAccess() {
+        return this.#visibilityAccess ? this.#visibilityAccess : this.#visibilityAccess = new VisibilityAccess();
     }
 };
