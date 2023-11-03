@@ -1,12 +1,12 @@
 import { Game } from './game.mjs';
 
 export class GameService {
-    #gameBuilder;
+    #gameManager;
     #gameMapper;
     #gameRepository;
 
     constructor(globalContext) {
-        this.#gameBuilder = globalContext.gameBuilder();
+        this.#gameManager = globalContext.gameManager();
         this.#gameMapper = globalContext.gameMapper();
         this.#gameRepository = globalContext.gameRepository();
     }
@@ -29,7 +29,7 @@ export class GameService {
         // TODO Check the limit!
         // TODO Check the status!
 
-        const game = this.#gameBuilder.buildGame(sessionContext, mapId, playerName);
+        const game = this.#gameManager.buildGame(sessionContext, mapId, playerName);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
@@ -58,7 +58,7 @@ export class GameService {
 
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        this.#gameBuilder.populateGame(game);
+        this.#gameManager.startGame(game);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
