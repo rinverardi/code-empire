@@ -1,7 +1,6 @@
 import { GlobalConfig } from './global_config.mjs';
 import { Map } from './map.mjs';
 import { Player } from './player.mjs';
-import { Visibility } from './visibility.mjs';
 
 export class PlayerManager {
     #inventoryManager;
@@ -42,10 +41,6 @@ export class PlayerManager {
             player.health = GlobalConfig.playerHealth;
             player.inventory = this.#inventoryManager.buildInventory();
             player.position = this.pickPosition(game);
-
-            // TODO Fix me!
-
-            player.visibility = game.map.tiles.map(that => that.replace(/[^ ]/g, Visibility.clear));
         }
     }
 };
