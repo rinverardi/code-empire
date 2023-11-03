@@ -18,16 +18,10 @@ export class MapAccess {
     getTileAt(game, x, y) {
         const tile = game.map.tiles[y][x];
 
-        switch (tile) {
-            case Map.Tile.forest:
-            case Map.Tile.grass:
-            case Map.Tile.hill:
-            case Map.Tile.mountain:
-            case Map.Tile.water:
-                return tile;
-
-            default:
-                throw new RangeError('No such tile');
+        if (Object.values(Map.Tile).includes(tile)) {
+            return tile;
+        } else {
+            throw new RangeError('No such tile');
         }
     }
 
