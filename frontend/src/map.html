@@ -275,19 +275,19 @@
             }
         }
 
+        // TODO Fix me!
+
         function updateMap(game) {
             if (!didUpdateMap) {
-                didUpdateMap = true;
-
-                const mapContainer = document.getElementById('map-container');
-
-                mapContainer.appendChild(context.mapBuilder().build(game.map.tiles));
+                context.mapView().updateMap(game);
 
                 // TODO Scroll to current player!
 
                 scrollToCenter();
             }
         }
+
+        // TODO Fix me!
 
         function updatePlayers(game) {
             if (!didUpdatePlayers) {
