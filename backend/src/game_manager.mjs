@@ -5,10 +5,12 @@ import { Player } from './player.mjs';
 export class GameManager {
     #playerManager;
     #turnManager;
+    #visibilityManager;
 
     constructor(globalContext) {
         this.#playerManager = globalContext.playerManager();
         this.#turnManager = globalContext.turnManager();
+        this.#visibilityManager = globalContext.visibilityManager();
     }
 
     buildGame(sessionContext, mapId, playerName) {
@@ -45,13 +47,14 @@ export class GameManager {
 
         this.#playerManager.startGame(game);
         this.#turnManager.startGame(game);
+        this.#visibilityManager.startGame(game);
     }
 
     // TODO Implement me!
 
-    startRound() { }
+    startRound(game) { }
 
-    // TODO Implement me!
-
-    startTurn() { }
+    startTurn(game) {
+        this.#turnManager.startTurn(game);
+    }
 };

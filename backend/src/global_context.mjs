@@ -1,3 +1,4 @@
+import { GameAccess } from './game_access.mjs';
 import { GameManager } from './game_manager.mjs';
 import { GameController } from './game_controller.mjs';
 import { GameMapper } from './game_mapper.mjs';
@@ -14,8 +15,11 @@ import { ResourceMapper } from './resource_mapper.mjs';
 import { StructureMapper } from './structure_mapper.mjs';
 import { TurnManager } from './turn_manager.mjs';
 import { TurnMapper } from './turn_mapper.mjs';
+import { VisibilityAccess } from './visibility_access.mjs';
+import { VisibilityManager } from './visibility_manager.mjs';
 
 export class GlobalContext {
+    #gameAccess;
     #gameManager;
     #gameController;
     #gameMapper;
@@ -32,6 +36,12 @@ export class GlobalContext {
     #structureMapper;
     #turnManager;
     #turnMapper;
+    #visibilityAccess;
+    #visibilityManager;
+
+    gameAccess() {
+        return this.#gameAccess ? this.#gameAccess : this.#gameAccess = new GameAccess();
+    }
 
     gameManager() {
         return this.#gameManager ? this.#gameManager : this.#gameManager = new GameManager(this);
@@ -90,10 +100,18 @@ export class GlobalContext {
     }
 
     turnManager() {
-        return this.#turnManager ? this.#turnManager : this.#turnManager = new TurnManager();
+        return this.#turnManager ? this.#turnManager : this.#turnManager = new TurnManager(this);
     }
 
     turnMapper() {
         return this.#turnMapper ? this.#turnMapper : this.#turnMapper = new TurnMapper();
+    }
+
+    visibilityAccess() {
+        return this.#visibilityAccess ? this.#visibilityAccess : this.#visibilityAccess = new VisibilityAccess();
+    }
+
+    visibilityManager() {
+        return this.#visibilityManager ? this.#visibilityManager : this.#visibilityManager = new VisibilityManager();
     }
 };

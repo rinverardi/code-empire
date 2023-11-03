@@ -13,11 +13,4 @@ export class Player {
             left: 'left'
         });
     }
-
-    static get Visibility() {
-        return Object.freeze({
-            none: '0',
-            full: '1'
-        });
-    }
 };
