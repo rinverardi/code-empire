@@ -1,10 +1,14 @@
 export class TurnMapper {
-    map(sessionContext, source) {
-        const target = {
-            number: source.number,
-            player: source.player
-        };
+    mapInto(sessionContext, source, target) {
+        if (source.turn) {
+            target.turn = {
+                id: source.turn.id,
+                player: source.turn.player
+            };
 
-        return target;
+            if (sessionContext.playerId === source.turn.player) {
+                target.turn.actions = source.turn.actions;
+            }
+        }
     }
 };

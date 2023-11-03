@@ -1,29 +1,25 @@
 export class PlayerMapper {
-    #inventoryMapper;
 
-    constructor(globalContext) {
-        this.#inventoryMapper = globalContext.inventoryMapper();
-    }
+    // TODO Apply the visibility!
 
-    map(sessionContext, source) {
-        const target = {
-            health: source.health,
-            id: source.id,
-            name: source.name,
-            role: source.role,
-            status: source.status
-        };
+    mapInto(sessionContext, source, target) {
+        target.players = [];
 
-        // TODO Check the role!
+        for (const sourcePlayer of source.players) {
+            const targetPlayer = {
+                health: sourcePlayer.health,
+                id: sourcePlayer.id,
+                name: sourcePlayer.name,
+                position: sourcePlayer.position,
+                role: sourcePlayer.role,
+                status: sourcePlayer.status
+            };
 
-        if (sessionContext.playerId === source.id) {
-            target.inventory = this.#inventoryMapper.map(sessionContext, source.inventory);
+            if (sourcePlayer.id === sessionContext.playerId) {
+                targetPlayer.inventory = sourcePlayer.inventory;
+            }
+
+            target.players.push(targetPlayer);
         }
-
-        // TODO Check the visibility!
-
-        target.position = source.position;
-
-        return target;
     }
 };

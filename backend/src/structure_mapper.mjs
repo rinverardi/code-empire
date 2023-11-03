@@ -1,10 +1,8 @@
 export class StructureMapper {
-    map(sessionContext, source) {
 
-        // TODO Filter me!
-        //
-        // Only include the structures that are visible to the current player.
+    // TODO Apply the visibility!
 
-        return source;
+    mapInto(sessionContext, source, target) {
+        target.structures = source.structures;
     }
 };

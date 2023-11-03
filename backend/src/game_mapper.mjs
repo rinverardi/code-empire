@@ -16,26 +16,14 @@ export class GameMapper {
     map(sessionContext, source) {
         const target = {
             id: source.id,
-            map: this.#mapMapper.map(sessionContext, source.map),
-            players: [],
             status: source.status
         };
 
-        for (const player of source.players) {
-            target.players.push(this.#playerMapper.map(sessionContext, player));
-        }
-
-        if (source.resources) {
-            target.resources = this.#resourceMapper.map(sessionContext, source.resources);
-        }
-
-        if (source.structures) {
-            target.structures = this.#structureMapper.map(sessionContext, source.structures);
-        }
-
-        if (source.turn) {
-            target.turn = this.#turnMapper.map(sessionContext, source.turn);
-        }
+        this.#mapMapper.mapInto(sessionContext, source, target);
+        this.#playerMapper.mapInto(sessionContext, source, target);
+        this.#resourceMapper.mapInto(sessionContext, source, target);
+        this.#structureMapper.mapInto(sessionContext, source, target);
+        this.#turnMapper.mapInto(sessionContext, source, target);
 
         return target;
     }

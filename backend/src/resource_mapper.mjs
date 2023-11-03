@@ -1,10 +1,8 @@
 export class ResourceMapper {
-    map(sessionContext, source) {
 
-        // TODO Filter me!
-        //
-        // Only include the resources that are visible to the current player.
+    // TODO Apply the visibility!
 
-        return source;
+    mapInto(sessionContext, source, target) {
+        target.resources = source.resources;
     }
 };
