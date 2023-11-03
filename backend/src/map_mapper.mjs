@@ -1,8 +1,8 @@
 export class MapMapper {
-    map(sessionContext, source) {
 
-        // TODO Filter me!
+    // TODO Apply the visibility!
 
-        return source;
+    mapInto(sessionContext, source, target) {
+        target.map = source.map;
     }
 };

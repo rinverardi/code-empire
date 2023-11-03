@@ -40,26 +40,26 @@ export class TurnManager {
     startTurn(game) {
         const positionFrom = this.#gameAccess.getCurrentPlayer(game).position;
 
-        game.turn.possibilities = [];
+        game.turn.actions = [];
 
         for (const [directionId, direction] of Object.entries(Turn.Direction)) {
             const positionTo = [positionFrom[0] + direction.x, positionFrom[1] + direction.y];
 
             if (this.#canAttack(game, positionTo)) {
-                game.turn.possibilities.push({
-                    "direction": directionId,
-                    "positionFrom": positionFrom,
-                    "positionTo": positionTo,
-                    "type": Turn.Type.attack
+                game.turn.actions.push({
+                    'direction': directionId,
+                    'positionFrom': positionFrom,
+                    'positionTo': positionTo,
+                    'type': Turn.Type.attack
                 });
             }
 
             if (this.#canMove(game, positionTo)) {
-                game.turn.possibilities.push({
-                    "direction": directionId,
-                    "positionFrom": positionFrom,
-                    "positionTo": positionTo,
-                    "type": Turn.Type.move
+                game.turn.actions.push({
+                    'direction': directionId,
+                    'positionFrom': positionFrom,
+                    'positionTo': positionTo,
+                    'type': Turn.Type.move
                 });
             }
         }

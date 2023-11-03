@@ -5,7 +5,6 @@ import { GameMapper } from './game_mapper.mjs';
 import { GameRepository } from './game_repository.mjs';
 import { GameService } from './game_service.mjs';
 import { InventoryManager } from './inventory_manager.mjs';
-import { InventoryMapper } from './inventory_mapper.mjs';
 import { MapAccess } from './map_access.mjs';
 import { MapMapper } from './map_mapper.mjs';
 import { PlayerManager } from './player_manager.mjs';
@@ -26,7 +25,6 @@ export class GlobalContext {
     #gameRepository;
     #gameService;
     #inventoryManager;
-    #inventoryMapper;
     #mapAccess;
     #mapMapper;
     #playerManager;
@@ -67,10 +65,6 @@ export class GlobalContext {
         return this.#inventoryManager ? this.#inventoryManager : this.#inventoryManager = new InventoryManager();
     }
 
-    inventoryMapper() {
-        return this.#inventoryMapper ? this.#inventoryMapper : this.#inventoryMapper = new InventoryMapper();
-    }
-
     mapAccess() {
         return this.#mapAccess ? this.#mapAccess : this.#mapAccess = new MapAccess();
     }
@@ -84,7 +78,7 @@ export class GlobalContext {
     }
 
     playerMapper() {
-        return this.#playerMapper ? this.#playerMapper : this.#playerMapper = new PlayerMapper(this);
+        return this.#playerMapper ? this.#playerMapper : this.#playerMapper = new PlayerMapper();
     }
 
     playerService() {

@@ -293,11 +293,21 @@ select option {
 .tile {
     background-image: url('../images/tile.svg');
     clip-path: polygon(40px 0, 80px 15px, 80px 50px, 40px 65px, 0 50px, 0 15px);
-    cursor: pointer;
     flex-shrink: 0;
     height: 65px;
     position: relative;
+    transition-duration: 1s;
+    transition-property: filter, transform;
     width: 80px;
+}
+
+.tile.active {
+    transform: translateY(-3px);
+    cursor: pointer;
+}
+
+.tile.inactive {
+    filter: brightness(50%) saturate(75%);
 }
 
 .tile-f {

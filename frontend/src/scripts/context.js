@@ -1,6 +1,6 @@
 import { Communication } from './communication.js';
 import { GameHelper } from './game.js';
-import { MapBuilder } from './map.js';
+import { MapView } from './map.js';
 import { Navigation } from './navigation.js';
 import { NotificationHelper } from './notification.js';
 import { PlayerBuilder, PlayerHelper } from './player.js';
@@ -11,7 +11,7 @@ import { TurnHelper } from './turn.js';
 export class Context {
     #communication;
     #gameHelper;
-    #mapBuilder;
+    #mapView;
     #navigation;
     #notificationHelper;
     #playerBuilder;
@@ -28,8 +28,8 @@ export class Context {
         return this.#gameHelper ? this.#gameHelper : this.#gameHelper = new GameHelper(this);
     }
 
-    mapBuilder() {
-        return this.#mapBuilder ? this.#mapBuilder : this.#mapBuilder = new MapBuilder();
+    mapView() {
+        return this.#mapView ? this.#mapView : this.#mapView = new MapView();
     }
 
     navigation() {
