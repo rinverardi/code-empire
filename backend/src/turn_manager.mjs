@@ -10,6 +10,12 @@ export class TurnManager {
         this.#mapAccess = globalContext.mapAccess();
     }
 
+    #canAttack(game, position) {
+        const player = this.#mapAccess.getPlayerAt(game, ...position);
+
+        return !!player;
+    }
+
     #canMove(game, position) {
         const player = this.#mapAccess.getPlayerAt(game, ...position);
 
@@ -38,6 +44,15 @@ export class TurnManager {
 
         for (const [directionId, direction] of Object.entries(Turn.Direction)) {
             const positionTo = [positionFrom[0] + direction.x, positionFrom[1] + direction.y];
+
+            if (this.#canAttack(game, positionTo)) {
+                game.turn.possibilities.push({
+                    "direction": directionId,
+                    "positionFrom": positionFrom,
+                    "positionTo": positionTo,
+                    "type": Turn.Type.attack
+                });
+            }
 
             if (this.#canMove(game, positionTo)) {
                 game.turn.possibilities.push({
