@@ -4,9 +4,11 @@ import { Player } from './player.mjs';
 
 export class GameManager {
     #playerManager;
+    #turnManager;
 
     constructor(globalContext) {
         this.#playerManager = globalContext.playerManager();
+        this.#turnManager = globalContext.turnManager();
     }
 
     buildGame(sessionContext, mapId, playerName) {
@@ -37,14 +39,8 @@ export class GameManager {
         game.status = Game.Status.thinking;
         game.structures = [];
 
-        // TODO Extract me!
-
-        game.turn = {
-            number: 1,
-            player: game.players[0].id
-        }
-
         this.#playerManager.startGame(game);
+        this.#turnManager.startGame(game);
     }
 
     // TODO Implement me!

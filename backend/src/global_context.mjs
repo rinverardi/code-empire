@@ -11,6 +11,7 @@ import { PlayerMapper } from './player_mapper.mjs';
 import { PlayerService } from './player_service.mjs';
 import { ResourceMapper } from './resource_mapper.mjs';
 import { StructureMapper } from './structure_mapper.mjs';
+import { TurnManager } from './turn_manager.mjs';
 import { TurnMapper } from './turn_mapper.mjs';
 
 export class GlobalContext {
@@ -27,6 +28,7 @@ export class GlobalContext {
     #playerService;
     #resourceMapper;
     #structureMapper;
+    #turnManager;
     #turnMapper;
 
     gameManager() {
@@ -79,6 +81,10 @@ export class GlobalContext {
 
     structureMapper() {
         return this.#structureMapper ? this.#structureMapper : this.#structureMapper = new StructureMapper();
+    }
+
+    turnManager() {
+        return this.#turnManager ? this.#turnManager : this.#turnManager = new TurnManager();
     }
 
     turnMapper() {
