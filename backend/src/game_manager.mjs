@@ -49,9 +49,9 @@ export class GameManager {
 
     // TODO Implement me!
 
-    startRound() { }
+    startRound(game) { }
 
     // TODO Implement me!
 
-    startTurn() { }
+    startTurn(game) { }
 };
