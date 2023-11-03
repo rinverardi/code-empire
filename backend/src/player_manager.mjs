@@ -18,7 +18,7 @@ export class PlayerManager {
         };
     }
 
-    populatePlayers(game) {
+    startGame(game) {
         for (const player of game.players) {
             player.health = GlobalConfig.playerHealth;
             player.inventory = this.#inventoryManager.buildInventory();

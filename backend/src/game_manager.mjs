@@ -22,48 +22,36 @@ export class GameManager {
         };
     }
 
-    populateGame(game) {
-        game.status = Game.Status.thinking;
+    // TODO Implement me!
 
-        this.#populateMap(game);
-        this.#populateMessages(game);
-        this.#populateResources(game);
-        this.#populateStructures(game);
-        this.#populateTurn(game);
+    endGame(game) { }
 
-        this.#playerManager.populatePlayers(game);
-    }
+    // TODO Implement me!
 
-    // TODO Extract me!
+    endTurn(game) { }
 
-    #populateMap(game) {
+    startGame(game) {
         game.map.tiles = Map.Template[game.map.id];
-    }
-
-    // TODO Extract me!
-
-    #populateMessages(game) {
         game.messages = []
-    }
-
-    // TODO Extract me!
-
-    #populateResources(game) {
         game.resources = [];
-    }
-
-    // TODO Extract me!
-
-    #populateStructures(game) {
+        game.status = Game.Status.thinking;
         game.structures = [];
-    }
 
-    // TODO Extract me!
+        // TODO Extract me!
 
-    #populateTurn(game) {
         game.turn = {
             number: 1,
             player: game.players[0].id
         }
+
+        this.#playerManager.startGame(game);
     }
+
+    // TODO Implement me!
+
+    startRound() { }
+
+    // TODO Implement me!
+
+    startTurn() { }
 };
