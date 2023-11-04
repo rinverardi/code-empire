@@ -1,5 +1,5 @@
-import { GlobalConfig } from './global_config.mjs';
-import { Map } from './map.mjs';
+import { GlobalConfig } from '../lib/global_config.mjs';
+import { Map } from '../map/map.mjs';
 import { Player } from './player.mjs';
 
 export class PlayerManager {

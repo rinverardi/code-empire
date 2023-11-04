@@ -1,6 +1,6 @@
 import { Game } from './game.mjs';
-import { Map } from './map.mjs';
-import { Player } from './player.mjs';
+import { Map } from '../map/map.mjs';
+import { Player } from '../player/player.mjs';
 
 export class GameManager {
     #gameAccess;

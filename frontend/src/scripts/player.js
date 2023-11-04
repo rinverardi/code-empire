@@ -39,6 +39,12 @@ export class PlayerHelper {
         }
     }
 
+    isCurrentPlayer(game) {
+        const playerId = this.loadId();
+
+        return game.turn.player === playerId;
+    }
+
     loadId() {
         let id = window.sessionStorage.getItem(Player.Attribute.id);
 
