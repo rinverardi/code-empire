@@ -308,12 +308,16 @@ select option {
 }
 
 .tile.active {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     cursor: pointer;
 }
 
+.tile.active:hover {
+    filter: brightness(140%) saturate(120%);
+}
+
 .tile.inactive {
-    filter: brightness(50%) saturate(75%);
+    filter: brightness(60%) saturate(80%);
 }
 
 .tile-f {

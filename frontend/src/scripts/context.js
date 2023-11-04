@@ -3,7 +3,7 @@ import { GameHelper } from './game.js';
 import { MapView } from './map.js';
 import { Navigation } from './navigation.js';
 import { NotificationHelper } from './notification.js';
-import { PlayerBuilder, PlayerHelper } from './player.js';
+import { PlayerHelper, PlayerView } from './player.js';
 import { Random } from './random.js';
 import { Translation } from './translation.js';
 import { TurnHelper } from './turn.js';
@@ -14,8 +14,8 @@ export class Context {
     #mapView;
     #navigation;
     #notificationHelper;
-    #playerBuilder;
     #playerHelper;
+    #playerView;
     #random;
     #translation;
     #turnHelper;
@@ -40,12 +40,12 @@ export class Context {
         return this.#notificationHelper ? this.#notificationHelper : this.#notificationHelper = new NotificationHelper();
     }
 
-    playerBuilder() {
-        return this.#playerBuilder ? this.#playerBuilder : this.#playerBuilder = new PlayerBuilder();
-    }
-
     playerHelper() {
         return this.#playerHelper ? this.#playerHelper : this.#playerHelper = new PlayerHelper(this);
+    }
+
+    playerView() {
+        return this.#playerView ? this.#playerView : this.#playerView = new PlayerView();
     }
 
     random() {

@@ -20,21 +20,6 @@ export class Player {
     }
 };
 
-export class PlayerBuilder {
-    build(source) {
-        const target = document.createElement('img');
-
-        target.classList.add('player');
-
-        target.src = 'images/player.svg';
-
-        target.style.left = `${source.position[0] * 40 + 40}px`;
-        target.style.top = `${source.position[1] * 45 + 20}px`;
-
-        return target;
-    }
-}
-
 export class PlayerHelper {
     #random;
 
@@ -95,4 +80,46 @@ export class PlayerHelper {
     saveSecret(secret) {
         window.sessionStorage.setItem(Player.Attribute.secret, secret);
     }
-}
+};
+
+export class PlayerView {
+    #addPlayers(game) {
+        const mapElement = document.getElementById('map');
+
+        for (const player of game.players) {
+            const playerElement = this.#buildPlayer(player);
+
+            if (player.id === game.turn.player) {
+                playerElement.classList.add('current');
+            }
+
+            mapElement.appendChild(playerElement);
+        }
+    }
+
+    applyGame(game) {
+        this.#removePlayers(game);
+        this.#addPlayers(game);
+    }
+
+    #buildPlayer(player) {
+        const playerElement = document.createElement('img');
+
+        playerElement.classList.add('player');
+
+        playerElement.src = 'images/player.svg';
+
+        playerElement.style.left = `${player.position[0] * 40 + 40}px`;
+        playerElement.style.top = `${player.position[1] * 45 + 20}px`;
+
+        return playerElement;
+    }
+
+    #removePlayers(game) {
+        const playerElements = document.getElementsByClassName('player');
+
+        for (const playerElement of [...playerElements]) {
+            playerElement.remove();
+        }
+    }
+};
