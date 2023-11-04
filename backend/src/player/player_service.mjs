@@ -2,11 +2,13 @@ import { Game } from '../game/game.mjs';
 import { Player } from './player.mjs';
 
 export class PlayerService {
+    #gameManager;
     #gameRepository;
     #playerManager;
     #turnManager;
 
     constructor(globalContext) {
+        this.#gameManager = globalContext.gameManager();
         this.#gameRepository = globalContext.gameRepository();
         this.#playerManager = globalContext.playerManager();
         this.#turnManager = globalContext.turnManager();
