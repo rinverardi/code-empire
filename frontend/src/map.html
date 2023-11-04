@@ -283,13 +283,11 @@
         // TODO Fix me!
 
         function updateMap(game) {
-            if (!didUpdateMap) {
-                context.mapView().updateMap(game);
+            context.mapView().updateMap(game);
 
-                // TODO Scroll to current player!
+            // TODO Scroll to current player!
 
-                scrollToCenter();
-            }
+            scrollToCenter();
         }
 
         // TODO Fix me!
@@ -332,7 +330,6 @@
 
         const context = new Context();
 
-        let didUpdateMap = false;
         let didUpdatePlayers = false;
 
         context.communication().connectGame(onMessage);
