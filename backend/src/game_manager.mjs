@@ -3,11 +3,13 @@ import { Map } from './map.mjs';
 import { Player } from './player.mjs';
 
 export class GameManager {
+    #gameAccess;
     #playerManager;
     #turnManager;
     #visibilityManager;
 
     constructor(globalContext) {
+        this.#gameAccess = globalContext.gameAccess();
         this.#playerManager = globalContext.playerManager();
         this.#turnManager = globalContext.turnManager();
         this.#visibilityManager = globalContext.visibilityManager();
@@ -34,9 +36,13 @@ export class GameManager {
 
     endGame(game) { }
 
-    // TODO Implement me!
+    // TODO Fix me!
 
-    endTurn(game) { }
+    endTurn(game) {
+        const player = this.#gameAccess.getNextPlayer(game);
+
+        game.turn.player = player.id;
+    }
 
     startGame(game) {
         game.map.tiles = Map.Template[game.map.id];

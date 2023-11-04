@@ -212,7 +212,12 @@
         <div class="popup">
             <div class="container">
                 <div class="row">
-                    <div class="col-12" id="link_close_menu">
+                    <div class="col-12" id="link_skip_turn">
+                        <div class="can-click control link">Zug überspringen</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-2" id="link_close_menu">
                         <div class="can-click control link">Partie fortsetzen</div>
                     </div>
                 </div>
@@ -316,6 +321,15 @@
             });
         }
 
+        function wireLinkSkipTurn() {
+            context.navigation().wireClick('link_skip_turn', () => {
+                const action = { id: Action.skipTurn };
+
+                context.communication().sendMessage(action);
+                context.navigation().closePopup('menu');
+            });
+        }
+
         const context = new Context();
 
         let didUpdateMap = false;
@@ -329,6 +343,7 @@
         context.navigation().wirePopup('link_open_scores', 'link_close_scores', 'scores');
 
         wireLinkLeaveGame();
+        wireLinkSkipTurn();
     </script>
 </body>
 

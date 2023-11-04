@@ -34,6 +34,10 @@ export class GameController {
                         await this.#playerService.leaveGame(sessionContext);
                         break;
 
+                    case Action.skipTurn:
+                        await this.#gameService.skipTurn(sessionContext);
+                        break;
+
                     case Action.startGame:
                         await this.#gameService.startGame(sessionContext);
                         break;

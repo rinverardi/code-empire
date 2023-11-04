@@ -1,3 +1,5 @@
+import { Player } from './player.mjs';
+
 export class GameAccess {
     getCurrentPlayer(game) {
         const playerId = game.turn.player;
@@ -7,5 +9,19 @@ export class GameAccess {
                 return player;
             }
         }
+    }
+
+    getNextPlayer(game) {
+        const playerId = game.turn.player;
+
+        const activePlayers = game.players.filter(that => that.status === Player.Status.alive);
+
+        for (let index = 0; index < activePlayers.length - 1; index++) {
+            if (activePlayers[index].id === playerId) {
+                return activePlayers[index + 1];
+            }
+        }
+
+        return activePlayers[0];
     }
 };
