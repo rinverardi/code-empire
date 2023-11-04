@@ -3,5 +3,6 @@ export const Action = Object.freeze({
     createGame: 'createGame',
     joinGame: 'joinGame',
     leaveGame: 'leaveGame',
+    skipTurn: 'skipTurn',
     startGame: 'startGame'
 });

@@ -9,6 +9,14 @@ export class Navigation {
         this.#playerHelper = context.playerHelper();
     }
 
+    closePopup(popup) {
+        const element = document.getElementById(popup);
+
+        element.classList.remove('open');
+
+        setTimeout(() => element.style.visibility = 'hidden', 500);
+    }
+
     continuePlaying() {
         location = 'map.html';
     }

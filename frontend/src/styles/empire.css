@@ -115,7 +115,6 @@ body {
 .control.can-expand {
     cursor: pointer;
     position: relative;
-    padding-right: 1.5em;
 }
 
 .control:disabled {
@@ -227,6 +226,10 @@ h2 {
     opacity: 1;
 }
 
+.ready {
+    padding-right: 1em;
+}
+
 .ready::after {
     content: '✓';
     position: absolute;
@@ -266,8 +269,11 @@ select option {
 .slot * {
     grid-column: 1;
     grid-row: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition-duration: 1s;
     transition-property: opacity, transform;
+    white-space: nowrap;
 }
 
 .slot.assigned .if-assigned {

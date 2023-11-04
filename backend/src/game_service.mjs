@@ -51,6 +51,16 @@ export class GameService {
             .map(that => this.#gameMapper.map(sessionContext, that));
     }
 
+    async skipTurn(sessionContext) {
+        const game = await this.#gameRepository.loadGame(sessionContext);
+
+        this.#gameManager.endTurn(game);
+        this.#gameManager.startTurn(game);
+
+        await this.#gameRepository.saveGame(sessionContext, game);
+        await this.#gameRepository.publishGame(sessionContext, game);
+    }
+
     async startGame(sessionContext) {
 
         // TODO Check the access!
