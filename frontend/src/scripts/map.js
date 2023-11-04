@@ -1,66 +1,82 @@
 export class MapView {
     #addActions(game) {
         for (const action of game.turn.actions) {
-            const mapTile = this.#getMapTile(action.positionTo[0], action.positionTo[1]);
+            const mapElement = this.#getMapTile(action.positionTo[0], action.positionTo[1]);
 
-            mapTile.classList.add('active');
+            mapElement.classList.add('active');
         }
 
-        const mapTiles = document.getElementsByClassName('tile');
+        const tileElements = document.getElementsByClassName('tile');
 
-        for (const mapTile of mapTiles) {
-            if (!Array.from(mapTile.classList).includes('active')) {
-                mapTile.classList.add('inactive');
+        for (const tileElement of tileElements) {
+            if (![...tileElement.classList].includes('active')) {
+                tileElement.classList.add('inactive');
             }
         }
     }
 
-    #buildMap(source) {
-        const map = document.createElement('div');
+    applyGame(game) {
+        let mapElement = document.getElementById('map');
 
-        map.id = 'map';
+        if (!mapElement) {
+            mapElement = this.#buildMap(game.map.tiles);
 
-        for (let y = 0; y < source.length; y++) {
-            const mapRow = this.#buildMapRow();
+            document.getElementById('map-container').appendChild(mapElement);
+        }
 
-            for (let x = 0; x < source[y].length; x++) {
-                if (source[y][x] !== ' ') {
-                    const mapTile = this.#buildMapTile(source, x, y);
+        this.#removeActions(game);
 
-                    mapRow.appendChild(mapTile);
+        if (game.turn.actions) {
+            this.#addActions(game);
+        }
+    }
+
+    #buildMap(tiles) {
+        const mapElement = document.createElement('div');
+
+        mapElement.id = 'map';
+
+        for (let y = 0; y < tiles.length; y++) {
+            const rowElement = this.#buildMapRow();
+
+            for (let x = 0; x < tiles[y].length; x++) {
+                if (tiles[y][x] !== ' ') {
+                    const tileElement = this.#buildMapTile(tiles, x, y);
+
+                    rowElement.appendChild(tileElement);
                 }
             }
 
-            map.appendChild(mapRow);
+            mapElement.appendChild(rowElement);
         }
 
-        return map;
+        return mapElement;
     }
 
     #buildMapRow() {
-        const element = document.createElement('div');
+        const rowElement = document.createElement('div');
 
-        element.classList = ['map-row'];
+        rowElement.classList = ['map-row'];
 
-        return element;
+        return rowElement;
     }
 
-    #buildMapTile(source, x, y) {
-        const target = document.createElement('div');
+    #buildMapTile(tiles, x, y) {
+        const tileElement = document.createElement('div');
 
-        target.classList = source === '-' ? ['tile'] : ['tile tile-' + source[y][x]];
-        target.dataset.x = x;
-        target.dataset.y = y;
+        tileElement.classList = tiles === '-' ? ['tile'] : ['tile tile-' + tiles[y][x]];
+        tileElement.dataset.x = x;
+        tileElement.dataset.y = y;
 
-        return target;
+        return tileElement;
     }
 
     #getMapTile(x, y) {
-        const mapTiles = document.getElementsByClassName('tile');
+        const tileElements = document.getElementsByClassName('tile');
 
-        for (const mapTile of mapTiles) {
-            if (parseInt(mapTile.dataset.x) === x && parseInt(mapTile.dataset.y) === y) {
-                return mapTile;
+        for (const tileElement of tileElements) {
+            if (parseInt(tileElement.dataset.x) === x && parseInt(tileElement.dataset.y) === y) {
+                return tileElement;
             }
         }
 
@@ -68,27 +84,11 @@ export class MapView {
     }
 
     #removeActions(game) {
-        const mapTiles = document.getElementsByClassName('tile');
+        const tileElements = document.getElementsByClassName('tile');
 
-        for (const mapTile of mapTiles) {
-            mapTile.classList.remove('active');
-            mapTile.classList.remove('inactive');
-        }
-    }
-
-    updateMap(game) {
-        const map = document.getElementById('map');
-
-        if (!map) {
-            const map = this.#buildMap(game.map.tiles);
-
-            document.getElementById('map-container').appendChild(map);
-        }
-
-        this.#removeActions(game);
-
-        if (game.turn.actions) {
-            this.#addActions(game);
+        for (const tileElement of tileElements) {
+            tileElement.classList.remove('active');
+            tileElement.classList.remove('inactive');
         }
     }
 };

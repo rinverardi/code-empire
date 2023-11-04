@@ -253,9 +253,14 @@
                     if (player.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
+                        context.mapView().applyGame(game);
+                        context.playerView().applyGame(game);
+
                         showNotification(game);
-                        updateMap(game);
-                        updatePlayers(game);
+
+                        // TODO Scroll to current player!
+
+                        scrollToCenter();
                     }
                     break;
 
@@ -280,36 +285,6 @@
             }
         }
 
-        // TODO Fix me!
-
-        function updateMap(game) {
-            context.mapView().updateMap(game);
-
-            // TODO Scroll to current player!
-
-            scrollToCenter();
-        }
-
-        // TODO Fix me!
-
-        function updatePlayers(game) {
-            if (!didUpdatePlayers) {
-                didUpdatePlayers = true;
-
-                const map = document.getElementById('map');
-
-                for (const player of game.players) {
-                    const element = context.playerBuilder().build(player);
-
-                    if (player.id === game.turn.player) {
-                        element.classList.add('current');
-                    }
-
-                    map.appendChild(element);
-                }
-            }
-        }
-
         function wireLinkLeaveGame() {
             document.getElementById('link_leave_game').addEventListener('click', () => {
                 const action = { id: Action.leaveGame };
@@ -329,8 +304,6 @@
         }
 
         const context = new Context();
-
-        let didUpdatePlayers = false;
 
         context.communication().connectGame(onMessage);
 
