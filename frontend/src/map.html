@@ -256,7 +256,7 @@
                         context.mapView().applyGame(game);
                         context.playerView().applyGame(game);
 
-                        showNotification(game);
+                        updateNotification(game);
 
                         // TODO Scroll to current player!
 
@@ -277,7 +277,7 @@
                 (mapContainer.scrollHeight - mapContainer.clientHeight) / 2);
         }
 
-        function showNotification(game) {
+        function updateNotification(game) {
             if (game.status === Game.Status.thinking) {
                 const player = context.turnHelper().getPlayer(game);
 
