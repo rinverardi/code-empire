@@ -1,4 +1,4 @@
-import { Map } from './map.mjs';
+import { Map } from '../map/map.mjs';
 import { Turn } from './turn.mjs';
 
 export class TurnManager {

@@ -1,4 +1,4 @@
-import { Player } from './player.mjs';
+import { Player } from '../player/player.mjs';
 
 export class GameAccess {
     getCurrentPlayer(game) {

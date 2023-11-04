@@ -1,4 +1,4 @@
-import { Game } from './game.mjs';
+import { Game } from '../game/game.mjs';
 import { Player } from './player.mjs';
 
 export class PlayerService {
