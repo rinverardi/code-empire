@@ -212,17 +212,17 @@
         <div class="popup">
             <div class="container">
                 <div class="row">
-                    <div class="col-12" id="link_skip_turn">
+                    <div class="col-12 my-1" id="link_skip_turn">
                         <div class="can-click control link">Zug überspringen</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 mt-2" id="link_close_menu">
+                    <div class="col-12 my-1" id="link_close_menu">
                         <div class="can-click control link">Partie fortsetzen</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 mt-2" id="link_leave_game">
+                    <div class="col-12 my-1" id="link_leave_game">
                         <div class="can-click control link">Partie verlassen</div>
                     </div>
                 </div>
@@ -256,6 +256,7 @@
                         context.mapView().applyGame(game);
                         context.playerView().applyGame(game);
 
+                        updateMenu(game);
                         updateNotification(game);
 
                         // TODO Scroll to current player!
@@ -277,6 +278,18 @@
                 (mapContainer.scrollHeight - mapContainer.clientHeight) / 2);
         }
 
+        function updateMenu(game) {
+            for (const elementId of ['link_leave_game', 'link_skip_turn']) {
+                const element = document.getElementById(elementId);
+
+                if (context.playerHelper().isCurrentPlayer(game)) {
+                    element.classList.remove('hidden');
+                } else {
+                    element.classList.add('hidden');
+                }
+            }
+        }
+
         function updateNotification(game) {
             if (game.status === Game.Status.thinking) {
                 const player = context.turnHelper().getPlayer(game);
@@ -296,10 +309,11 @@
 
         function wireLinkSkipTurn() {
             context.navigation().wireClick('link_skip_turn', () => {
-                const action = { id: Action.skipTurn };
+                context.navigation().closePopup('menu', () => {
+                    const action = { id: Action.skipTurn };
 
-                context.communication().sendMessage(action);
-                context.navigation().closePopup('menu');
+                    context.communication().sendMessage(action);
+                });
             });
         }
 

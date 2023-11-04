@@ -9,12 +9,16 @@ export class Navigation {
         this.#playerHelper = context.playerHelper();
     }
 
-    closePopup(popup) {
+    closePopup(popup, onClosed) {
         const element = document.getElementById(popup);
 
         element.classList.remove('open');
 
-        setTimeout(() => element.style.visibility = 'hidden', 500);
+        setTimeout(() => {
+            element.style.visibility = 'hidden';
+
+            onClosed();
+        }, 500);
     }
 
     continuePlaying() {
