@@ -1,18 +1,8 @@
 export class MapView {
-    #addActions(game) {
-        for (const turn of game.turn.turns) {
-            const mapElement = this.#getMapTile(turn.positionTo[0], turn.positionTo[1]);
+    #playerHelper;
 
-            mapElement.classList.add('active');
-        }
-
-        const tileElements = document.getElementsByClassName('tile');
-
-        for (const tileElement of tileElements) {
-            if (![...tileElement.classList].includes('active')) {
-                tileElement.classList.add('inactive');
-            }
-        }
+    constructor(context) {
+        this.#playerHelper = context.playerHelper();
     }
 
     bindGame(game) {
@@ -24,10 +14,12 @@ export class MapView {
             document.getElementById('map-container').appendChild(mapElement);
         }
 
-        this.#removeActions(game);
+        this.#unmarkTiles(game);
 
-        if (game.turn) {
-            this.#addActions(game);
+        if (game.turns) {
+            this.#markTilesAsActive(game);
+            this.#markTilesAsCurrent(game);
+            this.#markTilesAsInactive(game);
         }
     }
 
@@ -83,12 +75,35 @@ export class MapView {
         throw new RangeError('No such tile');
     }
 
-    #removeActions(game) {
+    #markTilesAsActive(game) {
+        for (const turn of game.turns) {
+            const mapElement = this.#getMapTile(...turn.positionTo);
+
+            mapElement.classList.add('active');
+        }
+    }
+
+    #markTilesAsCurrent(game) {
+        if (this.#playerHelper.isCurrentPlayer(game)) {
+            const player = this.#playerHelper.getPlayer(game);
+
+            const tileElement = this.#getMapTile(...player.position);
+
+            tileElement.classList.add('current');
+        }
+    }
+
+    #markTilesAsInactive() {
+        const tileElements = document.querySelectorAll('.tile:not(.active):not(.current)');
+
+        tileElements.forEach(that => that.classList.add('inactive'));
+    }
+
+    #unmarkTiles(game) {
         const tileElements = document.getElementsByClassName('tile');
 
         for (const tileElement of tileElements) {
-            tileElement.classList.remove('active');
-            tileElement.classList.remove('inactive');
+            ['active', 'current', 'inactive'].forEach(that => tileElement.classList.remove(that));
         }
     }
 };

@@ -29,7 +29,7 @@ export class Context {
     }
 
     mapView() {
-        return this.#mapView ? this.#mapView : this.#mapView = new MapView();
+        return this.#mapView ? this.#mapView : this.#mapView = new MapView(this);
     }
 
     navigation() {
