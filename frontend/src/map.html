@@ -253,8 +253,8 @@
                     if (player.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
-                        context.mapView().applyGame(game);
-                        context.playerView().applyGame(game);
+                        context.mapView().bindGame(game);
+                        context.playerView().bindGame(game);
 
                         updateMenu(game);
                         updateNotification(game);

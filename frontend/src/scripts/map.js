@@ -15,7 +15,7 @@ export class MapView {
         }
     }
 
-    applyGame(game) {
+    bindGame(game) {
         let mapElement = document.getElementById('map');
 
         if (!mapElement) {

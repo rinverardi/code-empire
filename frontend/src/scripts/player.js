@@ -103,7 +103,7 @@ export class PlayerView {
         }
     }
 
-    applyGame(game) {
+    bindGame(game) {
         this.#removePlayers(game);
         this.#addPlayers(game);
     }
