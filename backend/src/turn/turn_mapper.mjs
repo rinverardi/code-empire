@@ -7,7 +7,7 @@ export class TurnMapper {
             };
 
             if (sessionContext.playerId === source.turn.player) {
-                target.turn.actions = source.turn.actions;
+                target.turns = source.turns;
             }
         }
     }

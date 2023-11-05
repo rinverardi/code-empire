@@ -40,13 +40,13 @@ export class TurnManager {
     startTurn(game) {
         const positionFrom = this.#gameAccess.getCurrentPlayer(game).position;
 
-        game.turn.actions = [];
+        game.turns = [];
 
         for (const [directionId, direction] of Object.entries(Turn.Direction)) {
             const positionTo = [positionFrom[0] + direction.x, positionFrom[1] + direction.y];
 
             if (this.#canAttack(game, positionTo)) {
-                game.turn.actions.push({
+                game.turns.push({
                     'direction': directionId,
                     'positionFrom': positionFrom,
                     'positionTo': positionTo,
@@ -55,7 +55,7 @@ export class TurnManager {
             }
 
             if (this.#canMove(game, positionTo)) {
-                game.turn.actions.push({
+                game.turns.push({
                     'direction': directionId,
                     'positionFrom': positionFrom,
                     'positionTo': positionTo,
