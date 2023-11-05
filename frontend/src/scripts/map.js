@@ -1,7 +1,7 @@
 export class MapView {
     #addActions(game) {
-        for (const action of game.turn.actions) {
-            const mapElement = this.#getMapTile(action.positionTo[0], action.positionTo[1]);
+        for (const turn of game.turn.turns) {
+            const mapElement = this.#getMapTile(turn.positionTo[0], turn.positionTo[1]);
 
             mapElement.classList.add('active');
         }
@@ -26,7 +26,7 @@ export class MapView {
 
         this.#removeActions(game);
 
-        if (game.turn.actions) {
+        if (game.turn) {
             this.#addActions(game);
         }
     }
