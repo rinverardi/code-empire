@@ -14,7 +14,7 @@ export class MapView {
             document.getElementById('map-container').appendChild(mapElement);
         }
 
-        this.#unmarkTiles(game);
+        this.#removeStyles();
 
         if (game.turns) {
             this.#markTilesAsActive(game);
@@ -32,8 +32,10 @@ export class MapView {
             const rowElement = this.#buildMapRow();
 
             for (let x = 0; x < tiles[y].length; x++) {
-                if (tiles[y][x] !== ' ') {
-                    const tileElement = this.#buildMapTile(tiles, x, y);
+                const tile = tiles[y][x];
+
+                if (tile !== ' ') {
+                    const tileElement = this.#buildMapTile(tile, x, y);
 
                     rowElement.appendChild(tileElement);
                 }
@@ -53,10 +55,10 @@ export class MapView {
         return rowElement;
     }
 
-    #buildMapTile(tiles, x, y) {
+    #buildMapTile(tile, x, y) {
         const tileElement = document.createElement('div');
 
-        tileElement.classList = tiles === '-' ? ['tile'] : ['tile tile-' + tiles[y][x]];
+        tileElement.classList = tile === '-' ? ['tile'] : ['tile tile-' + tile];
         tileElement.dataset.x = x;
         tileElement.dataset.y = y;
 
@@ -99,7 +101,7 @@ export class MapView {
         tileElements.forEach(that => that.classList.add('inactive'));
     }
 
-    #unmarkTiles(game) {
+    #removeStyles() {
         const tileElements = document.getElementsByClassName('tile');
 
         for (const tileElement of tileElements) {
