@@ -4,10 +4,12 @@ import { Player } from './player.mjs';
 export class PlayerService {
     #gameRepository;
     #playerManager;
+    #turnManager;
 
     constructor(globalContext) {
         this.#gameRepository = globalContext.gameRepository();
         this.#playerManager = globalContext.playerManager();
+        this.#turnManager = globalContext.turnManager();
     }
 
     async joinGame(sessionContext, playerName) {
@@ -42,6 +44,9 @@ export class PlayerService {
 
         if (game.players.every(that => that.status === Player.Status.left)) {
             game.status = Game.Status.aborted;
+        } else {
+            this.#turnManager.endTurn(game);
+            this.#turnManager.startTurn(game);
         }
 
         await this.#gameRepository.saveGame(sessionContext, game);

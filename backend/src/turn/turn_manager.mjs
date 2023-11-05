@@ -30,6 +30,22 @@ export class TurnManager {
         return false;
     }
 
+    endTurn(game) {
+        const player = this.#gameAccess.getNextPlayer(game);
+
+        game.turn.player = player.id;
+    }
+
+    executeTurn(game, turn) {
+        const player = this.#gameAccess.getCurrentPlayer(game);
+
+        // TODO Fix me!
+
+        if (turn.type === Turn.Type.move) {
+            player.position = turn.positionTo;
+        }
+    }
+
     startGame(game) {
         game.turn = {
             number: 1,

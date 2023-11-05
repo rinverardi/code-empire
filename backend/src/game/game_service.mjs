@@ -4,11 +4,13 @@ export class GameService {
     #gameManager;
     #gameMapper;
     #gameRepository;
+    #turnManager;
 
     constructor(globalContext) {
         this.#gameManager = globalContext.gameManager();
         this.#gameMapper = globalContext.gameMapper();
         this.#gameRepository = globalContext.gameRepository();
+        this.#turnManager = globalContext.turnManager();
     }
 
     async abortGame(sessionContext) {
@@ -69,7 +71,7 @@ export class GameService {
         const game = await this.#gameRepository.loadGame(sessionContext);
 
         this.#gameManager.startGame(game);
-        this.#gameManager.startTurn(game);
+        this.#turnManager.startTurn(game);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
