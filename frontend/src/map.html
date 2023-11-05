@@ -253,11 +253,12 @@
                     if (player.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
-                        context.mapView().applyGame(game);
-                        context.playerView().applyGame(game);
+                        context.mapView().bindGame(game);
+                        context.playerView().bindGame(game);
 
                         updateMenu(game);
                         updateNotification(game);
+                        wireMap(game);
 
                         // TODO Scroll to current player!
 
@@ -296,6 +297,23 @@
 
                 context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
             }
+        }
+
+        function wireMap(game) {
+            const mapElement = document.getElementById('map');
+
+            mapElement.onclick = ({ target: tileElement }) => {
+                const { x, y } = tileElement.dataset;
+
+                const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
+
+                if (turn) {
+                    context.communication().sendMessage({
+                        id: Action.executeTurn,
+                        turn
+                    });
+                }
+            };
         }
 
         function wireLinkLeaveGame() {

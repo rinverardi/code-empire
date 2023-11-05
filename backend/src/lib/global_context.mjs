@@ -14,6 +14,7 @@ import { ResourceMapper } from '../resource/resource_mapper.mjs';
 import { StructureMapper } from '../structure/structure_mapper.mjs';
 import { TurnManager } from '../turn/turn_manager.mjs';
 import { TurnMapper } from '../turn/turn_mapper.mjs';
+import { TurnService } from '../turn/turn_service.mjs';
 import { VisibilityAccess } from '../visibility/visibility_access.mjs';
 import { VisibilityManager } from '../visibility/visibility_manager.mjs';
 
@@ -34,6 +35,7 @@ export class GlobalContext {
     #structureMapper;
     #turnManager;
     #turnMapper;
+    #turnService;
     #visibilityAccess;
     #visibilityManager;
 
@@ -99,6 +101,10 @@ export class GlobalContext {
 
     turnMapper() {
         return this.#turnMapper ? this.#turnMapper : this.#turnMapper = new TurnMapper();
+    }
+
+    turnService() {
+        return this.#turnService ? this.#turnService : this.#turnService = new TurnService(this);
     }
 
     visibilityAccess() {

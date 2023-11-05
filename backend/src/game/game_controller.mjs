@@ -4,10 +4,12 @@ import { Logger } from '../lib/logger.mjs';
 export class GameController {
     #gameService;
     #playerService;
+    #turnService;
 
     constructor(globalContext) {
         this.#gameService = globalContext.gameService();
         this.#playerService = globalContext.playerService();
+        this.#turnService = globalContext.turnService();
     }
 
     async watchGame(sessionContext) {
@@ -26,6 +28,10 @@ export class GameController {
                         await this.#gameService.createGame(sessionContext, action.map.id, action.player.name);
                         break;
 
+                    case Action.executeTurn:
+                        await this.#turnService.executeTurn(sessionContext, action.turn);
+                        break;
+
                     case Action.joinGame:
                         await this.#playerService.joinGame(sessionContext, action.player.name);
                         break;
@@ -35,7 +41,7 @@ export class GameController {
                         break;
 
                     case Action.skipTurn:
-                        await this.#gameService.skipTurn(sessionContext);
+                        await this.#turnService.skipTurn(sessionContext);
                         break;
 
                     case Action.startGame:

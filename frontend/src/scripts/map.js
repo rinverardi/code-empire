@@ -1,21 +1,11 @@
 export class MapView {
-    #addActions(game) {
-        for (const action of game.turn.actions) {
-            const mapElement = this.#getMapTile(action.positionTo[0], action.positionTo[1]);
+    #playerHelper;
 
-            mapElement.classList.add('active');
-        }
-
-        const tileElements = document.getElementsByClassName('tile');
-
-        for (const tileElement of tileElements) {
-            if (![...tileElement.classList].includes('active')) {
-                tileElement.classList.add('inactive');
-            }
-        }
+    constructor(context) {
+        this.#playerHelper = context.playerHelper();
     }
 
-    applyGame(game) {
+    bindGame(game) {
         let mapElement = document.getElementById('map');
 
         if (!mapElement) {
@@ -24,10 +14,12 @@ export class MapView {
             document.getElementById('map-container').appendChild(mapElement);
         }
 
-        this.#removeActions(game);
+        this.#removeStyles();
 
-        if (game.turn.actions) {
-            this.#addActions(game);
+        if (game.turns) {
+            this.#markTilesAsActive(game);
+            this.#markTilesAsCurrent(game);
+            this.#markTilesAsInactive(game);
         }
     }
 
@@ -40,8 +32,10 @@ export class MapView {
             const rowElement = this.#buildMapRow();
 
             for (let x = 0; x < tiles[y].length; x++) {
-                if (tiles[y][x] !== ' ') {
-                    const tileElement = this.#buildMapTile(tiles, x, y);
+                const tile = tiles[y][x];
+
+                if (tile !== ' ') {
+                    const tileElement = this.#buildMapTile(tile, x, y);
 
                     rowElement.appendChild(tileElement);
                 }
@@ -61,10 +55,10 @@ export class MapView {
         return rowElement;
     }
 
-    #buildMapTile(tiles, x, y) {
+    #buildMapTile(tile, x, y) {
         const tileElement = document.createElement('div');
 
-        tileElement.classList = tiles === '-' ? ['tile'] : ['tile tile-' + tiles[y][x]];
+        tileElement.classList = tile === '-' ? ['tile'] : ['tile tile-' + tile];
         tileElement.dataset.x = x;
         tileElement.dataset.y = y;
 
@@ -83,12 +77,35 @@ export class MapView {
         throw new RangeError('No such tile');
     }
 
-    #removeActions(game) {
+    #markTilesAsActive(game) {
+        for (const turn of game.turns) {
+            const mapElement = this.#getMapTile(...turn.positionTo);
+
+            mapElement.classList.add('active');
+        }
+    }
+
+    #markTilesAsCurrent(game) {
+        if (this.#playerHelper.isCurrentPlayer(game)) {
+            const player = this.#playerHelper.getPlayer(game);
+
+            const tileElement = this.#getMapTile(...player.position);
+
+            tileElement.classList.add('current');
+        }
+    }
+
+    #markTilesAsInactive() {
+        const tileElements = document.querySelectorAll('.tile:not(.active):not(.current)');
+
+        tileElements.forEach(that => that.classList.add('inactive'));
+    }
+
+    #removeStyles() {
         const tileElements = document.getElementsByClassName('tile');
 
         for (const tileElement of tileElements) {
-            tileElement.classList.remove('active');
-            tileElement.classList.remove('inactive');
+            ['active', 'current', 'inactive'].forEach(that => tileElement.classList.remove(that));
         }
     }
 };

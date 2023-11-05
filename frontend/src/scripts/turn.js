@@ -8,4 +8,12 @@ export class TurnHelper {
             }
         }
     }
+
+    getTurn(game, x, y) {
+        for (const turn of game.turns || []) {
+            if (turn.positionTo[0] === x && turn.positionTo[1] === y) {
+                return turn;
+            }
+        }
+    }
 }

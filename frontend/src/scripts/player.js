@@ -15,6 +15,7 @@ export class Player {
 
     static get Status() {
         return Object.freeze({
+            alive: 'alive',
             left: 'left'
         });
     }
@@ -93,17 +94,19 @@ export class PlayerView {
         const mapElement = document.getElementById('map');
 
         for (const player of game.players) {
-            const playerElement = this.#buildPlayer(player);
+            if (player.status === Player.Status.alive) {
+                const playerElement = this.#buildPlayer(player);
 
-            if (player.id === game.turn.player) {
-                playerElement.classList.add('current');
+                if (player.id === game.turn.player) {
+                    playerElement.classList.add('current');
+                }
+
+                mapElement.appendChild(playerElement);
             }
-
-            mapElement.appendChild(playerElement);
         }
     }
 
-    applyGame(game) {
+    bindGame(game) {
         this.#removePlayers(game);
         this.#addPlayers(game);
     }
