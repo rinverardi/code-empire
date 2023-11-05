@@ -1,3 +1,5 @@
+import { Game } from '../game/game.mjs';
+
 export class TurnService {
     #gameRepository;
     #turnManager;
@@ -5,6 +7,25 @@ export class TurnService {
     constructor(globalContext) {
         this.#gameRepository = globalContext.gameRepository();
         this.#turnManager = globalContext.turnManager();
+    }
+
+    async executeTurn(sessionContext, turn) {
+
+        // TODO Check the access!
+        // TODO Check the status!
+
+        const game = await this.#gameRepository.loadGame(sessionContext);
+
+        this.#turnManager.executeTurn(game, turn);
+
+        // TODO Change the status to 'executing'!
+        // TODO Change the status to 'thinking'!
+
+        this.#turnManager.endTurn(game);
+        this.#turnManager.startTurn(game, turn);
+
+        await this.#gameRepository.saveGame(sessionContext, game);
+        await this.#gameRepository.publishGame(sessionContext, game);
     }
 
     async skipTurn(sessionContext) {

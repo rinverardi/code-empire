@@ -28,6 +28,10 @@ export class GameController {
                         await this.#gameService.createGame(sessionContext, action.map.id, action.player.name);
                         break;
 
+                    case Action.executeTurn:
+                        await this.#turnService.executeTurn(sessionContext, action.turn);
+                        break;
+
                     case Action.joinGame:
                         await this.#playerService.joinGame(sessionContext, action.player.name);
                         break;
