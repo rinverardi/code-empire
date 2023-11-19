@@ -90,45 +90,44 @@ export class PlayerHelper {
 };
 
 export class PlayerView {
-    #addPlayers(game) {
-        const mapElement = document.getElementById('map');
-
-        for (const player of game.players) {
-            if (player.status === Player.Status.alive) {
-                const playerElement = this.#buildPlayer(player);
-
-                if (player.id === game.turn.player) {
-                    playerElement.classList.add('current');
-                }
-
-                mapElement.appendChild(playerElement);
-            }
-        }
-    }
-
-    bindGame(game) {
-        this.#removePlayers(game);
-        this.#addPlayers(game);
-    }
-
-    #buildPlayer(player) {
+    #addPlayer(player) {
         const playerElement = document.createElement('img');
 
         playerElement.classList.add('player');
-
+        playerElement.id = player.id;
         playerElement.src = 'images/player.svg';
-
-        playerElement.style.left = `${player.position[0] * 40 + 40}px`;
-        playerElement.style.top = `${player.position[1] * 45 + 20}px`;
 
         return playerElement;
     }
 
-    #removePlayers(game) {
-        const playerElements = document.getElementsByClassName('player');
+    bindGame(game) {
+        const mapElement = document.getElementById('map');
 
-        for (const playerElement of [...playerElements]) {
-            playerElement.remove();
+        for (const player of game.players) {
+            let playerElement = document.getElementById(player.id);
+
+            if (player.status === Player.Status.alive) {
+                if (!playerElement) {
+                    playerElement = this.#addPlayer(player);
+
+                    mapElement.appendChild(playerElement);
+                }
+
+                this.#updatePlayer(game, player, playerElement);
+            } else if (playerElement) {
+                playerElement.remove();
+            }
         }
+    }
+
+    #updatePlayer(game, player, playerElement) {
+        if (game.turn.player === player.id) {
+            playerElement.classList.add('current');
+        } else {
+            playerElement.classList.remove('current');
+        }
+
+        playerElement.style.left = `${player.position[0] * 40 + 40}px`;
+        playerElement.style.top = `${player.position[1] * 45 + 20}px`;
     }
 };
