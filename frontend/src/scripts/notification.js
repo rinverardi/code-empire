@@ -7,7 +7,7 @@ export class NotificationHelper {
 
         document.body.appendChild(notification);
 
-        setTimeout(() => notification.remove(), 4000);
+        setTimeout(() => notification.remove(), 3000);
     }
 
     showError(message) {

@@ -179,7 +179,7 @@ h2 {
 }
 
 .notification {
-    animation: slide-in 1s forwards, slide-out 1s forwards 3s;
+    animation: slide-in 1s forwards, slide-out 1s forwards 2s;
     background-image: url(../images/area.svg);
     background-size: 100% 100%;
     bottom: 0;
@@ -193,6 +193,8 @@ h2 {
     pointer-events: none;
     position: absolute;
     transform: translateX(-50%) translateY(-50%);
+    transition-duration: 0.6s;
+    transition-property: left top;
 }
 
 .player.current {
