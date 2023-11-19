@@ -5,37 +5,19 @@ export class MapView {
         this.#playerHelper = context.playerHelper();
     }
 
-    bindGame(game) {
-        let mapElement = document.getElementById('map');
-
-        if (!mapElement) {
-            mapElement = this.#buildMap(game.map.tiles);
-
-            document.getElementById('map-container').appendChild(mapElement);
-        }
-
-        this.#removeStyles();
-
-        if (game.turns) {
-            this.#markTilesAsActive(game);
-            this.#markTilesAsCurrent(game);
-            this.#markTilesAsInactive(game);
-        }
-    }
-
-    #buildMap(tiles) {
+    #addMap(tiles) {
         const mapElement = document.createElement('div');
 
         mapElement.id = 'map';
 
         for (let y = 0; y < tiles.length; y++) {
-            const rowElement = this.#buildMapRow();
+            const rowElement = this.#addMapRow();
 
             for (let x = 0; x < tiles[y].length; x++) {
                 const tile = tiles[y][x];
 
                 if (tile !== ' ') {
-                    const tileElement = this.#buildMapTile(tile, x, y);
+                    const tileElement = this.#addMapTile(tile, x, y);
 
                     rowElement.appendChild(tileElement);
                 }
@@ -47,7 +29,7 @@ export class MapView {
         return mapElement;
     }
 
-    #buildMapRow() {
+    #addMapRow() {
         const rowElement = document.createElement('div');
 
         rowElement.classList = ['map-row'];
@@ -55,7 +37,7 @@ export class MapView {
         return rowElement;
     }
 
-    #buildMapTile(tile, x, y) {
+    #addMapTile(tile, x, y) {
         const tileElement = document.createElement('div');
 
         tileElement.classList = tile === '-' ? ['tile'] : ['tile tile-' + tile];
@@ -63,6 +45,24 @@ export class MapView {
         tileElement.dataset.y = y;
 
         return tileElement;
+    }
+
+    bindGame(game) {
+        let mapElement = document.getElementById('map');
+
+        if (!mapElement) {
+            mapElement = this.#addMap(game.map.tiles);
+
+            document.getElementById('map-container').appendChild(mapElement);
+        }
+
+        this.#removeStyles();
+
+        if (game.turns) {
+            this.#markTilesAsActive(game);
+            this.#markTilesAsCurrent(game);
+            this.#markTilesAsInactive(game);
+        }
     }
 
     #getMapTile(x, y) {
