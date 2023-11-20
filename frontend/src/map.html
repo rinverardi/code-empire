@@ -287,23 +287,6 @@
             }
         }
 
-        function wireMap(game) {
-            const mapElement = document.getElementById('map');
-
-            mapElement.onclick = ({ target: tileElement }) => {
-                const { x, y } = tileElement.dataset;
-
-                const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
-
-                if (turn) {
-                    context.communication().sendMessage({
-                        id: Action.executeTurn,
-                        turn
-                    });
-                }
-            };
-        }
-
         function wireLinkLeaveGame() {
             document.getElementById('link_leave_game').addEventListener('click', () => {
                 const action = { id: Action.leaveGame };
@@ -321,6 +304,23 @@
                     context.communication().sendMessage(action);
                 });
             });
+        }
+
+        function wireMap(game) {
+            const mapElement = document.getElementById('map');
+
+            mapElement.onclick = ({ target: tileElement }) => {
+                const { x, y } = tileElement.dataset;
+
+                const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
+
+                if (turn) {
+                    context.communication().sendMessage({
+                        id: Action.executeTurn,
+                        turn
+                    });
+                }
+            };
         }
 
         const context = new Context();
