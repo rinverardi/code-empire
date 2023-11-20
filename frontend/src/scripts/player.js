@@ -121,13 +121,22 @@ export class PlayerView {
     }
 
     #updatePlayer(game, player, playerElement) {
+        const x = player.position[0] * 40 + 40;
+        const y = player.position[1] * 45 + 20;
+
+        playerElement.style.left = `${x}px`;
+        playerElement.style.top = `${y}px`;
+
         if (game.turn.player === player.id) {
             playerElement.classList.add('current');
+
+            const mapContainer = document.getElementById("map-container");
+
+            mapContainer.scroll(
+                x - mapContainer.clientWidth / 2,
+                y - mapContainer.clientHeight / 2);
         } else {
             playerElement.classList.remove('current');
         }
-
-        playerElement.style.left = `${player.position[0] * 40 + 40}px`;
-        playerElement.style.top = `${player.position[1] * 45 + 20}px`;
     }
 };

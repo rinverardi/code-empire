@@ -259,24 +259,12 @@
                         updateMenu(game);
                         updateNotification(game);
                         wireMap(game);
-
-                        // TODO Scroll to current player!
-
-                        scrollToCenter();
                     }
                     break;
 
                 default:
                     throw new RangeError('No such status');
             }
-        }
-
-        function scrollToCenter() {
-            const mapContainer = document.getElementById("map-container");
-
-            mapContainer.scroll(
-                (mapContainer.scrollWidth - mapContainer.clientWidth) / 2,
-                (mapContainer.scrollHeight - mapContainer.clientHeight) / 2);
         }
 
         function updateMenu(game) {
@@ -299,23 +287,6 @@
             }
         }
 
-        function wireMap(game) {
-            const mapElement = document.getElementById('map');
-
-            mapElement.onclick = ({ target: tileElement }) => {
-                const { x, y } = tileElement.dataset;
-
-                const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
-
-                if (turn) {
-                    context.communication().sendMessage({
-                        id: Action.executeTurn,
-                        turn
-                    });
-                }
-            };
-        }
-
         function wireLinkLeaveGame() {
             document.getElementById('link_leave_game').addEventListener('click', () => {
                 const action = { id: Action.leaveGame };
@@ -333,6 +304,23 @@
                     context.communication().sendMessage(action);
                 });
             });
+        }
+
+        function wireMap(game) {
+            const mapElement = document.getElementById('map');
+
+            mapElement.onclick = ({ target: tileElement }) => {
+                const { x, y } = tileElement.dataset;
+
+                const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
+
+                if (turn) {
+                    context.communication().sendMessage({
+                        id: Action.executeTurn,
+                        turn
+                    });
+                }
+            };
         }
 
         const context = new Context();
