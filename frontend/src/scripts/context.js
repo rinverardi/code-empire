@@ -5,6 +5,7 @@ import { Navigation } from './navigation.js';
 import { NotificationHelper } from './notification.js';
 import { PlayerHelper, PlayerView } from './player.js';
 import { Random } from './random.js';
+import { ResourceView } from './resource.js';
 import { Translation } from './translation.js';
 import { TurnHelper } from './turn.js';
 
@@ -17,6 +18,7 @@ export class Context {
     #playerHelper;
     #playerView;
     #random;
+    #resourceView;
     #translation;
     #turnHelper;
 
@@ -50,6 +52,10 @@ export class Context {
 
     random() {
         return this.#random ? this.#random : this.#random = new Random();
+    }
+
+    resourceView() {
+        return this.#resourceView ? this.#resourceView : this.#resourceView = new ResourceView(this);
     }
 
     translation() {

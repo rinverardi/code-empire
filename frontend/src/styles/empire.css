@@ -251,6 +251,17 @@ h2 {
     font-family: 'Redacted';
 }
 
+.resource {
+    pointer-events: none;
+    position: absolute;
+    transition-duration: 1s;
+    transition-property: transform;
+}
+
+.resource.active {
+    transform: translateY(-3px);
+}
+
 select {
     appearance: none;
 }
