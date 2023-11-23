@@ -58,6 +58,8 @@ export class TurnView {
 
             if (positions.some(that => that[0] === parseInt(x) && that[1] === parseInt(y))) {
                 playerElement.classList.add('active');
+            } else {
+                playerElement.classList.remove('active');
             }
         }
     }
@@ -70,6 +72,8 @@ export class TurnView {
 
             if (positions.some(that => that[0] === parseInt(x) && that[1] === parseInt(y))) {
                 resourceElement.classList.add('active');
+            } else {
+                resourceElement.classList.remove('active');
             }
         }
     }
@@ -82,7 +86,9 @@ export class TurnView {
 
             if (positions.some(that => that[0] === parseInt(x) && that[1] === parseInt(y))) {
                 tileElement.classList.add('active');
+                tileElement.classList.remove('inactive');
             } else {
+                tileElement.classList.remove('active');
                 tileElement.classList.add('inactive');
             }
         }
