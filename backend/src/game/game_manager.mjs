@@ -4,11 +4,13 @@ import { Player } from '../player/player.mjs';
 
 export class GameManager {
     #playerManager;
+    #resourceManager;
     #turnManager;
     #visibilityManager;
 
     constructor(globalContext) {
         this.#playerManager = globalContext.playerManager();
+        this.#resourceManager = globalContext.resourceManager();
         this.#turnManager = globalContext.turnManager();
         this.#visibilityManager = globalContext.visibilityManager();
     }
@@ -42,6 +44,7 @@ export class GameManager {
         game.structures = [];
 
         this.#playerManager.startGame(game);
+        this.#resourceManager.startGame(game);
         this.#turnManager.startGame(game);
         this.#visibilityManager.startGame(game);
     }
