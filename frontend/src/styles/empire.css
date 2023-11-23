@@ -329,8 +329,10 @@ select option {
     transform: translateY(-5px);
 }
 
-.tile.active:hover {
-    filter: brightness(150%);
+@media (hover: hover) {
+    .tile.active:hover {
+        filter: brightness(150%);
+    }
 }
 
 .tile.inactive {
