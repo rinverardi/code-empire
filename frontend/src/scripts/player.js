@@ -19,6 +19,14 @@ export class Player {
             left: 'left'
         });
     }
+
+    static element(player) {
+        return document.getElementById(Player.elementId(player));
+    }
+
+    static elementId(player) {
+        return `player-${player.id}`;
+    }
 };
 
 export class PlayerHelper {
@@ -31,11 +39,9 @@ export class PlayerHelper {
     getPlayer(game) {
         const playerId = this.loadId();
 
-        if (game.players) {
-            for (const player of game.players) {
-                if (player.id === playerId) {
-                    return player;
-                }
+        for (const player of game.players ?? []) {
+            if (player.id === playerId) {
+                return player;
             }
         }
     }
@@ -94,7 +100,7 @@ export class PlayerView {
         const playerElement = document.createElement('img');
 
         playerElement.classList.add('player');
-        playerElement.id = player.id;
+        playerElement.id = Player.elementId(player);
         playerElement.src = 'images/player.svg';
 
         return playerElement;
@@ -104,7 +110,7 @@ export class PlayerView {
         const mapElement = document.getElementById('map');
 
         for (const player of game.players) {
-            let playerElement = document.getElementById(player.id);
+            let playerElement = Player.element(player);
 
             if (player.status === Player.Status.alive) {
                 if (!playerElement) {
