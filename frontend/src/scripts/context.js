@@ -7,7 +7,7 @@ import { PlayerHelper, PlayerView } from './player.js';
 import { Random } from './random.js';
 import { ResourceView } from './resource.js';
 import { Translation } from './translation.js';
-import { TurnHelper } from './turn.js';
+import { TurnHelper, TurnView } from './turn.js';
 
 export class Context {
     #communication;
@@ -21,6 +21,7 @@ export class Context {
     #resourceView;
     #translation;
     #turnHelper;
+    #turnView;
 
     communication() {
         return this.#communication ? this.#communication : this.#communication = new Communication(this);
@@ -31,7 +32,7 @@ export class Context {
     }
 
     mapView() {
-        return this.#mapView ? this.#mapView : this.#mapView = new MapView(this);
+        return this.#mapView ? this.#mapView : this.#mapView = new MapView();
     }
 
     navigation() {
@@ -47,7 +48,7 @@ export class Context {
     }
 
     playerView() {
-        return this.#playerView ? this.#playerView : this.#playerView = new PlayerView(this);
+        return this.#playerView ? this.#playerView : this.#playerView = new PlayerView();
     }
 
     random() {
@@ -55,7 +56,7 @@ export class Context {
     }
 
     resourceView() {
-        return this.#resourceView ? this.#resourceView : this.#resourceView = new ResourceView(this);
+        return this.#resourceView ? this.#resourceView : this.#resourceView = new ResourceView();
     }
 
     translation() {
@@ -64,5 +65,9 @@ export class Context {
 
     turnHelper() {
         return this.#turnHelper ? this.#turnHelper : this.#turnHelper = new TurnHelper();
+    }
+
+    turnView() {
+        return this.#turnView ? this.#turnView : this.#turnView = new TurnView(this);
     }
 };

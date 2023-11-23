@@ -197,7 +197,7 @@ h2 {
 }
 
 .player.active {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
 }
 
 .player.current {
@@ -262,7 +262,7 @@ h2 {
 }
 
 .resource.active {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
 }
 
 select {
@@ -325,20 +325,16 @@ select option {
 }
 
 .tile.active {
-    transform: translateY(-3px);
     cursor: pointer;
+    transform: translateY(-5px);
 }
 
 .tile.active:hover {
-    filter: brightness(140%) saturate(120%);
-}
-
-.tile.current {
-    transform: translateY(-3px);
+    filter: brightness(150%);
 }
 
 .tile.inactive {
-    filter: brightness(60%) saturate(80%);
+    filter: brightness(50%);
 }
 
 .tile-f {

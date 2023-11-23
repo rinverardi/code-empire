@@ -18,12 +18,6 @@ export class Resource {
 };
 
 export class ResourceView {
-    #playerHelper;
-
-    constructor(context) {
-        this.#playerHelper = context.playerHelper();
-    }
-
     #addResource(resource) {
         const resourceElement = document.createElement('img');
 
@@ -32,7 +26,6 @@ export class ResourceView {
         resourceElement.dataset.y = resource.position[1];
         resourceElement.id = Resource.elementId(resource);
         resourceElement.src = Resource.Type[resource.type];
-
         resourceElement.style.left = `${resource.position[0] * 40 + 10}px`;
         resourceElement.style.top = `${resource.position[1] * 45}px`;
 
@@ -49,36 +42,6 @@ export class ResourceView {
                 resourceElement = this.#addResource(resource);
 
                 mapElement.appendChild(resourceElement);
-            }
-        }
-
-        this.#updateStyles(game);
-    }
-
-    #updateStyles(game) {
-        const resourceElements = document.querySelectorAll('.resource');
-
-        for (const resourceElement of resourceElements) {
-            resourceElement.classList.remove('active');
-        }
-
-        if (game.turns) {
-            const xList = game.turns.map(that => that.positionTo[0]);
-            const yList = game.turns.map(that => that.positionTo[1]);
-
-            if (this.#playerHelper.isCurrentPlayer(game)) {
-                const playerPosition = this.#playerHelper.getPlayer(game).position;
-
-                xList.push(playerPosition[0]);
-                yList.push(playerPosition[1]);
-            }
-
-            for (const resourceElement of resourceElements) {
-                const { x, y } = resourceElement.dataset;
-
-                if (xList.includes(parseInt(x)) && yList.includes(parseInt(y))) {
-                    resourceElement.classList.add('active');
-                }
             }
         }
     }
