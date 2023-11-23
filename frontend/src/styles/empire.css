@@ -333,10 +333,6 @@ select option {
     filter: brightness(150%);
 }
 
-.tile.current {
-    transform: translateY(-5px);
-}
-
 .tile.inactive {
     filter: brightness(50%);
 }

@@ -96,12 +96,6 @@ export class PlayerHelper {
 };
 
 export class PlayerView {
-    #playerHelper;
-
-    constructor(context) {
-        this.#playerHelper = context.playerHelper();
-    }
-
     #addPlayer(player) {
         const playerElement = document.createElement('img');
 
@@ -130,8 +124,6 @@ export class PlayerView {
                 playerElement.remove();
             }
         }
-
-        this.#updateStyles(game);
     }
 
     #updatePlayer(game, player, playerElement) {
@@ -153,34 +145,6 @@ export class PlayerView {
                 y - mapContainer.clientHeight / 2);
         } else {
             playerElement.classList.remove('current');
-        }
-    }
-
-    #updateStyles(game) {
-        const playerElements = document.querySelectorAll('.player');
-
-        for (const playerElement of playerElements) {
-            playerElement.classList.remove('active');
-        }
-
-        if (game.turns) {
-            const xList = game.turns.map(that => that.positionTo[0]);
-            const yList = game.turns.map(that => that.positionTo[1]);
-
-            if (this.#playerHelper.isCurrentPlayer(game)) {
-                const playerPosition = this.#playerHelper.getPlayer(game).position;
-
-                xList.push(playerPosition[0]);
-                yList.push(playerPosition[1]);
-            }
-
-            for (const playerElement of playerElements) {
-                const { x, y } = playerElement.dataset;
-
-                if (xList.includes(parseInt(x)) && yList.includes(parseInt(y))) {
-                    playerElement.classList.add('active');
-                }
-            }
         }
     }
 };

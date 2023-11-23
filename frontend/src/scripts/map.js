@@ -9,12 +9,6 @@ export class MapTile {
 }
 
 export class MapView {
-    #playerHelper;
-
-    constructor(context) {
-        this.#playerHelper = context.playerHelper();
-    }
-
     #addMap(tiles) {
         const mapElement = document.createElement('div');
 
@@ -65,46 +59,6 @@ export class MapView {
             mapElement = this.#addMap(game.map.tiles);
 
             document.getElementById('map-container').appendChild(mapElement);
-        }
-
-        this.#removeStyles();
-
-        if (game.turns) {
-            this.#markTilesAsActive(game);
-            this.#markTilesAsCurrent(game);
-            this.#markTilesAsInactive(game);
-        }
-    }
-
-    #markTilesAsActive(game) {
-        for (const turn of game.turns) {
-            const tileElement = MapTile.element(...turn.positionTo);
-
-            tileElement.classList.add('active');
-        }
-    }
-
-    #markTilesAsCurrent(game) {
-        if (this.#playerHelper.isCurrentPlayer(game)) {
-            const player = this.#playerHelper.getPlayer(game);
-
-            const tileElement = MapTile.element(...player.position);
-
-            tileElement.classList.add('current');
-        }
-    }
-
-    #markTilesAsInactive() {
-        const tileElements = document.querySelectorAll('.tile:not(.active):not(.current)');
-
-        tileElements.forEach(that => that.classList.add('inactive'));
-    }
-
-    #removeStyles() {
-        const tileElements = document.getElementsByClassName('tile');
-
-        for (const tileElement of tileElements) {
-            ['active', 'current', 'inactive'].forEach(that => tileElement.classList.remove(that));
         }
     }
 };

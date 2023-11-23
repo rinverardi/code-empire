@@ -17,3 +17,74 @@ export class TurnHelper {
         }
     }
 }
+
+export class TurnView {
+    #playerHelper;
+
+    constructor(context) {
+        this.#playerHelper = context.playerHelper();
+    }
+
+    bindGame(game) {
+        const positions = [];
+
+        if (game.turns) {
+            game.turns.forEach(that => positions.push(that.positionTo));
+
+            if (this.#playerHelper.isCurrentPlayer(game)) {
+                const player = this.#playerHelper.getPlayer(game);
+
+                positions.push(player.position);
+            }
+
+            this.#stylePlayers(positions);
+            this.#styleResources(positions);
+            this.#styleTiles(positions);
+        } else {
+            this.#reset();
+        }
+    }
+
+    #reset() {
+        document.querySelectorAll('.active').forEach(that => that.classList.remove('active'));
+        document.querySelectorAll('.inactive').forEach(that => that.classList.remove('inactive'));
+    }
+
+    #stylePlayers(positions) {
+        const playerElements = document.querySelectorAll('.player, .resources');
+
+        for (const playerElement of playerElements) {
+            const { x, y } = playerElement.dataset;
+
+            if (positions.some(that => that[0] === parseInt(x) && that[1] === parseInt(y))) {
+                playerElement.classList.add('active');
+            }
+        }
+    }
+
+    #styleResources(positions) {
+        const resourceElements = document.querySelectorAll('.resource');
+
+        for (const resourceElement of resourceElements) {
+            const { x, y } = resourceElement.dataset;
+
+            if (positions.some(that => that[0] === parseInt(x) && that[1] === parseInt(y))) {
+                resourceElement.classList.add('active');
+            }
+        }
+    }
+
+    #styleTiles(positions) {
+        const tileElements = document.querySelectorAll('.tile');
+
+        for (const tileElement of tileElements) {
+            const { x, y } = tileElement.dataset;
+
+            if (positions.some(that => that[0] === parseInt(x) && that[1] === parseInt(y))) {
+                tileElement.classList.add('active');
+            } else {
+                tileElement.classList.add('inactive');
+            }
+        }
+    }
+}
