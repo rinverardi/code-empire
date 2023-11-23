@@ -3,8 +3,8 @@ export class Inventory {
         return Object.freeze({
             food: 'food',
             gold: 'gold',
-            science: 'science',
-            weapon: 'weapon'
+            research: 'research',
+            weaponry: 'weaponry'
         });
     }
 };
