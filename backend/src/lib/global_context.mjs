@@ -10,6 +10,7 @@ import { MapMapper } from '../map/map_mapper.mjs';
 import { PlayerManager } from '../player/player_manager.mjs';
 import { PlayerMapper } from '../player/player_mapper.mjs';
 import { PlayerService } from '../player/player_service.mjs';
+import { ResourceManager } from '../resource/resource_manager.mjs';
 import { ResourceMapper } from '../resource/resource_mapper.mjs';
 import { StructureMapper } from '../structure/structure_mapper.mjs';
 import { TurnManager } from '../turn/turn_manager.mjs';
@@ -31,6 +32,7 @@ export class GlobalContext {
     #playerManager;
     #playerMapper;
     #playerService;
+    #resourceManager;
     #resourceMapper;
     #structureMapper;
     #turnManager;
@@ -85,6 +87,10 @@ export class GlobalContext {
 
     playerService() {
         return this.#playerService ? this.#playerService : this.#playerService = new PlayerService(this);
+    }
+
+    resourceManager() {
+        return this.#resourceManager ? this.#resourceManager : this.#resourceManager = new ResourceManager(this);
     }
 
     resourceMapper() {

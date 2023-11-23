@@ -7,6 +7,12 @@ export class MapAccess {
         return positions.some(that => that && that[0] === x && that[1] === y);
     }
 
+    getResourceAt(game, x, y) {
+        const positions = game.resources.map(that => that.position);
+
+        return positions.some(that => that && that[0] === x && that[1] === y);
+    }
+
     getSizeX(game) {
         return game.map.tiles[0].length / 2;
     }

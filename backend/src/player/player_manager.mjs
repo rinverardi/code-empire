@@ -21,7 +21,7 @@ export class PlayerManager {
         };
     }
 
-    pickPosition(game) {
+    #pickPosition(game) {
         while (true) {
             const position = this.#mapAccess.pickPosition(game);
             const tile = this.#mapAccess.getTileAt(game, ...position);
@@ -40,7 +40,7 @@ export class PlayerManager {
         for (const player of game.players) {
             player.health = GlobalConfig.playerHealth;
             player.inventory = this.#inventoryManager.buildInventory();
-            player.position = this.pickPosition(game);
+            player.position = this.#pickPosition(game);
         }
     }
 };

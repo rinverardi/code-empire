@@ -254,6 +254,7 @@
                         context.navigation().startOver();
                     } else {
                         context.mapView().bindGame(game);
+                        context.resourceView().bindGame(game);
                         context.playerView().bindGame(game);
 
                         updateMenu(game);
