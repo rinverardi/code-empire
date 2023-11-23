@@ -28,9 +28,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="3.4722375"
-     inkscape:cx="-23.039899"
-     inkscape:cy="-0.28799874"
+     inkscape:zoom="10.029428"
+     inkscape:cx="17.847478"
+     inkscape:cy="10.868018"
      inkscape:window-width="1440"
      inkscape:window-height="831"
      inkscape:window-x="0"
@@ -39,17 +39,17 @@
      inkscape:current-layer="svg3" />
   <g
      id="g3"
-     transform="matrix(2.796196,0,0,2.796196,-3.5543526,-3.5543526)"
-     style="stroke-width:0.71525744;stroke-dasharray:none">
+     transform="matrix(1.6777176,0,0,1.6777176,9.8673882,9.8673882)"
+     style="stroke-width:0.59604787;stroke-dasharray:none;fill:#ffe680">
     <circle
        cx="12"
        cy="12"
        r="8.4857149"
        id="circle1"
-       style="fill:#aaffaa;stroke-width:0.71525744;stroke-dasharray:none" />
+       style="fill:#ffe680;stroke-width:0.59604787;stroke-dasharray:none" />
     <path
        d="m 10.7862,8.8571429 h 1.571429 v 6.2857141"
        id="path2"
-       style="stroke-width:0.715257;stroke-dasharray:none" />
+       style="stroke-width:0.59604787;stroke-dasharray:none;fill:#ffe680" />
   </g>
 </svg>
