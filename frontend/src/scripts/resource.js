@@ -18,7 +18,21 @@ export class Resource {
 };
 
 export class ResourceView {
-    #addResource(resource) {
+    bindGame(game) {
+        const mapElement = document.getElementById('map');
+
+        for (let resource of game.resources) {
+            let resourceElement = Resource.element(resource);
+
+            if (!resourceElement) {
+                resourceElement = this.#buildResource(resource);
+
+                mapElement.appendChild(resourceElement);
+            }
+        }
+    }
+
+    #buildResource(resource) {
         const resourceElement = document.createElement('div');
 
         resourceElement.classList.add('resource');
@@ -30,19 +44,5 @@ export class ResourceView {
         resourceElement.style.top = `${resource.position[1] * 45 + 15}px`;
 
         return resourceElement;
-    }
-
-    bindGame(game) {
-        const mapElement = document.getElementById('map');
-
-        for (let resource of game.resources) {
-            let resourceElement = Resource.element(resource);
-
-            if (!resourceElement) {
-                resourceElement = this.#addResource(resource);
-
-                mapElement.appendChild(resourceElement);
-            }
-        }
     }
 };
