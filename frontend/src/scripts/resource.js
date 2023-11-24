@@ -19,15 +19,15 @@ export class Resource {
 
 export class ResourceView {
     #addResource(resource) {
-        const resourceElement = document.createElement('img');
+        const resourceElement = document.createElement('div');
 
         resourceElement.classList.add('resource');
+        resourceElement.classList.add('resource-' + resource.type);
         resourceElement.dataset.x = resource.position[0];
         resourceElement.dataset.y = resource.position[1];
         resourceElement.id = Resource.elementId(resource);
-        resourceElement.src = Resource.Type[resource.type];
-        resourceElement.style.left = `${resource.position[0] * 40 + 10}px`;
-        resourceElement.style.top = `${resource.position[1] * 45}px`;
+        resourceElement.style.left = `${resource.position[0] * 40 + 25}px`;
+        resourceElement.style.top = `${resource.position[1] * 45 + 15}px`;
 
         return resourceElement;
     }

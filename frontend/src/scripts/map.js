@@ -44,7 +44,16 @@ export class MapView {
     #addTile(tile, x, y) {
         const tileElement = document.createElement('div');
 
-        tileElement.classList = tile === '-' ? ['tile'] : ['tile tile-' + tile];
+        tileElement.classList.add('tile');
+
+        tileElement.classList.add({
+            f: 'tile-forest',
+            g: 'tile-grass',
+            h: 'tile-hill',
+            m: 'tile-mountain',
+            w: 'tile-water'
+        }[tile]);
+
         tileElement.dataset.x = x;
         tileElement.dataset.y = y;
         tileElement.id = MapTile.elementId(x, y);

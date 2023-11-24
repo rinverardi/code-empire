@@ -1,5 +1,6 @@
 import { Communication } from './communication.js';
 import { GameHelper } from './game.js';
+import { InventoryView } from './inventory.js';
 import { MapView } from './map.js';
 import { Navigation } from './navigation.js';
 import { NotificationHelper } from './notification.js';
@@ -12,6 +13,7 @@ import { TurnHelper, TurnView } from './turn.js';
 export class Context {
     #communication;
     #gameHelper;
+    #inventoryView;
     #mapView;
     #navigation;
     #notificationHelper;
@@ -29,6 +31,10 @@ export class Context {
 
     gameHelper() {
         return this.#gameHelper ? this.#gameHelper : this.#gameHelper = new GameHelper(this);
+    }
+
+    inventoryView() {
+        return this.#inventoryView ? this.#inventoryView : this.#inventoryView = new InventoryView(this);
     }
 
     mapView() {

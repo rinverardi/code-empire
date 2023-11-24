@@ -141,6 +141,34 @@ h2 {
     display: none;
 }
 
+.icon {
+    background-size: 100% 100%;
+    display: inline-block;
+    height: 20px;
+    margin-right: 2px;
+    width: 20px;
+}
+
+.icon-food {
+    background-image: url(../images/resource-food.svg);
+}
+
+.icon-gold {
+    background-image: url(../images/resource-gold.svg);
+}
+
+.icon-research {
+    background-image: url(../images/resource-research.svg);
+}
+
+.icon-weaponry {
+    background-image: url(../images/resource-weaponry.svg);
+}
+
+.inventory {
+    margin-left: 2px;
+}
+
 .link:hover {
     text-decoration: underline;
 }
@@ -255,6 +283,9 @@ h2 {
 }
 
 .resource {
+    background-size: cover;
+    height: 30px;
+    width: 30px;
     pointer-events: none;
     position: absolute;
     transition-duration: 1s;
@@ -263,6 +294,24 @@ h2 {
 
 .resource.active {
     transform: translateY(-5px);
+}
+
+.resource-food {
+    background-image: url(../images/resource-food.svg);
+}
+
+.resource-gold {
+    background-image: url(../images/resource-gold.svg);
+}
+
+.resource-research {
+    background-image: url(../images/resource-research.svg);
+    margin-top: -1px;
+}
+
+.resource-weaponry {
+    background-image: url(../images/resource-weaponry.svg);
+    margin-top: -2px;
 }
 
 select {
@@ -339,22 +388,28 @@ select option {
     filter: brightness(50%);
 }
 
-.tile-f {
+.tile-forest {
     background-image: url('../images/tile-forest.svg');
 }
 
-.tile-g {
+.tile-grass {
     background-image: url('../images/tile-grass.svg');
 }
 
-.tile-h {
+.tile-hill {
     background-image: url('../images/tile-hill.svg');
 }
 
-.tile-m {
+.tile-mountain {
     background-image: url('../images/tile-mountain.svg');
 }
 
-.tile-w {
+.tile-water {
     background-image: url('../images/tile-water.svg');
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }

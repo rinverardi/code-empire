@@ -18,10 +18,16 @@
 <body>
     <div id="map-container"></div>
     <div class="absolute-nw can-click control link" id="link_open_actions">
-        🧪️×7<br>
-        🍎️×9<br>
-        🪙️×15<br>
-        🗡️×8
+        <ul>
+            <li>
+                <div class="icon icon-food"></div>&times;<span class="inventory" id="inventory-food"></span>
+            <li class="inventory-item">
+                <div class="icon icon-gold"></div>&times;<span class="inventory" id="inventory-gold"></span>
+            <li class="inventory-item">
+                <div class="icon icon-research"></div>&times;<span class="inventory" id="inventory-research"></span>
+            <li class="inventory-item">
+                <div class="icon icon-weaponry"></div>&times;<span class="inventory" id="inventory-weaponry"></span>
+        </ul>
     </div>
     <div class="absolute-sw can-click control link" id="link_open_scores">
         Rangliste
@@ -253,6 +259,7 @@
                     if (player.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
+                        context.inventoryView().bindGame(game);
                         context.mapView().bindGame(game);
                         context.resourceView().bindGame(game);
                         context.playerView().bindGame(game);
