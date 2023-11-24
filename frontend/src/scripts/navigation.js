@@ -26,13 +26,19 @@ export class Navigation {
     }
 
     continueWaiting(game) {
-        const player = this.#playerHelper.getPlayer(game);
+        const me = this.#playerHelper.getMe(game);
 
-        if (player) {
-            location = player.role === Player.Role.master ? 'create_game_2.html' : 'join_game_2.html';
+        if (me) {
+            location = me.role === Player.Role.master ? 'create_game_2.html' : 'join_game_2.html';
         } else {
             this.startOver();
         }
+    }
+
+    isPopupOpen(popup) {
+        const element = document.getElementById(popup);
+
+        return element.classList.contains('open');
     }
 
     startOver() {

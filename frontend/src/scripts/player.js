@@ -36,9 +36,11 @@ export class PlayerHelper {
         this.#random = context.random();
     }
 
-    getPlayer(game) {
-        const playerId = this.loadId();
+    getMe(game) {
+        return this.getPlayer(game, this.loadId());
+    }
 
+    getPlayer(game, playerId) {
         for (const player of game.players ?? []) {
             if (player.id === playerId) {
                 return player;
@@ -46,7 +48,7 @@ export class PlayerHelper {
         }
     }
 
-    isCurrentPlayer(game) {
+    isMe(game) {
         const playerId = this.loadId();
 
         return game.turn.player === playerId;
@@ -96,16 +98,6 @@ export class PlayerHelper {
 };
 
 export class PlayerView {
-    #addPlayer(player) {
-        const playerElement = document.createElement('img');
-
-        playerElement.classList.add('player');
-        playerElement.id = Player.elementId(player);
-        playerElement.src = 'images/player.svg';
-
-        return playerElement;
-    }
-
     bindGame(game) {
         const mapElement = document.getElementById('map');
 
@@ -114,7 +106,7 @@ export class PlayerView {
 
             if (player.status === Player.Status.alive) {
                 if (!playerElement) {
-                    playerElement = this.#addPlayer(player);
+                    playerElement = this.#buildPlayer(player);
 
                     mapElement.appendChild(playerElement);
                 }
@@ -124,6 +116,16 @@ export class PlayerView {
                 playerElement.remove();
             }
         }
+    }
+
+    #buildPlayer(player) {
+        const playerElement = document.createElement('img');
+
+        playerElement.classList.add('player');
+        playerElement.id = Player.elementId(player);
+        playerElement.src = 'images/player.svg';
+
+        return playerElement;
     }
 
     #updatePlayer(game, player, playerElement) {

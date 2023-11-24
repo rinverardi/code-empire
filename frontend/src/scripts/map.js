@@ -9,19 +9,29 @@ export class MapTile {
 }
 
 export class MapView {
-    #addMap(tiles) {
+    bindGame(game) {
+        let mapElement = document.getElementById('map');
+
+        if (!mapElement) {
+            mapElement = this.#buildMap(game.map.tiles);
+
+            document.getElementById('map-container').appendChild(mapElement);
+        }
+    }
+
+    #buildMap(tiles) {
         const mapElement = document.createElement('div');
 
         mapElement.id = 'map';
 
         for (let y = 0; y < tiles.length; y++) {
-            const rowElement = this.#addRow();
+            const rowElement = this.#buildRow();
 
             for (let x = 0; x < tiles[y].length; x++) {
                 const tile = tiles[y][x];
 
                 if (tile !== ' ') {
-                    const tileElement = this.#addTile(tile, x, y);
+                    const tileElement = this.#buildTile(tile, x, y);
 
                     rowElement.appendChild(tileElement);
                 }
@@ -33,7 +43,7 @@ export class MapView {
         return mapElement;
     }
 
-    #addRow() {
+    #buildRow() {
         const rowElement = document.createElement('div');
 
         rowElement.classList = ['map-row'];
@@ -41,7 +51,7 @@ export class MapView {
         return rowElement;
     }
 
-    #addTile(tile, x, y) {
+    #buildTile(tile, x, y) {
         const tileElement = document.createElement('div');
 
         tileElement.classList.add('tile');
@@ -59,15 +69,5 @@ export class MapView {
         tileElement.id = MapTile.elementId(x, y);
 
         return tileElement;
-    }
-
-    bindGame(game) {
-        let mapElement = document.getElementById('map');
-
-        if (!mapElement) {
-            mapElement = this.#addMap(game.map.tiles);
-
-            document.getElementById('map-container').appendChild(mapElement);
-        }
     }
 };

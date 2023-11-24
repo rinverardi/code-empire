@@ -31,10 +31,10 @@ export class TurnView {
         if (game.turns) {
             game.turns.forEach(that => positions.push(that.positionTo));
 
-            if (this.#playerHelper.isCurrentPlayer(game)) {
-                const player = this.#playerHelper.getPlayer(game);
+            if (this.#playerHelper.isMe(game)) {
+                const me = this.#playerHelper.getMe(game);
 
-                positions.push(player.position);
+                positions.push(me.position);
             }
 
             this.#stylePlayers(positions);

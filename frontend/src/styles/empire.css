@@ -26,14 +26,14 @@
 
     to {
         opacity: 1;
-        transform: translateX(-50%) translateY(-3em);
+        transform: translateX(-50%) translateY(-3rem);
     }
 }
 
 @keyframes slide-out {
     from {
         opacity: 1;
-        transform: translateX(-50%) translateY(-3em);
+        transform: translateX(-50%) translateY(-3rem);
     }
 
     to {
@@ -52,28 +52,28 @@
 
 .absolute-ne {
     position: absolute;
-    right: 0em;
-    top: 0em;
+    right: 0rem;
+    top: 0rem;
     white-space: nowrap;
 }
 
 .absolute-nw {
     position: absolute;
-    left: 0em;
-    top: 0em;
+    left: 0rem;
+    top: 0rem;
     white-space: nowrap;
 }
 
 .absolute-se {
-    bottom: 0em;
+    bottom: 0rem;
     position: absolute;
-    right: 0em;
+    right: 0rem;
     white-space: nowrap;
 }
 
 .absolute-sw {
-    bottom: 0em;
-    left: 0em;
+    bottom: 0rem;
+    left: 0rem;
     position: absolute;
     white-space: nowrap;
 }
@@ -82,13 +82,32 @@
     background-image: url(../images/area.svg);
     background-size: 100% 100%;
     overflow: hidden;
-    padding: 0.25em 0.5em;
+    padding: 0.25rem 0.5rem;
     text-overflow: ellipsis;
 }
 
 body {
     background: #222;
-    padding: 1em;
+    padding: 1rem;
+}
+
+.chat-bubble {
+	background: #666;
+	border-radius: 0.5rem 0.5rem 0.5rem 0;
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.5rem;
+	position: relative;
+}
+
+.chat-bubble:before {
+	border: 0.6rem solid;
+    border-color: transparent transparent #666 transparent;
+    border-right: 0;
+	bottom: 0;
+	content: '';
+	left: 0;
+	margin: 0 -0.5rem;
+	position: absolute;
 }
 
 .control {
@@ -97,7 +116,7 @@ body {
     border: none;
     outline: none;
     overflow: hidden;
-    padding: 0.25em 0.5em;
+    padding: 0.25rem 0.5rem;
     text-align: left;
     text-overflow: ellipsis;
     transition-duration: 1s;
@@ -127,13 +146,13 @@ body {
 
 h1 {
     margin: 0;
-    padding: 1em 0;
+    padding: 1rem 0;
     text-align: center;
 }
 
 h2 {
     margin: 0;
-    padding: 0.5em 0;
+    padding: 0.5rem 0;
     text-align: center;
 }
 
@@ -208,13 +227,16 @@ h2 {
 
 .notification {
     animation: slide-in 1s forwards, slide-out 1s forwards 2s;
-    background-image: url(../images/area.svg);
-    background-size: 100% 100%;
     bottom: 0;
     left: 50%;
-    padding: 0.25em 0.5em;
+    padding: 0.25rem 0.5rem;
     pointer-events: none;
     position: absolute;
+}
+
+.notification-error, .notification-information {
+    background: #666;
+	border-radius: 0.5rem;
 }
 
 .player {
@@ -237,20 +259,20 @@ h2 {
     filter: drop-shadow(0 0 20px #000);
     flex-grow: 1;
     margin: auto auto;
-    max-width: 30em;
-    padding: 0.5em;
+    max-width: 30rem;
+    padding: 0.5rem 0;
 }
 
 .popup-holder {
     background-color: rgb(0 0 0 / 0.5);
-    bottom: 0em;
+    bottom: 0rem;
     display: flex;
-    left: 0em;
+    left: 0rem;
     opacity: 0;
     overflow: scroll;
     position: absolute;
-    right: 0em;
-    top: 0em;
+    right: 0rem;
+    top: 0rem;
     transition-duration: 0.5s;
     transition-property: opacity;
     visibility: hidden;
@@ -261,7 +283,7 @@ h2 {
 }
 
 .ready {
-    padding-right: 1em;
+    padding-right: 1rem;
 }
 
 .ready::after {
@@ -349,12 +371,12 @@ select option {
 
 .slot:not(.assigned) .if-assigned {
     opacity: 0;
-    transform: translateX(1em);
+    transform: translateX(1rem);
 }
 
 .slot.assigned .if-unassigned {
     opacity: 0;
-    transform: translateX(1em);
+    transform: translateX(1rem);
 }
 
 .slot:not(.assigned) .if-unassigned {
