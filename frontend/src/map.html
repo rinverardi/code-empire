@@ -272,7 +272,7 @@
             if (!context.navigation().isPopupOpen('chat')) {
                 const index = game.messages.length - 1;
 
-                if (!lastMessage || index > lastMessage) {
+                if (index > lastMessage ?? -1) {
                     lastMessage = index;
 
                     const message = game.messages[index];
