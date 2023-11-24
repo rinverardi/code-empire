@@ -96,16 +96,6 @@ export class PlayerHelper {
 };
 
 export class PlayerView {
-    #addPlayer(player) {
-        const playerElement = document.createElement('img');
-
-        playerElement.classList.add('player');
-        playerElement.id = Player.elementId(player);
-        playerElement.src = 'images/player.svg';
-
-        return playerElement;
-    }
-
     bindGame(game) {
         const mapElement = document.getElementById('map');
 
@@ -114,7 +104,7 @@ export class PlayerView {
 
             if (player.status === Player.Status.alive) {
                 if (!playerElement) {
-                    playerElement = this.#addPlayer(player);
+                    playerElement = this.#buildPlayer(player);
 
                     mapElement.appendChild(playerElement);
                 }
@@ -124,6 +114,16 @@ export class PlayerView {
                 playerElement.remove();
             }
         }
+    }
+
+    #buildPlayer(player) {
+        const playerElement = document.createElement('img');
+
+        playerElement.classList.add('player');
+        playerElement.id = Player.elementId(player);
+        playerElement.src = 'images/player.svg';
+
+        return playerElement;
     }
 
     #updatePlayer(game, player, playerElement) {
