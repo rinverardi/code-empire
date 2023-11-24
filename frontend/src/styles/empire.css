@@ -141,6 +141,34 @@ h2 {
     display: none;
 }
 
+.icon {
+    background-size: 100% 100%;
+    display: inline-block;
+    height: 20px;
+    margin-right: 2px;
+    width: 20px;
+}
+
+.icon-food {
+    background-image: url(../images/resource-food.svg);
+}
+
+.icon-gold {
+    background-image: url(../images/resource-gold.svg);
+}
+
+.icon-research {
+    background-image: url(../images/resource-research.svg);
+}
+
+.icon-weaponry {
+    background-image: url(../images/resource-weaponry.svg);
+}
+
+.inventory {
+    margin-left: 2px;
+}
+
 .link:hover {
     text-decoration: underline;
 }
@@ -357,4 +385,10 @@ select option {
 
 .tile-w {
     background-image: url('../images/tile-water.svg');
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
