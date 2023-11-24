@@ -18,10 +18,10 @@
 <body>
     <div id="map-container"></div>
     <div class="absolute-nw can-click control link" id="link_open_actions">
-        🧪️×7<br>
-        🍎️×9<br>
-        🪙️×15<br>
-        🗡️×8
+        🍎️×<span id="inventory-food"></span><br>
+        🪙️×<span id="inventory-gold"></span><br>
+        🧪️×<span id="inventory-research"></span><br>
+        🗡️×<span id="inventory-weaponry"></span>
     </div>
     <div class="absolute-sw can-click control link" id="link_open_scores">
         Rangliste
@@ -253,6 +253,7 @@
                     if (player.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
+                        context.inventoryView().bindGame(game);
                         context.mapView().bindGame(game);
                         context.resourceView().bindGame(game);
                         context.playerView().bindGame(game);
