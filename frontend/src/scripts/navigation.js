@@ -35,6 +35,12 @@ export class Navigation {
         }
     }
 
+    isPopupOpen(popup) {
+        const element = document.getElementById(popup);
+
+        return element.classList.contains('open');
+    }
+
     startOver() {
         this.#gameHelper.removeId();
 

@@ -1,3 +1,4 @@
+import { ChatView } from './chat.js';
 import { Communication } from './communication.js';
 import { GameHelper } from './game.js';
 import { InventoryView } from './inventory.js';
@@ -11,6 +12,7 @@ import { Translation } from './translation.js';
 import { TurnHelper, TurnView } from './turn.js';
 
 export class Context {
+    #chatView;
     #communication;
     #gameHelper;
     #inventoryView;
@@ -24,6 +26,10 @@ export class Context {
     #translation;
     #turnHelper;
     #turnView;
+
+    chatView() {
+        return this.#chatView ? this.#chatView : this.#chatView = new ChatView(this);
+    }
 
     communication() {
         return this.#communication ? this.#communication : this.#communication = new Communication(this);

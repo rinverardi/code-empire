@@ -17,6 +17,7 @@
 
 <body>
     <div id="map-container"></div>
+
     <div class="absolute-nw can-click control link" id="link_open_actions">
         <ul>
             <li>
@@ -29,14 +30,17 @@
                 <div class="icon icon-weaponry"></div>&times;<span class="inventory" id="inventory-weaponry"></span>
         </ul>
     </div>
-    <div class="absolute-sw can-click control link" id="link_open_scores">
-        Rangliste
+
+    <div class="absolute-se can-click control link" id="link_open_chat">
+        Nachrichten
     </div>
+
     <div class="absolute-ne can-click control link" id="link_open_menu">
         Menü
     </div>
-    <div class="absolute-se can-click control link" id="link_open_chat">
-        Nachrichten
+
+    <div class="absolute-sw can-click control link" id="link_open_scores">
+        Rangliste
     </div>
 
     <div class="popup-holder" id="actions">
@@ -84,7 +88,9 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div class="can-click control link" id="link_close_actions">Partie fortsetzen</div>
+                        <div class="can-click control link" id="link_close_actions">
+                            Partie fortsetzen
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,58 +99,52 @@
 
     <div class="popup-holder" id="chat">
         <div class="popup">
+            <div class="container" id="chat-history">
+            </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-9">
-                        <div class="area">
-                            Angry Alpaca
-                        </div>
+                    <div class="col-sm-8 mb-2">
+                        <input class="can-edit control full-width" id="edit_text" placeholder="Mitteilung">
                     </div>
-                    <div class="col-sm-3">
-                        <div class="area">
-                            20:15
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="area redacted-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-sm-9">
-                        <div class="area">
-                            Brilliant Barracuda
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="area">
-                            20:16
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="area redacted-text">
-                            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-9 mt-2">
-                        <input class="can-edit control full-width" value="Bow before your new master!">
-                    </div>
-                    <div class="col-sm-3 mt-2">
-                        <div class="can-click control">
+                    <div class="col-sm-4 mb-2">
+                        <div class="can-click control" id="button_send">
                             Senden
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row">
                     <div class="col-12">
-                        <div class="can-click control link" id="link_close_chat">Partie fortsetzen</div>
+                        <div class="can-click control link" id="link_close_chat">
+                            Partie fortsetzen
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-holder" id="menu">
+        <div class="popup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 my-1" id="link_skip_turn">
+                        <div class="can-click control link">
+                            Zug überspringen
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 my-1" id="link_close_menu">
+                        <div class="can-click control link">
+                            Partie fortsetzen
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 my-1" id="link_leave_game">
+                        <div class="can-click control link">
+                            Partie verlassen
+                        </div>
                     </div>
                 </div>
             </div>
@@ -207,29 +207,9 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div class="can-click control link" id="link_close_scores">Partie fortsetzen</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="popup-holder" id="menu">
-        <div class="popup">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 my-1" id="link_skip_turn">
-                        <div class="can-click control link">Zug überspringen</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 my-1" id="link_close_menu">
-                        <div class="can-click control link">Partie fortsetzen</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 my-1" id="link_leave_game">
-                        <div class="can-click control link">Partie verlassen</div>
+                        <div class="can-click control link" id="link_close_scores">
+                            Partie fortsetzen
+                        </div>
                     </div>
                 </div>
             </div>
@@ -250,8 +230,6 @@
                     context.navigation().startOver();
                     break;
 
-                // TODO Implement me!
-
                 case Game.Status.executing:
                 case Game.Status.thinking:
                     const me = context.playerHelper().getMe(game);
@@ -259,15 +237,17 @@
                     if (me.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
+                        context.chatView().bindGame(game);
                         context.inventoryView().bindGame(game);
                         context.mapView().bindGame(game);
                         context.resourceView().bindGame(game);
                         context.playerView().bindGame(game);
                         context.turnView().bindGame(game);
 
+                        showCurrentPlayer(game) || showCurrentMessage(game);
+
+                        updateMap(game);
                         updateMenu(game);
-                        updateNotification(game);
-                        wireMap(game);
                     }
                     break;
 
@@ -288,12 +268,52 @@
             }
         }
 
-        function updateNotification(game) {
-            if (game.status === Game.Status.thinking) {
-                const player = context.turnHelper().getPlayer(game);
+        function showCurrentMessage(game) {
+            if (!context.navigation().isPopupOpen('chat')) {
+                const index = game.messages.length - 1;
+
+                if (!lastMessage || index > lastMessage) {
+                    lastMessage = index;
+
+                    const message = game.messages[index];
+                    const player = context.playerHelper().getPlayer(game, message.player);
+
+                    context.notificationHelper().showMessage(`${player.name}: ${message.text}`);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function showCurrentPlayer(game) {
+            const player = context.turnHelper().getPlayer(game);
+
+            if (player.id !== lastPlayer) {
+                lastPlayer = player.id;
 
                 context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
+                return true;
             }
+
+            return false;
+        }
+
+        function wireButtonSend() {
+            document.getElementById('button_send').addEventListener('click', () => {
+                const element = document.getElementById('edit_text');
+
+                if (element.value) {
+                    const action = {
+                        id: Action.sendMessage,
+                        text: element.value
+                    };
+
+                    context.communication().sendMessage(action);
+
+                    element.value = '';
+                }
+            });
         }
 
         function wireLinkLeaveGame() {
@@ -315,7 +335,7 @@
             });
         }
 
-        function wireMap(game) {
+        function updateMap(game) {
             const mapElement = document.getElementById('map');
 
             mapElement.onclick = ({ target: tileElement }) => {
@@ -334,6 +354,9 @@
 
         const context = new Context();
 
+        let lastMessage = null;
+        let lastPlayer = null;
+
         context.communication().connectGame(onMessage);
 
         context.navigation().wirePopup('link_open_actions', 'link_close_actions', 'actions');
@@ -341,6 +364,7 @@
         context.navigation().wirePopup('link_open_menu', 'link_close_menu', 'menu');
         context.navigation().wirePopup('link_open_scores', 'link_close_scores', 'scores');
 
+        wireButtonSend();
         wireLinkLeaveGame();
         wireLinkSkipTurn();
     </script>
