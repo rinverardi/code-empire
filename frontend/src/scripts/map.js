@@ -9,6 +9,16 @@ export class MapTile {
 }
 
 export class MapView {
+    bindGame(game) {
+        let mapElement = document.getElementById('map');
+
+        if (!mapElement) {
+            mapElement = this.#buildMap(game.map.tiles);
+
+            document.getElementById('map-container').appendChild(mapElement);
+        }
+    }
+
     #buildMap(tiles) {
         const mapElement = document.createElement('div');
 
@@ -59,15 +69,5 @@ export class MapView {
         tileElement.id = MapTile.elementId(x, y);
 
         return tileElement;
-    }
-
-    bindGame(game) {
-        let mapElement = document.getElementById('map');
-
-        if (!mapElement) {
-            mapElement = this.#buildMap(game.map.tiles);
-
-            document.getElementById('map-container').appendChild(mapElement);
-        }
     }
 };
