@@ -8,12 +8,12 @@ export class InventoryView {
     }
 
     bindGame(game) {
-        const player = this.#playerHelper.getPlayer(game);
+        const me = this.#playerHelper.getMe(game);
 
         for (const resourceType in Resource.Type) {
             const inventoryElement = document.getElementById('inventory-' + resourceType);
 
-            inventoryElement.textContent = `${player.inventory[resourceType]}`;
+            inventoryElement.textContent = `${me.inventory[resourceType]}`;
         }
     }
 };

@@ -93,7 +93,7 @@
 
                 case Game.Status.waiting:
                     if (isLeaving) {
-                        const player = context.playerHelper().getPlayer(game);
+                        const player = context.playerHelper().getMe(game);
 
                         if (!player || player.status === Player.Status.left) {
                             context.navigation().startOver();

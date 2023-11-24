@@ -254,9 +254,9 @@
 
                 case Game.Status.executing:
                 case Game.Status.thinking:
-                    const player = context.playerHelper().getPlayer(game);
+                    const me = context.playerHelper().getMe(game);
 
-                    if (player.status === Player.Status.left) {
+                    if (me.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
                         context.inventoryView().bindGame(game);
@@ -280,7 +280,7 @@
             for (const elementId of ['link_leave_game', 'link_skip_turn']) {
                 const element = document.getElementById(elementId);
 
-                if (context.playerHelper().isCurrentPlayer(game)) {
+                if (context.playerHelper().isMe(game)) {
                     element.classList.remove('hidden');
                 } else {
                     element.classList.add('hidden');

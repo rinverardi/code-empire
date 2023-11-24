@@ -36,9 +36,11 @@ export class PlayerHelper {
         this.#random = context.random();
     }
 
-    getPlayer(game) {
-        const playerId = this.loadId();
+    getMe(game) {
+        return this.getPlayer(game, this.loadId());
+    }
 
+    getPlayer(game, playerId) {
         for (const player of game.players ?? []) {
             if (player.id === playerId) {
                 return player;
@@ -46,7 +48,7 @@ export class PlayerHelper {
         }
     }
 
-    isCurrentPlayer(game) {
+    isMe(game) {
         const playerId = this.loadId();
 
         return game.turn.player === playerId;
