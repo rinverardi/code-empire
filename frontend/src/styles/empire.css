@@ -201,7 +201,7 @@ h2 {
     bottom: 0;
     display: flex;
     left: 0;
-    overflow: scroll;
+    overflow: auto;
     position: absolute;
     right: 0;
     scroll-behavior: smooth;
@@ -269,7 +269,7 @@ h2 {
     display: flex;
     left: 0rem;
     opacity: 0;
-    overflow: scroll;
+    overflow: auto;
     position: absolute;
     right: 0rem;
     top: 0rem;

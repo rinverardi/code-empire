@@ -1,57 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="60"
-   height="60"
-   viewBox="0 0 60 60"
-   fill="none"
-   stroke="currentColor"
-   stroke-width="2"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   class="lucide lucide-axe"
-   version="1.1"
-   id="svg2"
-   sodipodi:docname="resource-weaponry.svg"
-   inkscape:version="1.3.1 (91b66b0783, 2023-11-16, custom)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs2" />
-  <sodipodi:namedview
-     id="namedview2"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="9.8666667"
-     inkscape:cx="30"
-     inkscape:cy="30"
-     inkscape:window-width="1440"
-     inkscape:window-height="831"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="g2" />
-  <g
-     id="g2"
-     transform="matrix(1.6278877,0,0,1.6278877,10.595023,8.335656)"
-     style="stroke-width:0.737152;stroke-dasharray:none;fill:#a7ac93">
-    <g
-       id="g1"
-       transform="matrix(1.7621643,0,0,1.7621643,-8.0026713,-7.9781994)">
-      <path
-         d="m 13.385707,12 -8.5,8.5 a 2.1213203,2.1213203 0 1 1 -3,-3 l 8.5,-8.5"
-         id="path1"
-         style="fill:#a7ac93;stroke-width:0.614293;stroke-dasharray:none" />
-      <path
-         d="m 14.385707,13 -6,-6 4,-4 6,6 h 3 a 8,8 0 0 1 -7,7 z"
-         id="path2"
-         style="fill:#ffffff;stroke-width:0.614293;stroke-dasharray:none" />
-    </g>
+<svg height="60" width="60" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#000" stroke-width="1">
+        <path
+            d="m 35.9659 29.7713 L 11.5827 54.1545 C 10.0454 55.6919 7.80478 56.2923 5.70479 55.7296 C 3.60479 55.1669 1.96451 53.5266 1.40183 51.4266 C 0.839154 49.3266 1.43956 47.086 2.97689 45.5487 L 27.3601 21.1655"
+            fill="#aa9"
+            vector-effect="non-scaling-stroke"/>
+        <path
+            d="m 38.8345 32.64 L 21.6229 15.4283 L 33.0973 3.95386 L 50.3089 21.1655 L 58.9148 21.1655 C 57.6636 31.6939 49.3629 39.9946 38.8345 41.2458 Z"
+            fill="#fff"
+            vector-effect="non-scaling-stroke"/>
   </g>
 </svg>
