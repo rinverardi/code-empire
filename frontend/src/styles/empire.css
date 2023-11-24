@@ -367,23 +367,23 @@ select option {
     filter: brightness(50%);
 }
 
-.tile-f {
+.tile-forest {
     background-image: url('../images/tile-forest.svg');
 }
 
-.tile-g {
+.tile-grass {
     background-image: url('../images/tile-grass.svg');
 }
 
-.tile-h {
+.tile-hill {
     background-image: url('../images/tile-hill.svg');
 }
 
-.tile-m {
+.tile-mountain {
     background-image: url('../images/tile-mountain.svg');
 }
 
-.tile-w {
+.tile-water {
     background-image: url('../images/tile-water.svg');
 }
 
