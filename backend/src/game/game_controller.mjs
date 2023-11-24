@@ -2,11 +2,13 @@ import { Action } from '../action/action.mjs';
 import { Logger } from '../lib/logger.mjs';
 
 export class GameController {
+    #chatService;
     #gameService;
     #playerService;
     #turnService;
 
     constructor(globalContext) {
+        this.#chatService = globalContext.chatService();
         this.#gameService = globalContext.gameService();
         this.#playerService = globalContext.playerService();
         this.#turnService = globalContext.turnService();
@@ -38,6 +40,10 @@ export class GameController {
 
                     case Action.leaveGame:
                         await this.#playerService.leaveGame(sessionContext);
+                        break;
+
+                    case Action.sendMessage:
+                        await this.#chatService.sendMessage(sessionContext, action.text);
                         break;
 
                     case Action.skipTurn:

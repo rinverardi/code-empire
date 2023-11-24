@@ -16,6 +16,7 @@ export class GameMapper {
     map(sessionContext, source) {
         const target = {
             id: source.id,
+            messages: source.messages,
             status: source.status
         };
 

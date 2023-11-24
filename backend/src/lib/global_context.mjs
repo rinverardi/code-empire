@@ -1,3 +1,4 @@
+import { ChatService } from '../chat/chat_service.mjs';
 import { GameAccess } from '../game/game_access.mjs';
 import { GameManager } from '../game/game_manager.mjs';
 import { GameController } from '../game/game_controller.mjs';
@@ -20,6 +21,7 @@ import { VisibilityAccess } from '../visibility/visibility_access.mjs';
 import { VisibilityManager } from '../visibility/visibility_manager.mjs';
 
 export class GlobalContext {
+    #chatService;
     #gameAccess;
     #gameManager;
     #gameController;
@@ -40,6 +42,10 @@ export class GlobalContext {
     #turnService;
     #visibilityAccess;
     #visibilityManager;
+
+    chatService() {
+        return this.#chatService ? this.#chatService : this.#chatService = new ChatService(this);
+    }
 
     gameAccess() {
         return this.#gameAccess ? this.#gameAccess : this.#gameAccess = new GameAccess();
