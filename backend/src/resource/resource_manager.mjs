@@ -28,12 +28,19 @@ export class ResourceManager {
         for (const type in Resource.Type) {
             for (let count = 0; count < 3; count++) {
                 const resource = {
+                    age: 5,
                     position: this.#pickPosition(game),
                     type: type
                 };
 
                 game.resources.push(resource);
             }
+        }
+    }
+
+    startRound(game) {
+        for (const resource of game.resources) {
+            resource.age++;
         }
     }
 };
