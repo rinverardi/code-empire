@@ -256,31 +256,20 @@
             }
         }
 
-        function updateMenu(game) {
-            for (const elementId of ['link_leave_game', 'link_skip_turn']) {
-                const element = document.getElementById(elementId);
-
-                if (context.playerHelper().isMe(game)) {
-                    element.classList.remove('hidden');
-                } else {
-                    element.classList.add('hidden');
-                }
-            }
-        }
-
         function showCurrentMessage(game) {
-            if (!context.navigation().isPopupOpen('chat')) {
-                const index = game.messages.length - 1;
+            const index = game.messages.length - 1;
 
-                if (index > (lastMessage ?? -1)) {
-                    lastMessage = index;
+            if (index > (lastMessage ?? -1)) {
+                lastMessage = index;
 
-                    const message = game.messages[index];
-                    const player = context.playerHelper().getPlayer(game, message.player);
+                const message = game.messages[index];
+                const player = context.playerHelper().getPlayer(game, message.player);
 
+                if (!context.navigation().isPopupOpen('chat')) {
                     context.notificationHelper().showMessage(`${player.name}: ${message.text}`);
-                    return true;
                 }
+
+                return true;
             }
 
             return false;
@@ -292,11 +281,43 @@
             if (player.id !== lastPlayer) {
                 lastPlayer = player.id;
 
-                context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
+                context.notificationHelper().showInformation(context.playerHelper().isMe(game)
+                    ? 'Du bist am Zug!'
+                    : `${player.name} ist am Zug.`);
+
                 return true;
             }
 
             return false;
+        }
+
+        function updateMap(game) {
+            const mapElement = document.getElementById('map');
+
+            mapElement.onclick = ({ target: tileElement }) => {
+                const { x, y } = tileElement.dataset;
+
+                const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
+
+                if (turn) {
+                    context.communication().sendMessage({
+                        id: Action.executeTurn,
+                        turn
+                    });
+                }
+            };
+        }
+
+        function updateMenu(game) {
+            for (const elementId of ['link_leave_game', 'link_skip_turn']) {
+                const element = document.getElementById(elementId);
+
+                if (context.playerHelper().isMe(game)) {
+                    element.classList.remove('hidden');
+                } else {
+                    element.classList.add('hidden');
+                }
+            }
         }
 
         function wireButtonSend() {
@@ -333,23 +354,6 @@
                     context.communication().sendMessage(action);
                 });
             });
-        }
-
-        function updateMap(game) {
-            const mapElement = document.getElementById('map');
-
-            mapElement.onclick = ({ target: tileElement }) => {
-                const { x, y } = tileElement.dataset;
-
-                const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
-
-                if (turn) {
-                    context.communication().sendMessage({
-                        id: Action.executeTurn,
-                        turn
-                    });
-                }
-            };
         }
 
         const context = new Context();

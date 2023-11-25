@@ -29,6 +29,8 @@ export class ResourceView {
 
                 mapElement.appendChild(resourceElement);
             }
+
+            this.#updateResource(resource, resourceElement);
         }
     }
 
@@ -40,9 +42,20 @@ export class ResourceView {
         resourceElement.dataset.x = resource.position[0];
         resourceElement.dataset.y = resource.position[1];
         resourceElement.id = Resource.elementId(resource);
-        resourceElement.style.left = `${resource.position[0] * 40 + 25}px`;
-        resourceElement.style.top = `${resource.position[1] * 45 + 15}px`;
+        resourceElement.style.left = `${resource.position[0] * 40 + 10}px`;
+        resourceElement.style.top = `${resource.position[1] * 45}px`;
 
         return resourceElement;
     }
+
+    #updateResource(resource, resourceElement) {
+        for (let age = 0; age < 6; age++) {
+            if (resource.age === age) {
+                resourceElement.classList.add('age-' + age);
+            } else {
+                resourceElement.classList.remove('age-' + age);
+            }
+        }
+    }
 };
+4
