@@ -78,6 +78,44 @@
     white-space: nowrap;
 }
 
+.age-0::after, .age-1::after, .age-2::after, .age-3::after, .age-4::after, .age-5::after {
+    border: 2px solid white;
+    border-radius: 50%;
+    content: '';
+    left: 15%;
+    position: absolute;
+    height: 70%;
+    top: 15%;
+    transition-duration: 1s;
+    transition-property: clip-path opacity;
+    width: 70%;
+}
+
+.age-0::after {
+    clip-path: polygon(50% -21%, 50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+    opacity: 0;
+}
+
+.age-1::after {
+    clip-path: polygon(50% -21%, 50% 50%, 121% 50%, 121% 50%, 121% 50%, 121% 50%, 100% 0%);
+}
+
+.age-2::after {
+    clip-path: polygon(50% -21%, 50% 50%, 50% 121%, 50% 121%, 50% 121%, 100% 100%, 100% 0%);
+}
+
+.age-3::after {
+    clip-path: polygon(50% -21%, 50% 50%, -21% 50%, -21% 50%, 0% 100%, 100% 100%, 100% 0%);
+}
+
+.age-4::after {
+    clip-path: polygon(50% -21%, 50% 50%, 50% -21%, 0% 0%, 0% 100%, 100% 100%, 100% 0%);
+}
+
+.age-5::after {
+    opacity: 0;
+}
+
 .area {
     background-image: url(../images/area.svg);
     background-size: 100% 100%;
@@ -306,13 +344,18 @@ h2 {
 }
 
 .resource {
-    background-size: cover;
-    height: 30px;
-    width: 30px;
+    background-repeat: no-repeat;
+    background-size: 40% 40%;
+    height: 60px;
+    width: 60px;
     pointer-events: none;
     position: absolute;
     transition-duration: 1s;
-    transition-property: transform;
+    transition-property: opacity transform;
+}
+
+.resource.age-0 {
+    opacity: 0;
 }
 
 .resource.active {
@@ -321,20 +364,22 @@ h2 {
 
 .resource-food {
     background-image: url(../images/resource-food.svg);
+    background-position: 50% 48%;
 }
 
 .resource-gold {
     background-image: url(../images/resource-gold.svg);
+    background-position: 50% 50%;
 }
 
 .resource-research {
     background-image: url(../images/resource-research.svg);
-    margin-top: -1px;
+    background-position: 50% 48%;
 }
 
 .resource-weaponry {
     background-image: url(../images/resource-weaponry.svg);
-    margin-top: -2px;
+    background-position: 50% 46%;
 }
 
 select {

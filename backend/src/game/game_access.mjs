@@ -20,4 +20,10 @@ export class GameAccess {
 
         return activePlayers[0];
     }
+
+    isFirstPlayer(game) {
+        const activePlayers = game.players.filter(that => that.status === Player.Status.alive);
+
+        return activePlayers[0].id === game.turn.player;
+    }
 };
