@@ -257,18 +257,19 @@
         }
 
         function showCurrentMessage(game) {
-            if (!context.navigation().isPopupOpen('chat')) {
-                const index = game.messages.length - 1;
+            const index = game.messages.length - 1;
 
-                if (index > (lastMessage ?? -1)) {
-                    lastMessage = index;
+            if (index > (lastMessage ?? -1)) {
+                lastMessage = index;
 
-                    const message = game.messages[index];
-                    const player = context.playerHelper().getPlayer(game, message.player);
+                const message = game.messages[index];
+                const player = context.playerHelper().getPlayer(game, message.player);
 
+                if (!context.navigation().isPopupOpen('chat')) {
                     context.notificationHelper().showMessage(`${player.name}: ${message.text}`);
-                    return true;
                 }
+
+                return true;
             }
 
             return false;
@@ -280,7 +281,10 @@
             if (player.id !== lastPlayer) {
                 lastPlayer = player.id;
 
-                context.notificationHelper().showInformation(`${player.name} ist am Zug.`);
+                context.notificationHelper().showInformation(context.playerHelper().isMe(game)
+                    ? 'Du bist am Zug!'
+                    : `${player.name} ist am Zug.`);
+
                 return true;
             }
 
