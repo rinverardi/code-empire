@@ -92,22 +92,22 @@ body {
 }
 
 .chat-bubble {
-	background: #666;
-	border-radius: 0.5rem 0.5rem 0.5rem 0;
+    background: #666;
+    border-radius: 0.5rem 0.5rem 0.5rem 0;
     margin-left: 0.5rem;
     padding: 0.25rem 0.5rem;
-	position: relative;
+    position: relative;
 }
 
 .chat-bubble:before {
-	border: 0.6rem solid;
+    border: 0.6rem solid;
     border-color: transparent transparent #666 transparent;
     border-right: 0;
-	bottom: 0;
-	content: '';
-	left: 0;
-	margin: 0 -0.5rem;
-	position: absolute;
+    bottom: 0;
+    content: '';
+    left: 0;
+    margin: 0 -0.5rem;
+    position: absolute;
 }
 
 .control {
@@ -234,9 +234,10 @@ h2 {
     position: absolute;
 }
 
-.notification-error, .notification-information {
+.notification-error,
+.notification-information {
     background: #666;
-	border-radius: 0.5rem;
+    border-radius: 0.5rem;
 }
 
 .player {
