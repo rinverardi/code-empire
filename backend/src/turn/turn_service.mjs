@@ -18,9 +18,6 @@ export class TurnService {
 
         this.#turnManager.executeTurn(game, turn);
 
-        // TODO Change the status to 'executing'!
-        // TODO Change the status to 'thinking'!
-
         this.#turnManager.endTurn(game);
         this.#turnManager.startTurn(game, turn);
 
@@ -29,6 +26,10 @@ export class TurnService {
     }
 
     async skipTurn(sessionContext) {
+
+        // TODO Check the access!
+        // TODO Check the status!
+
         const game = await this.#gameRepository.loadGame(sessionContext);
 
         this.#turnManager.endTurn(game);

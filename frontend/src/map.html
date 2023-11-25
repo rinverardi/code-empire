@@ -256,18 +256,6 @@
             }
         }
 
-        function updateMenu(game) {
-            for (const elementId of ['link_leave_game', 'link_skip_turn']) {
-                const element = document.getElementById(elementId);
-
-                if (context.playerHelper().isMe(game)) {
-                    element.classList.remove('hidden');
-                } else {
-                    element.classList.add('hidden');
-                }
-            }
-        }
-
         function showCurrentMessage(game) {
             if (!context.navigation().isPopupOpen('chat')) {
                 const index = game.messages.length - 1;
@@ -297,6 +285,35 @@
             }
 
             return false;
+        }
+
+        function updateMap(game) {
+            const mapElement = document.getElementById('map');
+
+            mapElement.onclick = ({ target: tileElement }) => {
+                const { x, y } = tileElement.dataset;
+
+                const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
+
+                if (turn) {
+                    context.communication().sendMessage({
+                        id: Action.executeTurn,
+                        turn
+                    });
+                }
+            };
+        }
+
+        function updateMenu(game) {
+            for (const elementId of ['link_leave_game', 'link_skip_turn']) {
+                const element = document.getElementById(elementId);
+
+                if (context.playerHelper().isMe(game)) {
+                    element.classList.remove('hidden');
+                } else {
+                    element.classList.add('hidden');
+                }
+            }
         }
 
         function wireButtonSend() {
@@ -333,23 +350,6 @@
                     context.communication().sendMessage(action);
                 });
             });
-        }
-
-        function updateMap(game) {
-            const mapElement = document.getElementById('map');
-
-            mapElement.onclick = ({ target: tileElement }) => {
-                const { x, y } = tileElement.dataset;
-
-                const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
-
-                if (turn) {
-                    context.communication().sendMessage({
-                        id: Action.executeTurn,
-                        turn
-                    });
-                }
-            };
         }
 
         const context = new Context();
