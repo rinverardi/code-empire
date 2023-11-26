@@ -62,3 +62,53 @@ For development purposes, you can run the persistence service as follows:
         -p 127.0.0.1:6380:8001\
         --rm\
         redis/redis-stack:6.2.6-v10
+
+## Running for Production Purposes
+
+### Frontend Service
+
+Build the Docker container:
+
+    $ cd frontend
+    $ docker build -t empire-frontend .
+
+Start the Docker container:
+
+    $ docker run\
+        -d\
+        --name empire-frontend\
+        -p 8000:8000\
+        --rm\
+        empire-frontend
+
+### Backend Service
+
+Build the Docker container:
+
+    $ cd backend
+    $ docker build -t empire-backend .
+
+Start the Docker container:
+
+    $ docker network create empire || :
+    $ docker run\
+        -d\
+        --init\
+        --name empire-backend\
+        --network empire\
+        -p 8001:8001\
+        --rm\
+        empire-backend
+
+### Persistence Service
+
+Start the Docker container:
+
+    $ docker run\
+        -d\
+        --name empire-persistence\
+        --network empire\
+        -p 127.0.0.1:6379:6379\
+        -p 127.0.0.1:6380:8001\
+        --rm\
+        redis/redis-stack:6.2.6-v10
