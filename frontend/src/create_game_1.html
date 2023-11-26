@@ -90,18 +90,24 @@
         }
 
         function wireLinkBack() {
-            context.navigation().wireClick('link_back', () => 'index.html');
+            context.navigation().wireClick({
+                id: 'link_back',
+                onClick: () => 'index.html'
+            });
         }
 
         function wireLinkNext() {
-            context.navigation().wireClick('link_next', () => {
-                const action = {
-                    id: Action.createGame,
-                    map: { id: parseInt(document.getElementById('select').value) },
-                    player: { name: document.getElementById('input').value }
-                };
+            context.navigation().wireClick({
+                id: 'link_next',
+                onClick: () => {
+                    const action = {
+                        id: Action.createGame,
+                        map: { id: parseInt(document.getElementById('select').value) },
+                        player: { name: document.getElementById('input').value }
+                    };
 
-                context.communication().sendMessage(action);
+                    context.communication().sendMessage(action);
+                }
             });
         }
 

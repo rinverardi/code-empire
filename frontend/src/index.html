@@ -67,19 +67,31 @@
         }
 
         function wireLinkCreate() {
-            context.navigation().wireClick('link_create', () => 'create_game_1.html');
+            context.navigation().wireClick({
+                id: 'link_create',
+                onClick: () => 'create_game_1.html'
+            });
         }
 
         function wireLinkJoin() {
-            context.navigation().wireClick('link_join', () => 'join_game_1.html');
+            context.navigation().wireClick({
+                id: 'link_join',
+                onClick: () => 'join_game_1.html'
+            });
         }
 
         function wireLinkShowHighscores() {
-            context.navigation().wireClick('link_show_highscores', () => 'show_highscores.html');
+            context.navigation().wireClick({
+                id: 'link_show_highscores',
+                onClick: () => 'show_highscores.html'
+            });
         }
 
         function wireLinkShowInstructions() {
-            context.navigation().wireClick('link_show_instructions', () => 'show_instructions.html');
+            context.navigation().wireClick({
+                id: 'link_show_instructions',
+                onClick: () => 'show_instructions.html'
+            });
         }
 
         const context = new Context();

@@ -347,12 +347,15 @@
         }
 
         function wireLinkSkipTurn() {
-            context.navigation().wireClick('link_skip_turn', () => {
-                context.navigation().closePopup('menu', () => {
-                    const action = { id: Action.skipTurn };
+            context.navigation().wireClick({
+                id: 'link_skip_turn',
+                onClick: () => {
+                    context.navigation().closePopup('menu', () => {
+                        const action = { id: Action.skipTurn };
 
-                    context.communication().sendMessage(action);
-                });
+                        context.communication().sendMessage(action);
+                    });
+                }
             });
         }
 

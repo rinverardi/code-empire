@@ -47,9 +47,9 @@ export class Navigation {
         location = 'index.html';
     }
 
-    wireClick(control, handler) {
-        document.getElementById(control).addEventListener('click', () => {
-            const location = handler();
+    wireClick({id, onClick}) {
+        document.getElementById(id).addEventListener('click', () => {
+            const location = onClick();
 
             if (location) {
                 window.location = location;

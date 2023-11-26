@@ -129,7 +129,7 @@
         }
 
         function wireLink() {
-            context.navigation().wireClick('link', leaveGame);
+            context.navigation().wireClick({ id: 'link', onClick: leaveGame });
         }
 
         const context = new Context();

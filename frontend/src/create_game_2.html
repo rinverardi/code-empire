@@ -102,19 +102,25 @@
         }
 
         function wireLinkAbort() {
-            context.navigation().wireClick('link_abort', () => {
-                const action = { id: Action.abortGame };
+            context.navigation().wireClick({
+                id: 'link_abort',
+                onClick: () => {
+                    const action = { id: Action.abortGame };
 
-                context.communication().sendMessage(action);
-                context.gameHelper().removeId();
+                    context.communication().sendMessage(action);
+                    context.gameHelper().removeId();
+                }
             });
         }
 
         function wireLinkStart() {
-            context.navigation().wireClick('link_start', () => {
-                const action = { id: Action.startGame };
+            context.navigation().wireClick({
+                id: 'link_start',
+                onClick: () => {
+                    const action = { id: Action.startGame };
 
-                context.communication().sendMessage(action);
+                    context.communication().sendMessage(action);
+                }
             });
         }
 
