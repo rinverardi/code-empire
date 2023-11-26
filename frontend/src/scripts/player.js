@@ -106,19 +106,19 @@ export class PlayerView {
 
             if (player.status === Player.Status.alive) {
                 if (!playerElement) {
-                    playerElement = this.#buildPlayer(player);
+                    playerElement = this.#build(player);
 
                     mapElement.appendChild(playerElement);
                 }
 
-                this.#updatePlayer(game, player, playerElement);
+                this.#update(game, player, playerElement);
             } else if (playerElement) {
                 playerElement.remove();
             }
         }
     }
 
-    #buildPlayer(player) {
+    #build(player) {
         const playerElement = document.createElement('img');
 
         playerElement.classList.add('player');
@@ -128,7 +128,7 @@ export class PlayerView {
         return playerElement;
     }
 
-    #updatePlayer(game, player, playerElement) {
+    #update(game, player, playerElement) {
         const x = player.position[0] * 40;
         const y = player.position[1] * 45 - 15;
 
