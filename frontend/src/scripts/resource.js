@@ -1,4 +1,10 @@
 export class Resource {
+    static get Constants() {
+        return Object.freeze({
+            respawnTime: 9
+        });
+    }
+
     static get Type() {
         return Object.freeze({
             food: 'images/resource-food.svg',
@@ -49,7 +55,7 @@ export class ResourceView {
     }
 
     #updateResource(resource, resourceElement) {
-        for (let age = 0; age < 6; age++) {
+        for (let age = 0; age <= Resource.Constants.respawnTime; age++) {
             if (resource.age === age) {
                 resourceElement.classList.add('age-' + age);
             } else {
