@@ -2,6 +2,14 @@
 
 In this game, players build up their empires by exploring a map, collecting resources, founding towns and building factories. Opponents can be attacked and destroyed.
 
+## Dependencies
+
+For development tasks, the following dependencies must be installed:
+
+1. Docker
+2. Node.js 21 (unless you run the backend service with Docker)
+3. Python 3 (unless you run the frontend service with Docker)
+
 ## Installation
 
 The game consists of three services:
@@ -29,7 +37,7 @@ Start the Docker container:
         --rm\
         empire-backend
 
-The backend service listens for WS connections on [localhost:8001](http://localhost:8001/).
+The backend service listens for WS connections on [port 8001](http://localhost:8001/).
 
 ### Running the Frontend Service
 
@@ -47,7 +55,7 @@ Start the Docker container:
         --rm\
         empire-frontend
 
-The frontend service listens for HTTP connections on [localhost:8000](http://localhost:8000/).
+The frontend service listens for HTTP connections on [port 8000](http://localhost:8000/).
 
 ### Running the Persistence Service
 
