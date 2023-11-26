@@ -5,7 +5,7 @@ export class ChatView {
         this.#playerHelper = context.playerHelper();
     }
 
-    #buildBubble(message, player) {
+    #build(message, player) {
         const outerElement = document.createElement('div');
 
         outerElement.classList.add('chat-bubble');
@@ -24,8 +24,9 @@ export class ChatView {
     #buildColumn(message, player) {
         const element = document.createElement('div');
 
-        element.appendChild(this.#buildBubble(message, player));
         element.classList.add('col-12');
+
+        element.appendChild(this.#build(message, player));
 
         return element;
     }
@@ -33,9 +34,10 @@ export class ChatView {
     #buildRow(message, player) {
         const element = document.createElement('div');
 
-        element.appendChild(this.#buildColumn(message, player));
         element.classList.add('mb-2');
         element.classList.add('row');
+
+        element.appendChild(this.#buildColumn(message, player));
 
         return element;
     }
