@@ -13,6 +13,17 @@ export class TurnService {
         this.#turnManager = globalContext.turnManager();
     }
 
+    async #endTurn(sessionContext, game) {
+        this.#resourceManager.endTurn(game);
+        this.#turnManager.endTurn(game);
+
+        this.#resourceManager.startTurn(game);
+        this.#turnManager.startTurn(game);
+
+        await this.#gameRepository.saveGame(sessionContext, game);
+        await this.#gameRepository.publishGame(sessionContext, game);
+    }
+
     async executeTurn(sessionContext, turn) {
 
         // TODO Check the access!
@@ -21,16 +32,8 @@ export class TurnService {
         const game = await this.#gameRepository.loadGame(sessionContext);
 
         this.#turnManager.executeTurn(game, turn);
-        this.#turnManager.endTurn(game);
 
-        if (this.#gameAccess.isFirstPlayer(game)) {
-            this.#resourceManager.startRound(game);
-        }
-
-        this.#turnManager.startTurn(game, turn);
-
-        await this.#gameRepository.saveGame(sessionContext, game);
-        await this.#gameRepository.publishGame(sessionContext, game);
+        await this.#endTurn(sessionContext, game);
     }
 
     async skipTurn(sessionContext) {
@@ -40,15 +43,6 @@ export class TurnService {
 
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        this.#turnManager.endTurn(game);
-
-        if (this.#gameAccess.isFirstPlayer(game)) {
-            this.#resourceManager.startRound(game);
-        }
-
-        this.#turnManager.startTurn(game);
-
-        await this.#gameRepository.saveGame(sessionContext, game);
-        await this.#gameRepository.publishGame(sessionContext, game);
+        await this.#endTurn(sessionContext, game);
     }
 };

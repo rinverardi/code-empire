@@ -2,15 +2,23 @@ import { Map } from './map.mjs';
 
 export class MapAccess {
     getPlayerAt(game, x, y) {
-        const positions = game.players.map(that => that.position);
+        for (const player of game.players) {
+            const position = player.position;
 
-        return positions.some(that => that && that[0] === x && that[1] === y);
+            if (position && position[0] === x && position[1] === y) {
+                return player;
+            }
+        }
     }
 
     getResourceAt(game, x, y) {
-        const positions = game.resources.map(that => that.position);
+        for (const resource of game.resources) {
+            const position = resource.position;
 
-        return positions.some(that => that && that[0] === x && that[1] === y);
+            if (position[0] === x && position[1] === y) {
+                return resource;
+            }
+        }
     }
 
     getSizeX(game) {
