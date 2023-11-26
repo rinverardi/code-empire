@@ -47,9 +47,9 @@ export class Navigation {
         location = 'index.html';
     }
 
-    wireClick(control, handler) {
-        document.getElementById(control).addEventListener('click', () => {
-            const location = handler();
+    wireClick({id, onClick}) {
+        document.getElementById(id).addEventListener('click', () => {
+            const location = onClick();
 
             if (location) {
                 window.location = location;
@@ -57,16 +57,18 @@ export class Navigation {
         });
     }
 
-    wirePopup(controlOpen, controlClose, popup) {
+    wirePopup({controlClose, controlOpen, id, onOpen}) {
         document.getElementById(controlOpen).addEventListener('click', () => {
-            const element = document.getElementById(popup);
+            onOpen && onOpen();
+
+            const element = document.getElementById(id);
 
             element.classList.add('open');
             element.style.visibility = 'visible';
         });
 
         document.getElementById(controlClose).addEventListener('click', () => {
-            const element = document.getElementById(popup);
+            const element = document.getElementById(id);
 
             element.classList.remove('open');
 

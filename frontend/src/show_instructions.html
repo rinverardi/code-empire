@@ -82,7 +82,7 @@
 
         const context = new Context();
 
-        context.navigation().wireClick('link', () => 'index.html');
+        context.navigation().wireClick({ id: 'link', onClick: () => 'index.html' });
     </script>
 </body>
 

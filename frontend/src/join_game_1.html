@@ -125,14 +125,20 @@
         }
 
         function wireLinkBack() {
-            context.navigation().wireClick('link_back', () => 'index.html');
+            context.navigation().wireClick({
+                id: 'link_back',
+                onClick: () => 'index.html'
+            });
         }
 
         function wireLinkNext() {
-            context.navigation().wireClick('link_next', () => {
-                context.gameHelper().saveId(document.getElementById('select').value);
+            context.navigation().wireClick({
+                id: 'link_next',
+                onClick: () => {
+                    context.gameHelper().saveId(document.getElementById('select').value);
 
-                return 'join_game_2.html';
+                    return 'join_game_2.html';
+                }
             });
         }
 
