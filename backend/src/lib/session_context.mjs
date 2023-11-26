@@ -1,5 +1,6 @@
 import { createClient } from 'redis';
 
+import { GlobalConfig } from './global_config.mjs';
 import { Logger } from './logger.mjs';
 
 export class SessionContext {
@@ -9,7 +10,7 @@ export class SessionContext {
     #wsParams;
 
     constructor(wsConnection, wsParams) {
-        this.#redisClient = createClient();
+        this.#redisClient = createClient({ url: GlobalConfig.redisUrl });
 
         this.#redisClient.on('error', error => Logger.e('redis', error));
 
