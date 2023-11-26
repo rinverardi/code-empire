@@ -57,16 +57,16 @@ export class Navigation {
         });
     }
 
-    wirePopup(controlOpen, controlClose, popup) {
+    wirePopup({controlClose, controlOpen, id}) {
         document.getElementById(controlOpen).addEventListener('click', () => {
-            const element = document.getElementById(popup);
+            const element = document.getElementById(id);
 
             element.classList.add('open');
             element.style.visibility = 'visible';
         });
 
         document.getElementById(controlClose).addEventListener('click', () => {
-            const element = document.getElementById(popup);
+            const element = document.getElementById(id);
 
             element.classList.remove('open');
 

@@ -366,10 +366,29 @@
 
         context.communication().connectGame(onMessage);
 
-        context.navigation().wirePopup('link_open_actions', 'link_close_actions', 'actions');
-        context.navigation().wirePopup('link_open_chat', 'link_close_chat', 'chat');
-        context.navigation().wirePopup('link_open_menu', 'link_close_menu', 'menu');
-        context.navigation().wirePopup('link_open_scores', 'link_close_scores', 'scores');
+        context.navigation().wirePopup({
+            controlClose: 'link_close_actions',
+            controlOpen: 'link_open_actions',
+            id: 'actions'
+        });
+
+        context.navigation().wirePopup({
+            controlClose: 'link_close_chat',
+            controlOpen: 'link_open_chat',
+            id: 'chat'
+        });
+
+        context.navigation().wirePopup({
+            controlClose: 'link_close_menu',
+            controlOpen: 'link_open_menu',
+            id: 'menu'
+        });
+
+        context.navigation().wirePopup({
+            controlClose: 'link_close_scores',
+            controlOpen: 'link_open_scores',
+            id: 'scores'
+        });
 
         wireButtonSend();
         wireLinkLeaveGame();
