@@ -41,13 +41,13 @@ export class ChatView {
     }
 
     bindGame(game) {
-        const historyElement = document.getElementById('chat-history');
+        const listElement = document.getElementById('chat-list');
 
-        for (let index = historyElement.childElementCount; index < game.messages.length; index++) {
+        for (let index = listElement.childElementCount; index < game.messages.length; index++) {
             const message = game.messages[index];
             const player = this.#playerHelper.getPlayer(game, message.player);
 
-            historyElement.appendChild(this.#buildRow(message, player));
+            listElement.appendChild(this.#buildRow(message, player));
         }
 
         const chatElement = document.getElementById('chat');
