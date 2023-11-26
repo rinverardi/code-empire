@@ -31,16 +31,16 @@ export class ResourceView {
             let resourceElement = Resource.element(resource);
 
             if (!resourceElement) {
-                resourceElement = this.#buildResource(resource);
+                resourceElement = this.#build(resource);
 
                 mapElement.appendChild(resourceElement);
             }
 
-            this.#updateResource(resource, resourceElement);
+            this.#update(resource, resourceElement);
         }
     }
 
-    #buildResource(resource) {
+    #build(resource) {
         const resourceElement = document.createElement('div');
 
         resourceElement.classList.add('resource');
@@ -54,7 +54,7 @@ export class ResourceView {
         return resourceElement;
     }
 
-    #updateResource(resource, resourceElement) {
+    #update(resource, resourceElement) {
         for (let age = 0; age <= Resource.Constants.respawnTime; age++) {
             if (resource.age === age) {
                 resourceElement.classList.add('age-' + age);
@@ -64,4 +64,3 @@ export class ResourceView {
         }
     }
 };
-4
