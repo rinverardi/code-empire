@@ -15,11 +15,11 @@ export class MapView {
         if (!this.#bound) {
             this.#bound = true;
 
-            this.#buildMap(game);
+            this.#build(game);
         }
     }
 
-    #buildMap(game) {
+    #build(game) {
         const tiles = game.map.tiles;
 
         for (let y = 0; y < tiles.length; y++) {
