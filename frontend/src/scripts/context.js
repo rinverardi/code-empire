@@ -7,6 +7,7 @@ import { Navigation } from './navigation.js';
 import { NotificationHelper } from './notification.js';
 import { PlayerHelper, PlayerView } from './player.js';
 import { Random } from './random.js';
+import { RankingView } from './ranking.js';
 import { ResourceView } from './resource.js';
 import { Translation } from './translation.js';
 import { TurnHelper, TurnView } from './turn.js';
@@ -22,6 +23,7 @@ export class Context {
     #playerHelper;
     #playerView;
     #random;
+    #rankingView;
     #resourceView;
     #translation;
     #turnHelper;
@@ -65,6 +67,10 @@ export class Context {
 
     random() {
         return this.#random ? this.#random : this.#random = new Random();
+    }
+
+    rankingView() {
+        return this.#rankingView ? this.#rankingView : this.#rankingView = new RankingView();
     }
 
     resourceView() {

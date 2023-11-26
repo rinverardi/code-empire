@@ -1,4 +1,9 @@
 export class PlayerMapper {
+    #inventoryMapper;
+
+    constructor(globalContext) {
+        this.#inventoryMapper = globalContext.inventoryMapper();
+    }
 
     // TODO Apply the visibility!
 
@@ -15,11 +20,9 @@ export class PlayerMapper {
                 status: sourcePlayer.status
             };
 
-            if (sourcePlayer.id === sessionContext.playerId) {
-                targetPlayer.inventory = sourcePlayer.inventory;
-            }
-
             target.players.push(targetPlayer);
         }
+
+        this.#inventoryMapper.mapInto(sessionContext, source, target);
     }
 };
