@@ -78,7 +78,16 @@
     white-space: nowrap;
 }
 
-.age-0::after, .age-1::after, .age-2::after, .age-3::after, .age-4::after, .age-5::after {
+.age-0::after,
+.age-1::after,
+.age-2::after,
+.age-3::after,
+.age-4::after,
+.age-5::after,
+.age-6::after,
+.age-7::after,
+.age-8::after,
+.age-9::after {
     border: 2px solid white;
     border-radius: 50%;
     content: '';
@@ -87,33 +96,67 @@
     height: 70%;
     top: 15%;
     transition-duration: 1s;
-    transition-property: clip-path opacity;
+    transition-property: clip-path;
     width: 70%;
 }
 
 .age-0::after {
-    clip-path: polygon(50% -21%, 50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
-    opacity: 0;
+    display: none;
 }
+
+/* 0% */
 
 .age-1::after {
-    clip-path: polygon(50% -21%, 50% 50%, 121% 50%, 121% 50%, 121% 50%, 121% 50%, 100% 0%);
+    clip-path: polygon(50% -20%, 50% 50%, 50% -20%, 0 0, 0 100%, 100% 100%, 100% 0);
+    transition-duration: 0s;
 }
+
+/* 12.5% */
 
 .age-2::after {
-    clip-path: polygon(50% -21%, 50% 50%, 50% 121%, 50% 121%, 50% 121%, 100% 100%, 100% 0%);
+    clip-path: polygon(50% -20%, 50% 50%, 0 0, 0 0, 0 100%, 100% 100%, 100% 0);
 }
+
+/* 25% */
 
 .age-3::after {
-    clip-path: polygon(50% -21%, 50% 50%, -21% 50%, -21% 50%, 0% 100%, 100% 100%, 100% 0%);
+    clip-path: polygon(50% -20%, 50% 50%, -20% 50%, -20% 50%, 0 100%, 100% 100%, 100% 0);
 }
+
+/* 37.5% */
 
 .age-4::after {
-    clip-path: polygon(50% -21%, 50% 50%, 50% -21%, 0% 0%, 0% 100%, 100% 100%, 100% 0%);
+    clip-path: polygon(50% -20%, 50% 50%, 0 100%, 0 100%, 0 100%, 100% 100%, 100% 0);
 }
 
+/* 50% */
+
 .age-5::after {
-    opacity: 0;
+    clip-path: polygon(50% -20%, 50% 50%, 50% 120%, 50% 120%, 50% 120%, 100% 100%, 100% 0);
+}
+
+/* 62.5% */
+
+.age-6::after {
+    clip-path: polygon(50% -20%, 50% 50%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 0);
+}
+
+/* 75% */
+
+.age-7::after {
+    clip-path: polygon(50% -20%, 50% 50%, 100% 50%, 100% 50%, 100% 50%, 100% 50%, 100% 0);
+}
+
+/* 87.5% */
+
+.age-8::after {
+    clip-path: polygon(50% -20%, 50% 50%, 100% 0, 100% 0, 100% 0, 100% 0, 100% 0);
+}
+
+/* 100% */
+
+.age-9::after {
+    clip-path: polygon(50% -20%, 50% 50%, 50% -20%, 50% -20%, 50% -20%, 50% -20%, 50% -20%);
 }
 
 .area {
@@ -345,7 +388,7 @@ h2 {
 
 .resource {
     background-repeat: no-repeat;
-    background-size: 40% 40%;
+    background-size: 50% 50%;
     height: 60px;
     width: 60px;
     pointer-events: none;
@@ -355,7 +398,19 @@ h2 {
 }
 
 .resource.age-0 {
+    background-size: 0% 0%;
     opacity: 0;
+}
+
+.resource.age-1,
+.resource.age-2,
+.resource.age-3,
+.resource.age-4,
+.resource.age-5,
+.resource.age-6,
+.resource.age-7,
+.resource.age-8 {
+    background-size: 30% 30%;
 }
 
 .resource.active {
