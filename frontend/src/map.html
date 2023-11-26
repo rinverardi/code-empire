@@ -16,7 +16,10 @@
 </head>
 
 <body>
-    <div id="map-container"></div>
+    <div id="map-container">
+        <div id="map">
+        </div>
+    </div>
 
     <div class="absolute-nw can-click control link" id="link_open_actions">
         <ul>
@@ -222,7 +225,9 @@
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
-        function onMessage(game) {
+        function onMessage(gameMessage) {
+            game = gameMessage;
+
             switch (game.status) {
                 case Game.Status.aborted:
                 case Game.Status.missing:
@@ -237,17 +242,18 @@
                     if (me.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
-                        context.chatView().bindGame(game);
+                        if (context.navigation().isPopupOpen('chat')) {
+                            context.chatView().bindGame(game);
+                        }
+
                         context.inventoryView().bindGame(game);
                         context.mapView().bindGame(game);
                         context.resourceView().bindGame(game);
                         context.playerView().bindGame(game);
                         context.turnView().bindGame(game);
 
-                        showCurrentPlayer(game) || showCurrentMessage(game);
-
-                        updateMap(game);
-                        updateMenu(game);
+                        showPlayer() || showMessage();
+                        updateMenu();
                     }
                     break;
 
@@ -256,7 +262,7 @@
             }
         }
 
-        function showCurrentMessage(game) {
+        function showMessage() {
             const index = game.messages.length - 1;
 
             if (index > (lastMessage ?? -1)) {
@@ -275,7 +281,7 @@
             return false;
         }
 
-        function showCurrentPlayer(game) {
+        function showPlayer() {
             const player = context.turnHelper().getPlayer(game);
 
             if (player.id !== lastPlayer) {
@@ -291,24 +297,7 @@
             return false;
         }
 
-        function updateMap(game) {
-            const mapElement = document.getElementById('map');
-
-            mapElement.onclick = ({ target: tileElement }) => {
-                const { x, y } = tileElement.dataset;
-
-                const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
-
-                if (turn) {
-                    context.communication().sendMessage({
-                        id: Action.executeTurn,
-                        turn
-                    });
-                }
-            };
-        }
-
-        function updateMenu(game) {
+        function updateMenu() {
             for (const elementId of ['link_leave_game', 'link_skip_turn']) {
                 const element = document.getElementById(elementId);
 
@@ -359,8 +348,28 @@
             });
         }
 
+        function wireMap() {
+            const mapElement = document.getElementById('map');
+
+            mapElement.addEventListener('click', ({ target: tileElement }) => {
+                if (game) {
+                    const { x, y } = tileElement.dataset;
+
+                    const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
+
+                    if (turn) {
+                        context.communication().sendMessage({
+                            id: Action.executeTurn,
+                            turn
+                        });
+                    }
+                }
+            });
+        }
+
         const context = new Context();
 
+        let game = null;
         let lastMessage = null;
         let lastPlayer = null;
 
@@ -375,7 +384,8 @@
         context.navigation().wirePopup({
             controlClose: 'link_close_chat',
             controlOpen: 'link_open_chat',
-            id: 'chat'
+            id: 'chat',
+            onOpen: () => context.chatView().bindGame(game)
         });
 
         context.navigation().wirePopup({
@@ -393,6 +403,7 @@
         wireButtonSend();
         wireLinkLeaveGame();
         wireLinkSkipTurn();
+        wireMap();
     </script>
 </body>
 

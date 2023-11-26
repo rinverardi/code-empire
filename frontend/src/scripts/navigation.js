@@ -57,8 +57,10 @@ export class Navigation {
         });
     }
 
-    wirePopup({controlClose, controlOpen, id}) {
+    wirePopup({controlClose, controlOpen, id, onOpen}) {
         document.getElementById(controlOpen).addEventListener('click', () => {
+            onOpen && onOpen();
+
             const element = document.getElementById(id);
 
             element.classList.add('open');

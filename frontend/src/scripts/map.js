@@ -9,20 +9,18 @@ export class MapTile {
 }
 
 export class MapView {
+    #bound = false;
+
     bindGame(game) {
-        let mapElement = document.getElementById('map');
+        if (!this.#bound) {
+            this.#bound = true;
 
-        if (!mapElement) {
-            mapElement = this.#buildMap(game.map.tiles);
-
-            document.getElementById('map-container').appendChild(mapElement);
+            this.#buildMap(game);
         }
     }
 
-    #buildMap(tiles) {
-        const mapElement = document.createElement('div');
-
-        mapElement.id = 'map';
+    #buildMap(game) {
+        const tiles = game.map.tiles;
 
         for (let y = 0; y < tiles.length; y++) {
             const rowElement = this.#buildRow();
@@ -37,10 +35,8 @@ export class MapView {
                 }
             }
 
-            mapElement.appendChild(rowElement);
+            document.getElementById('map').appendChild(rowElement);
         }
-
-        return mapElement;
     }
 
     #buildRow() {
