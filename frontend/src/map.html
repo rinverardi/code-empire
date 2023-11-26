@@ -42,7 +42,7 @@
         Menü
     </div>
 
-    <div class="absolute-sw can-click control link" id="link_open_scores">
+    <div class="absolute-sw can-click control link" id="link_open_ranking">
         Rangliste
     </div>
 
@@ -102,7 +102,7 @@
 
     <div class="popup-holder" id="chat">
         <div class="popup">
-            <div class="container" id="chat-history">
+            <div class="container" id="chat-list">
             </div>
             <div class="container">
                 <div class="row">
@@ -154,63 +154,14 @@
         </div>
     </div>
 
-    <div class="popup-holder" id="scores">
+    <div class="popup-holder" id="ranking">
         <div class="popup">
+            <div class="container" id="ranking-list">
+            </div>
             <div class="container">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <div class="area">
-                            #1
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="area">
-                            🪙️×15
-                        </div>
-                    </div>
-                    <div class="col-sm-7">
-                        <div class="area">
-                            Angry Alpaca
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-sm-2">
-                        <div class="area">
-                            #2
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="area">
-                            🪙️×12
-                        </div>
-                    </div>
-                    <div class="col-sm-7">
-                        <div class="area">
-                            Broken Beaver
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-sm-2">
-                        <div class="area">
-                            #3
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="area">
-                            🪙️×9
-                        </div>
-                    </div>
-                    <div class="col-sm-7">
-                        <div class="area">
-                            Cuddly Cougar
-                        </div>
-                    </div>
-                </div>
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div class="can-click control link" id="link_close_scores">
+                        <div class="can-click control link" id="link_close_ranking">
                             Partie fortsetzen
                         </div>
                     </div>
@@ -242,15 +193,19 @@
                     if (me.status === Player.Status.left) {
                         context.navigation().startOver();
                     } else {
-                        if (context.navigation().isPopupOpen('chat')) {
-                            context.chatView().bindGame(game);
-                        }
-
                         context.inventoryView().bindGame(game);
                         context.mapView().bindGame(game);
                         context.resourceView().bindGame(game);
                         context.playerView().bindGame(game);
                         context.turnView().bindGame(game);
+
+                        if (context.navigation().isPopupOpen('chat')) {
+                            context.chatView().bindGame(game);
+                        }
+
+                        if (context.navigation().isPopupOpen('ranking')) {
+                            context.rankingView().bindGame(game);
+                        }
 
                         showPlayer() || showMessage();
                         updateMenu();
@@ -395,9 +350,10 @@
         });
 
         context.navigation().wirePopup({
-            controlClose: 'link_close_scores',
-            controlOpen: 'link_open_scores',
-            id: 'scores'
+            controlClose: 'link_close_ranking',
+            controlOpen: 'link_open_ranking',
+            id: 'ranking',
+            onOpen: () => context.rankingView().bindGame(game)
         });
 
         wireButtonSend();
