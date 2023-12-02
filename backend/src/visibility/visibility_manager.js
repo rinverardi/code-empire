@@ -2,9 +2,11 @@ import { Turn } from '../turn/turn.js';
 import { Visibility } from './visibility.js';
 
 export class VisibilityManager {
+    #gameAccess;
     #visibilityAccess;
 
     constructor(globalContext) {
+        this.#gameAccess = globalContext.gameAccess();
         this.#visibilityAccess = globalContext.visibilityAccess();
     }
 
@@ -19,6 +21,12 @@ export class VisibilityManager {
 
             this.#visibilityAccess.setVisibilityAt(player, tileX, tileY, Visibility.clear);
         }
+    }
+
+    endTurn(game) {
+        const player = this.#gameAccess.getCurrentPlayer(game);
+
+        this.#clearUp(player);
     }
 
     startGame(game) {

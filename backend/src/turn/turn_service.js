@@ -4,15 +4,18 @@ export class TurnService {
     #gameRepository;
     #resourceManager;
     #turnManager;
+    #visibilityManager;
 
     constructor(globalContext) {
         this.#gameRepository = globalContext.gameRepository();
         this.#resourceManager = globalContext.resourceManager();
         this.#turnManager = globalContext.turnManager();
+        this.#visibilityManager = globalContext.visibilityManager();
     }
 
     async #endTurn(sessionContext, game) {
         this.#resourceManager.endTurn(game);
+        this.#visibilityManager.endTurn(game);
         this.#turnManager.endTurn(game);
 
         this.#resourceManager.startTurn(game);
