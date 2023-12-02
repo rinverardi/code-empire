@@ -1,13 +1,11 @@
 import { Game } from '../game/game.mjs';
 
 export class TurnService {
-    #gameAccess;
     #gameRepository;
     #resourceManager;
     #turnManager;
 
     constructor(globalContext) {
-        this.#gameAccess = globalContext.gameAccess();
         this.#gameRepository = globalContext.gameRepository();
         this.#resourceManager = globalContext.resourceManager();
         this.#turnManager = globalContext.turnManager();
