@@ -62,7 +62,7 @@ export class Context {
     }
 
     playerView() {
-        return this.#playerView ? this.#playerView : this.#playerView = new PlayerView();
+        return this.#playerView ? this.#playerView : this.#playerView = new PlayerView(this);
     }
 
     random() {

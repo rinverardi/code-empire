@@ -98,6 +98,12 @@ export class PlayerHelper {
 };
 
 export class PlayerView {
+    #playerHelper;
+
+    constructor(context) {
+        this.#playerHelper = context.playerHelper();
+    }
+
     bindGame(game) {
         const mapElement = document.getElementById('map');
 
@@ -140,11 +146,13 @@ export class PlayerView {
         if (game.turn.player === player.id) {
             playerElement.classList.add('current');
 
-            const mapContainer = document.getElementById("map-container");
+            if (this.#playerHelper.isMe(game)) {
+                const mapContainer = document.getElementById("map-container");
 
-            mapContainer.scroll(
-                x - mapContainer.clientWidth / 2,
-                y - mapContainer.clientHeight / 2);
+                mapContainer.scroll(
+                    x - mapContainer.clientWidth / 2 + 40,
+                    y - mapContainer.clientHeight / 2 + 40);
+            }
         } else {
             playerElement.classList.remove('current');
         }
