@@ -130,6 +130,6 @@ export class GlobalContext {
     }
 
     visibilityManager() {
-        return this.#visibilityManager ? this.#visibilityManager : this.#visibilityManager = new VisibilityManager();
+        return this.#visibilityManager ? this.#visibilityManager : this.#visibilityManager = new VisibilityManager(this);
     }
 };
