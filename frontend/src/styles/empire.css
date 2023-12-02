@@ -321,6 +321,11 @@ h2 {
     border-radius: 0.5rem;
 }
 
+.obscured {
+    opacity: 0;
+    transform: scale(0);
+}
+
 .player {
     pointer-events: none;
     position: absolute;
@@ -492,13 +497,13 @@ select option {
     height: 65px;
     position: relative;
     transition-duration: 1s;
-    transition-property: filter, transform;
+    transition-property: filter, margin, opacity, transform;
     width: 80px;
 }
 
 .tile.active {
     cursor: pointer;
-    transform: translateY(-5px);
+    margin-top: -5px;
 }
 
 @media (hover: hover) {

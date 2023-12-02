@@ -1,4 +1,4 @@
 export const Visibility = Object.freeze({
     clear: '1',
-    obscure: '0'
+    obscured: '0'
 });

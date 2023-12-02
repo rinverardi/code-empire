@@ -86,7 +86,7 @@ export class GlobalContext {
     }
 
     mapMapper() {
-        return this.#mapMapper ? this.#mapMapper : this.#mapMapper = new MapMapper();
+        return this.#mapMapper ? this.#mapMapper : this.#mapMapper = new MapMapper(this);
     }
 
     playerManager() {
@@ -130,6 +130,6 @@ export class GlobalContext {
     }
 
     visibilityManager() {
-        return this.#visibilityManager ? this.#visibilityManager : this.#visibilityManager = new VisibilityManager();
+        return this.#visibilityManager ? this.#visibilityManager : this.#visibilityManager = new VisibilityManager(this);
     }
 };
