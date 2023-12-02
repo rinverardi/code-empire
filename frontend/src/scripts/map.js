@@ -9,14 +9,16 @@ export class MapTile {
 }
 
 export class MapView {
-    #bound = false;
+    #built = false;
 
     bindGame(game) {
-        if (!this.#bound) {
-            this.#bound = true;
+        if (!this.#built) {
+            this.#built = true;
 
             this.#build(game);
         }
+
+        this.#update(game);
     }
 
     #build(game) {
@@ -50,20 +52,38 @@ export class MapView {
     #buildTile(tile, x, y) {
         const tileElement = document.createElement('div');
 
+        tileElement.classList.add('obscured');
         tileElement.classList.add('tile');
-
-        tileElement.classList.add({
-            f: 'tile-forest',
-            g: 'tile-grass',
-            h: 'tile-hill',
-            m: 'tile-mountain',
-            w: 'tile-water'
-        }[tile]);
-
         tileElement.dataset.x = x;
         tileElement.dataset.y = y;
         tileElement.id = MapTile.elementId(x, y);
 
         return tileElement;
+    }
+
+    // TODO Optimize me!
+
+    #update(game) {
+        const tiles = game.map.tiles;
+
+        for (let y = 0; y < tiles.length; y++) {
+            for (let x = 0; x < tiles[y].length; x++) {
+                const tile = tiles[y][x];
+
+                if (tile !== ' ' && tile !== '-') {
+                    const tileElement = MapTile.element(x, y);
+
+                    tileElement.classList.add({
+                        f: 'tile-forest',
+                        g: 'tile-grass',
+                        h: 'tile-hill',
+                        m: 'tile-mountain',
+                        w: 'tile-water'
+                    }[tile]);
+
+                    tileElement.classList.remove('obscured');
+                }
+            }
+        }
     }
 };
