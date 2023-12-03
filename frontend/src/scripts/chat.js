@@ -1,4 +1,9 @@
 export class ChatView {
+    #elements = {
+        chat: document.getElementById('chat'),
+        chatList: document.getElementById('chat-list')
+    }
+
     #playerHelper;
 
     constructor(context) {
@@ -43,19 +48,15 @@ export class ChatView {
     }
 
     bindGame(game) {
-        const listElement = document.getElementById('chat-list');
-
-        for (let index = listElement.childElementCount; index < game.messages.length; index++) {
+        for (let index = this.#elements.chatList.childElementCount; index < game.messages.length; index++) {
             const message = game.messages[index];
             const player = this.#playerHelper.getPlayer(game, message.player);
 
-            listElement.appendChild(this.#buildRow(message, player));
+            this.#elements.chatList.appendChild(this.#buildRow(message, player));
         }
 
-        const chatElement = document.getElementById('chat');
-
-        chatElement.scrollTo({
-            top: chatElement.scrollHeight
+        this.#elements.chat.scrollTo({
+            top: this.#elements.chat.scrollHeight
         });
     }
 };

@@ -99,6 +99,7 @@ export class PlayerHelper {
 
 export class PlayerView {
     #elements = {
+        mapContainer: document.getElementById('map-container'),
         playerLayer: document.getElementById('player-layer')
     };
 
@@ -149,11 +150,9 @@ export class PlayerView {
             playerElement.classList.add('current');
 
             if (this.#playerHelper.isMe(game)) {
-                const mapContainer = document.getElementById("map-container");
-
-                mapContainer.scroll(
-                    x - mapContainer.clientWidth / 2 + 40,
-                    y - mapContainer.clientHeight / 2 + 40);
+                this.#elements.mapContainer.scroll(
+                    x - this.#elements.mapContainer.clientWidth / 2 + 40,
+                    y - this.#elements.mapContainer.clientHeight / 2 + 40);
             }
         } else {
             playerElement.classList.remove('current');
