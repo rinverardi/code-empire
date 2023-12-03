@@ -106,7 +106,7 @@ export class GlobalContext {
     }
 
     resourceMapper() {
-        return this.#resourceMapper ? this.#resourceMapper : this.#resourceMapper = new ResourceMapper();
+        return this.#resourceMapper ? this.#resourceMapper : this.#resourceMapper = new ResourceMapper(this);
     }
 
     structureMapper() {
