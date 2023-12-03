@@ -1,3 +1,5 @@
+import { Visibility } from "../visibility/visibility.js";
+
 export class MapMapper {
     #gameAccess;
 
@@ -13,7 +15,7 @@ export class MapMapper {
                 if (tiles[y][x] === ' ') {
                     row += ' ';
                 } else {
-                    row += visibility[y][x] === '1' ? tiles[y][x] : '-';
+                    row += visibility[y][x] === Visibility.clear ? tiles[y][x] : '-';
                 }
             }
 
