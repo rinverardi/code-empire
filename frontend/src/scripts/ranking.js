@@ -1,15 +1,17 @@
 import { Player } from './player.js';
 
 export class RankingView {
-    bindGame(game) {
-        const listElement = document.getElementById('ranking-list');
+    #elements = {
+        rankingList: document.getElementById('ranking-list')
+    };
 
-        listElement.textContent = '';
+    bindGame(game) {
+        this.#elements.rankingList.textContent = '';
 
         for (const rank of this.#rank(game.players)) {
             const rankElement = this.#buildRow(rank);
 
-            listElement.appendChild(rankElement);
+            this.#elements.rankingList.appendChild(rankElement);
         };
     }
 
