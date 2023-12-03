@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="absolute-nw can-click control link" id="link_open_actions">
+    <div class="absolute-nw can-click control link" id="link-open-actions">
         <ul>
             <li>
                 <div class="icon icon-food"></div>&times;<span class="inventory" id="inventory-food"></span>
@@ -36,15 +36,15 @@
         </ul>
     </div>
 
-    <div class="absolute-se can-click control link" id="link_open_chat">
+    <div class="absolute-se can-click control link" id="link-open-chat">
         Nachrichten
     </div>
 
-    <div class="absolute-ne can-click control link" id="link_open_menu">
+    <div class="absolute-ne can-click control link" id="link-open-menu">
         Menü
     </div>
 
-    <div class="absolute-sw can-click control link" id="link_open_ranking">
+    <div class="absolute-sw can-click control link" id="link-open-ranking">
         Rangliste
     </div>
 
@@ -93,7 +93,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div class="can-click control link" id="link_close_actions">
+                        <div class="can-click control link" id="link-close-actions">
                             Partie fortsetzen
                         </div>
                     </div>
@@ -109,17 +109,17 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 mb-2">
-                        <input class="can-edit control full-width" id="edit_text" placeholder="Mitteilung">
+                        <input class="can-edit control full-width" id="edit-text" placeholder="Mitteilung">
                     </div>
                     <div class="col-sm-4 mb-2">
-                        <div class="can-click control" id="button_send">
+                        <div class="can-click control" id="button-send">
                             Senden
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class="can-click control link" id="link_close_chat">
+                        <div class="can-click control link" id="link-close-chat">
                             Partie fortsetzen
                         </div>
                     </div>
@@ -132,21 +132,21 @@
         <div class="popup">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 my-1" id="link_skip_turn">
+                    <div class="col-12 my-1" id="link-skip-turn">
                         <div class="can-click control link">
                             Zug überspringen
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 my-1" id="link_close_menu">
+                    <div class="col-12 my-1" id="link-close-menu">
                         <div class="can-click control link">
                             Partie fortsetzen
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 my-1" id="link_leave_game">
+                    <div class="col-12 my-1" id="link-leave-game">
                         <div class="can-click control link">
                             Partie verlassen
                         </div>
@@ -163,7 +163,7 @@
             <div class="container">
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div class="can-click control link" id="link_close_ranking">
+                        <div class="can-click control link" id="link-close-ranking">
                             Partie fortsetzen
                         </div>
                     </div>
@@ -255,7 +255,7 @@
         }
 
         function updateMenu() {
-            for (const elementId of ['link_leave_game', 'link_skip_turn']) {
+            for (const elementId of ['link-leave-game', 'link-skip-turn']) {
                 const element = document.getElementById(elementId);
 
                 if (context.playerHelper().isMe(game)) {
@@ -267,8 +267,8 @@
         }
 
         function wireButtonSend() {
-            document.getElementById('button_send').addEventListener('click', () => {
-                const element = document.getElementById('edit_text');
+            document.getElementById('button-send').addEventListener('click', () => {
+                const element = document.getElementById('edit-text');
 
                 if (element.value) {
                     const action = {
@@ -284,7 +284,7 @@
         }
 
         function wireLinkLeaveGame() {
-            document.getElementById('link_leave_game').addEventListener('click', () => {
+            document.getElementById('link-leave-game').addEventListener('click', () => {
                 const action = { id: Action.leaveGame };
 
                 context.communication().sendMessage(action);
@@ -294,7 +294,7 @@
 
         function wireLinkSkipTurn() {
             context.navigation().wireClick({
-                id: 'link_skip_turn',
+                id: 'link-skip-turn',
                 onClick: () => {
                     context.navigation().closePopup('menu', () => {
                         const action = { id: Action.skipTurn };
@@ -333,27 +333,27 @@
         context.communication().connectGame(onMessage);
 
         context.navigation().wirePopup({
-            controlClose: 'link_close_actions',
-            controlOpen: 'link_open_actions',
+            controlClose: 'link-close-actions',
+            controlOpen: 'link-open-actions',
             id: 'actions'
         });
 
         context.navigation().wirePopup({
-            controlClose: 'link_close_chat',
-            controlOpen: 'link_open_chat',
+            controlClose: 'link-close-chat',
+            controlOpen: 'link-open-chat',
             id: 'chat',
             onOpen: () => context.chatView().bindGame(game)
         });
 
         context.navigation().wirePopup({
-            controlClose: 'link_close_menu',
-            controlOpen: 'link_open_menu',
+            controlClose: 'link-close-menu',
+            controlOpen: 'link-open-menu',
             id: 'menu'
         });
 
         context.navigation().wirePopup({
-            controlClose: 'link_close_ranking',
-            controlOpen: 'link_open_ranking',
+            controlClose: 'link-close-ranking',
+            controlOpen: 'link-open-ranking',
             id: 'ranking',
             onOpen: () => context.rankingView().bindGame(game)
         });

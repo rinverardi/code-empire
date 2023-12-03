@@ -25,25 +25,25 @@
             <div class="col-sm-6 mt-2">
                 <div class="area slot">
                     <div class="if-unassigned">leerer Slot</div>
-                    <div class="if-assigned ready" id="slot_0"></div>
+                    <div class="if-assigned ready" id="slot-0"></div>
                 </div>
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="area slot">
                     <div class="if-unassigned">leerer Slot</div>
-                    <div class="if-assigned ready" id="slot_1"></div>
+                    <div class="if-assigned ready" id="slot-1"></div>
                 </div>
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="area slot">
                     <div class="if-unassigned">leerer Slot</div>
-                    <div class="if-assigned ready" id="slot_2"></div>
+                    <div class="if-assigned ready" id="slot-2"></div>
                 </div>
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="area slot">
                     <div class="if-unassigned">leerer Slot</div>
-                    <div class="if-assigned ready" id="slot_3"></div>
+                    <div class="if-assigned ready" id="slot-3"></div>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
             const players = game.players.filter(that => that.status !== Player.Status.left);
 
             for (let index = 0; index < Config.slots; index++) {
-                const slot = document.getElementById('slot_' + index);
+                const slot = document.getElementById('slot-' + index);
 
                 if (index < players.length) {
                     slot.parentElement.classList.add('assigned');

@@ -27,7 +27,7 @@
                 <div class="area">Partie:</div>
             </div>
             <div class="col-sm-6 mt-2">
-                <div class="area" id="select_placeholder">keine Partien</div>
+                <div class="area" id="select-placeholder">keine Partien</div>
                 <select class="can-expand control full-width hidden" id="select">
                 </select>
             </div>
@@ -43,7 +43,7 @@
                 <button class="can-click control full-width link" id="link_back">Zurück</button>
             </div>
             <div class="col-sm-6 mt-2">
-                <button class="can-click control full-width link" disabled id="link_next">Weiter</button>
+                <button class="can-click control full-width link" disabled id="link-next">Weiter</button>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
         }
 
         function updateLink() {
-            const link = document.getElementById('link_next');
+            const link = document.getElementById('link-next');
 
             if (document.getElementById('select').value) {
                 link.disabled = false;
@@ -113,7 +113,7 @@
 
         function updateSelect() {
             const select = document.getElementById('select');
-            const selectPlaceholder = document.getElementById('select_placeholder');
+            const selectPlaceholder = document.getElementById('select-placeholder');
 
             if (select.length) {
                 select.classList.remove('hidden');
@@ -133,7 +133,7 @@
 
         function wireLinkNext() {
             context.navigation().wireClick({
-                id: 'link_next',
+                id: 'link-next',
                 onClick: () => {
                     context.gameHelper().saveId(document.getElementById('select').value);
 
@@ -143,7 +143,7 @@
         }
 
         function wireSelect() {
-            const link = document.getElementById('link_next');
+            const link = document.getElementById('link-next');
             const select = document.getElementById('select');
 
             select.addEventListener('change', () => {
