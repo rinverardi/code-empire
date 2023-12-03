@@ -11,6 +11,11 @@ export class MapTile {
 export class MapView {
     #built = false;
 
+    #elements = {
+        map: document.getElementById('map'),
+        resourceLayer: document.getElementById('resource-layer')
+    };
+
     bindGame(game) {
         if (!this.#built) {
             this.#built = true;
@@ -37,7 +42,7 @@ export class MapView {
                 }
             }
 
-            document.getElementById('map').appendChild(rowElement);
+            this.#elements.map.insertBefore(rowElement, this.#elements.resourceLayer);
         }
     }
 

@@ -24,16 +24,18 @@ export class Resource {
 };
 
 export class ResourceView {
-    bindGame(game) {
-        const mapElement = document.getElementById('map');
+    #elements = {
+        resourceLayer: document.getElementById('resource-layer')
+    }
 
+    bindGame(game) {
         for (let resource of game.resources) {
             let resourceElement = Resource.element(resource);
 
             if (!resourceElement) {
                 resourceElement = this.#build(resource);
 
-                mapElement.appendChild(resourceElement);
+                this.#elements.resourceLayer.appendChild(resourceElement);
             }
 
             this.#update(resource, resourceElement);
