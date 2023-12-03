@@ -98,6 +98,10 @@ export class PlayerHelper {
 };
 
 export class PlayerView {
+    #elements = {
+        playerLayer: document.getElementById('player-layer')
+    };
+
     #playerHelper;
 
     constructor(context) {
@@ -105,8 +109,6 @@ export class PlayerView {
     }
 
     bindGame(game) {
-        const mapElement = document.getElementById('map');
-
         for (const player of game.players) {
             let playerElement = Player.element(player);
 
@@ -114,7 +116,7 @@ export class PlayerView {
                 if (!playerElement) {
                     playerElement = this.#build(player);
 
-                    mapElement.appendChild(playerElement);
+                    this.#elements.playerLayer.appendChild(playerElement);
                 }
 
                 this.#update(game, player, playerElement);
