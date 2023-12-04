@@ -1,4 +1,4 @@
-import { StringHelper } from "./string_helper";
+import { StringHelper } from './string_helper.js';
 
 test('Replace after end', () => {
     expect(StringHelper.replaceAt('abc', 3, 'x')).toBe('abcx');

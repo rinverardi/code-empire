@@ -1,5 +1,5 @@
-import { ArrayHelper } from "../lib/array_helper.js";
-import { Visibility } from "../visibility/visibility.js";
+import { ArrayHelper } from '../lib/array_helper.js';
+import { Visibility } from '../visibility/visibility.js';
 
 export class ResourceMapper {
     #gameAccess;

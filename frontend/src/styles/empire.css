@@ -316,6 +316,10 @@ h2 {
     margin-left: 40px;
 }
 
+.no-transition {
+    transition: none !important;
+}
+
 .notification {
     animation: slide-in 1s forwards, slide-out 1s forwards 2s;
     bottom: 0;

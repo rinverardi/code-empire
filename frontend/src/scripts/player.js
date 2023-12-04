@@ -1,3 +1,5 @@
+import { Transition } from './transition.js';
+
 export class Player {
     static get Attribute() {
         return Object.freeze({
@@ -125,6 +127,14 @@ export class PlayerView {
                 playerElement.remove();
             }
         }
+
+        if (this.#playerHelper.isMe(game)) {
+            const [x, y] = this.#playerHelper.getMe(game).position;
+
+            this.#elements.mapContainer.scroll(
+                this.#positionX(x) - this.#elements.mapContainer.clientWidth / 2 + 40,
+                this.#positionY(y) - this.#elements.mapContainer.clientHeight / 2 + 40);
+        }
     }
 
     #build(player) {
@@ -137,25 +147,46 @@ export class PlayerView {
         return playerElement;
     }
 
+    #move(element, x, y) {
+        const obscured = element.classList.contains('obscured');
+
+        if (obscured) {
+            Transition.disableFor(element);
+        }
+
+        element.style.left = `${this.#positionX(x)}px`;
+        element.style.top = `${this.#positionY(y)}px`;
+
+        if (obscured) {
+            Transition.enableFor(element);
+        }
+    }
+
+    #positionX(x) {
+        return x * 40;
+    }
+
+    #positionY(y) {
+        return y * 45 - 15;
+    }
+
     #update(game, player, playerElement) {
-        const x = player.position[0] * 40;
-        const y = player.position[1] * 45 - 15;
+        if (player.position) {
+            const [x, y] = player.position;
 
-        playerElement.dataset.x = player.position[0];
-        playerElement.dataset.y = player.position[1];
-        playerElement.style.left = `${x}px`;
-        playerElement.style.top = `${y}px`;
+            this.#move(playerElement, x, y);
 
-        if (game.turn.player === player.id) {
-            playerElement.classList.add('current');
+            playerElement.classList.remove('obscured');
+            playerElement.dataset.x = player.position[0];
+            playerElement.dataset.y = player.position[1];
 
-            if (this.#playerHelper.isMe(game)) {
-                this.#elements.mapContainer.scroll(
-                    x - this.#elements.mapContainer.clientWidth / 2 + 40,
-                    y - this.#elements.mapContainer.clientHeight / 2 + 40);
+            if (game.turn.player === player.id) {
+                playerElement.classList.add('current');
+            } else {
+                playerElement.classList.remove('current');
             }
         } else {
-            playerElement.classList.remove('current');
+            playerElement.classList.add('obscured');
         }
     }
 };
