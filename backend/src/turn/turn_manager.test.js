@@ -1,5 +1,5 @@
-import { GlobalContext } from "../lib/global_context.js";
-import { Turn } from "./turn.js";
+import { GlobalContext } from '../lib/global_context.js';
+import { Turn } from './turn.js';
 
 class TestContext extends GlobalContext {
     gameAccess() {

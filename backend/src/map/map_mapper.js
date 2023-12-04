@@ -1,4 +1,4 @@
-import { Visibility } from "../visibility/visibility.js";
+import { Visibility } from '../visibility/visibility.js';
 
 export class MapMapper {
     #gameAccess;
