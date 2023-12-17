@@ -105,8 +105,7 @@
     position: absolute;
     height: 70%;
     top: 15%;
-    transition-duration: 1s;
-    transition-property: clip-path;
+    transition: clip-path 1s;
     width: 70%;
 }
 
@@ -210,8 +209,7 @@ body {
     padding: 0.25rem 0.5rem;
     text-align: left;
     text-overflow: ellipsis;
-    transition-duration: 1s;
-    transition-property: opacity;
+    transition: opacity 1s;
 }
 
 .control.can-click {
@@ -343,8 +341,7 @@ h2 {
 .player {
     pointer-events: none;
     position: absolute;
-    transition-duration: 1s;
-    transition-property: left top transform;
+    transition: left 1s, top 1s, transform 1s;
 }
 
 .player.active {
@@ -374,8 +371,7 @@ h2 {
     position: absolute;
     right: 0;
     top: 0;
-    transition-duration: 0.5s;
-    transition-property: opacity;
+    transition: opacity 0.5s;
     visibility: hidden;
 }
 
@@ -413,13 +409,11 @@ h2 {
     width: 60px;
     pointer-events: none;
     position: absolute;
-    transition-duration: 1s;
-    transition-property: opacity transform;
+    transition: background-size 1s, transform 1s;
 }
 
 .resource.age-0 {
     background-size: 0% 0%;
-    opacity: 0;
 }
 
 .resource.age-1,
@@ -480,8 +474,7 @@ select option {
     grid-row: 1;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition-duration: 1s;
-    transition-property: opacity, transform;
+    transition: opacity 1s, transform 1s;
     white-space: nowrap;
 }
 
@@ -511,8 +504,7 @@ select option {
     flex-shrink: 0;
     height: 65px;
     position: relative;
-    transition-duration: 1s;
-    transition-property: filter, margin, opacity, transform;
+    transition: filter 1s, margin 1s, opacity 1s, transform 1s;
     width: 80px;
 }
 
