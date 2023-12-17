@@ -498,6 +498,31 @@ select option {
     transform: translateX(0);
 }
 
+.structure {
+    animation: fade-in 2s forwards;
+    height: 80px;
+    width: 80px;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 1s, transform 1s;
+}
+
+.structure.active {
+    transform: translateY(-5px);
+}
+
+.structure-city {
+    background-image: url(../images/structure-city.svg);
+}
+
+.structure-metropolis {
+    background-image: url(../images/structure-metropolis.svg);
+}
+
+.structure-village {
+    background-image: url(../images/structure-village.svg);
+}
+
 .tile {
     background-image: url('../images/tile.svg');
     clip-path: polygon(40px 0, 80px 15px, 80px 50px, 40px 65px, 0 50px, 0 15px);

@@ -19,6 +19,7 @@
     <div id="map-container">
         <div id="map">
             <div id="resource-layer"></div>
+            <div id="structure-layer"></div>
             <div id="player-layer"></div>
         </div>
     </div>
@@ -198,6 +199,7 @@
                         context.inventoryView().bindGame(game);
                         context.mapView().bindGame(game);
                         context.resourceView().bindGame(game);
+                        context.structureView().bindGame(game);
                         context.playerView().bindGame(game);
                         context.turnView().bindGame(game);
 
