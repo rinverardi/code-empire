@@ -1,0 +1,55 @@
+<svg height="80" width="80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <g id="building">
+
+            <!-- Draw the roof. -->
+
+            <polygon fill="#553" points="0,-10 12,-4 12,-13 0,-19 -12,-13 -12,-4" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <polygon fill="#fff" opacity="0.2" points="0,-10 0,-19 12,-13 12,-4"/>
+
+            <!-- Draw the wall. -->
+
+            <polygon fill="#ccc" points="0,-10 -10,-5 -10,10 10,10 10,-5" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+
+            <!-- Draw the door. -->
+
+            <g transform="translate(-4 6)">
+                <use xlink:href="#door"/>
+            </g>
+
+            <!-- Draw the windows. -->
+
+            <g transform="translate(-4 -2)">
+                <use xlink:href="#window"/>
+            </g>
+
+            <g transform="translate(4 -2)">
+                <use xlink:href="#window"/>
+            </g>
+
+            <g transform="translate(4 5)">
+                <use xlink:href="#window"/>
+            </g>
+        </g>
+
+        <g id="door">
+            <polygon fill="#555" points="2,-3 -2,-3 -2,3.5 2,3.5"/>
+        </g>
+
+        <g id="window">
+            <polygon fill="#555" points="2,-2 -2,-2 -2,2 2,2"/>
+        </g>
+    </defs>
+
+    <g transform="translate(40 24)">
+        <use xlink:href="#building"/>
+    </g>
+
+    <g transform="translate(25 43)">
+        <use xlink:href="#building"/>
+    </g>
+
+    <g transform="translate(55 43)">
+        <use xlink:href="#building"/>
+    </g>
+</svg>

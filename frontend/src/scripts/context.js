@@ -9,6 +9,7 @@ import { PlayerHelper, PlayerView } from './player.js';
 import { Random } from './random.js';
 import { RankingView } from './ranking.js';
 import { ResourceView } from './resource.js';
+import { StructureView } from './structure.js';
 import { Translation } from './translation.js';
 import { TurnHelper, TurnView } from './turn.js';
 
@@ -25,6 +26,7 @@ export class Context {
     #random;
     #rankingView;
     #resourceView;
+    #structureView;
     #translation;
     #turnHelper;
     #turnView;
@@ -75,6 +77,10 @@ export class Context {
 
     resourceView() {
         return this.#resourceView ? this.#resourceView : this.#resourceView = new ResourceView();
+    }
+
+    structureView() {
+        return this.#structureView ? this.#structureView : this.#structureView = new StructureView();
     }
 
     translation() {

@@ -39,6 +39,7 @@ export class TurnView {
 
             this.#stylePlayers(positions);
             this.#styleResources(positions);
+            this.#styleStructures(positions);
             this.#styleTiles(positions);
         } else {
             this.#reset();
@@ -74,6 +75,20 @@ export class TurnView {
                 resourceElement.classList.add('active');
             } else {
                 resourceElement.classList.remove('active');
+            }
+        }
+    }
+
+    #styleStructures(positions) {
+        const structureElements = document.querySelectorAll('.structure');
+
+        for (const structureElement of structureElements) {
+            const { x, y } = structureElement.dataset;
+
+            if (positions.some(that => that[0] === parseInt(x) && that[1] === parseInt(y))) {
+                structureElement.classList.add('active');
+            } else {
+                structureElement.classList.remove('active');
             }
         }
     }

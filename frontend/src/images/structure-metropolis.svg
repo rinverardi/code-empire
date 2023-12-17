@@ -1,0 +1,194 @@
+<svg height="80" width="80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <g id="building0">
+
+            <!-- Draw the wall. -->
+
+            <polygon fill="#ccc" points="6,-22 -6,-22 -6,0 6,0" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+
+            <!-- Draw the roof. -->
+
+            <polygon fill="#996" points="6,-26 -6,-26 -6,-22 6,-22" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+
+            <!-- Draw the floors. -->
+
+            <g transform="translate(0 -15)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -11)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -7)">
+                <use xlink:href="#floor"/>
+            </g>
+        </g>
+
+        <g id="building1">
+
+            <!-- Draw the wall. -->
+
+            <polygon fill="#ccc" points="8,-34 -8,-34 -8,0 8,0" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+
+            <!-- Draw the floors. -->
+
+            <g transform="translate(0 -27)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -23)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -19)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -15)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -11)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -7)">
+                <use xlink:href="#floor"/>
+            </g>
+        </g>
+
+        <g id="building2">
+
+            <!-- Draw the wall. -->
+
+            <polygon fill="#ccc" points="6,-50 -6,-46 -6,0 6,0" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+
+            <!-- Draw the floors. -->
+
+            <g transform="translate(0 -39)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -35)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -31)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -27)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -23)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -19)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -15)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -11)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -7)">
+                <use xlink:href="#floor"/>
+            </g>
+        </g>
+
+        <g id="building3">
+
+            <!-- Draw the wall. -->
+
+            <polygon fill="#ccc" points="8,-30 -8,-30 -8,0 8,0" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+
+            <!-- Draw the floors. -->
+
+            <g transform="translate(0 -23)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -19)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -15)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -11)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -7)">
+                <use xlink:href="#floor"/>
+            </g>
+        </g>
+
+        <g id="building4">
+
+            <!-- Draw the wall. -->
+
+            <polygon fill="#ccc" points="6,-26 -6,-22 -6,0 6,0" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+
+            <!-- Draw the roof. -->
+
+            <polygon fill="#996" points="6,-30 -6,-26 -6,-22 6,-26" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+
+            <!-- Draw the floors. -->
+
+            <g transform="translate(0 -15)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -11)">
+                <use xlink:href="#floor"/>
+            </g>
+
+            <g transform="translate(0 -7)">
+                <use xlink:href="#floor"/>
+            </g>
+        </g>
+
+        <g id="floor">
+            <g transform="translate(-2 0)">
+                <use xlink:href="#window"/>
+            </g>
+
+            <g transform="translate(2 0)">
+                <use xlink:href="#window"/>
+            </g>
+        </g>
+
+        <g id="window">
+            <polygon fill="#446" points="1.2,-1.2 -1.2,-1.2 -1.2,1.2 1.2,1.2"/>
+        </g>
+    </defs>
+
+    <g transform="translate(12 52)">
+        <use xlink:href="#building0"/>
+    </g>
+
+    <g transform="translate(26 52)">
+        <use xlink:href="#building1"/>
+    </g>
+
+    <g transform="translate(40 52)">
+        <use xlink:href="#building2"/>
+    </g>
+
+    <g transform="translate(54 52)">
+        <use xlink:href="#building3"/>
+    </g>
+
+    <g transform="translate(68 52)">
+        <use xlink:href="#building4"/>
+    </g>
+</svg>

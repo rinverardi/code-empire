@@ -5,15 +5,6 @@ export class Resource {
         });
     }
 
-    static get Type() {
-        return Object.freeze({
-            food: 'images/resource-food.svg',
-            gold: 'images/resource-gold.svg',
-            research: 'images/resource-research.svg',
-            weaponry: 'images/resource-weaponry.svg'
-        });
-    }
-
     static element(resource) {
         return document.getElementById(Resource.elementId(resource));
     }
