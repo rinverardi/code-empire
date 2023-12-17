@@ -13,7 +13,7 @@ export class PlayerMapper {
         for (let index = 0; index < source.players.length; index++) {
             const position = source.players[index].position;
 
-            if (visibility[position[1]][position[0]] === Visibility.clear) {
+            if (position && visibility[position[1]][position[0]] === Visibility.clear) {
                 target.players[index].position = position;
             }
         }
