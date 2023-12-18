@@ -1,4 +1,5 @@
 import { Map } from '../map/map.js';
+import { Structure } from '../structure/structure.js';
 import { Turn } from './turn.js';
 
 export class TurnManager {
@@ -14,6 +15,30 @@ export class TurnManager {
         const player = this.#mapAccess.getPlayerAt(game, ...position);
 
         return !!player;
+    }
+
+    #canBuild(game, structurePosition, structureType) {
+        const inventory = this.#gameAccess.getCurrentPlayer(game).inventory;
+
+        for (const [resource, resourceCount] of Object.entries(structureType.requiredResources)) {
+            if (inventory[resource] < resourceCount) {
+                return false;
+            }
+        }
+
+        const structure = this.#mapAccess.getStructureAt(game, ...structurePosition);
+
+        if (structure?.type !== structureType.requiredStructure) {
+            return false;
+        }
+
+        const tile = this.#mapAccess.getTileAt(game, ...structurePosition);
+
+        if (tile !== Map.Tile.grass) {
+            return false;
+        }
+
+        return true;
     }
 
     #canMove(game, position) {
@@ -76,6 +101,15 @@ export class TurnManager {
                     'positionFrom': positionFrom,
                     'positionTo': positionTo,
                     'type': Turn.Type.move
+                });
+            }
+        }
+
+        for (const structure of Object.values(Structure.Type)) {
+            if (this.#canBuild(game, positionFrom, structure)) {
+                game.turns.push({
+                    'position': positionFrom,
+                    'type': structure.action
                 });
             }
         }

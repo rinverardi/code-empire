@@ -29,6 +29,16 @@ export class MapAccess {
         return game.map.tiles.length;
     }
 
+    getStructureAt(game, x, y) {
+        for (const structure of game.structures) {
+            const position = structure.position;
+
+            if (position[0] === x && position[1] === y) {
+                return structure;
+            }
+        }
+    }
+
     getTileAt(game, x, y) {
         const tile = game.map.tiles[y][x];
 
