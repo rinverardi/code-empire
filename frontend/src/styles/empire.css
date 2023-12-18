@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Handwritten';
-    src: url('../fonts/handwritten.ttf') format('truetype');
+    font-family: 'Coda';
+    src: url('../fonts/coda.woff2') format('woff2');
 }
 
 @font-face {
@@ -55,8 +55,8 @@
 * {
     color: #fff;
     cursor: default;
-    font-family: 'Handwritten';
-    font-size: 20pt;
+    font-family: 'Coda';
+    font-size: 16pt;
     overscroll-behavior: none;
 }
 
