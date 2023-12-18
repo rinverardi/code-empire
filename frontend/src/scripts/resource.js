@@ -7,10 +7,10 @@ export class Resource {
 
     static get Type() {
         return Object.freeze({
-            food: 'images/resource-food.svg',
-            gold: 'images/resource-gold.svg',
-            research: 'images/resource-research.svg',
-            weaponry: 'images/resource-weaponry.svg'
+            food: 'food',
+            gold: 'gold',
+            research: 'research',
+            weaponry: 'weaponry'
         });
     }
 
