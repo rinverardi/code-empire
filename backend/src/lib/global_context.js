@@ -110,7 +110,7 @@ export class GlobalContext {
     }
 
     structureMapper() {
-        return this.#structureMapper ? this.#structureMapper : this.#structureMapper = new StructureMapper();
+        return this.#structureMapper ? this.#structureMapper : this.#structureMapper = new StructureMapper(this);
     }
 
     turnManager() {

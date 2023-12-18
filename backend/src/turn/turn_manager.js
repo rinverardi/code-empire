@@ -109,7 +109,7 @@ export class TurnManager {
             if (this.#canBuild(game, positionFrom, structure)) {
                 game.turns.push({
                     'position': positionFrom,
-                    'type': structure.action
+                    'type': structure.turn
                 });
             }
         }
