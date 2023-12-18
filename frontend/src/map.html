@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="absolute-nw can-click control link" id="link-open-actions">
+    <div class="absolute-nw can-click control link" id="button-open-actions">
         <ul>
             <li class="inventory-item">
                 <div class="icon icon-gold"></div>&times;<span class="inventory" id="inventory-gold"></span>
@@ -37,41 +37,41 @@
         </ul>
     </div>
 
-    <div class="absolute-se can-click control link" id="link-open-chat">
+    <div class="absolute-se can-click control link" id="button-open-chat">
         Nachrichten
     </div>
 
-    <div class="absolute-ne can-click control link" id="link-open-menu">
+    <div class="absolute-ne can-click control link" id="button-open-menu">
         Menü
     </div>
 
-    <div class="absolute-sw can-click control link" id="link-open-ranking">
+    <div class="absolute-sw can-click control link" id="button-open-ranking">
         Rangliste
     </div>
 
     <div class="popup-holder" id="actions">
         <div class="popup">
             <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="can-click control">
+                <div class="row mb-2">
+                    <div class="col-sm-7">
+                        <button class="can-click control full-width link" id="button-build-village">
                             Dorf gründen
-                        </div>
+                        </button>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <div class="area">
                             <div class="icon icon-gold"></div>&times;<span class="inventory">4</span>
                             <div class="icon icon-food"></div>&times;<span class="inventory">4</span>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-sm-6">
-                        <div class="can-click control">
+                <div class="row mb-2">
+                    <div class="col-sm-7">
+                        <button class="can-click control full-width link" id="button-build-city">
                             Dorf zu Stadt ausbauen
-                        </div>
+                        </button>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <div class="area">
                             <div class="icon icon-gold"></div>&times;<span class="inventory">8</span>
                             <div class="icon icon-food"></div>&times;<span class="inventory">8</span>
@@ -79,13 +79,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-sm-6">
-                        <div class="can-click control">
+                <div class="row mb-2">
+                    <div class="col-sm-7">
+                        <button class="can-click control full-width link" id="button-build-metropolis">
                             Stadt zu Metropole ausbauen
-                        </div>
+                        </button>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <div class="area">
                             <div class="icon icon-gold"></div>&times;<span class="inventory">12</span>
                             <div class="icon icon-food"></div>&times;<span class="inventory">12</span>
@@ -93,24 +93,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-sm-6">
-                        <div class="can-click control">
+                <div class="row mb-2">
+                    <div class="col-sm-7">
+                        <button class="can-click control full-width link" id="button-build-factory">
                             Fabrik errichten
-                        </div>
+                        </button>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <div class="area">
                             <div class="icon icon-gold"></div>&times;<span class="inventory">8</span>
                             <div class="icon icon-research"></div>&times;<span class="inventory">12</span>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row">
                     <div class="col-12">
-                        <div class="can-click control link" id="link-close-actions">
+                        <button class="can-click control full-width link" id="button-close-actions">
                             Partie fortsetzen
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -123,20 +123,20 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-8 mb-2">
+                    <div class="col-sm-9 mb-2">
                         <input class="can-edit control full-width" id="edit-text" placeholder="Mitteilung">
                     </div>
-                    <div class="col-sm-4 mb-2">
-                        <div class="can-click control" id="button-send">
+                    <div class="col-sm-3 mb-2">
+                        <button class="can-click control full-width link" id="button-send">
                             Senden
-                        </div>
+                        </button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class="can-click control link" id="link-close-chat">
+                        <button class="can-click control full-width link" id="button-close-chat">
                             Partie fortsetzen
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -147,24 +147,24 @@
         <div class="popup">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 my-1" id="link-skip-turn">
-                        <div class="can-click control link">
+                    <div class="col-12 my-1">
+                        <button class="can-click control full-width link" id="button-skip-turn">
                             Zug überspringen
-                        </div>
+                        </button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 my-1" id="link-close-menu">
-                        <div class="can-click control link">
+                    <div class="col-12 my-1">
+                        <button class="can-click control full-width link" id="button-close-menu">
                             Partie fortsetzen
-                        </div>
+                        </button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 my-1" id="link-leave-game">
-                        <div class="can-click control link">
+                    <div class="col-12 my-1">
+                        <button class="can-click control full-width link" id="button-leave-game">
                             Partie verlassen
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -178,9 +178,9 @@
             <div class="container">
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div class="can-click control link" id="link-close-ranking">
+                        <button class="can-click control full-width link" id="button-close-ranking">
                             Partie fortsetzen
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -271,7 +271,7 @@
         }
 
         function updateMenu() {
-            for (const elementId of ['link-leave-game', 'link-skip-turn']) {
+            for (const elementId of ['button-leave-game', 'button-skip-turn']) {
                 const element = document.getElementById(elementId);
 
                 if (context.playerHelper().isMe(game)) {
@@ -299,8 +299,8 @@
             });
         }
 
-        function wireLinkLeaveGame() {
-            document.getElementById('link-leave-game').addEventListener('click', () => {
+        function wireButtonLeaveGame() {
+            document.getElementById('button-leave-game').addEventListener('click', () => {
                 const action = { id: Action.leaveGame };
 
                 context.communication().sendMessage(action);
@@ -308,9 +308,9 @@
             });
         }
 
-        function wireLinkSkipTurn() {
+        function wireButtonSkipTurn() {
             context.navigation().wireClick({
-                id: 'link-skip-turn',
+                id: 'button-skip-turn',
                 onClick: () => {
                     context.navigation().closePopup('menu', () => {
                         const action = { id: Action.skipTurn };
@@ -349,34 +349,34 @@
         context.communication().connectGame(onMessage);
 
         context.navigation().wirePopup({
-            controlClose: 'link-close-actions',
-            controlOpen: 'link-open-actions',
+            controlClose: 'button-close-actions',
+            controlOpen: 'button-open-actions',
             id: 'actions'
         });
 
         context.navigation().wirePopup({
-            controlClose: 'link-close-chat',
-            controlOpen: 'link-open-chat',
+            controlClose: 'button-close-chat',
+            controlOpen: 'button-open-chat',
             id: 'chat',
             onOpen: () => context.chatView().bindGame(game)
         });
 
         context.navigation().wirePopup({
-            controlClose: 'link-close-menu',
-            controlOpen: 'link-open-menu',
+            controlClose: 'button-close-menu',
+            controlOpen: 'button-open-menu',
             id: 'menu'
         });
 
         context.navigation().wirePopup({
-            controlClose: 'link-close-ranking',
-            controlOpen: 'link-open-ranking',
+            controlClose: 'button-close-ranking',
+            controlOpen: 'button-open-ranking',
             id: 'ranking',
             onOpen: () => context.rankingView().bindGame(game)
         });
 
+        wireButtonLeaveGame();
         wireButtonSend();
-        wireLinkLeaveGame();
-        wireLinkSkipTurn();
+        wireButtonSkipTurn();
         wireMap();
     </script>
 </body>
