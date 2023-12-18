@@ -13,6 +13,10 @@ export class Turn {
     static get Type() {
         return Object.freeze({
             attack: 'attack',
+            buildCity: 'buildCity',
+            buildFactory: 'buildFactory',
+            buildMetropolis: 'buildMetropolis',
+            buildVillage: 'buildVillage',
             move: 'move'
         });
     }
