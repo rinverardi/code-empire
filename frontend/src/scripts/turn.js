@@ -29,7 +29,9 @@ export class TurnView {
         const positions = [];
 
         if (game.turns) {
-            game.turns.forEach(that => positions.push(that.positionTo));
+            game.turns
+                .filter(that => that.positionTo)
+                .forEach(that => positions.push(that.positionTo));
 
             if (this.#playerHelper.isMe(game)) {
                 const me = this.#playerHelper.getMe(game);
