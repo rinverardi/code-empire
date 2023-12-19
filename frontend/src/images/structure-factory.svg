@@ -10,7 +10,7 @@
 
             <!-- Draw the wall. -->
 
-            <polygon fill="#ccc" points="25,-25 20,-25 20,5 5,-2 5,5 -10,-2 -10,5 -25,-2 -25,20 25,20" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <polygon fill="#ccc" points="25,-20 20,-20 20,5 5,-2 5,5 -10,-2 -10,5 -25,-2 -25,20 25,20" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
 
             <!-- Draw the windows. -->
 
