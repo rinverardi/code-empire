@@ -72,21 +72,29 @@ export class TurnManager {
     #doAttack(game, turn) { }
 
     #doBuild(game, turn) {
+        const player = this.#gameAccess.getCurrentPlayer(game);
+
+        // Update the inventory.
+
+        const resources = Structure.Type[turn.structure].requiredResources;
+
+        for (const [resourceType, resourceCount] of Object.entries(resources)) {
+            player.inventory[resourceType] -= resourceCount;
+        }
+
+        // Update the structures.
+
         const structure = this.#mapAccess.getStructureAt(game, ...turn.position);
 
         if (structure) {
             structure.type = turn.structure;
         } else {
-            const player = this.#gameAccess.getCurrentPlayer(game);
-
             game.structures.push({
                 player: player.id,
                 position: turn.position,
                 type: turn.structure
             });
         }
-
-        // TODO Update inventory!
     }
 
     #doMove(game, turn) {
