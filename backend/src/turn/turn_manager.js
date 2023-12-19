@@ -26,6 +26,12 @@ export class TurnManager {
             }
         }
 
+        const resource = this.#mapAccess.getResourceAt(game, ...structurePosition);
+
+        if (resource) {
+            return false;
+        }
+
         const structure = this.#mapAccess.getStructureAt(game, ...structurePosition);
 
         if (structure?.type !== structureType.requiredStructure) {
