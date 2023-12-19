@@ -253,7 +253,7 @@ h2 {
     background-size: 100% 100%;
     display: inline-block;
     height: 20px;
-    margin-right: 2px;
+    margin: 2px 4px -2px 0;
     width: 20px;
 }
 
@@ -274,7 +274,7 @@ h2 {
 }
 
 .inventory {
-    margin-left: 2px;
+    margin-left: 4px;
 }
 
 .link:hover {

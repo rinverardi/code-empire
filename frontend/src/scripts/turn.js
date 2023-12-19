@@ -1,4 +1,18 @@
+import { Structure } from './structure.js';
+
+export class Turn {
+    static get Type() {
+        return Object.freeze({
+            build: 'build',
+        });
+    }
+};
+
 export class TurnHelper {
+    canBuild(game, structure) {
+        return game.turns.some(that => that.structure == structure && that.type === Turn.Type.build);
+    }
+
     getPlayer(game) {
         const playerId = game.turn.player;
 
@@ -11,7 +25,7 @@ export class TurnHelper {
 
     getTurn(game, x, y) {
         for (const turn of game.turns || []) {
-            if (turn.positionTo[0] === x && turn.positionTo[1] === y) {
+            if (turn.positionTo && turn.positionTo[0] === x && turn.positionTo[1] === y) {
                 return turn;
             }
         }
@@ -20,9 +34,11 @@ export class TurnHelper {
 
 export class TurnView {
     #playerHelper;
+    #turnHelper;
 
     constructor(context) {
         this.#playerHelper = context.playerHelper();
+        this.#turnHelper = context.turnHelper();
     }
 
     bindGame(game) {
@@ -43,6 +59,8 @@ export class TurnView {
             this.#styleResources(positions);
             this.#styleStructures(positions);
             this.#styleTiles(positions);
+
+            this.#toggleButtons(game);
         } else {
             this.#reset();
         }
@@ -108,6 +126,19 @@ export class TurnView {
                 tileElement.classList.remove('active');
                 tileElement.classList.add('inactive');
             }
+        }
+    }
+
+    #toggleButtons(game) {
+        const buttons = [
+            {id: 'button-build-city', structure: Structure.Type.city},
+            {id: 'button-build-factory', structure: Structure.Type.factory},
+            {id: 'button-build-metropolis', structure: Structure.Type.metropolis},
+            {id: 'button-build-village', structure: Structure.Type.village}
+        ];
+
+        for (const {id, structure} of buttons) {
+            document.getElementById(id).disabled = !this.#turnHelper.canBuild(game, structure);
         }
     }
 }

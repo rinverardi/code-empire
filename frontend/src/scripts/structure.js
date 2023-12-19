@@ -1,4 +1,13 @@
 export class Structure {
+    static get Type() {
+        return Object.freeze({
+            city: 'city',
+            factory: 'factory',
+            metropolis: 'metropolis',
+            village: 'village'
+        });
+    }
+
     static element(structure) {
         return document.getElementById(Structure.elementId(structure));
     }
@@ -22,6 +31,8 @@ export class StructureView {
 
                 this.#elements.structureLayer.appendChild(structureElement);
             }
+
+            this.#update(structure, structureElement);
         }
     }
 
@@ -29,7 +40,6 @@ export class StructureView {
         const structureElement = document.createElement('div');
 
         structureElement.classList.add('structure');
-        structureElement.classList.add('structure-' + structure.type);
         structureElement.dataset.x = structure.position[0];
         structureElement.dataset.y = structure.position[1];
         structureElement.id = Structure.elementId(structure);
@@ -37,5 +47,27 @@ export class StructureView {
         structureElement.style.top = `${structure.position[1] * 45 - 10}px`;
 
         return structureElement;
+    }
+
+    #update(structure, structureElement) {
+        switch (structure.type) {
+            case Structure.Type.city:
+                structureElement.classList.remove('structure-village');
+                structureElement.classList.add('structure-city');
+                break;
+
+            case Structure.Type.factory:
+                structureElement.classList.add('structure-factory');
+                break;
+
+            case Structure.Type.metropolis:
+                structureElement.classList.remove('structure-city');
+                structureElement.classList.add('structure-metropolis');
+                break;
+
+            case Structure.Type.village:
+                structureElement.classList.add('structure-village');
+                break;
+        }
     }
 };

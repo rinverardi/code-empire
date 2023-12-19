@@ -26,9 +26,21 @@ export class TurnManager {
             }
         }
 
+        const resource = this.#mapAccess.getResourceAt(game, ...structurePosition);
+
+        if (resource) {
+            return false;
+        }
+
         const structure = this.#mapAccess.getStructureAt(game, ...structurePosition);
 
-        if (structure?.type !== structureType.requiredStructure) {
+        if (structure) {
+            const player = this.#gameAccess.getCurrentPlayer(game);
+
+            if (structure.player !== player.id || structure.type !== structureType.requiredStructure) {
+                return false;
+            }
+        } else if (structureType.requiredStructure) {
             return false;
         }
 
@@ -55,6 +67,34 @@ export class TurnManager {
         return false;
     }
 
+    // TODO Implement me!
+
+    #doAttack(game, turn) { }
+
+    #doBuild(game, turn) {
+        const structure = this.#mapAccess.getStructureAt(game, ...turn.position);
+
+        if (structure) {
+            structure.type = turn.structure;
+        } else {
+            const player = this.#gameAccess.getCurrentPlayer(game);
+
+            game.structures.push({
+                player: player.id,
+                position: turn.position,
+                type: turn.structure
+            });
+        }
+
+        // TODO Update inventory!
+    }
+
+    #doMove(game, turn) {
+        const player = this.#gameAccess.getCurrentPlayer(game);
+
+        player.position = turn.positionTo;
+    }
+
     endTurn(game) {
         const player = this.#gameAccess.getNextPlayer(game);
 
@@ -62,12 +102,24 @@ export class TurnManager {
     }
 
     executeTurn(game, turn) {
-        const player = this.#gameAccess.getCurrentPlayer(game);
 
-        // TODO Fix me!
+        // TODO Validate moves!
 
-        if (turn.type === Turn.Type.move) {
-            player.position = turn.positionTo;
+        switch (turn.type) {
+            case Turn.Type.attack:
+                this.#doAttack(game, turn);
+                break;
+
+            case Turn.Type.build:
+                this.#doBuild(game, turn);
+                break;
+
+            case Turn.Type.move:
+                this.#doMove(game, turn);
+                break;
+
+            default:
+                throw new RangeError('No such turn');
         }
     }
 
@@ -105,11 +157,12 @@ export class TurnManager {
             }
         }
 
-        for (const structure of Object.values(Structure.Type)) {
+        for (const [structureId, structure] of Object.entries(Structure.Type)) {
             if (this.#canBuild(game, positionFrom, structure)) {
                 game.turns.push({
                     'position': positionFrom,
-                    'type': structure.turn
+                    'structure': structureId,
+                    'type': Turn.Type.build
                 });
             }
         }
