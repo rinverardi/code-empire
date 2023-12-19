@@ -1,4 +1,13 @@
 export class Structure {
+    static get Type() {
+        return Object.freeze({
+            city: 'city',
+            factory: 'factory',
+            metropolis: 'metropolis',
+            village: 'village'
+        });
+    }
+
     static element(structure) {
         return document.getElementById(Structure.elementId(structure));
     }
