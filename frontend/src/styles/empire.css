@@ -515,6 +515,10 @@ select option {
     background-image: url(../images/structure-city.svg);
 }
 
+.structure-factory {
+    background-image: url(../images/structure-factory.svg);
+}
+
 .structure-metropolis {
     background-image: url(../images/structure-metropolis.svg);
 }

@@ -1,0 +1,46 @@
+<svg height="80" width="80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <g id="building">
+
+            <!-- Draw the root. -->
+
+            <polygon fill="#764" points="20,1 5,-6 5,-2, 20,5" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <polygon fill="#764" points="5,1 -10,-6 -10,-2, 5,5" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <polygon fill="#764" points="-10,1 -25,-6 -25,-2, -10,5" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+
+            <!-- Draw the wall. -->
+
+            <polygon fill="#ccc" points="25,-25 20,-25 20,5 5,-2 5,5 -10,-2 -10,5 -25,-2 -25,20 25,20" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>
+
+            <!-- Draw the windows. -->
+
+            <g transform="translate(-18 12)">
+                <use xlink:href="#window"/>
+            </g>
+
+            <g transform="translate(-9 12)">
+                <use xlink:href="#window"/>
+            </g>
+
+            <g transform="translate(0 12)">
+                <use xlink:href="#window"/>
+            </g>
+
+            <g transform="translate(9 12)">
+                <use xlink:href="#window"/>
+            </g>
+
+            <g transform="translate(18 12)">
+                <use xlink:href="#window"/>
+            </g>
+        </g>
+
+        <g id="window">
+            <polygon fill="#555" points="2,-2 -2,-2 -2,2 2,2"/>
+        </g>
+    </defs>
+
+    <g transform="translate(40 32)">
+        <use xlink:href="#building"/>
+    </g>
+</svg>
