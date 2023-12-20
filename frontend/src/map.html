@@ -12,6 +12,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
+    <script src="scripts/lib/bootstrap.bundle.min.js"></script>
+
     <title>Empire</title>
 </head>
 
@@ -217,6 +219,7 @@
                         context.resourceView().bindGame(game);
                         context.structureView().bindGame(game);
                         context.playerView().bindGame(game);
+                        context.tipView().bindGame(game);
                         context.turnView().bindGame(game);
 
                         if (context.navigation().isPopupOpen('chat')) {

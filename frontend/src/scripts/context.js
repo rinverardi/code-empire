@@ -10,6 +10,7 @@ import { Random } from './random.js';
 import { RankingView } from './ranking.js';
 import { ResourceView } from './resource.js';
 import { StructureView } from './structure.js';
+import { TipView } from './tip.js';
 import { Translation } from './translation.js';
 import { TurnHelper, TurnView } from './turn.js';
 
@@ -27,6 +28,7 @@ export class Context {
     #rankingView;
     #resourceView;
     #structureView;
+    #tipView;
     #translation;
     #turnHelper;
     #turnView;
@@ -81,6 +83,10 @@ export class Context {
 
     structureView() {
         return this.#structureView ? this.#structureView : this.#structureView = new StructureView();
+    }
+
+    tipView() {
+        return this.#tipView ? this.#tipView : this.#tipView = new TipView(this);
     }
 
     translation() {
