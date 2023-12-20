@@ -212,6 +212,10 @@ body {
     transition: opacity 1s;
 }
 
+.control * {
+    cursor: inherit;
+}
+
 .control.can-click {
     cursor: pointer;
 }
