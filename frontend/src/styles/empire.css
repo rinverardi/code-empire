@@ -341,13 +341,12 @@ h2 {
 
 .obscured {
     opacity: 0;
-    transform: scale(0);
 }
 
 .player {
     pointer-events: none;
     position: absolute;
-    transition: left 1s, top 1s, transform 1s;
+    transition: left 1s, opacity 1s, top 1s, transform 1s;
 }
 
 .player.active {
@@ -415,7 +414,7 @@ h2 {
     width: 60px;
     pointer-events: none;
     position: absolute;
-    transition: background-size 1s, transform 1s;
+    transition: background-size 1s, opacity 1s, transform 1s;
 }
 
 .resource.age-0 {
@@ -556,6 +555,10 @@ select option {
 
 .tile.inactive {
     filter: brightness(50%);
+}
+
+.tile.obscured {
+    transform: scale(0);
 }
 
 .tile-forest {
