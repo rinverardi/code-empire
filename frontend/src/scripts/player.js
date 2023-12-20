@@ -112,6 +112,8 @@ export class PlayerView {
     }
 
     bindGame(game) {
+        const me = this.#playerHelper.isMe(game);
+
         for (const player of game.players) {
             let playerElement = Player.element(player);
 
@@ -122,7 +124,7 @@ export class PlayerView {
                     this.#elements.playerLayer.appendChild(playerElement);
                 }
 
-                this.#update(game, player, playerElement);
+                this.#update(game, me, player, playerElement);
             } else if (playerElement) {
                 playerElement.remove();
             }
@@ -170,7 +172,7 @@ export class PlayerView {
         return y * 45 - 15;
     }
 
-    #update(game, player, playerElement) {
+    #update(game, me, player, playerElement) {
         if (player.position) {
             const [x, y] = player.position;
 
@@ -180,7 +182,7 @@ export class PlayerView {
             playerElement.dataset.x = player.position[0];
             playerElement.dataset.y = player.position[1];
 
-            if (game.turn.player === player.id) {
+            if (me && game.turn.player == player.id) {
                 playerElement.classList.add('current');
             } else {
                 playerElement.classList.remove('current');
