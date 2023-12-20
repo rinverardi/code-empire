@@ -281,8 +281,10 @@ h2 {
     margin-left: 4px;
 }
 
-.link:hover {
-    text-decoration: underline;
+@media (hover: hover) {
+    .link:hover {
+        text-decoration: underline;
+    }
 }
 
 #map {
