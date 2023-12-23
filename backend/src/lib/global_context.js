@@ -1,3 +1,4 @@
+import { Authn } from './authn.js';
 import { ChatService } from '../chat/chat_service.js';
 import { GameAccess } from '../game/game_access.js';
 import { GameManager } from '../game/game_manager.js';
@@ -22,6 +23,7 @@ import { VisibilityAccess } from '../visibility/visibility_access.js';
 import { VisibilityManager } from '../visibility/visibility_manager.js';
 
 export class GlobalContext {
+    #authn;
     #chatService;
     #gameAccess;
     #gameManager;
@@ -44,6 +46,10 @@ export class GlobalContext {
     #turnService;
     #visibilityAccess;
     #visibilityManager;
+
+    authn() {
+        return this.#authn ? this.#authn : this.#authn = new Authn();
+    }
 
     chatService() {
         return this.#chatService ? this.#chatService : this.#chatService = new ChatService(this);
