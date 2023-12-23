@@ -5,6 +5,7 @@ class TestContext extends GlobalContext {
     gameAccess() {
         return {
             getCurrentPlayer: (game) => ({
+                inventory: { food: 0, gold: 0, research: 0, weaponry: 0 },
                 position: [2, 1]
             })
         };
