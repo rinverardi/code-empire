@@ -34,6 +34,10 @@ export class GameController {
                         await this.#turnService.executeTurn(sessionContext, action.turn);
                         break;
 
+                    case Action.forfeitGame:
+                        await this.#playerService.forfeitGame(sessionContext);
+                        break;
+
                     case Action.joinGame:
                         await this.#playerService.joinGame(sessionContext, action.player.name);
                         break;
