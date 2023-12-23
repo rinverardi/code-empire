@@ -1,12 +1,14 @@
-import { Game } from '../game/game.js';
-
 export class TurnService {
+    #authn;
+    #authz;
     #gameRepository;
     #resourceManager;
     #turnManager;
     #visibilityManager;
 
     constructor(globalContext) {
+        this.#authn = globalContext.authn();
+        this.#authz = globalContext.authz();
         this.#gameRepository = globalContext.gameRepository();
         this.#resourceManager = globalContext.resourceManager();
         this.#turnManager = globalContext.turnManager();
@@ -26,11 +28,10 @@ export class TurnService {
     }
 
     async executeTurn(sessionContext, turn) {
-
-        // TODO Check the access!
-        // TODO Check the status!
-
         const game = await this.#gameRepository.loadGame(sessionContext);
+        const player = this.#authn.getPlayer(sessionContext, game);
+
+        this.#authz.canExecuteTurn(game, player).orThrow();
 
         this.#turnManager.executeTurn(game, turn);
 
@@ -38,11 +39,10 @@ export class TurnService {
     }
 
     async skipTurn(sessionContext) {
-
-        // TODO Check the access!
-        // TODO Check the status!
-
         const game = await this.#gameRepository.loadGame(sessionContext);
+        const player = this.#authn.getPlayer(sessionContext, game);
+
+        this.#authz.canSkipTurn(game, player).orThrow();
 
         await this.#endTurn(sessionContext, game);
     }

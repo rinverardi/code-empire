@@ -49,7 +49,9 @@
         </div>
         <div class="row">
             <div class="col mt-2">
-                <button class="can-click control full-width link" id="link">Partie verlassen</button>
+                <button class="can-click control full-width link" id="link">
+                    Partie verlassen
+                </button>
             </div>
         </div>
     </div>
@@ -86,8 +88,7 @@
                     context.navigation().startOver();
                     break;
 
-                case Game.Status.executing:
-                case Game.Status.thinking:
+                case Game.Status.running:
                     context.navigation().continuePlaying();
                     break;
 
@@ -95,7 +96,7 @@
                     if (isLeaving) {
                         const player = context.playerHelper().getMe(game);
 
-                        if (!player || player.status === Player.Status.left) {
+                        if (!player || player.status !== Player.Status.alive) {
                             context.navigation().startOver();
                             return;
                         }
@@ -114,7 +115,7 @@
         }
 
         function updateSlots(game) {
-            const players = game.players.filter(that => that.status !== Player.Status.left);
+            const players = game.players.filter(that => that.status === Player.Status.alive);
 
             for (let index = 0; index < Config.slots; index++) {
                 const slot = document.getElementById('slot-' + index);

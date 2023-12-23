@@ -164,8 +164,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12 my-1">
-                        <button class="can-click control full-width link" id="button-leave-game">
-                            Partie verlassen
+                        <button class="can-click control full-width link" id="button-forfeit-game">
+                            Partie aufgeben
                         </button>
                     </div>
                 </div>
@@ -207,11 +207,10 @@
                     context.navigation().startOver();
                     break;
 
-                case Game.Status.executing:
-                case Game.Status.thinking:
+                case Game.Status.running:
                     const me = context.playerHelper().getMe(game);
 
-                    if (me.status === Player.Status.left) {
+                    if (me.status !== Player.Status.alive) {
                         context.navigation().startOver();
                     } else {
                         context.inventoryView().bindGame(game);
@@ -276,7 +275,7 @@
         }
 
         function updateMenu() {
-            for (const elementId of ['button-leave-game', 'button-skip-turn']) {
+            for (const elementId of ['button-forfeit-game', 'button-skip-turn']) {
                 const element = document.getElementById(elementId);
 
                 if (context.playerHelper().isMe(game)) {
@@ -321,9 +320,9 @@
             });
         }
 
-        function wireButtonLeaveGame() {
-            document.getElementById('button-leave-game').addEventListener('click', () => {
-                const action = { id: Action.leaveGame };
+        function wireButtonForfeitGame() {
+            document.getElementById('button-forfeit-game').addEventListener('click', () => {
+                const action = { id: Action.forfeitGame };
 
                 context.communication().sendMessage(action);
                 context.gameHelper().removeId();
@@ -400,7 +399,7 @@
             wireButtonBuild(structure);
         }
 
-        wireButtonLeaveGame();
+        wireButtonForfeitGame();
         wireButtonSend();
         wireButtonSkipTurn();
         wireMap();
