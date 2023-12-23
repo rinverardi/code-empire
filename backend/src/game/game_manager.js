@@ -40,7 +40,7 @@ export class GameManager {
         game.map.tiles = Map.Template[game.map.id];
         game.messages = []
         game.resources = [];
-        game.status = Game.Status.thinking;
+        game.status = Game.Status.running;
         game.structures = [];
 
         this.#playerManager.startGame(game);

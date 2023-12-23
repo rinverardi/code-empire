@@ -44,7 +44,7 @@ export class PlayerService {
 
         if (game.players.every(that => that.status === Player.Status.left)) {
             game.status = Game.Status.aborted;
-        } else if (game.status === Game.Status.thinking) {
+        } else if (game.status === Game.Status.running) {
             this.#turnManager.endTurn(game);
             this.#turnManager.startTurn(game);
         }

@@ -10,7 +10,7 @@ export class Game {
         return Object.freeze({
             aborted: 'aborted',
             missing: 'missing',
-            thinking: 'thinking',
+            running: 'running',
             waiting: 'waiting'
         });
     }
