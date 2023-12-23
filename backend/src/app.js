@@ -52,7 +52,7 @@ class App extends GlobalContext {
         }
       }
 
-      Logger.w('App.run()', 'Unexpected route');
+      Logger.w('App.run()', 'No such route');
 
       wsConnection.close();
     });
