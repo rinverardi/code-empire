@@ -2,11 +2,15 @@ import { Game } from '../game/game.js';
 import { Player } from './player.js';
 
 export class PlayerService {
+    #authn;
+    #authz;
     #gameRepository;
     #playerManager;
     #turnManager;
 
     constructor(globalContext) {
+        this.#authn = globalContext.authn();
+        this.#authz = globalContext.authz();
         this.#gameRepository = globalContext.gameRepository();
         this.#playerManager = globalContext.playerManager();
         this.#turnManager = globalContext.turnManager();
@@ -14,11 +18,14 @@ export class PlayerService {
 
     async forfeitGame(sessionContext) {
         const game = await this.#gameRepository.loadGame(sessionContext);
+        const player = this.#authn.getPlayer(sessionContext, game);
 
-        game.players = game.players.filter(that => that.id !== sessionContext.playerId);
+        this.#authz.canForfeitGame(game).orThrow();
+
+        game.players = game.players.filter(that => that.id !== player.id);
 
         game.players.push({
-            id: sessionContext.playerId,
+            id: player.id,
             status: Player.Status.forfeited
         });
 
@@ -34,13 +41,13 @@ export class PlayerService {
     }
 
     async joinGame(sessionContext, playerName) {
-
-        // TODO Check the limit!
-        // TODO Check the status!
-
         const game = await this.#gameRepository.loadGame(sessionContext);
 
+        this.#authz.canJoinGame(game).orThrow();
+
         game.players = game.players.filter(that => that.id !== sessionContext.playerId);
+
+        // TODO Check the limit!
 
         const player = this.#playerManager.buildPlayer(sessionContext, playerName, Player.Role.participant);
 
@@ -51,19 +58,19 @@ export class PlayerService {
     }
 
     async leaveGame(sessionContext) {
-
-        // TODO Check the status!
-
         const game = await this.#gameRepository.loadGame(sessionContext);
+        const player = this.#authn.getPlayer(sessionContext, game);
 
-        game.players = game.players.filter(that => that.id !== sessionContext.playerId);
+        this.#authz.canLeaveGame(game).orThrow();
+
+        game.players = game.players.filter(that => that.id !== player.id);
 
         game.players.push({
-            id: sessionContext.playerId,
+            id: player.id,
             status: Player.Status.left
         });
 
-        if (game.players.every(that => that.status !== Player.Status.active)) {
+        if (!game.players.some(that => that.status === Player.Status.alive)) {
             game.status = Game.Status.aborted;
         } else if (game.status === Game.Status.running) {
             this.#turnManager.endTurn(game);
