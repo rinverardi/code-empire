@@ -32,7 +32,6 @@ export class GameService {
     async createGame(sessionContext, mapId, playerName) {
 
         // TODO Check the limit!
-        // TODO Check the status!
 
         const game = this.#gameManager.buildGame(sessionContext, mapId, playerName);
 

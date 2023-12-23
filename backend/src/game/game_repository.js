@@ -31,9 +31,6 @@ export class GameRepository {
     }
 
     async saveGame(sessionContext, game) {
-
-        // TODO Lock me!
-
         const redisConnection = await sessionContext.redisConnection(true);
         const redisKey = `${Game.Key.game}:${sessionContext.gameId}`;
 
