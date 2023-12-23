@@ -1,12 +1,16 @@
 import { Game } from './game.js';
 
 export class GameService {
+    #authn;
+    #authz;
     #gameManager;
     #gameMapper;
     #gameRepository;
     #turnManager;
 
     constructor(globalContext) {
+        this.#authn = globalContext.authn();
+        this.#authz = globalContext.authz();
         this.#gameManager = globalContext.gameManager();
         this.#gameMapper = globalContext.gameMapper();
         this.#gameRepository = globalContext.gameRepository();
@@ -14,11 +18,10 @@ export class GameService {
     }
 
     async abortGame(sessionContext) {
-
-        // TODO Check the access!
-        // TODO Check the status!
-
         const game = await this.#gameRepository.loadGame(sessionContext);
+        const player = this.#authn.getPlayer(sessionContext, game);
+
+        this.#authz.canAbortGame(game, player).orThrow();
 
         game.status = Game.Status.aborted;
 
@@ -54,11 +57,10 @@ export class GameService {
     }
 
     async startGame(sessionContext) {
-
-        // TODO Check the access!
-        // TODO Check the status!
-
         const game = await this.#gameRepository.loadGame(sessionContext);
+        const player = this.#authn.getPlayer(sessionContext, game);
+
+        this.#authz.canStartGame(game, player).orThrow();
 
         this.#gameManager.startGame(game);
         this.#turnManager.startTurn(game);
