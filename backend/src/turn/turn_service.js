@@ -4,6 +4,7 @@ export class TurnService {
     #gameRepository;
     #playerManager;
     #resourceManager;
+    #structureManager;
     #turnManager;
     #visibilityManager;
 
@@ -13,6 +14,7 @@ export class TurnService {
         this.#gameRepository = globalContext.gameRepository();
         this.#playerManager = globalContext.playerManager();
         this.#resourceManager = globalContext.resourceManager();
+        this.#structureManager = globalContext.structureManager();
         this.#turnManager = globalContext.turnManager();
         this.#visibilityManager = globalContext.visibilityManager();
     }
@@ -22,6 +24,7 @@ export class TurnService {
         this.#visibilityManager.endTurn(game);
         this.#turnManager.endTurn(game);
 
+        this.#structureManager.startTurn(game);
         this.#resourceManager.startTurn(game);
         this.#turnManager.startTurn(game);
     }

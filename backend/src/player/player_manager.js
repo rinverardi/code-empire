@@ -27,6 +27,8 @@ export class PlayerManager {
         const player = this.#gameAccess.getCurrentPlayer(game);
         const resource = this.#mapAccess.getResourceAt(game, ...player.position);
 
+        // TODO Use a constant!
+
         if (resource && resource.age > 8) {
             player.inventory[resource.type]++;
 
