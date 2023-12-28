@@ -3,10 +3,12 @@ import { Map } from '../map/map.js';
 import { Player } from './player.js';
 
 export class PlayerManager {
+    #gameAccess;
     #inventoryManager;
     #mapAccess;
 
     constructor(globalContext) {
+        this.#gameAccess = globalContext.gameAccess();
         this.#inventoryManager = globalContext.inventoryManager();
         this.#mapAccess = globalContext.mapAccess();
     }
@@ -19,6 +21,21 @@ export class PlayerManager {
             status: Player.Status.alive,
             secret: sessionContext.playerSecret
         };
+    }
+
+    #collectResources(game) {
+        const player = this.#gameAccess.getCurrentPlayer(game);
+        const resource = this.#mapAccess.getResourceAt(game, ...player.position);
+
+        if (resource && resource.age > 8) {
+            player.inventory[resource.type]++;
+
+            resource.age = -1;
+        }
+    }
+
+    endTurn(game) {
+        this.#collectResources(game);
     }
 
     #pickPosition(game) {
