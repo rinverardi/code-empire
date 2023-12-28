@@ -1,3 +1,5 @@
+import { ArrayHelper } from '../lib/array_helper.js';
+import { Resource } from '../resource/resource.js';
 import { Structure } from './structure.js';
 import { Turn } from '../turn/turn.js';
 
@@ -35,7 +37,22 @@ export class StructureManager {
         }
     }
 
+    #produceResources(game) {
+        const player = this.#gameAccess.getCurrentPlayer(game);
+
+        const structures = game.structures
+            .filter(that => that.player === player.id)
+            .filter(that => Structure.Type[that.type].producesResources);
+
+        for (const structure of structures) {
+            const resource = ArrayHelper.randomItem(Object.keys(Resource.Type));
+
+            player.inventory[resource]++;
+        }
+    }
+
     startTurn(game) {
         this.#collectResources(game);
+        this.#produceResources(game);
     }
 };

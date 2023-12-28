@@ -12,4 +12,8 @@ export class ArrayHelper {
 
         array.length = setAt;
     }
+
+    static randomItem(array) {
+        return array[Math.floor(Math.random() * array.length)];
+    }
 }
