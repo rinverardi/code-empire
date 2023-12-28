@@ -38,13 +38,6 @@ export class Authz {
             ?? this.#ok;
     }
 
-    canSkipTurn(game, player) {
-        return this.#checkGame({ game, status: Game.Status.running })
-            ?? this.#checkPlayer({ player, status: Player.Status.alive })
-            ?? this.#checkTurn({ game, player })
-            ?? this.#ok;
-    }
-
     canStartGame(game, player) {
         return this.#checkGame({ game, status: Game.Status.waiting })
             ?? this.#checkPlayer({ player, role: Player.Role.master })

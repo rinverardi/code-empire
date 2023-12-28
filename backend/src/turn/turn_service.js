@@ -38,7 +38,11 @@ export class TurnService {
         this.#authz.canExecuteTurn(game, player).orThrow();
 
         this.#startTurn(game);
-        this.#turnManager.executeTurn(game, turn);
+
+        if (turn) {
+            this.#turnManager.executeTurn(game, turn);
+        }
+
         this.#endTurn(game);
 
         const winner = this.#gameManager.determineWinner(game);
@@ -52,16 +56,7 @@ export class TurnService {
     }
 
     async skipTurn(sessionContext) {
-        const game = await this.#gameRepository.loadGame(sessionContext);
-        const player = this.#authn.getPlayer(sessionContext, game);
-
-        this.#authz.canSkipTurn(game, player).orThrow();
-
-        this.#startTurn(game);
-        this.#endTurn(game);
-
-        await this.#gameRepository.saveGame(sessionContext, game);
-        await this.#gameRepository.publishGame(sessionContext, game);
+        this.executeTurn(sessionContext, null);
     }
 
     // TODO Implement me!
