@@ -1,29 +1,11 @@
 import { Map } from '../map/map.js';
 import { Resource } from './resource.js';
-import { Turn } from '../turn/turn.js';
 
 export class ResourceManager {
-    #gameAccess;
     #mapAccess;
 
     constructor(globalContext) {
-        this.#gameAccess = globalContext.gameAccess();
         this.#mapAccess = globalContext.mapAccess();
-    }
-
-    #collectResources(game) {
-        const player = this.#gameAccess.getCurrentPlayer(game);
-        const resource = this.#mapAccess.getResourceAt(game, ...player.position);
-
-        if (resource && resource.age > 8) {
-            player.inventory[resource.type]++;
-
-            resource.age = -1;
-        }
-    }
-
-    endTurn(game) {
-        this.#collectResources(game);
     }
 
     #pickPosition(game) {
