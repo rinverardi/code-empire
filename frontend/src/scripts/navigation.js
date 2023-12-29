@@ -47,7 +47,7 @@ export class Navigation {
         location = 'index.html';
     }
 
-    wireClick({id, onClick}) {
+    wireClick({ id, onClick }) {
         document.getElementById(id).addEventListener('click', () => {
             const location = onClick();
 
@@ -57,7 +57,7 @@ export class Navigation {
         });
     }
 
-    wirePopup({controlClose, controlOpen, id, onOpen}) {
+    wirePopup({ controlClose, controlOpen, id, onOpen }) {
         document.getElementById(controlOpen).addEventListener('click', () => {
             onOpen && onOpen();
 

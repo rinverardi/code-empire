@@ -5,7 +5,7 @@ export class Structure {
                 collectsResources: true,
                 producesResources: false,
                 requiredResources: { food: 8, gold: 8, research: 4 },
-                requiredStructure: 'village',
+                requiredStructure: 'village'
             },
             factory: {
                 collectsResources: false,
