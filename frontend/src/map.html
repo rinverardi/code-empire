@@ -150,7 +150,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 my-1">
-                        <button class="can-click control full-width link" id="button-skip-turn">
+                        <button class="can-click control full-width link" id="button-skip">
                             Zug überspringen
                         </button>
                     </div>
@@ -164,7 +164,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12 my-1">
-                        <button class="can-click control full-width link" id="button-forfeit-game">
+                        <button class="can-click control full-width link" id="button-forfeit">
                             Partie aufgeben
                         </button>
                     </div>
@@ -279,7 +279,7 @@
         }
 
         function updateMenu() {
-            for (const elementId of ['button-forfeit-game', 'button-skip-turn']) {
+            for (const elementId of ['button-forfeit', 'button-skip']) {
                 const element = document.getElementById(elementId);
 
                 if (context.playerHelper().isMe(game)) {
@@ -307,6 +307,15 @@
             });
         }
 
+        function wireButtonForfeit() {
+            document.getElementById('button-forfeit').addEventListener('click', () => {
+                const action = { id: Action.forfeitGame };
+
+                context.communication().sendMessage(action);
+                context.gameHelper().removeId();
+            });
+        }
+
         function wireButtonSend() {
             document.getElementById('button-send').addEventListener('click', () => {
                 const element = document.getElementById('edit-text');
@@ -324,18 +333,9 @@
             });
         }
 
-        function wireButtonForfeitGame() {
-            document.getElementById('button-forfeit-game').addEventListener('click', () => {
-                const action = { id: Action.forfeitGame };
-
-                context.communication().sendMessage(action);
-                context.gameHelper().removeId();
-            });
-        }
-
-        function wireButtonSkipTurn() {
+        function wireButtonSkip() {
             context.navigation().wireClick({
-                id: 'button-skip-turn',
+                id: 'button-skip',
                 onClick: () => {
                     context.navigation().closePopup('menu', () => {
                         const action = { id: Action.skipTurn };
@@ -403,9 +403,9 @@
             wireButtonBuild(structure);
         }
 
-        wireButtonForfeitGame();
+        wireButtonForfeit();
         wireButtonSend();
-        wireButtonSkipTurn();
+        wireButtonSkip();
         wireMap();
     </script>
 </body>
