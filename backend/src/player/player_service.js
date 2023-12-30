@@ -18,6 +18,17 @@ export class PlayerService {
         this.#turnManager = globalContext.turnManager();
     }
 
+    #autoStart(game) {
+        const players = game.players.filter(that => that.status === Player.Status.alive);
+
+        // TODO Use a constant!
+
+        if (players.length > 3) {
+            this.#gameManager.startGame(game);
+            this.#turnManager.startTurn(game);
+        }
+    }
+
     async forfeitGame(sessionContext) {
         const game = await this.#gameRepository.loadGame(sessionContext);
         const player = this.#authn.getPlayer(sessionContext, game);
@@ -51,11 +62,11 @@ export class PlayerService {
 
         game.players = game.players.filter(that => that.id !== sessionContext.playerId);
 
-        // TODO Check the limit!
-
         const player = this.#playerManager.buildPlayer(sessionContext, playerName, Player.Role.participant);
 
         game.players.push(player);
+
+        this.#autoStart(game);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);

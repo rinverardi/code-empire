@@ -52,12 +52,12 @@
         </div>
         <div class="row">
             <div class="col-12 mt-2">
-                <button class="can-click control full-width link" id="link_start">
+                <button class="can-click control full-width link" id="link-start">
                     Partie starten
                 </button>
             </div>
             <div class="col-12 mt-2">
-                <button class="can-click control full-width link" id="link_abort">
+                <button class="can-click control full-width link" id="link-abort">
                     Partie abbrechen
                 </button>
             </div>
@@ -87,12 +87,22 @@
                     break;
 
                 case Game.Status.waiting:
+                    updateLink(game);
                     updateSlots(game);
                     break;
 
                 default:
                     throw new RangeError('No such status');
             }
+        }
+
+        function updateLink(game) {
+            const link = document.getElementById('link-start');
+            const players = game.players.filter(that => that.status === Player.Status.alive);
+
+            // TODO Use a constant!
+
+            link.disabled = players.length < 2;
         }
 
         function updateSlots(game) {
@@ -112,7 +122,7 @@
 
         function wireLinkAbort() {
             context.navigation().wireClick({
-                id: 'link_abort',
+                id: 'link-abort',
                 onClick: () => {
                     const action = { id: Action.abortGame };
 
@@ -124,7 +134,7 @@
 
         function wireLinkStart() {
             context.navigation().wireClick({
-                id: 'link_start',
+                id: 'link-start',
                 onClick: () => {
                     const action = { id: Action.startGame };
 

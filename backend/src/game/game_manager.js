@@ -64,6 +64,8 @@ export class GameManager {
             }
         }
 
+        // TODO Use a constant!
+
         if (players.length < 2) {
             return {
                 objective: Game.Objective.survive,
@@ -73,8 +75,6 @@ export class GameManager {
             };
         }
     }
-
-    // TODO Implement me!
 
     endGame(game, winner) {
         game.status = Game.Status.ended;

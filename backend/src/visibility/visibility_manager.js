@@ -1,3 +1,4 @@
+import { Player } from '../player/player.js';
 import { Turn } from '../turn/turn.js';
 import { Visibility } from './visibility.js';
 
@@ -30,7 +31,9 @@ export class VisibilityManager {
     }
 
     startGame(game) {
-        for (const player of game.players) {
+        const players = game.players.filter(that => that.status === Player.Status.alive);
+
+        for (const player of players) {
             player.visibility = game.map.tiles.map(that => that.replace(/[^ ]/g, Visibility.obscured));
 
             this.#clearUp(player);

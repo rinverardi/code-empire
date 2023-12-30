@@ -56,7 +56,21 @@ export class PlayerManager {
     }
 
     startGame(game) {
-        for (const player of game.players) {
+        const players = game.players.filter(that => that.status === Player.Status.alive);
+
+        // TODO Use a constant!
+
+        if (players.length < 2) {
+            throw new RangeError("Too few players");
+        }
+
+        // TODO Use a constant!
+
+        if (players.length > 4) {
+            throw new RangeError("Too many players");
+        }
+
+        for (const player of players) {
             player.health = GlobalConfig.playerHealth;
             player.inventory = this.#inventoryManager.buildInventory();
             player.position = this.#pickPosition(game);
