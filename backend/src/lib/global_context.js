@@ -11,6 +11,7 @@ import { InventoryManager } from '../inventory/inventory_manager.js';
 import { InventoryMapper } from '../inventory/inventory_mapper.js';
 import { MapAccess } from '../map/map_access.js';
 import { MapMapper } from '../map/map_mapper.js';
+import { PlayerAccess } from '../player/player_access.js';
 import { PlayerManager } from '../player/player_manager.js';
 import { PlayerMapper } from '../player/player_mapper.js';
 import { PlayerService } from '../player/player_service.js';
@@ -38,6 +39,7 @@ export class GlobalContext {
     #inventoryMapper;
     #mapAccess;
     #mapMapper;
+    #playerAccess;
     #playerManager;
     #playerMapper;
     #playerService;
@@ -101,6 +103,10 @@ export class GlobalContext {
 
     mapMapper() {
         return this.#mapMapper ? this.#mapMapper : this.#mapMapper = new MapMapper(this);
+    }
+
+    playerAccess() {
+        return this.#playerAccess ? this.#playerAccess : this.#playerAccess = new PlayerAccess();
     }
 
     playerManager() {

@@ -1,6 +1,7 @@
 export class TurnService {
     #authn;
     #authz;
+    #gameManager;
     #gameRepository;
     #playerManager;
     #resourceManager;
@@ -11,6 +12,7 @@ export class TurnService {
     constructor(globalContext) {
         this.#authn = globalContext.authn();
         this.#authz = globalContext.authz();
+        this.#gameManager = globalContext.gameManager();
         this.#gameRepository = globalContext.gameRepository();
         this.#playerManager = globalContext.playerManager();
         this.#resourceManager = globalContext.resourceManager();
@@ -38,6 +40,12 @@ export class TurnService {
         this.#startTurn(game);
         this.#turnManager.executeTurn(game, turn);
         this.#endTurn(game);
+
+        const winner = this.#gameManager.determineWinner(game);
+
+        if (winner) {
+            this.#gameManager.endGame(game, winner);
+        }
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);

@@ -17,6 +17,7 @@ export class Structure {
                 producesResources: false,
                 requiredResources: { food: 12, gold: 12, research: 8 },
                 requiredStructure: 'city',
+                value: 'metropolis'
             },
             village: {
                 collectsResources: true,
