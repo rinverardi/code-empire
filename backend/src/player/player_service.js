@@ -58,7 +58,7 @@ export class PlayerService {
     async joinGame(sessionContext, playerName) {
         const game = await this.#gameRepository.loadGame(sessionContext);
 
-        this.#authz.canJoinGame(game).orThrow();
+        this.#authz.canJoinGame(game, playerName).orThrow();
 
         game.players = game.players.filter(that => that.id !== sessionContext.playerId);
 

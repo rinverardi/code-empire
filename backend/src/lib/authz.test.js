@@ -43,9 +43,12 @@ test('Can forfeit game', () => {
 test('Can join game', () => {
     const testContext = new TestContext();
 
-    const game = { status: Game.Status.waiting };
+    const game = {
+        players: [],
+        status: Game.Status.waiting
+    };
 
-    testContext.authz().canJoinGame(game).orThrow();
+    testContext.authz().canJoinGame(game, 'Angry Alpaca').orThrow();
 });
 
 test('Can leave game', () => {
@@ -174,6 +177,26 @@ test('Cannot forfeit game (wrong game status)', () => {
     }
 });
 
+test('Cannot join game (conflicting player name)', () => {
+    const testContext = new TestContext();
+
+    const game = {
+        players: [{
+            id: '85a27a9f',
+            name: 'Angry Alpaca',
+            status: Player.Status.alive
+        }],
+        status: Game.Status.waiting
+    };
+
+    const player = {
+        id: 'b9961773',
+        name: 'Angry Alpaca'
+    }
+
+    expect(() => testContext.authz().canJoinGame(game, player).orThrow()).toThrow(AuthzError);
+});
+
 test('Cannot join game (wrong game status)', () => {
     const testContext = new TestContext();
 
@@ -182,7 +205,7 @@ test('Cannot join game (wrong game status)', () => {
     for (const status of statusSet) {
         const game = { status };
 
-        expect(() => testContext.authz().canJoinGame(game).orThrow()).toThrow(AuthzError);
+        expect(() => testContext.authz().canJoinGame(game, 'Angry Alpaca').orThrow()).toThrow(AuthzError);
     }
 });
 
@@ -244,6 +267,7 @@ test('Cannot start game (wrong player role)', () => {
 
     for (const role of roleSet) {
         const game = { status: Game.Status.waiting };
+
         const player = { role };
 
         expect(() => testContext.authz().canStartGame(game, player).orThrow()).toThrow(AuthzError);
