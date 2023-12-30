@@ -87,12 +87,22 @@
                     break;
 
                 case Game.Status.waiting:
+                    updateLink(game);
                     updateSlots(game);
                     break;
 
                 default:
                     throw new RangeError('No such status');
             }
+        }
+
+        function updateLink(game) {
+            const link = document.getElementById('link-start');
+            const players = game.players.filter(that => that.status === Player.Status.alive);
+
+            // TODO Use a constant!
+
+            link.disabled = players.length < 2;
         }
 
         function updateSlots(game) {
