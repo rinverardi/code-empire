@@ -35,6 +35,10 @@ export class Navigation {
         }
     }
 
+    gameOver() {
+        location = 'game_over.html';
+    }
+
     isPopupOpen(popup) {
         const element = document.getElementById(popup);
 

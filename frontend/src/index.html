@@ -61,6 +61,10 @@
                 case Game.Status.missing:
                     break;
 
+                case Game.Status.ended:
+                    context.navigation().gameOver();
+                    break;
+
                 case Game.Status.running:
                     context.navigation().continuePlaying();
                     break;

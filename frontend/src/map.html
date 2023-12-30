@@ -207,6 +207,10 @@
                     context.navigation().startOver();
                     break;
 
+                case Game.Status.ended:
+                    context.navigation().gameOver();
+                    break;
+
                 case Game.Status.running:
                     const me = context.playerHelper().getMe(game);
 
