@@ -12,6 +12,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
+    <script src="scripts/lib/bootstrap.bundle.min.js"></script>
+
     <title>Empire</title>
 </head>
 
@@ -47,7 +49,7 @@
                     Zurück
                 </button>
             </div>
-            <div class="col-sm-6 mt-2">
+            <div class="col-sm-6 mt-2" id="link-next-container">
                 <button class="can-click control full-width link" id="link-next">
                     Weiter
                 </button>
@@ -86,6 +88,21 @@
             }
         }
 
+        function updateLink() {
+            const input = document.getElementById('input');
+            const link = document.getElementById('link-next');
+
+            if (input.value) {
+                link.disabled = false;
+
+                context.tipManager().removeTip('link-next-container');
+            } else {
+                link.disabled = true;
+
+                context.tipManager().addTip('link-next-container', 'Kein Nickname eingegeben');
+            }
+        }
+
         function wireInput() {
             const input = document.getElementById('input');
 
@@ -95,7 +112,11 @@
                 context.playerHelper().saveName(input.value);
             }
 
-            input.addEventListener('change', () => context.playerHelper().saveName(input.value));
+            input.addEventListener('input', () => {
+                context.playerHelper().saveName(input.value)
+
+                updateLink();
+            });
         }
 
         function wireLinkBack() {
