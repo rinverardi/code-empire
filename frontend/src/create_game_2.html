@@ -19,7 +19,9 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="area">Auf Gegner warten</h2>
+                <h2 class="area">
+                    Auf Gegner warten
+                </h2>
             </div>
         </div>
         <div class="row">
@@ -74,6 +76,10 @@
                 case Game.Status.aborted:
                 case Game.Status.missing:
                     context.navigation().startOver();
+                    break;
+
+                case Game.Status.ended:
+                    context.navigation().gameOver();
                     break;
 
                 case Game.Status.running:

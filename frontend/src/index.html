@@ -21,7 +21,9 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1 class="redacted-image">Empire</h1>
+                <h1 class="redacted-image">
+                    Empire
+                </h1>
             </div>
         </div>
         <div class="row">
@@ -57,6 +59,10 @@
             switch (game.status) {
                 case Game.Status.aborted:
                 case Game.Status.missing:
+                    break;
+
+                case Game.Status.ended:
+                    context.navigation().gameOver();
                     break;
 
                 case Game.Status.running:

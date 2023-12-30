@@ -35,6 +35,10 @@ export class Navigation {
         }
     }
 
+    gameOver() {
+        location = 'game_over.html';
+    }
+
     isPopupOpen(popup) {
         const element = document.getElementById(popup);
 
@@ -47,7 +51,7 @@ export class Navigation {
         location = 'index.html';
     }
 
-    wireClick({id, onClick}) {
+    wireClick({ id, onClick }) {
         document.getElementById(id).addEventListener('click', () => {
             const location = onClick();
 
@@ -57,7 +61,7 @@ export class Navigation {
         });
     }
 
-    wirePopup({controlClose, controlOpen, id, onOpen}) {
+    wirePopup({ controlClose, controlOpen, id, onOpen }) {
         document.getElementById(controlOpen).addEventListener('click', () => {
             onOpen && onOpen();
 

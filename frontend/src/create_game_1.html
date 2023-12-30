@@ -19,7 +19,9 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="area">Partie erstellen</h2>
+                <h2 class="area">
+                    Partie erstellen
+                </h2>
             </div>
         </div>
         <div class="row">
@@ -62,6 +64,10 @@
             switch (game.status) {
                 case Game.Status.aborted:
                     context.navigation().startOver();
+                    break;
+
+                case Game.Status.ended:
+                    context.navigation().gameOver();
                     break;
 
                 case Game.Status.running:

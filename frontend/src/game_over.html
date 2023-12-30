@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
+
+    <link rel="stylesheet" href="styles/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/empire.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>Empire</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col">
+                <h2 class="area">
+                    Spielende
+                </h2>
+            </div>
+        </div>
+        <div class="hidden" id="objective-have-gold">
+            <div class="row mb-2">
+                <div class="col">
+                    Spieler <span class="winner"></span> gewinnt mit <span id="score-gold"></span> Goldstücken.
+                </div>
+            </div>
+        </div>
+        <div class="hidden" id="objective-have-metropolises">
+            <div class="row mb-2">
+                <div class="col">
+                    Spieler <span class="winner"></span> gewinnt mit <span id="score-metropolises"></span>
+                    Metropolen.
+                </div>
+            </div>
+        </div>
+        <div class="hidden" id="objective-survive">
+            <div class="row mb-2">
+                <div class="col">
+                    Spieler <span class="winner"></span> gewinnt als einziger Überlebender.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mb-2">
+                <h2 class="area">
+                    Rangliste
+                </h2>
+            </div>
+            <div class="container" id="ranking-list">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="can-click control full-width link" id="button">
+                    Schliessen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { Context } from './scripts/context.js';
+        import { Game } from './scripts/game.js';
+        import { RankingView } from './scripts/ranking.js';
+        import { WinnerView } from './scripts/winner.js';
+
+        function onMessage(game) {
+            switch (game.status) {
+                case Game.Status.aborted:
+                case Game.Status.missing:
+                case Game.Status.waiting:
+                    context.navigation().startOver();
+                    break;
+
+                case Game.Status.ended:
+                    context.rankingView().bindGame(game);
+                    context.winnerView().bindGame(game);
+                    break;
+
+                case Game.Status.running:
+                    context.navigation().continuePlaying();
+                    break;
+
+                default:
+                    throw new RangeError('No such status');
+            }
+        }
+
+        function wireButton() {
+            document.getElementById('button').addEventListener('click', () => {
+                context.navigation().startOver();
+            });
+        }
+
+        const context = new Context();
+
+        context.communication().connectGame(onMessage);
+
+        wireButton();
+    </script>
+</body>
+
+</html>

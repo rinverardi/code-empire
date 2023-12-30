@@ -13,6 +13,7 @@ import { StructureView } from './structure.js';
 import { TipView } from './tip.js';
 import { Translation } from './translation.js';
 import { TurnHelper, TurnView } from './turn.js';
+import { WinnerView } from './winner.js';
 
 export class Context {
     #chatView;
@@ -32,6 +33,7 @@ export class Context {
     #translation;
     #turnHelper;
     #turnView;
+    #winnerView;
 
     chatView() {
         return this.#chatView ? this.#chatView : this.#chatView = new ChatView(this);
@@ -99,5 +101,9 @@ export class Context {
 
     turnView() {
         return this.#turnView ? this.#turnView : this.#turnView = new TurnView(this);
+    }
+
+    winnerView() {
+        return this.#winnerView ? this.#winnerView : this.#winnerView = new WinnerView(this);
     }
 };

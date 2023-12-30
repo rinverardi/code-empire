@@ -4,6 +4,7 @@ import { Player } from './player.js';
 export class PlayerService {
     #authn;
     #authz;
+    #gameManager;
     #gameRepository;
     #playerManager;
     #turnManager;
@@ -11,6 +12,7 @@ export class PlayerService {
     constructor(globalContext) {
         this.#authn = globalContext.authn();
         this.#authz = globalContext.authz();
+        this.#gameManager = globalContext.gameManager();
         this.#gameRepository = globalContext.gameRepository();
         this.#playerManager = globalContext.playerManager();
         this.#turnManager = globalContext.turnManager();
@@ -29,9 +31,11 @@ export class PlayerService {
             status: Player.Status.forfeited
         });
 
-        if (!game.players.some(that => that.status === Player.Status.alive)) {
-            game.status = Game.Status.aborted;
-        } else if (game.status === Game.Status.running) {
+        const winner = this.#gameManager.determineWinner(game);
+
+        if (winner) {
+            this.#gameManager.endGame(game, winner);
+        } else {
             this.#turnManager.endTurn(game);
             this.#turnManager.startTurn(game);
         }

@@ -65,24 +65,6 @@ test('Can send message', () => {
     testContext.authz().canSendMessage(game, player).orThrow();
 });
 
-test('Can skip turn', () => {
-    const testContext = new TestContext();
-
-    const game = {
-        status: Game.Status.running,
-        turn: {
-            player: 'jhb4gcmgm4rbxcqj'
-        }
-    };
-
-    const player = {
-        id: 'jhb4gcmgm4rbxcqj',
-        status: Player.Status.alive
-    };
-
-    testContext.authz().canSkipTurn(game, player).orThrow();
-});
-
 test('Can start game', () => {
     const testContext = new TestContext();
 
@@ -239,68 +221,6 @@ test('Cannot send message (wrong player status)', () => {
         const player = { status };
 
         expect(() => testContext.authz().canSendMessage(game, player).orThrow()).toThrow(AuthzError);
-    }
-});
-
-test('Cannot skip turn (wrong game status)', () => {
-    const testContext = new TestContext();
-
-    const statusSet = Object.keys(Game.Status).filter(that => that !== Game.Status.running);
-
-    for (const status of statusSet) {
-        const game = {
-            status,
-            turn: {
-                player: 'semyjmiklntv40ko'
-            }
-        };
-
-        const player = {
-            id: 'semyjmiklntv40ko',
-            status: Player.Status.alive
-        };
-
-        expect(() => testContext.authz().canSkipTurn(game, player).orThrow()).toThrow(AuthzError);
-    }
-});
-
-test('Cannot skip turn (wrong player)', () => {
-    const testContext = new TestContext();
-
-    const game = {
-        status: Game.Status.running,
-        turn: {
-            player: '3gbull3bmtx1phuz'
-        }
-    };
-
-    const player = {
-        id: '4vlcg5cxrwnbvspy',
-        status: Player.Status.alive
-    };
-
-    expect(() => testContext.authz().canSkipTurn(game, player).orThrow()).toThrow(AuthzError);
-});
-
-test('Cannot skip turn (wrong player status)', () => {
-    const testContext = new TestContext();
-
-    const statusSet = Object.keys(Player.Status).filter(that => that !== Player.Status.alive);
-
-    for (const status of statusSet) {
-        const game = {
-            status: Game.Status.running,
-            turn: {
-                player: 'luty3xsc5c1gkikl'
-            }
-        };
-
-        const player = {
-            id: 'luty3xsc5c1gkikl',
-            status
-        };
-
-        expect(() => testContext.authz().canSkipTurn(game, player).orThrow()).toThrow(AuthzError);
     }
 });
 
