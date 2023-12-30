@@ -81,18 +81,6 @@
             }
         }
 
-        function wireInput() {
-            const input = document.getElementById('input');
-
-            if (!input.value) {
-                input.value = context.playerHelper().loadName();
-
-                context.playerHelper().saveName(input.value);
-            }
-
-            input.addEventListener('change', () => context.playerHelper().saveName(input.value));
-        }
-
         function removeGame(gameId) {
             const select = document.getElementById('select');
 
@@ -128,6 +116,18 @@
                 select.classList.add('hidden');
                 selectPlaceholder.classList.remove('hidden');
             }
+        }
+
+        function wireInput() {
+            const input = document.getElementById('input');
+
+            if (!input.value) {
+                input.value = context.playerHelper().loadName();
+
+                context.playerHelper().saveName(input.value);
+            }
+
+            input.addEventListener('change', () => context.playerHelper().saveName(input.value));
         }
 
         function wireLinkBack() {

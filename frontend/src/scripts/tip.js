@@ -44,15 +44,11 @@ export class TipView {
         this.#tips = [];
     }
 
-    // TODO Translate me!
-
     #labelPlayer(game, player) {
         const me = this.#playerHelper.getMe(game);
 
         return player.id === me.id ? 'Ich' : player.name;
     }
-
-    // TODO Translate me!
 
     #labelStructure(game, structure) {
         const me = this.#playerHelper.getMe(game);
