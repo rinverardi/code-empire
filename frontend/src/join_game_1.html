@@ -12,6 +12,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
+    <script src="scripts/lib/bootstrap.bundle.min.js"></script>
+
     <title>Empire</title>
 </head>
 
@@ -46,7 +48,7 @@
                     Zurück
                 </button>
             </div>
-            <div class="col-sm-6 mt-2">
+            <div class="col-sm-6 mt-2" id="link-next-container">
                 <button class="can-click control full-width link" disabled id="link-next">
                     Weiter
                 </button>
@@ -57,6 +59,7 @@
     <script type="module">
         import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
+        import { Player } from './scripts/player.js';
 
         function addGame(gameId, gameName) {
             const select = document.getElementById('select');
@@ -70,27 +73,40 @@
             updateSelect();
         }
 
+        function checkGame() {
+            const select = document.getElementById('select');
+
+            return !!select.value;
+        }
+
+        function checkNameAvailable() {
+            const gameId = document.getElementById('select').value;
+            const game = games[gameId];
+
+            return !game.players
+                .filter(that => that.status = Player.Status.alive)
+                .some(that => that.name === document.getElementById('input').value);
+        }
+
+        function checkNameEntered() {
+            const input = document.getElementById('input');
+
+            return !!input.value;
+        }
+
         function onMessage(game) {
             if (game.status === Game.Status.waiting) {
+                games[game.id] = game;
+
                 const mapName = context.translation().mapName(game.map.id);
                 const playerName = game.players[0].name;
 
                 addGame(game.id, `${mapName} von ${playerName}`);
             } else {
+                delete games[game.id];
+
                 removeGame(game.id);
             }
-        }
-
-        function wireInput() {
-            const input = document.getElementById('input');
-
-            if (!input.value) {
-                input.value = context.playerHelper().loadName();
-
-                context.playerHelper().saveName(input.value);
-            }
-
-            input.addEventListener('change', () => context.playerHelper().saveName(input.value));
         }
 
         function removeGame(gameId) {
@@ -108,12 +124,26 @@
         }
 
         function updateLink() {
+            let tip = null;
+
+            if (!checkGame()) {
+                tip = 'Keine Partie gewählt';
+            } else if (!checkNameEntered()) {
+                tip = 'Kein Nickname eingegeben';
+            } else if (!checkNameAvailable()) {
+                tip = 'Nickname bereits vergeben';
+            }
+
             const link = document.getElementById('link-next');
 
-            if (document.getElementById('select').value) {
-                link.disabled = false;
-            } else {
+            if (tip) {
                 link.disabled = true;
+
+                context.tipManager().addTip('link-next-container', tip);
+            } else {
+                link.disabled = false;
+
+                context.tipManager().removeTip('link-next-container');
             }
         }
 
@@ -128,6 +158,22 @@
                 select.classList.add('hidden');
                 selectPlaceholder.classList.remove('hidden');
             }
+        }
+
+        function wireInput() {
+            const input = document.getElementById('input');
+
+            if (!input.value) {
+                input.value = context.playerHelper().loadName();
+
+                context.playerHelper().saveName(input.value);
+            }
+
+            input.addEventListener('input', () => {
+                context.playerHelper().saveName(input.value)
+
+                updateLink();
+            });
         }
 
         function wireLinkBack() {
@@ -165,6 +211,9 @@
 
         context.communication().connectGameList(onMessage);
 
+        let games = {};
+
+        updateLink();
         wireInput();
         wireLinkBack();
         wireLinkNext();

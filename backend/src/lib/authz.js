@@ -22,8 +22,9 @@ export class Authz {
             ?? this.#ok;
     }
 
-    canJoinGame(game) {
+    canJoinGame(game, player) {
         return this.#checkGame({ game, status: Game.Status.waiting })
+            ?? this.#checkPlayerName({ game, player })
             ?? this.#ok;
     }
 
@@ -57,6 +58,17 @@ export class Authz {
 
         if (status && player.status !== status) {
             return new AuthzResult(false, 'Wrong player status');
+        }
+    }
+
+    #checkPlayerName({ game, player }) {
+        const players = game.players
+            .filter(that => that.id !== player.id)
+            .filter(that => that.name === player.name)
+            .filter(that => that.status === Player.Status.alive);
+
+        if (players.length) {
+            return new AuthzResult(false, 'Conflicting player name');
         }
     }
 
