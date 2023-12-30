@@ -1,47 +1,62 @@
 import { MapTile } from './map.js';
 import { Structure } from './structure.js';
 
-export class TipView {
-    #tips = [];
+export class TipManager {
+    #tips = {};
 
+    addTip(id, title) {
+        this.removeTip(id);
+
+        this.#tips[id] = new bootstrap.Tooltip(document.getElementById(id), {
+            placement: 'bottom',
+            title
+        });
+    }
+
+    clearTips() {
+        Object.values(this.#tips).forEach(that => that.dispose());
+
+        this.#tips = {};
+    }
+
+    removeTip(id) {
+        if (this.#tips[id]) {
+            this.#tips[id].dispose();
+
+            delete this.#tips[id];
+        }
+    }
+}
+
+export class TipView {
     #playerHelper;
+    #tipManager;
 
     constructor(context) {
         this.#playerHelper = context.playerHelper();
+        this.#tipManager = context.tipManager();
     }
 
     bindGame(game) {
-        this.#clear();
+        this.#tipManager.clearTips();
 
         // Add tips for players.
 
         for (const player of game.players) {
             if (player.position) {
-                const tile = MapTile.element(...player.position);
+                const tileId = MapTile.elementId(...player.position);
 
-                this.#tips.push(new bootstrap.Tooltip(tile, {
-                    placement: 'bottom',
-                    title: this.#labelPlayer(game, player)
-                }));
+                this.#tipManager.addTip(tileId, this.#labelPlayer(game, player));
             }
         }
 
         // Add tips for structures.
 
         for (const structure of game.structures) {
-            const tile = MapTile.element(...structure.position);
+            const tileId = MapTile.elementId(...structure.position);
 
-            this.#tips.push(new bootstrap.Tooltip(tile, {
-                placement: 'bottom',
-                title: this.#labelStructure(game, structure)
-            }));
+            this.#tipManager.addTip(tileId, this.#labelStructure(game, structure));
         }
-    }
-
-    #clear() {
-        this.#tips.forEach(that => that.dispose());
-
-        this.#tips = [];
     }
 
     #labelPlayer(game, player) {
