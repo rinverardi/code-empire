@@ -64,6 +64,14 @@ For development purposes, you can run the persistence service as follows:
 
 ## Running for Production Purposes
 
+You can run the three services with or without Docker Compose.
+
+If you prefer to use Docker Compose, start the Docker containers with:
+
+    $ docker-compose up
+
+If you prefer _not_ to use Docker Compose, follow the instruction in the following sections.
+
 ### Frontend Service
 
 Build the Docker container:

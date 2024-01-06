@@ -1,0 +1,14 @@
+services:
+  empire-backend:
+    build: backend
+    ports:
+      - "8001:8001"
+  empire-frontend:
+    build: frontend
+    ports:
+      - "8000:8000"
+  empire-persistence:
+    image: redis/redis-stack:6.2.6-v10
+    ports:
+      - "6379:6379"
+      - "6380:6380"
