@@ -3,6 +3,14 @@ import { Html } from './util.js';
 export class NotificationHelper {
     #notifications = [];
 
+    clear() {
+        this.#notifications = [];
+
+        for (const element of document.getElementsByClassName('notification')) {
+            element.remove();
+        }
+    }
+
     #displayLater(message, style) {
         this.#notifications.push({ message, style });
     }
@@ -64,6 +72,10 @@ export class NotificationView {
     }
 
     bindGame(game) {
+        if (this.#currentPlayer !== game.turn.player) {
+            this.#notificationHelper.clear();
+        }
+
         this.#showCurrentPlayer(game);
         this.#showCurrentMessage(game);
     }
