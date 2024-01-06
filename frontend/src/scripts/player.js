@@ -38,7 +38,9 @@ export class PlayerHelper {
     }
 
     getMe(game) {
-        return this.getPlayer(game, this.loadId());
+        const playerId = this.loadId();
+
+        return this.getPlayer(game, playerId);
     }
 
     getPlayer(game, playerId) {

@@ -219,6 +219,7 @@
                     } else {
                         context.inventoryView().bindGame(game);
                         context.mapView().bindGame(game);
+                        context.notificationView().bindGame(game);
                         context.resourceView().bindGame(game);
                         context.structureView().bindGame(game);
                         context.playerView().bindGame(game);
@@ -233,7 +234,6 @@
                             context.rankingView().bindGame(game);
                         }
 
-                        showPlayer() || showMessage();
                         updateMenu();
                     }
                     break;
@@ -241,41 +241,6 @@
                 default:
                     throw new RangeError('No such status');
             }
-        }
-
-        function showMessage() {
-            const index = game.messages.length - 1;
-
-            if (index > (lastMessage ?? -1)) {
-                lastMessage = index;
-
-                const message = game.messages[index];
-                const player = context.playerHelper().getPlayer(game, message.player);
-
-                if (!context.navigation().isPopupOpen('chat')) {
-                    context.notificationHelper().showMessage(`${player.name}: ${message.text}`);
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        function showPlayer() {
-            const player = context.turnHelper().getPlayer(game);
-
-            if (player.id !== lastPlayer) {
-                lastPlayer = player.id;
-
-                context.notificationHelper().showInformation(context.playerHelper().isMe(game)
-                    ? 'Du bist am Zug!'
-                    : `${player.name} ist am Zug.`);
-
-                return true;
-            }
-
-            return false;
         }
 
         function updateMenu() {
@@ -368,8 +333,6 @@
         const context = new Context();
 
         let game = null;
-        let lastMessage = null;
-        let lastPlayer = null;
 
         context.communication().connectGame(onMessage);
 

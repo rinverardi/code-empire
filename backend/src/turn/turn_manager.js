@@ -1,4 +1,6 @@
 import { Map } from '../map/map.js';
+import { Notification } from '../notification/notification.js';
+import { Player } from '../player/player.js';
 import { Structure } from '../structure/structure.js';
 import { Turn } from './turn.js';
 
@@ -67,9 +69,27 @@ export class TurnManager {
         return false;
     }
 
-    // TODO Implement me!
+    // TODO Fix me!
 
-    #doAttack(game, turn) { }
+    #doAttack(game, turn) {
+        const victim = this.#mapAccess.getPlayerAt(game, ...turn.positionTo);
+
+        if (--victim.health > 0) {
+            game.notifications.push({
+                attacker: game.turn.player,
+                victim: victim.id,
+                type: Notification.Type.attack
+            });
+        } else {
+            game.notifications.push({
+                attacker: game.turn.player,
+                victim: victim.id,
+                type: Notification.Type.kill
+            });
+
+            victim.status = Player.Status.death;
+        }
+    }
 
     #doBuild(game, turn) {
         const player = this.#gameAccess.getCurrentPlayer(game);
@@ -110,6 +130,7 @@ export class TurnManager {
     }
 
     executeTurn(game, turn) {
+        game.notifications = [];
 
         // TODO Validate moves!
 
