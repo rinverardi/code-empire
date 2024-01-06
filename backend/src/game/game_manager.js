@@ -23,6 +23,7 @@ export class GameManager {
             map: {
                 id: mapId
             },
+            notifications: [],
             players: [],
             status: Game.Status.waiting
         };

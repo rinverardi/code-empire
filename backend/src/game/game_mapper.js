@@ -17,6 +17,7 @@ export class GameMapper {
         const target = {
             id: source.id,
             messages: source.messages,
+            notifications: source.notifications,
             status: source.status,
             winner: source.winner
         };
