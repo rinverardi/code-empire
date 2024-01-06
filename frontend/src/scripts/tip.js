@@ -1,3 +1,4 @@
+import { Html } from './util.js';
 import { MapTile } from './map.js';
 import { Structure } from './structure.js';
 
@@ -8,6 +9,7 @@ export class TipManager {
         this.removeTip(id);
 
         this.#tips[id] = new bootstrap.Tooltip(document.getElementById(id), {
+            html: true,
             placement: 'bottom',
             title
         });
@@ -62,7 +64,10 @@ export class TipView {
     #labelPlayer(game, player) {
         const me = this.#playerHelper.getMe(game);
 
-        return player.id === me.id ? 'Ich' : player.name;
+        const playerName = player.id === me.id ? "Ich" : Html.escape(player.name);
+        const playerHealth = Html.escape(player.health);
+
+        return `${playerName}<br>(${playerHealth} Trefferpunkte)`;
     }
 
     #labelStructure(game, structure) {
@@ -77,12 +82,13 @@ export class TipView {
             }
         } else {
             const player = this.#playerHelper.getPlayer(game, structure.player);
+            const playerName = Html.escape(player.health);
 
             switch (structure.type) {
-                case Structure.Type.city: return `Stadt von ${player.name}`;
-                case Structure.Type.factory: return `Fabrik von ${player.name}`;
-                case Structure.Type.metropolis: return `Metropole von ${player.name}`;
-                case Structure.Type.village: return `Dorf von ${player.name}`;
+                case Structure.Type.city: return `Stadt von ${playerName}`;
+                case Structure.Type.factory: return `Fabrik von ${playerName}`;
+                case Structure.Type.metropolis: return `Metropole von ${playerName}`;
+                case Structure.Type.village: return `Dorf von ${playerName}`;
             }
         }
 
