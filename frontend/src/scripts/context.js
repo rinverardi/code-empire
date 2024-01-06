@@ -5,6 +5,7 @@ import { InventoryView } from './inventory.js';
 import { MapView } from './map.js';
 import { Navigation } from './navigation.js';
 import { NotificationHelper } from './notification.js';
+import { NotificationView } from './notification.js';
 import { PlayerHelper, PlayerView } from './player.js';
 import { Random } from './random.js';
 import { RankingView } from './ranking.js';
@@ -23,6 +24,7 @@ export class Context {
     #mapView;
     #navigation;
     #notificationHelper;
+    #notificationView;
     #playerHelper;
     #playerView;
     #random;
@@ -62,6 +64,10 @@ export class Context {
 
     notificationHelper() {
         return this.#notificationHelper ? this.#notificationHelper : this.#notificationHelper = new NotificationHelper();
+    }
+
+    notificationView() {
+        return this.#notificationView ? this.#notificationView : this.#notificationView = new NotificationView(this);
     }
 
     playerHelper() {
