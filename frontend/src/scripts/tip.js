@@ -82,7 +82,7 @@ export class TipView {
             }
         } else {
             const player = this.#playerHelper.getPlayer(game, structure.player);
-            const playerName = Html.escape(player.health);
+            const playerName = Html.escape(player.name);
 
             switch (structure.type) {
                 case Structure.Type.city: return `Stadt von ${playerName}`;
