@@ -10,15 +10,19 @@ export class GameAccess {
     }
 
     getNextPlayer(game) {
-        const activePlayers = game.players.filter(that => that.status === Player.Status.alive);
+        const currentIndex = game.players.findIndex(that => that.id === game.turn.player);
 
-        for (let index = 0; index < activePlayers.length - 1; index++) {
-            if (activePlayers[index].id === game.turn.player) {
-                return activePlayers[index + 1];
+        for (var nextIndex = currentIndex + 1; nextIndex !== currentIndex; nextIndex++) {
+            if (nextIndex >= game.players.length) {
+                nextIndex = 0;
+            }
+
+            const player = game.players[nextIndex];
+
+            if (player.status === Player.Status.alive) {
+                return player;
             }
         }
-
-        return activePlayers[0];
     }
 
     getVisibility(sessionContext, game) {

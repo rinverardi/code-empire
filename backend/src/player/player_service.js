@@ -37,12 +37,12 @@ export class PlayerService {
 
         this.#authz.canForfeitGame(game).orThrow();
 
-        game.players = game.players.filter(that => that.id !== player.id);
+        const playerIndex = game.players.findIndex(that => that.id === game.turn.player);
 
-        game.players.push({
+        game.players[playerIndex] = {
             id: player.id,
             status: Player.Status.forfeited
-        });
+        };
 
         const winner = this.#gameManager.determineWinner(game);
 
