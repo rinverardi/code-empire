@@ -51,7 +51,7 @@ export class TurnService {
 
         if (winner) {
             this.#gameManager.endGame(game, winner);
-            this.#highscoreService.submit(sessionContext, winner);
+            this.#highscoreService.submitScore(sessionContext, winner);
         }
 
         await this.#gameRepository.saveGame(sessionContext, game);
