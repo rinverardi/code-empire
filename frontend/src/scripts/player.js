@@ -17,7 +17,8 @@ export class Player {
 
     static get Status() {
         return Object.freeze({
-            alive: 'alive'
+            alive: 'alive',
+            dead: 'dead'
         });
     }
 
@@ -118,7 +119,7 @@ export class PlayerView {
         for (const player of game.players) {
             let playerElement = Player.element(player);
 
-            if (player.status === Player.Status.alive) {
+            if ([Player.Status.alive, Player.Status.dead].includes(player.status)) {
                 if (!playerElement) {
                     playerElement = this.#build(player);
 
@@ -188,7 +189,6 @@ export class PlayerView {
 
             this.#move(playerElement, x, y);
 
-            playerElement.classList.remove('obscured');
             playerElement.dataset.x = player.position[0];
             playerElement.dataset.y = player.position[1];
 
@@ -197,8 +197,12 @@ export class PlayerView {
             } else {
                 playerElement.classList.remove('current');
             }
+        }
+
+        if (player.position && player.status === Player.Status.alive) {
+            playerElement.classList.remove('obscured');
         } else {
             playerElement.classList.add('obscured');
         }
-    }
+}
 };

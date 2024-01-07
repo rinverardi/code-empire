@@ -9,7 +9,7 @@ export class Player {
     static get Status() {
         return Object.freeze({
             alive: 'alive',
-            death: 'death',
+            dead: 'dead',
             forfeited: 'forfeited',
             left: 'left'
         });

@@ -1,5 +1,6 @@
 import { Html } from './util.js';
 import { MapTile } from './map.js';
+import { Player } from './player.js';
 import { Structure } from './structure.js';
 
 export class TipManager {
@@ -45,7 +46,7 @@ export class TipView {
         // Add tips for players.
 
         for (const player of game.players) {
-            if (player.position) {
+            if (player.position && player.status === Player.Status.alive) {
                 const tileId = MapTile.elementId(...player.position);
 
                 this.#tipManager.addTip(tileId, this.#labelPlayer(game, player));

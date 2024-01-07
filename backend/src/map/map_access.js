@@ -1,12 +1,15 @@
 import { Map } from './map.js';
+import { Player } from '../player/player.js';
 
 export class MapAccess {
     getPlayerAt(game, x, y) {
         for (const player of game.players) {
-            const position = player.position;
+            if (player.status === Player.Status.alive) {
+                const position = player.position;
 
-            if (position && position[0] === x && position[1] === y) {
-                return player;
+                if (position && position[0] === x && position[1] === y) {
+                    return player;
+                }
             }
         }
     }
