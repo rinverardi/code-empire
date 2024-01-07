@@ -123,6 +123,8 @@ export class PlayerView {
                     playerElement = this.#build(player);
 
                     this.#elements.playerLayer.appendChild(playerElement);
+
+                    this.#scroll(game, false);
                 }
 
                 this.#update(game, me, player, playerElement);
@@ -131,18 +133,15 @@ export class PlayerView {
             }
         }
 
-        if (this.#playerHelper.isMe(game)) {
-            const [x, y] = this.#playerHelper.getMe(game).position;
-
-            this.#elements.mapContainer.scroll(
-                this.#positionX(x) - this.#elements.mapContainer.clientWidth / 2 + 40,
-                this.#positionY(y) - this.#elements.mapContainer.clientHeight / 2 + 40);
+        if (me) {
+            this.#scroll(game, true);
         }
     }
 
     #build(player) {
         const playerElement = document.createElement('img');
 
+        playerElement.classList.add('obscured');
         playerElement.classList.add('player');
         playerElement.id = Player.elementId(player);
         playerElement.src = 'images/player.svg';
@@ -171,6 +170,16 @@ export class PlayerView {
 
     #positionY(y) {
         return y * 45 - 15;
+    }
+
+    #scroll(game, smooth) {
+        const [x, y] = this.#playerHelper.getMe(game).position;
+
+        this.#elements.mapContainer.scroll({
+            behavior: smooth ? 'smooth' : 'instant',
+            left: this.#positionX(x) - this.#elements.mapContainer.clientWidth / 2 + 40,
+            top: this.#positionY(y) - this.#elements.mapContainer.clientHeight / 2 + 40
+        });
     }
 
     #update(game, me, player, playerElement) {
