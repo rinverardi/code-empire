@@ -214,9 +214,7 @@
                 case Game.Status.running:
                     const me = context.playerHelper().getMe(game);
 
-                    if (me.status !== Player.Status.alive) {
-                        context.navigation().startOver();
-                    } else {
+                    if ([Player.Status.alive, Player.Status.dead].includes(me.status)) {
                         context.inventoryView().bindGame(game);
                         context.mapView().bindGame(game);
                         context.notificationView().bindGame(game);
@@ -235,6 +233,8 @@
                         }
 
                         updateMenu();
+                    } else {
+                        context.navigation().startOver();
                     }
                     break;
 
