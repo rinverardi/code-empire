@@ -17,63 +17,188 @@
 
 <body>
     <div class="container">
-        <div class="row">
+        <div class="mb-2 row">
             <div class="col">
                 <h2 class="area">
                     Anleitung
                 </h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col mt-2">
+        <div class="mb-2 row">
+            <div class="col">
                 <div class="area">
-                    <b class="redacted-text">Lorem ipsum</b>
+                    Die <b>Karte</b> besteht aus einer Menge von Kartenfeldern.
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col mt-2">
-                <div class="area redacted-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Dolor sed viverra ipsum nunc aliquet bibendum enim.
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col mt-2">
+        <div class="mb-2 row">
+            <div class="col">
                 <div class="area">
-                    <b class="redacted-text">Dolor sit amet</b>
+                    Die <b>Kartenfelder</b> sind als Hexagone angeordnet. Es gibt fünf Arten von Feldern. Je nach Art
+                    des Felds können unterschiedliche Objekte darauf platziert sein:
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col mt-2">
-                <div class="area redacted-text">
-                    In massa tempor nec feugiat. Nunc aliquet bibendum enim facilisis gravida. Nisl nunc mi ipsum
-                    faucibus vitae aliquet nec ullamcorper. Amet luctus venenatis lectus magna fringilla. Volutpat
-                    maecenas volutpat blandit aliquam etiam erat velit scelerisque in.
-                </div>
-            </div>
+        <div class="mb-2 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Typ</th>
+                        <th scope="col">Fabriken</th>
+                        <th scope="col">Ortschaften</th>
+                        <th scope="col">Ressourcen</th>
+                        <th scope="col">Spieler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Grasfläche</td>
+                        <td>&check;</td>
+                        <td>&check;</td>
+                        <td>&check;</td>
+                        <td>&check;</td>
+                    </tr>
+                    <tr>
+                        <td>Hügel</td>
+                        <td></td>
+                        <td></td>
+                        <td>&check;</td>
+                        <td>&check;</td>
+                    </tr>
+                    <tr>
+                        <td>Wald</td>
+                        <td></td>
+                        <td></td>
+                        <td>&check;</td>
+                        <td>&check;</td>
+                    </tr>
+                    <tr>
+                        <td>Gebirge</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Wasser</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="row">
-            <div class="col mt-2">
+        <div class="mb-2 row">
+            <div class="col">
                 <div class="area">
-                    <b class="redacted-text">Consectetur adipiscing elit</b>
+                    Auf der Karte sind <b>Ressourcen</b> verteilt. Die Ressourcen werden bei Spielbeginn auf zufälligen
+                    Kartenfeldern platziert. Mehrere Ressourcen auf einem Feld sind nicht möglich. Eingesammelte
+                    Ressourcen verschwinden von der Karte und wachsen nach neun Spielrunden wieder nach.
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <div class="area">
+                    Jeder Spieler hat eine <b>Spielfigur</b>. Die Figuren werden bei Spielbeginn auf zufälligen
+                    Kartenfeldern platziert. Mehrere Figuren auf einem Feld sind nicht möglich. Befindet sich eine
+                    Spielfigur auf einem Spielfeld mit einer Ressource, so sammelt sie die Ressource automatisch ein.
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <div class="area">
+                    Eine Partie besteht aus einer Reihe von <b>Spielrunden</b>.
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <div class="area">
+                    Pro Spielrunde führt jeder Spieler einen <b>Spielzug</b> durch. Es gibt sechs Arten von Zügen. Je
+                    nach Art des Zugs werden unterschiedliche Ressourcen in verschiedenen Mengen benötigt:
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Spielzug</th>
+                        <th scope="col">Forschung</th>
+                        <th scope="col">Gold</th>
+                        <th scope="col">Nahrung</th>
+                        <th scope="col">Waffen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Spielfigur bewegen</td>
+                        <td>&mdash;</td>
+                        <td>&mdash;</td>
+                        <td>&mdash;</td>
+                        <td>&mdash;</td>
+                    </tr>
+                    <tr>
+                        <td>Dorf gründen</td>
+                        <td>&mdash;</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>&mdash;</td>
+                    </tr>
+                    <tr>
+                        <td>Dorf zu Stadt ausbauen</td>
+                        <td>4</td>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>&mdash;</td>
+                    </tr>
+                    <tr>
+                        <td>Stadt zu Metropole ausbauen</td>
+                        <td>8</td>
+                        <td>12</td>
+                        <td>12</td>
+                        <td>&mdash;</td>
+                    </tr>
+                    <tr>
+                        <td>Fabrik errichten</td>
+                        <td>12</td>
+                        <td>8</td>
+                        <td>&mdash;</td>
+                        <td>&mdash;</td>
+                    </tr>
+                    <tr>
+                        <td>Gegenspieler angreifen</td>
+                        <td>&mdash;</td>
+                        <td>&mdash;</td>
+                        <td>&mdash;</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <div class="area">
+                    Das <b>Spielziel</b> ist es, das mächtigste Imperium zu erschaffen. Es gibt drei Möglichkeiten, um
+                    dieses Ziel zu erreichen: Hundert Goldstücke sammeln, drei Metropolen besitzen oder alle
+                    Gegenspieler vernichten. Das Spiel endet sofort, sobald eine dieser Marken erreicht wird.
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <div class="area">
+                    Für die <b>Highscores</b> relevant sind die Einheiten Gold eines Spielers bei Spielende. Wenn der
+                    Sieger ein Ergebnis erzielt, das zu den zehn besten Ergebnissen aller Zeiten gehört, dann wird das
+                    Ergebnis in den Highscores gespeichert.
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col mt-2">
-                <div class="area redacted-text">
-                    Egestas egestas fringilla phasellus faucibus scelerisque eleifend. Sagittis orci a scelerisque purus
-                    semper eget duis. Nulla pharetra diam sit amet nisl suscipit. Sed adipiscing diam donec adipiscing
-                    tristique risus nec feugiat in. Fusce ut placerat orci nulla. Pharetra vel turpis nunc eget lorem
-                    dolor. Tristique senectus et netus et malesuada.
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col mt-2">
+            <div class="col">
                 <button class="can-click control full-width link" id="link">
                     Schliessen
                 </button>

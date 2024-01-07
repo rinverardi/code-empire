@@ -3,11 +3,6 @@
     src: url('../fonts/coda.woff2') format('woff2');
 }
 
-@font-face {
-    font-family: 'Redacted';
-    src: url('../fonts/redacted.ttf') format('truetype');
-}
-
 @keyframes bounce {
     from {
         margin-top: 0px;
@@ -402,10 +397,6 @@ h2 {
     background-size: cover;
 }
 
-.redacted-text {
-    font-family: 'Redacted';
-}
-
 .resource {
     animation: fade-in 2s forwards;
     background-repeat: no-repeat;
@@ -530,6 +521,10 @@ select option {
 
 .structure-village {
     background-image: url(../images/structure-village.svg);
+}
+
+.table {
+    margin-bottom: 0;
 }
 
 .tile {
