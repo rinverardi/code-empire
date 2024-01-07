@@ -37,7 +37,7 @@ export class SessionContext {
             const redisClient = this.#redisClient.duplicate();
             const redisConnection = await redisClient.connect();
 
-            this.#wsConnection.on('close', () => redisConnection.disconnect());
+            this.#wsConnection.on('close', () => redisConnection.quit());
 
             return redisConnection;
         }

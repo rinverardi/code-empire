@@ -43,6 +43,14 @@ export class Communication {
         this.#connect();
     }
 
+    connectHighscores(onMessage, onOpen) {
+        this.#onMessage = onMessage;
+        this.#onOpen = onOpen;
+        this.#url = Config.urlForHighscores;
+
+        this.#connect();
+    }
+
     #handleClose() {
         setTimeout(() => this.#notificationHelper.showError('Die Verbindung wurde getrennt!'), 2000);
     }

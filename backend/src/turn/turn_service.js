@@ -3,6 +3,7 @@ export class TurnService {
     #authz;
     #gameManager;
     #gameRepository;
+    #highscoreService;
     #playerManager;
     #resourceManager;
     #structureManager;
@@ -14,6 +15,7 @@ export class TurnService {
         this.#authz = globalContext.authz();
         this.#gameManager = globalContext.gameManager();
         this.#gameRepository = globalContext.gameRepository();
+        this.#highscoreService = globalContext.highscoreService();
         this.#playerManager = globalContext.playerManager();
         this.#resourceManager = globalContext.resourceManager();
         this.#structureManager = globalContext.structureManager();
@@ -49,6 +51,7 @@ export class TurnService {
 
         if (winner) {
             this.#gameManager.endGame(game, winner);
+            this.#highscoreService.submit(sessionContext, winner);
         }
 
         await this.#gameRepository.saveGame(sessionContext, game);

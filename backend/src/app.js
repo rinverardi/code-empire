@@ -14,6 +14,10 @@ class App extends GlobalContext {
     {
       handler: wsConnection => this.#handleGameList(wsConnection),
       pattern: /^\/games\/$/
+    },
+    {
+      handler: wsConnection => this.#handleHighscores(wsConnection),
+      pattern: /^\/highscores\/$/
     }
   ];
 
@@ -34,6 +38,16 @@ class App extends GlobalContext {
       await this.gameController().watchGameList(sessionContext);
     } catch (exception) {
       Logger.e('App.handleGameList()', exception);
+    }
+  }
+
+  async #handleHighscores(wsConnection) {
+    try {
+      const sessionContext = new SessionContext(wsConnection);
+
+      await this.highscoreController().watchHighscores(sessionContext);
+    } catch (exception) {
+      Logger.e('App.handleHighscores()', exception);
     }
   }
 
