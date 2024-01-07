@@ -48,7 +48,7 @@ export class PlayerService {
 
         if (winner) {
             this.#gameManager.endGame(game, winner);
-            this.#highscoreService.submit(sessionContext, winner);
+            this.#highscoreService.submitScore(sessionContext, winner);
         } else {
             this.#turnManager.endTurn(game);
             this.#turnManager.startTurn(game);

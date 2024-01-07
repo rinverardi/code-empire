@@ -7,7 +7,7 @@ export class HighscoreService {
         this.#highscoreRepository = globalContext.highscoreRepository();
     }
 
-    async submit(sessionContext, winner) {
+    async submitScore(sessionContext, winner) {
         const game = await this.#gameRepository.loadGame(sessionContext);
         const player = game.players.find(that => that.id === winner.player);
 
@@ -19,6 +19,12 @@ export class HighscoreService {
         });
 
         highscores = highscores.sort((a, b) => b.score - a.score);
+
+        // TODO Use a constant!
+
+        if (highscores.length > 10) {
+            highscores.length = 10;
+        }
 
         for (let index = 0; index < highscores.length; index++) {
             if (index === 0) {
