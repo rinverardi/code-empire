@@ -143,6 +143,7 @@ export class PlayerView {
     #build(player) {
         const playerElement = document.createElement('img');
 
+        playerElement.classList.add('obscured');
         playerElement.classList.add('player');
         playerElement.id = Player.elementId(player);
         playerElement.src = 'images/player.svg';
