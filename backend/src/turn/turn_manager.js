@@ -1,3 +1,4 @@
+import { Inventory } from '../inventory/inventory.js';
 import { Map } from '../map/map.js';
 import { Notification } from '../notification/notification.js';
 import { Player } from '../player/player.js';
@@ -14,9 +15,17 @@ export class TurnManager {
     }
 
     #canAttack(game, position) {
-        const player = this.#mapAccess.getPlayerAt(game, ...position);
+        const attacker = this.#gameAccess.getCurrentPlayer(game);
 
-        return !!player;
+        if (attacker.inventory[Inventory.Item.weaponry] > 1) {
+            const victim = this.#mapAccess.getPlayerAt(game, ...position);
+
+            if (victim) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     #canBuild(game, structurePosition, structureType) {
@@ -69,20 +78,24 @@ export class TurnManager {
         return false;
     }
 
-    // TODO Fix me!
-
     #doAttack(game, turn) {
+        const attacker = this.#gameAccess.getCurrentPlayer(game);
+
+        // TODO Use a constant!
+
+        attacker.inventory[Inventory.Item.weaponry] -= 2;
+
         const victim = this.#mapAccess.getPlayerAt(game, ...turn.positionTo);
 
         if (--victim.health > 0) {
             game.notifications.push({
-                attacker: game.turn.player,
+                attacker: attacker.id,
                 victim: victim.id,
                 type: Notification.Type.attack
             });
         } else {
             game.notifications.push({
-                attacker: game.turn.player,
+                attacker: attacker.id,
                 victim: victim.id,
                 type: Notification.Type.kill
             });
