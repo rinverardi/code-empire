@@ -87,7 +87,7 @@ export class TurnManager {
                 type: Notification.Type.kill
             });
 
-            victim.status = Player.Status.death;
+            victim.status = Player.Status.dead;
         }
     }
 
