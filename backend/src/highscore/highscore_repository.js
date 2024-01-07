@@ -7,6 +7,12 @@ export class HighscoreRepository {
         return JSON.parse(await redisConnection.get(Highscore.key));
     }
 
+    async publishHighscores(sessionContext, highscores) {
+        const redisConnection = await sessionContext.redisConnection(true);
+
+        redisConnection.publish(Highscore.key, this.#stringify(highscores));
+    }
+
     async saveHighscores(sessionContext, highscores) {
         const redisConnection = await sessionContext.redisConnection(true);
 
@@ -15,5 +21,11 @@ export class HighscoreRepository {
 
     #stringify(value) {
         return JSON.stringify(value, null, 4);
+    }
+
+    async subscribeHighscores(sessionContext, handler) {
+        const redisConnection = await sessionContext.redisConnection(false);
+
+        await redisConnection.subscribe(Highscore.key, handler);
     }
 };

@@ -17,81 +17,18 @@
 
 <body>
     <div class="container">
-        <div class="row">
+        <div class="row mb-2">
             <div class="col">
                 <h2 class="area">
                     Highscores
                 </h2>
             </div>
         </div>
-        <div class="row mt-2">
-            <div class="col-sm-2">
-                <div class="area">#1</div>
-            </div>
-            <div class="col-sm-3">
-                <div class="area">
-                    🪙️×93
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <div class="area">
-                    Angry Alpaca
-                </div>
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-sm-2">
-                <div class="area">#2</div>
-            </div>
-            <div class="col-sm-3">
-                <div class="area">
-                    🪙️×87
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <div class="area">Brilliant Barracuda</div>
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-sm-2">
-                <div class="area">#3</div>
-            </div>
-            <div class="col-sm-3">
-                <div class="area">
-                    🪙️×82
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <div class="area">Cuddly Cougar</div>
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-sm-2">
-                <div class="area">#4</div>
-            </div>
-            <div class="col-sm-3">
-                <div class="area">
-                    🪙️×65
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <div class="area">Delirious Dolphin</div>
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-sm-2">
-                <div class="area">#5</div>
-            </div>
-            <div class="col-sm-3">
-                <div class="area">
-                    🪙️×47
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <div class="area">Evil Emu</div>
-            </div>
-        </div>
-        <div class="row mt-2">
+    </div>
+    <div class="container" id="highscore-list">
+    </div>
+    <div class="container">
+        <div class="row">
             <div class="col">
                 <button class="can-click control full-width link" id="link">
                     Schliessen
@@ -103,7 +40,13 @@
     <script type="module">
         import { Context } from './scripts/context.js';
 
+        function onMessage(highscores) {
+            context.highscoreView().bindHighscores(highscores);
+        }
+
         const context = new Context();
+
+        context.communication().connectHighscores(onMessage);
 
         context.navigation().wireClick({ id: 'link', onClick: () => 'index.html' });
     </script>

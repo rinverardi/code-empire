@@ -7,6 +7,7 @@ import { GameController } from '../game/game_controller.js';
 import { GameMapper } from '../game/game_mapper.js';
 import { GameRepository } from '../game/game_repository.js';
 import { GameService } from '../game/game_service.js';
+import { HighscoreController } from '../highscore/highscore_controller.js';
 import { HighscoreRepository } from '../highscore/highscore_repository.js';
 import { HighscoreService } from '../highscore/highscore_service.js';
 import { InventoryManager } from '../inventory/inventory_manager.js';
@@ -37,6 +38,7 @@ export class GlobalContext {
     #gameMapper;
     #gameRepository;
     #gameService;
+    #highscoreController;
     #highscoreRepository;
     #highscoreService;
     #inventoryManager;
@@ -91,6 +93,10 @@ export class GlobalContext {
 
     gameService() {
         return this.#gameService ? this.#gameService : this.#gameService = new GameService(this);
+    }
+
+    highscoreController() {
+        return this.#highscoreController ? this.#highscoreController : this.#highscoreController = new HighscoreController(this);
     }
 
     highscoreRepository() {

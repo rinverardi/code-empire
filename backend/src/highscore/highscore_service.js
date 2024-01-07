@@ -29,5 +29,16 @@ export class HighscoreService {
         }
 
         await this.#highscoreRepository.saveHighscores(sessionContext, highscores);
+        await this.#highscoreRepository.publishHighscores(sessionContext, highscores);
+    }
+
+    async watchHighscores(sessionContext, onUpdate) {
+        await this.#highscoreRepository.subscribeHighscores(sessionContext, highscores => {
+            onUpdate(JSON.parse(highscores));
+        });
+
+        const highscores = await this.#highscoreRepository.loadHighscores(sessionContext);
+
+        onUpdate(highscores);
     }
 };

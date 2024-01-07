@@ -1,6 +1,7 @@
 import { ChatView } from './chat.js';
 import { Communication } from './communication.js';
 import { GameHelper } from './game.js';
+import { HighscoreView } from './highscore.js';
 import { InventoryView } from './inventory.js';
 import { MapView } from './map.js';
 import { Navigation } from './navigation.js';
@@ -20,6 +21,7 @@ export class Context {
     #chatView;
     #communication;
     #gameHelper;
+    #highscoreView;
     #inventoryView;
     #mapView;
     #navigation;
@@ -48,6 +50,10 @@ export class Context {
 
     gameHelper() {
         return this.#gameHelper ? this.#gameHelper : this.#gameHelper = new GameHelper(this);
+    }
+
+    highscoreView() {
+        return this.#highscoreView ? this.#highscoreView : this.#highscoreView = new HighscoreView();
     }
 
     inventoryView() {
