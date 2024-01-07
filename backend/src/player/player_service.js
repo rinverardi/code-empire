@@ -6,6 +6,7 @@ export class PlayerService {
     #authz;
     #gameManager;
     #gameRepository;
+    #highscoreService;
     #playerManager;
     #turnManager;
 
@@ -14,6 +15,7 @@ export class PlayerService {
         this.#authz = globalContext.authz();
         this.#gameManager = globalContext.gameManager();
         this.#gameRepository = globalContext.gameRepository();
+        this.#highscoreService = globalContext.highscoreService();
         this.#playerManager = globalContext.playerManager();
         this.#turnManager = globalContext.turnManager();
     }
@@ -46,6 +48,7 @@ export class PlayerService {
 
         if (winner) {
             this.#gameManager.endGame(game, winner);
+            this.#highscoreService.submit(sessionContext, winner);
         } else {
             this.#turnManager.endTurn(game);
             this.#turnManager.startTurn(game);
