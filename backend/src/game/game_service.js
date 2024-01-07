@@ -80,7 +80,7 @@ export class GameService {
     }
 
     async watchGameList(sessionContext, onUpdate) {
-        await this.#gameRepository.subscribeGameList(sessionContext, async game => {
+        await this.#gameRepository.subscribeGameList(sessionContext, game => {
             const parsedGame = JSON.parse(game);
             const mappedGame = this.#gameMapper.map(sessionContext, parsedGame);
 
