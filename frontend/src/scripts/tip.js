@@ -34,10 +34,12 @@ export class TipManager {
 export class TipView {
     #playerHelper;
     #tipManager;
+    #translation;
 
     constructor(context) {
         this.#playerHelper = context.playerHelper();
         this.#tipManager = context.tipManager();
+        this.#translation = context.translation();
     }
 
     bindGame(game) {
@@ -62,38 +64,48 @@ export class TipView {
         }
     }
 
-    // TODO Internationalize me!
-
     #labelPlayer(game, player) {
         const me = this.#playerHelper.getMe(game);
 
-        const playerName = player.id === me.id ? "Ich" : Html.escape(player.name);
+        const playerName = player.id === me.id ? this.#translation.tip('me') : Html.escape(player.name);
         const playerHealth = Html.escape(player.health);
 
-        return `${playerName}<br>(${playerHealth} Trefferpunkte)`;
+        return this.#translation.tip('player', [playerName, playerHealth]);
     }
-
-    // TODO Internationalize me!
 
     #labelStructure(game, structure) {
         const me = this.#playerHelper.getMe(game);
 
         if (structure.player === me.id) {
             switch (structure.type) {
-                case Structure.Type.city: return 'Meine Stadt';
-                case Structure.Type.factory: return 'Meine Fabrik';
-                case Structure.Type.metropolis: return 'Meine Metropole';
-                case Structure.Type.village: return 'Mein Dorf';
+                case Structure.Type.city:
+                    return this.#translation.structure('yourCity');
+
+                case Structure.Type.factory:
+                    return this.#translation.structure('yourFactory');
+
+                case Structure.Type.metropolis:
+                    return this.#translation.structure('yourMetropolis');
+
+                case Structure.Type.village:
+                    return this.#translation.structure('yourVillage');
             }
         } else {
             const player = this.#playerHelper.getPlayer(game, structure.player);
             const playerName = Html.escape(player.name);
 
             switch (structure.type) {
-                case Structure.Type.city: return `Stadt von ${playerName}`;
-                case Structure.Type.factory: return `Fabrik von ${playerName}`;
-                case Structure.Type.metropolis: return `Metropole von ${playerName}`;
-                case Structure.Type.village: return `Dorf von ${playerName}`;
+                case Structure.Type.city:
+                    return this.#translation.structure('someonesCity', [playerName]);
+
+                case Structure.Type.factory:
+                    return this.#translation.structure('someonesFactory', [playerName]);
+
+                case Structure.Type.metropolis:
+                    return this.#translation.structure('someonesMetropolis', [playerName]);
+
+                case Structure.Type.village:
+                    return this.#translation.structure('someonesVillage', [playerName]);
             }
         }
 

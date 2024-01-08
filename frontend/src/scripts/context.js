@@ -12,7 +12,7 @@ import { RankingView } from './ranking.js';
 import { ResourceView } from './resource.js';
 import { StructureView } from './structure.js';
 import { TipManager, TipView } from './tip.js';
-import { Translation } from './translation.js';
+import { Translation, TranslationView } from './translation.js';
 import { TurnHelper, TurnView } from './turn.js';
 import { WinnerView } from './winner.js';
 
@@ -35,6 +35,7 @@ export class Context {
     #tipManager;
     #tipView;
     #translation;
+    #translationView;
     #turnHelper;
     #turnView;
     #winnerView;
@@ -109,6 +110,10 @@ export class Context {
 
     translation() {
         return this.#translation ? this.#translation : this.#translation = new Translation();
+    }
+
+    translationView() {
+        return this.#translationView ? this.#translationView : this.#translationView = new TranslationView(this);
     }
 
     turnHelper() {

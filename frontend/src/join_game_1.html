@@ -18,28 +18,27 @@
 </head>
 
 <body>
-
-    <!-- TODO Internationalize me! -->
-
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="area">
-                    Partie beitreten
+                <h2 class="area" data-title="joinGame1">
                 </h2>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 mt-2">
-                <div class="area">Partie:</div>
+                <div class="area" data-label="game">
+                </div>
             </div>
             <div class="col-sm-6 mt-2">
-                <div class="area" id="select-placeholder">keine Partien</div>
+                <div class="area" data-value="noGames" id="select-placeholder">
+                </div>
                 <select class="can-expand control full-width hidden" id="select">
                 </select>
             </div>
             <div class="col-sm-6 mt-2">
-                <div class="area">Dein Nickname:</div>
+                <div class="area" data-label="name">
+                </div>
             </div>
             <div class="col-sm-6 mt-2">
                 <input class="can-edit control full-width" id="input">
@@ -47,13 +46,11 @@
         </div>
         <div class="row">
             <div class="col-sm-6 mt-2">
-                <button class="can-click control full-width link" id="link-back">
-                    Zurück
+                <button class="can-click control full-width link" data-button="back" id="link-back">
                 </button>
             </div>
             <div class="col-sm-6 mt-2" id="link-next-container">
-                <button class="can-click control full-width link" disabled id="link-next">
-                    Weiter
+                <button class="can-click control full-width link" data-button="next" disabled id="link-next">
                 </button>
             </div>
         </div>
@@ -103,7 +100,7 @@
             if (game.status === Game.Status.waiting) {
                 games[game.id] = game;
 
-                const mapName = context.translation().mapName(game.map.id);
+                const mapName = context.translation().map(game.map.id);
                 const playerName = game.players[0].name;
 
                 addGame(game.id, `${mapName} von ${playerName}`);
@@ -132,11 +129,11 @@
             let tip = null;
 
             if (!checkGame()) {
-                tip = 'Keine Partie gewählt';
+                tip = context.translation().tip('missingGame');
             } else if (!checkNameEntered()) {
-                tip = 'Kein Nickname eingegeben';
+                tip = context.translation().tip('missingName');
             } else if (!checkNameAvailable()) {
-                tip = 'Nickname bereits vergeben';
+                tip = context.translation().tip('existingName');
             }
 
             const link = document.getElementById('link-next');
@@ -215,6 +212,7 @@
         const context = new Context();
 
         context.communication().connectGameList(onMessage);
+        context.translationView().translate();
 
         let games = {};
 

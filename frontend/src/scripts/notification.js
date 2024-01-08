@@ -71,12 +71,14 @@ export class NotificationView {
     #navigation;
     #notificationHelper;
     #playerHelper;
+    #translation;
     #turnHelper;
 
     constructor(context) {
         this.#navigation = context.navigation();
         this.#notificationHelper = context.notificationHelper();
         this.#playerHelper = context.playerHelper();
+        this.#translation = context.translation();
         this.#turnHelper = context.turnHelper();
     }
 
@@ -104,8 +106,6 @@ export class NotificationView {
         this.#showCurrentMessage(game);
     }
 
-    // TODO Internationalize me!
-
     #showAttack(game, notification) {
         const attacker = this.#playerHelper.getPlayer(game, notification.attacker);
         const victim = this.#playerHelper.getPlayer(game, notification.victim);
@@ -114,19 +114,25 @@ export class NotificationView {
 
         switch (this.#playerHelper.loadId()) {
             case attacker.id:
-                message = `Du attackierst ${Html.escape(victim.name)}.`;
+                message = this.#translation.notification(
+                    'youAttack',
+                    [Html.escape(victim.name), Html.escape(victim.health)]);
                 break;
 
             case victim.id:
-                message = `${Html.escape(attacker.name)} attackiert dich!`;
+                message = this.#translation.notification(
+                    'someoneAttacksYou',
+                    [Html.escape(attacker.name), Html.escape(victim.health)]);
                 break;
 
             default:
-                message = `${Html.escape(attacker.name)} attackiert ${Html.escape(victim.name)}.`;
+                message = this.#translation.notification(
+                    'someoneAttacksSomeone',
+                    [Html.escape(attacker.name), Html.escape(victim.name), Html.escape(victim.health)]);
                 break;
         }
 
-        this.#notificationHelper.showInformation(`${message}<br>(noch ${Html.escape(victim.health)} Trefferpunkte)`);
+        this.#notificationHelper.showInformation(message);
     }
 
     #showCurrentMessage(game) {
@@ -144,25 +150,24 @@ export class NotificationView {
         }
     }
 
-    // TODO Internationalize me!
-
     #showCurrentPlayer(game) {
         if (this.#currentPlayer !== game.turn.player) {
             this.#currentPlayer = game.turn.player;
 
             if (this.#playerHelper.isMe(game)) {
+                const notification = this.#translation.notification('youThink');
 
-                this.#notificationHelper.showInformation('Du bist am Zug!');
+                this.#notificationHelper.showInformation(notification);
             } else {
                 const player = this.#turnHelper.getPlayer(game);
                 const playerName = Html.escape(player.name);
 
-                this.#notificationHelper.showInformation(`${playerName} ist am Zug.`);
+                const notification = this.#translation.notification('someoneThinks', [playerName]);
+
+                this.#notificationHelper.showInformation(notification);
             }
         }
     }
-
-    // TODO Internationalize me!
 
     #showKill(game, notification) {
         const attacker = this.#playerHelper.getPlayer(game, notification.attacker);
@@ -172,15 +177,21 @@ export class NotificationView {
 
         switch (this.#playerHelper.loadId()) {
             case attacker.id:
-                message = `Du hast ${Html.escape(victim.name)} eliminiert.`;
+                message = this.#translation.notification(
+                    'youKill',
+                    [Html.escape(victim.name)]);
                 break;
 
             case victim.id:
-                message = `${Html.escape(attacker.name)} hat dich eliminiert!`;
+                message = this.#translation.notification(
+                    'someoneKillsYou',
+                    [Html.escape(attacker.name)]);
                 break;
 
             default:
-                message = `${Html.escape(attacker.name)} hat ${Html.escape(victim.name)} eliminiert.`;
+                message = this.#translation.notification(
+                    'someoneKillsSomeone',
+                    [Html.escape(attacker.name), Html.escape(victim.name)]);
                 break;
         }
 

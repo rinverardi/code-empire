@@ -7,12 +7,14 @@ export class Communication {
     #onMessage;
     #onOpen;
     #playerHelper;
+    #translation;
     #url;
 
     constructor(context) {
         this.#gameHelper = context.gameHelper();
         this.#notificationHelper = context.notificationHelper();
         this.#playerHelper = context.playerHelper();
+        this.#translation = context.translation();
     }
 
     #connect() {
@@ -51,16 +53,16 @@ export class Communication {
         this.#connect();
     }
 
-    // TODO Internationalize me!
-
     #handleClose() {
-        setTimeout(() => this.#notificationHelper.showError('Die Verbindung wurde getrennt!'), 2000);
+        const notification = this.#translation.notification('connectionClosed');
+
+        setTimeout(() => this.#notificationHelper.showError(notification));
     }
 
-    // TODO Internationalize me!
-
     #handleError() {
-        this.#notificationHelper.showError('Die Verbindung ist fehlerhaft!');
+        const notification = this.#translation.notification('connectionFailed');
+
+        this.#notificationHelper.showError(notification);
     }
 
     #handleMessage(message) {
