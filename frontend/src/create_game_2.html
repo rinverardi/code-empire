@@ -18,52 +18,54 @@
 </head>
 
 <body>
-
-    <!-- TODO Internationalize me! -->
-
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="area">
-                    Auf Gegner warten
+                <h2 class="area" data-title="createGame2">
                 </h2>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 mt-2">
                 <div class="area slot">
-                    <div class="if-unassigned">leerer Slot</div>
-                    <div class="if-assigned ready" id="slot-0"></div>
+                    <div class="if-unassigned" data-value="emptySlot">
+                    </div>
+                    <div class="if-assigned ready" id="slot-0">
+                    </div>
                 </div>
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="area slot">
-                    <div class="if-unassigned">leerer Slot</div>
-                    <div class="if-assigned ready" id="slot-1"></div>
+                    <div class="if-unassigned" data-value="emptySlot">
+                    </div>
+                    <div class="if-assigned ready" id="slot-1">
+                    </div>
                 </div>
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="area slot">
-                    <div class="if-unassigned">leerer Slot</div>
-                    <div class="if-assigned ready" id="slot-2"></div>
+                    <div class="if-unassigned" data-value="emptySlot">
+                    </div>
+                    <div class="if-assigned ready" id="slot-2">
+                    </div>
                 </div>
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="area slot">
-                    <div class="if-unassigned">leerer Slot</div>
-                    <div class="if-assigned ready" id="slot-3"></div>
+                    <div class="if-unassigned" data-value="emptySlot">
+                    </div>
+                    <div class="if-assigned ready" id="slot-3">
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12 mt-2" id="link-start-container">
-                <button class="can-click control full-width link" disabled id="link-start">
-                    Partie starten
+                <button class="can-click control full-width link" data-button="startGame" disabled id="link-start">
                 </button>
             </div>
             <div class="col-12 mt-2">
-                <button class="can-click control full-width link" id="link-abort">
-                    Partie abbrechen
+                <button class="can-click control full-width link" data-button="abortGame" id="link-abort">
                 </button>
             </div>
         </div>
@@ -116,7 +118,7 @@
             } else {
                 link.disabled = true;
 
-                context.tipManager().addTip('link-start-container', 'Zu wenige Teilnehmer');
+                context.tipManager().addTip('link-start-container', context.translation().tip('missingPlayer'));
             }
         }
 
@@ -161,6 +163,7 @@
         const context = new Context();
 
         context.communication().connectGame(onMessage);
+        context.translationView().translate();
 
         wireLinkAbort();
         wireLinkStart();

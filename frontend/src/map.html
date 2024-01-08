@@ -18,14 +18,14 @@
 </head>
 
 <body>
-
-    <!-- TODO Internationalize me! -->
-
     <div id="map-container">
         <div id="map">
-            <div id="resource-layer"></div>
-            <div id="structure-layer"></div>
-            <div id="player-layer"></div>
+            <div id="resource-layer">
+            </div>
+            <div id="structure-layer">
+            </div>
+            <div id="player-layer">
+            </div>
         </div>
     </div>
 
@@ -42,16 +42,13 @@
         </ul>
     </div>
 
-    <div class="absolute-se can-click control link" id="button-open-chat">
-        Nachrichten
+    <div class="absolute-se can-click control link" data-button="openChat" id="button-open-chat">
     </div>
 
-    <div class="absolute-ne can-click control link" id="button-open-menu">
-        Menü
+    <div class="absolute-ne can-click control link" data-button="openMenu" id="button-open-menu">
     </div>
 
-    <div class="absolute-sw can-click control link" id="button-open-ranking">
-        Rangliste
+    <div class="absolute-sw can-click control link" data-button="openRanking" id="button-open-ranking">
     </div>
 
     <div class="popup-holder" id="actions">
@@ -59,8 +56,7 @@
             <div class="container">
                 <div class="row mb-2">
                     <div class="col-md-7">
-                        <button class="can-click control full-width link" id="button-build-village">
-                            Dorf gründen
+                        <button class="can-click control full-width link" data-turn="buildVillage" id="button-build-village">
                         </button>
                     </div>
                     <div class="col-md-5">
@@ -72,8 +68,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-7">
-                        <button class="can-click control full-width link" id="button-build-city">
-                            Dorf zu Stadt ausbauen
+                        <button class="can-click control full-width link" data-turn="buildCity" id="button-build-city">
                         </button>
                     </div>
                     <div class="col-md-5">
@@ -86,8 +81,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-7">
-                        <button class="can-click control full-width link" id="button-build-metropolis">
-                            Stadt zu Metropole ausbauen
+                        <button class="can-click control full-width link" data-turn="buildMetropolis" id="button-build-metropolis">
                         </button>
                     </div>
                     <div class="col-md-5">
@@ -100,8 +94,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-7">
-                        <button class="can-click control full-width link" id="button-build-factory">
-                            Fabrik errichten
+                        <button class="can-click control full-width link" data-turn="buildFactory" id="button-build-factory">
                         </button>
                     </div>
                     <div class="col-md-5">
@@ -113,8 +106,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button class="can-click control full-width link" id="button-close-actions">
-                            Partie fortsetzen
+                        <button class="can-click control full-width link" data-button="resumeGame" id="button-close-actions">
                         </button>
                     </div>
                 </div>
@@ -129,18 +121,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-9 mb-2">
-                        <input class="can-edit control full-width" id="edit-text" placeholder="Mitteilung">
+                        <input class="can-edit control full-width" data-placeholder="message" id="edit-text">
                     </div>
                     <div class="col-sm-3 mb-2">
-                        <button class="can-click control full-width link" id="button-send">
-                            Senden
+                        <button class="can-click control full-width link" data-button="sendMessage" id="button-send">
                         </button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button class="can-click control full-width link" id="button-close-chat">
-                            Partie fortsetzen
+                        <button class="can-click control full-width link" data-button="resumeGame" id="button-close-chat">
                         </button>
                     </div>
                 </div>
@@ -153,22 +143,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 my-1">
-                        <button class="can-click control full-width link" id="button-skip">
-                            Zug überspringen
+                        <button class="can-click control full-width link" data-button="skipTurn" id="button-skip">
                         </button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 my-1">
-                        <button class="can-click control full-width link" id="button-close-menu">
-                            Partie fortsetzen
+                        <button class="can-click control full-width link" data-button="resumeGame" id="button-close-menu">
                         </button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 my-1">
-                        <button class="can-click control full-width link" id="button-forfeit">
-                            Partie aufgeben
+                        <button class="can-click control full-width link" data-button="forfeitGame" id="button-forfeit">
                         </button>
                     </div>
                 </div>
@@ -183,8 +170,7 @@
             <div class="container">
                 <div class="row mt-2">
                     <div class="col-12">
-                        <button class="can-click control full-width link" id="button-close-ranking">
-                            Partie fortsetzen
+                        <button class="can-click control full-width link" data-button="resumeGame" id="button-close-ranking">
                         </button>
                     </div>
                 </div>
@@ -340,6 +326,7 @@
         let game = null;
 
         context.communication().connectGame(onMessage);
+        context.translationView().translate();
 
         context.navigation().wirePopup({
             controlClose: 'button-close-actions',

@@ -16,14 +16,10 @@
 </head>
 
 <body>
-
-    <!-- TODO Internationalize me! -->
-
     <div class="container">
         <div class="row mb-2">
             <div class="col">
-                <h2 class="area">
-                    Highscores
+                <h2 class="area" data-title="showHighscores">
                 </h2>
             </div>
         </div>
@@ -33,8 +29,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <button class="can-click control full-width link" id="link">
-                    Schliessen
+                <button class="can-click control full-width link" data-button="close" id="link">
                 </button>
             </div>
         </div>
@@ -52,6 +47,7 @@
         const context = new Context();
 
         context.communication().connectHighscores(onMessage);
+        context.translationView().translate();
 
         context.navigation().wireClick({ id: 'link', onClick: () => 'index.html' });
     </script>

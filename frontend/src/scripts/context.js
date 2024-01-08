@@ -5,15 +5,14 @@ import { HighscoreView } from './highscore.js';
 import { InventoryView } from './inventory.js';
 import { MapView } from './map.js';
 import { Navigation } from './navigation.js';
-import { NotificationHelper } from './notification.js';
-import { NotificationView } from './notification.js';
+import { NotificationHelper, NotificationView } from './notification.js';
 import { PlayerHelper, PlayerView } from './player.js';
 import { Random } from './random.js';
 import { RankingView } from './ranking.js';
 import { ResourceView } from './resource.js';
 import { StructureView } from './structure.js';
 import { TipManager, TipView } from './tip.js';
-import { Translation } from './translation.js';
+import { Translation, TranslationView } from './translation.js';
 import { TurnHelper, TurnView } from './turn.js';
 import { WinnerView } from './winner.js';
 
@@ -36,6 +35,7 @@ export class Context {
     #tipManager;
     #tipView;
     #translation;
+    #translationView;
     #turnHelper;
     #turnView;
     #winnerView;
@@ -110,6 +110,10 @@ export class Context {
 
     translation() {
         return this.#translation ? this.#translation : this.#translation = new Translation();
+    }
+
+    translationView() {
+        return this.#translationView ? this.#translationView : this.#translationView = new TranslationView(this);
     }
 
     turnHelper() {

@@ -18,20 +18,17 @@
 </head>
 
 <body>
-
-    <!-- TODO Internationalize me! -->
-
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="area">
-                    Partie erstellen
+                <h2 class="area" data-title="createGame1">
                 </h2>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 mt-2">
-                <div class="area">Karte:</div>
+                <div class="area" data-label="map">
+                </div>
             </div>
             <div class="col-sm-6 mt-2">
                 <div class="control-wrapper">
@@ -40,7 +37,8 @@
                 </div>
             </div>
             <div class="col-sm-6 mt-2">
-                <div class="area">Dein Nickname:</div>
+                <div class="area" data-label="name">
+                </div>
             </div>
             <div class="col-sm-6 mt-2">
                 <input class="can-edit control full-width" id="input">
@@ -48,13 +46,11 @@
         </div>
         <div class="row">
             <div class="col-sm-6 mt-2">
-                <button class="can-click control full-width link" id="link-back">
-                    Zurück
+                <button class="can-click control full-width link" data-button="back" id="link-back">
                 </button>
             </div>
             <div class="col-sm-6 mt-2" id="link-next-container">
-                <button class="can-click control full-width link" id="link-next">
-                    Weiter
+                <button class="can-click control full-width link" data-button="next" id="link-next">
                 </button>
             </div>
         </div>
@@ -104,7 +100,7 @@
             } else {
                 link.disabled = true;
 
-                context.tipManager().addTip('link-next-container', 'Kein Nickname eingegeben');
+                context.tipManager().addTip('link-next-container', context.translation().tip('missingName'));
             }
         }
 
@@ -150,7 +146,7 @@
             const input = document.getElementById('select');
 
             for (let mapId = 0; mapId < 3; mapId++) {
-                const option = new Option(context.translation().mapName(mapId), mapId);
+                const option = new Option(context.translation().map(mapId), mapId);
 
                 input.add(option);
             }
@@ -159,6 +155,7 @@
         const context = new Context();
 
         context.communication().connectGame(onMessage);
+        context.translationView().translate();
 
         wireInput();
         wireLinkBack();

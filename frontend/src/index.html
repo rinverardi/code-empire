@@ -18,9 +18,6 @@
 </head>
 
 <body>
-
-    <!-- TODO Internationalize me! -->
-
     <div class="container">
         <div class="row">
             <div class="col">
@@ -31,23 +28,19 @@
         </div>
         <div class="row">
             <div class="col-sm-6 mt-2">
-                <button class="can-click control full-width link" id="link-create">
-                    Partie erstellen
+                <button class="can-click control full-width link" data-button="createGame" id="link-create">
                 </button>
             </div>
             <div class="col-sm-6 mt-2">
-                <button class="can-click control full-width link" id="link-join">
-                    Partie beitreten
+                <button class="can-click control full-width link" data-button="joinGame" id="link-join">
                 </button>
             </div>
             <div class="col-sm-6 mt-2">
-                <button class="can-click control full-width link" id="link-show-instructions">
-                    Anleitung anzeigen
+                <button class="can-click control full-width link" data-button="showInstructions" id="link-show-instructions">
                 </button>
             </div>
             <div class="col-sm-6 mt-2">
-                <button class="can-click control full-width link" id="link-show-highscores">
-                    Highscores anzeigen
+                <button class="can-click control full-width link" data-button="showHighscores" id="link-show-highscores">
                 </button>
             </div>
         </div>
@@ -114,6 +107,7 @@
         const context = new Context();
 
         context.communication().connectGame(onMessage);
+        context.translationView().translate();
 
         wireLinkCreate();
         wireLinkJoin();

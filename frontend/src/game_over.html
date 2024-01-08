@@ -16,42 +16,20 @@
 </head>
 
 <body>
-
-    <!-- TODO Internationalize me! -->
-
     <div class="container">
         <div class="row mb-2">
             <div class="col">
-                <h2 class="area">
-                    Spielende
+                <h2 class="area" data-title="gameOver">
                 </h2>
             </div>
         </div>
-        <div class="hidden" id="objective-have-gold">
-            <div class="row mb-2">
-                <div class="col">
-                    <span class="winner"></span> gewinnt mit <span id="score-gold"></span> Goldstücken.
-                </div>
-            </div>
-        </div>
-        <div class="hidden" id="objective-have-metropolises">
-            <div class="row mb-2">
-                <div class="col">
-                    <span class="winner"></span> gewinnt mit <span id="score-metropolises"></span> Metropolen.
-                </div>
-            </div>
-        </div>
-        <div class="hidden" id="objective-survive">
-            <div class="row mb-2">
-                <div class="col">
-                    <span class="winner"></span> gewinnt als einziger Überlebender.
-                </div>
+        <div class="row mb-2">
+            <div class="col" id="result">
             </div>
         </div>
         <div class="row">
             <div class="col mb-2">
-                <h2 class="area">
-                    Rangliste
+                <h2 class="area" data-title="ranking">
                 </h2>
             </div>
             <div class="container" id="ranking-list">
@@ -59,8 +37,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <button class="can-click control full-width link" id="button">
-                    Schliessen
+                <button class="can-click control full-width link" data-button="close" id="button">
                 </button>
             </div>
         </div>
@@ -105,6 +82,7 @@
         const context = new Context();
 
         context.communication().connectGame(onMessage);
+        context.translationView().translate();
 
         wireButton();
     </script>

@@ -16,112 +16,22 @@
 </head>
 
 <body>
-
-    <!-- TODO Internationalize me! -->
-
     <div class="container">
         <div class="mb-2 row">
             <div class="col">
-                <h2 class="area">
-                    Anleitung
+                <h2 class="area" data-title="showInstructions">
                 </h2>
             </div>
         </div>
         <div class="mb-2 row">
             <div class="col">
-                <div class="area">
-                    Die <b>Karte</b> besteht aus einer Menge von Kartenfeldern.
+                <div class="area" data-instruction="paragraph0">
                 </div>
             </div>
         </div>
         <div class="mb-2 row">
             <div class="col">
-                <div class="area">
-                    Die <b>Kartenfelder</b> sind als Hexagone angeordnet. Es gibt fünf Arten von Feldern. Je nach Art
-                    des Felds können unterschiedliche Objekte darauf platziert sein:
-                </div>
-            </div>
-        </div>
-        <div class="mb-2 table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Typ</th>
-                        <th scope="col">Fabriken</th>
-                        <th scope="col">Ortschaften</th>
-                        <th scope="col">Ressourcen</th>
-                        <th scope="col">Spieler</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Grasfläche</td>
-                        <td>&check;</td>
-                        <td>&check;</td>
-                        <td>&check;</td>
-                        <td>&check;</td>
-                    </tr>
-                    <tr>
-                        <td>Hügel</td>
-                        <td></td>
-                        <td></td>
-                        <td>&check;</td>
-                        <td>&check;</td>
-                    </tr>
-                    <tr>
-                        <td>Wald</td>
-                        <td></td>
-                        <td></td>
-                        <td>&check;</td>
-                        <td>&check;</td>
-                    </tr>
-                    <tr>
-                        <td>Gebirge</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Wasser</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="mb-2 row">
-            <div class="col">
-                <div class="area">
-                    Auf der Karte sind <b>Ressourcen</b> verteilt. Die Ressourcen werden bei Spielbeginn auf zufälligen
-                    Kartenfeldern platziert. Mehrere Ressourcen auf einem Feld sind nicht möglich. Eingesammelte
-                    Ressourcen verschwinden von der Karte und wachsen nach neun Spielrunden wieder nach.
-                </div>
-            </div>
-        </div>
-        <div class="mb-2 row">
-            <div class="col">
-                <div class="area">
-                    Jeder Spieler hat eine <b>Spielfigur</b>. Die Figuren werden bei Spielbeginn auf zufälligen
-                    Kartenfeldern platziert. Mehrere Figuren auf einem Feld sind nicht möglich. Befindet sich eine
-                    Spielfigur auf einem Spielfeld mit einer Ressource, so sammelt sie die Ressource automatisch ein.
-                </div>
-            </div>
-        </div>
-        <div class="mb-2 row">
-            <div class="col">
-                <div class="area">
-                    Eine Partie besteht aus einer Reihe von <b>Spielrunden</b>.
-                </div>
-            </div>
-        </div>
-        <div class="mb-2 row">
-            <div class="col">
-                <div class="area">
-                    Pro Spielrunde führt jeder Spieler einen <b>Spielzug</b> durch. Es gibt sechs Arten von Zügen. Je
-                    nach Art des Zugs werden unterschiedliche Ressourcen in verschiedenen Mengen benötigt:
+                <div class="area" data-instruction="paragraph1">
                 </div>
             </div>
         </div>
@@ -129,81 +39,256 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Spielzug</th>
-                        <th scope="col">Forschung</th>
-                        <th scope="col">Gold</th>
-                        <th scope="col">Nahrung</th>
-                        <th scope="col">Waffen</th>
+                        <th scope="col">
+                        </th>
+                        <th data-entity="factory" scope="col">
+                        </th>
+                        <th data-entity="village" scope="col">
+                        </th>
+                        <th data-entity="resource" scope="col">
+                        </th>
+                        <th data-entity="player" scope="col">
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Spielfigur bewegen</td>
-                        <td>&mdash;</td>
-                        <td>&mdash;</td>
-                        <td>&mdash;</td>
-                        <td>&mdash;</td>
+                        <td data-entity="tileWithGrass">
+                        </td>
+                        <td>
+                            &check;
+                        </td>
+                        <td>
+                            &check;
+                        </td>
+                        <td>
+                            &check;
+                        </td>
+                        <td>
+                            &check;
+                        </td>
                     </tr>
                     <tr>
-                        <td>Dorf gründen</td>
-                        <td>&mdash;</td>
-                        <td>4</td>
-                        <td>4</td>
-                        <td>&mdash;</td>
+                        <td data-entity="tileWithHill"></td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &check;
+                        </td>
+                        <td>
+                            &check;
+                        </td>
                     </tr>
                     <tr>
-                        <td>Dorf zu Stadt ausbauen</td>
-                        <td>4</td>
-                        <td>8</td>
-                        <td>8</td>
-                        <td>&mdash;</td>
+                        <td data-entity="tileWithWood">
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &check;
+                        </td>
+                        <td>
+                            &check;
+                        </td>
                     </tr>
                     <tr>
-                        <td>Stadt zu Metropole ausbauen</td>
-                        <td>8</td>
-                        <td>12</td>
-                        <td>12</td>
-                        <td>&mdash;</td>
+                        <td data-entity="tileWithMountain">
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
                     </tr>
                     <tr>
-                        <td>Fabrik errichten</td>
-                        <td>12</td>
-                        <td>8</td>
-                        <td>&mdash;</td>
-                        <td>&mdash;</td>
-                    </tr>
-                    <tr>
-                        <td>Gegenspieler angreifen</td>
-                        <td>&mdash;</td>
-                        <td>&mdash;</td>
-                        <td>&mdash;</td>
-                        <td>2</td>
+                        <td data-entity="tileWithWater">
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="mb-2 row">
             <div class="col">
-                <div class="area">
-                    Das <b>Spielziel</b> ist es, das mächtigste Imperium zu erschaffen. Es gibt drei Möglichkeiten, um
-                    dieses Ziel zu erreichen: Hundert Goldstücke besitzen, drei Metropolen besitzen oder alle
-                    Gegenspieler vernichten. Das Spiel endet sofort, sobald eine dieser Marken erreicht wird.
+                <div class="area" data-instruction="paragraph2">
                 </div>
             </div>
         </div>
         <div class="mb-2 row">
             <div class="col">
-                <div class="area">
-                    Für die <b>Highscores</b> relevant sind die Einheiten Gold eines Spielers bei Spielende. Wenn der
-                    Sieger ein Ergebnis erzielt, das zu den zehn besten Ergebnissen aller Zeiten gehört, dann wird das
-                    Ergebnis in den Highscores gespeichert.
+                <div class="area" data-instruction="paragraph3">
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <div class="area" data-instruction="paragraph4">
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <div class="area" data-instruction="paragraph5">
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                        </th>
+                        <th data-resource="science" scope="col">
+                        </th>
+                        <th data-resource="gold" scope="col">
+                        </th>
+                        <th data-resource="food" scope="col">
+                        </th>
+                        <th data-resource="weaponry" scope="col">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-turn="move">
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-turn="buildVillage">
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-turn="buildCity">
+                        </td>
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            8
+                        </td>
+                        <td>
+                            8
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-turn="buildMetropolis">
+                        </td>
+                        <td>
+                            8
+                        </td>
+                        <td>
+                            12
+                        </td>
+                        <td>
+                            12
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-turn="buildFactory">
+                        </td>
+                        <td>
+                            12
+                        </td>
+                        <td>
+                            8
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-turn="attack">
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            &mdash;
+                        </td>
+                        <td>
+                            2
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <div class="area" data-instruction="paragraph6">
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <div class="area" data-instruction="paragraph7">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <button class="can-click control full-width link" id="link">
-                    Schliessen
+                <button class="can-click control full-width link" data-button="close" id="link">
                 </button>
             </div>
         </div>
@@ -215,6 +300,8 @@
         import { Context } from './scripts/context.js';
 
         const context = new Context();
+
+        context.translationView().translate();
 
         context.navigation().wireClick({ id: 'link', onClick: () => 'index.html' });
     </script>
