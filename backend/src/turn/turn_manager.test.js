@@ -1,4 +1,5 @@
 import { GlobalContext } from '../lib/global_context.js';
+import { Player } from '../player/player.js';
 import { Turn } from './turn.js';
 
 class TestContext extends GlobalContext {
@@ -47,7 +48,8 @@ test('Cannot step on opponent', () => {
             ]
         },
         players: [{
-            position: [0, 1]
+            position: [0, 1],
+            status: Player.Status.alive
         }]
     };
 

@@ -104,6 +104,8 @@ export class NotificationView {
         this.#showCurrentMessage(game);
     }
 
+    // TODO Internationalize me!
+
     #showAttack(game, notification) {
         const attacker = this.#playerHelper.getPlayer(game, notification.attacker);
         const victim = this.#playerHelper.getPlayer(game, notification.victim);
@@ -142,11 +144,14 @@ export class NotificationView {
         }
     }
 
+    // TODO Internationalize me!
+
     #showCurrentPlayer(game) {
         if (this.#currentPlayer !== game.turn.player) {
             this.#currentPlayer = game.turn.player;
 
             if (this.#playerHelper.isMe(game)) {
+
                 this.#notificationHelper.showInformation('Du bist am Zug!');
             } else {
                 const player = this.#turnHelper.getPlayer(game);
@@ -156,6 +161,8 @@ export class NotificationView {
             }
         }
     }
+
+    // TODO Internationalize me!
 
     #showKill(game, notification) {
         const attacker = this.#playerHelper.getPlayer(game, notification.attacker);

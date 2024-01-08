@@ -61,13 +61,13 @@ export class PlayerManager {
         // TODO Use a constant!
 
         if (players.length < 2) {
-            throw new RangeError("Too few players");
+            throw new RangeError('Too few players');
         }
 
         // TODO Use a constant!
 
         if (players.length > 4) {
-            throw new RangeError("Too many players");
+            throw new RangeError('Too many players');
         }
 
         for (const player of players) {

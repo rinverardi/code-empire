@@ -51,9 +51,13 @@ export class Communication {
         this.#connect();
     }
 
+    // TODO Internationalize me!
+
     #handleClose() {
         setTimeout(() => this.#notificationHelper.showError('Die Verbindung wurde getrennt!'), 2000);
     }
+
+    // TODO Internationalize me!
 
     #handleError() {
         this.#notificationHelper.showError('Die Verbindung ist fehlerhaft!');

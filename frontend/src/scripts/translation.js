@@ -1,4 +1,7 @@
 export class Translation {
+
+    // TODO Internationalize me!
+
     mapName(mapId) {
         switch (mapId) {
             case 0:

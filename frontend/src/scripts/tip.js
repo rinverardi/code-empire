@@ -62,6 +62,8 @@ export class TipView {
         }
     }
 
+    // TODO Internationalize me!
+
     #labelPlayer(game, player) {
         const me = this.#playerHelper.getMe(game);
 
@@ -70,6 +72,8 @@ export class TipView {
 
         return `${playerName}<br>(${playerHealth} Trefferpunkte)`;
     }
+
+    // TODO Internationalize me!
 
     #labelStructure(game, structure) {
         const me = this.#playerHelper.getMe(game);
