@@ -84,7 +84,7 @@ export class Translation {
             paragraph2: '<b>Resources</b> are distributed on the map. The resources are placed on random map tiles when the game starts. It is not possible to have multiple resources on one tile. Collected resources disappear from the map and grow back after nine rounds.',
             paragraph3: 'Each player has a <b>game piece</b>. The pieces are placed on random map tiles when the game starts. It is not possible to have multiple pieces on one tile. If a piece is on a tile with a resource, it automatically collects the resource.',
             paragraph4: 'A game consists of a series of <b>rounds</b>.',
-            paragraph5: 'Each player executes one <b>turn</b> per game round. There are six types of moves. Depending on the type of move, different resources are required in different quantities:',
+            paragraph5: 'Each player executes one <b>turn</b> per round. There are six types of moves. Depending on the type of move, different resources are required in different quantities:',
             paragraph6: 'The <b>goal</b> of the game is to create the most powerful empire. There are three ways to achieve this goal: Own one hundred gold pieces, own three metropolises or destroy all opponents. The game ends immediately as soon as one of these objectives is reached.',
             paragraph7: 'The gold pieces that the winner has at the end of the game are relevant for the <b>highscores</b>. If the winner achieves a result that is one of the ten best results of all time, the result is saved in the highscores.'
         }
