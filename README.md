@@ -41,17 +41,10 @@ For development purposes, you can run the frontend service as follows:
 
 For development purposes, you can run the backend service as follows:
 
+    $ export REDIS_URL=redis://localhost:6379
     $ cd backend/src
     $ npm install
     $ npm start
-
-> **Note**
->
-> When running the backend service for development purposes, edit `backend/src/lib/global_config.mjs` and configure the Redis URL as follows:
->
-> redis: {
->   url: 'redis://localhost:6379/'
-> }
 
 ### Persistence Service
 
