@@ -52,7 +52,7 @@ class App extends GlobalContext {
   }
 
   run() {
-    const wsServer = new WebSocketServer({ port: GlobalConfig.backend.bindPort });
+    const wsServer = new WebSocketServer({ port: GlobalConfig.backend.port });
 
     wsServer.on('connection', (wsConnection, wsRequest) => {
       wsConnection.on('error', wsError => Logger.e('ws', wsError));

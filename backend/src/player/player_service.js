@@ -1,4 +1,5 @@
 import { Game } from '../game/game.js';
+import { GlobalConfig } from '../lib/global_config.js';
 import { Player } from './player.js';
 
 export class PlayerService {
@@ -23,9 +24,7 @@ export class PlayerService {
     #autoStart(game) {
         const players = game.players.filter(that => that.status === Player.Status.alive);
 
-        // TODO Use a constant!
-
-        if (players.length > 3) {
+        if (players.length >= GlobalConfig.slots.maxPlayers) {
             this.#gameManager.startGame(game);
             this.#turnManager.startTurn(game);
         }

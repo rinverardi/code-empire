@@ -81,8 +81,6 @@ export class TurnManager {
     #doAttack(game, turn) {
         const attacker = this.#gameAccess.getCurrentPlayer(game);
 
-        // TODO Use a constant!
-
         attacker.inventory[Inventory.Item.weaponry] -= 2;
 
         const victim = this.#mapAccess.getPlayerAt(game, ...turn.positionTo);

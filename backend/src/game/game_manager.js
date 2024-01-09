@@ -1,4 +1,5 @@
 import { Game } from './game.js';
+import { GlobalConfig } from '../lib/global_config.js';
 import { Map } from '../map/map.js';
 import { Player } from '../player/player.js';
 
@@ -42,9 +43,7 @@ export class GameManager {
             const scoreGold = this.#playerAccess.countGold(player);
             const scoreMetropolises = this.#playerAccess.countMetropolises(game, player);
 
-            // TODO Use a constant!
-
-            if (scoreGold > 99) {
+            if (scoreGold >= GlobalConfig.objectives.haveGold) {
                 return {
                     objective: Game.Objective.haveGold,
                     player: player.id,
@@ -53,9 +52,7 @@ export class GameManager {
                 };
             }
 
-            // TODO Use a constant!
-
-            if (scoreMetropolises > 2) {
+            if (scoreMetropolises >= GlobalConfig.objectives.haveMetropolises) {
                 return {
                     objective: Game.Objective.haveMetropolises,
                     player: player.id,
@@ -65,9 +62,7 @@ export class GameManager {
             }
         }
 
-        // TODO Use a constant!
-
-        if (players.length < 2) {
+        if (players.length < GlobalConfig.slots.minPlayers) {
             return {
                 objective: Game.Objective.survive,
                 player: players[0].id,
