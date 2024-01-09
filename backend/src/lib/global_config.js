@@ -1,5 +1,13 @@
 export const GlobalConfig = Object.freeze({
-    backendPort: 8001,
-    playerHealth: 10,
-    redisUrl: 'redis://empire-persistence:6379/'
+    backend: {
+        bindPort: 8001
+    },
+    game: {
+        player: {
+            initialHealth: 10
+        },
+    },
+    redis: {
+        url: 'redis://empire-persistence:6379/'
+    }
 });

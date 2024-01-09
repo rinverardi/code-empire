@@ -71,7 +71,7 @@ export class PlayerManager {
         }
 
         for (const player of players) {
-            player.health = GlobalConfig.playerHealth;
+            player.health = GlobalConfig.game.player.initialHealth;
             player.inventory = this.#inventoryManager.buildInventory();
             player.position = this.#pickPosition(game);
         }

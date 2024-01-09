@@ -49,7 +49,9 @@ For development purposes, you can run the backend service as follows:
 >
 > When running the backend service for development purposes, edit `backend/src/lib/global_config.mjs` and configure the Redis URL as follows:
 >
->     redisUrl: 'redis://localhost:6379/'
+> redis: {
+>   url: 'redis://localhost:6379/'
+> }
 
 ### Persistence Service
 
