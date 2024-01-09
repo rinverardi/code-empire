@@ -1,4 +1,5 @@
 import { ArrayHelper } from '../lib/array_helper.js';
+import { GlobalConfig } from '../lib/global_config.js';
 import { Resource } from '../resource/resource.js';
 import { Structure } from './structure.js';
 import { Turn } from '../turn/turn.js';
@@ -26,9 +27,7 @@ export class StructureManager {
                     structure.position[0] + direction.x,
                     structure.position[1] + direction.y);
 
-                // TODO Use a constant!
-
-                if (resource && resource.age > 8) {
+                if (resource && resource.age >= GlobalConfig.resources.respawnAfter) {
                     player.inventory[resource.type]++;
 
                     resource.age = -1;

@@ -10,7 +10,7 @@ export class SessionContext {
     #wsParams;
 
     constructor(wsConnection, wsParams) {
-        this.#redisClient = createClient({ url: GlobalConfig.redisUrl });
+        this.#redisClient = createClient({ url: GlobalConfig.redis.url });
 
         this.#redisClient.on('error', error => Logger.e('redis', error));
 

@@ -3,7 +3,7 @@ import { WebSocketServer } from 'ws';
 import { GlobalConfig } from './lib/global_config.js';
 import { GlobalContext } from './lib/global_context.js';
 import { Logger } from './lib/logger.js';
-import { SessionContext as SessionContext } from './lib/session_context.js';
+import { SessionContext } from './lib/session_context.js';
 
 class App extends GlobalContext {
   #routes = [
@@ -52,7 +52,7 @@ class App extends GlobalContext {
   }
 
   run() {
-    const wsServer = new WebSocketServer({ port: GlobalConfig.backendPort });
+    const wsServer = new WebSocketServer({ port: GlobalConfig.backend.port });
 
     wsServer.on('connection', (wsConnection, wsRequest) => {
       wsConnection.on('error', wsError => Logger.e('ws', wsError));

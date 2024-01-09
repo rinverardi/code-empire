@@ -27,9 +27,7 @@ export class PlayerManager {
         const player = this.#gameAccess.getCurrentPlayer(game);
         const resource = this.#mapAccess.getResourceAt(game, ...player.position);
 
-        // TODO Use a constant!
-
-        if (resource && resource.age > 8) {
+        if (resource && resource.age >= GlobalConfig.resources.respawnAfter) {
             player.inventory[resource.type]++;
 
             resource.age = -1;
@@ -58,20 +56,16 @@ export class PlayerManager {
     startGame(game) {
         const players = game.players.filter(that => that.status === Player.Status.alive);
 
-        // TODO Use a constant!
-
-        if (players.length < 2) {
+        if (players.length < GlobalConfig.slots.minPlayers) {
             throw new RangeError('Too few players');
         }
 
-        // TODO Use a constant!
-
-        if (players.length > 4) {
+        if (players.length > GlobalConfig.slots.maxPlayers) {
             throw new RangeError('Too many players');
         }
 
         for (const player of players) {
-            player.health = GlobalConfig.playerHealth;
+            player.health = GlobalConfig.players.initialHealth;
             player.inventory = this.#inventoryManager.buildInventory();
             player.position = this.#pickPosition(game);
         }

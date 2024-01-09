@@ -1,3 +1,5 @@
+import { GlobalConfig } from '../lib/global_config.js';
+
 export class HighscoreService {
     #gameRepository;
     #highscoreRepository;
@@ -20,9 +22,7 @@ export class HighscoreService {
 
         highscores = highscores.sort((a, b) => b.score - a.score);
 
-        // TODO Use a constant!
-
-        if (highscores.length > 10) {
+        if (highscores.length > GlobalConfig.highscores.maxEntries) {
             highscores.length = 10;
         }
 
