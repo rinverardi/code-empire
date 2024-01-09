@@ -30,9 +30,6 @@ export class GameService {
     }
 
     async createGame(sessionContext, mapId, playerName) {
-
-        // TODO Check the limit!
-
         const game = this.#gameManager.buildGame(sessionContext, mapId, playerName);
 
         await this.#gameRepository.saveGame(sessionContext, game);
