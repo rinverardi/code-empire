@@ -1,4 +1,4 @@
-export const GlobalConfig = Object.freeze({
+export const GlobalConfig = Object.freeze(override({
     backend: {
         port: 8001
     },
@@ -26,4 +26,20 @@ export const GlobalConfig = Object.freeze({
         maxPlayers: 4,
         minPlayers: 2
     }
-});
+}));
+
+function override(source, prefix) {
+    const target = {};
+
+    for (const key in source) {
+        const variable = (prefix || '') + key.toUpperCase();
+
+        if (typeof source[key] === 'object') {
+            target[key] = override(source[key], variable + '_');
+        } else {
+            target[key] = process.env[variable] || source[key];
+        }
+    }
+
+    return target;
+}
