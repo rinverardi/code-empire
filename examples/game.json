@@ -1,0 +1,242 @@
+{
+    "id": "e1zpcjwb3lriwkpp",
+    "map": {
+        "id": 0,
+        "tiles": [
+            "w w w w w w w w ",
+            " w g g w w f f w",
+            "w g h g g m f w ",
+            " w g m g h h g w",
+            "w g f m g g g w ",
+            " w g f h g g w w",
+            "w g g g g g f w ",
+            " w g g g g f f w",
+            "w g g h m g g w ",
+            " w f g h m g h w",
+            "w f f w h g h w ",
+            " w w w w w w w w"
+        ]
+    },
+    "notifications": [],
+    "players": [
+        {
+            "id": "ot5ncumzirwzcmie",
+            "name": "Angry Alpaca",
+            "role": "master",
+            "status": "alive",
+            "secret": "g4frylzb0w5llafuekgiwy5htj15mlab",
+            "health": 10,
+            "inventory": {
+                "food": 13,
+                "gold": 11,
+                "research": 14,
+                "weaponry": 9
+            },
+            "position": [
+                6,
+                2
+            ],
+            "visibility": [
+                "0 1 1 1 0 0 0 0 ",
+                " 1 1 1 1 0 0 0 0",
+                "1 1 1 1 1 0 0 0 ",
+                " 1 1 1 1 1 0 0 0",
+                "1 1 1 1 1 1 0 0 ",
+                " 1 1 1 1 1 0 0 0",
+                "1 1 1 1 1 0 0 0 ",
+                " 1 1 1 1 0 0 0 0",
+                "0 0 0 0 0 0 0 0 ",
+                " 0 0 0 0 0 0 0 0",
+                "0 0 0 0 0 0 0 0 ",
+                " 0 0 0 0 0 0 0 0"
+            ]
+        },
+        {
+            "id": "jaiqddmv02txzxig",
+            "name": "Brilliant Barracuda",
+            "role": "participant",
+            "status": "alive",
+            "secret": "brntgozxhtkpdgiz1115zagtexda0v0z",
+            "health": 10,
+            "inventory": {
+                "food": 12,
+                "gold": 13,
+                "research": 9,
+                "weaponry": 7
+            },
+            "position": [
+                8,
+                6
+            ],
+            "visibility": [
+                "0 0 0 0 0 0 0 0 ",
+                " 0 0 0 0 0 0 0 0",
+                "0 0 0 0 0 0 0 0 ",
+                " 0 0 0 0 0 0 0 0",
+                "0 0 0 0 0 0 0 0 ",
+                " 0 0 0 1 1 1 1 0",
+                "0 0 0 1 1 1 1 1 ",
+                " 0 0 1 1 1 1 1 1",
+                "0 0 1 1 1 1 1 1 ",
+                " 0 0 1 1 1 1 1 1",
+                "0 0 0 1 1 1 1 1 ",
+                " 0 0 0 1 1 1 1 0"
+            ]
+        }
+    ],
+    "status": "running",
+    "messages": [],
+    "resources": [
+        {
+            "age": 43,
+            "position": [
+                4,
+                8
+            ],
+            "type": "food"
+        },
+        {
+            "age": 10,
+            "position": [
+                13,
+                9
+            ],
+            "type": "food"
+        },
+        {
+            "age": 17,
+            "position": [
+                7,
+                5
+            ],
+            "type": "food"
+        },
+        {
+            "age": 43,
+            "position": [
+                13,
+                1
+            ],
+            "type": "gold"
+        },
+        {
+            "age": 43,
+            "position": [
+                4,
+                10
+            ],
+            "type": "gold"
+        },
+        {
+            "age": 5,
+            "position": [
+                3,
+                3
+            ],
+            "type": "gold"
+        },
+        {
+            "age": 43,
+            "position": [
+                12,
+                4
+            ],
+            "type": "research"
+        },
+        {
+            "age": 19,
+            "position": [
+                8,
+                4
+            ],
+            "type": "research"
+        },
+        {
+            "age": 22,
+            "position": [
+                7,
+                9
+            ],
+            "type": "research"
+        },
+        {
+            "age": 43,
+            "position": [
+                11,
+                1
+            ],
+            "type": "weaponry"
+        },
+        {
+            "age": 15,
+            "position": [
+                6,
+                6
+            ],
+            "type": "weaponry"
+        },
+        {
+            "age": 43,
+            "position": [
+                13,
+                3
+            ],
+            "type": "weaponry"
+        }
+    ],
+    "structures": [],
+    "turn": {
+        "number": 35,
+        "player": "ot5ncumzirwzcmie"
+    },
+    "turns": [
+        {
+            "direction": "east",
+            "positionFrom": [
+                6,
+                2
+            ],
+            "positionTo": [
+                8,
+                2
+            ],
+            "type": "move"
+        },
+        {
+            "direction": "northWest",
+            "positionFrom": [
+                6,
+                2
+            ],
+            "positionTo": [
+                5,
+                1
+            ],
+            "type": "move"
+        },
+        {
+            "direction": "southEast",
+            "positionFrom": [
+                6,
+                2
+            ],
+            "positionTo": [
+                7,
+                3
+            ],
+            "type": "move"
+        },
+        {
+            "direction": "west",
+            "positionFrom": [
+                6,
+                2
+            ],
+            "positionTo": [
+                4,
+                2
+            ],
+            "type": "move"
+        }
+    ]
+}
