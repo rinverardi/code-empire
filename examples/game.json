@@ -1,5 +1,5 @@
 {
-    "id": "e1zpcjwb3lriwkpp",
+    "id": "50bgaoaxgwoezx5t",
     "map": {
         "id": 0,
         "tiles": [
@@ -27,28 +27,28 @@
             "secret": "g4frylzb0w5llafuekgiwy5htj15mlab",
             "health": 10,
             "inventory": {
-                "food": 13,
-                "gold": 11,
-                "research": 14,
+                "food": 12,
+                "gold": 9,
+                "research": 7,
                 "weaponry": 9
             },
             "position": [
-                6,
-                2
+                11,
+                9
             ],
             "visibility": [
-                "0 1 1 1 0 0 0 0 ",
-                " 1 1 1 1 0 0 0 0",
-                "1 1 1 1 1 0 0 0 ",
-                " 1 1 1 1 1 0 0 0",
-                "1 1 1 1 1 1 0 0 ",
-                " 1 1 1 1 1 0 0 0",
-                "1 1 1 1 1 0 0 0 ",
-                " 1 1 1 1 0 0 0 0",
                 "0 0 0 0 0 0 0 0 ",
                 " 0 0 0 0 0 0 0 0",
                 "0 0 0 0 0 0 0 0 ",
-                " 0 0 0 0 0 0 0 0"
+                " 0 0 0 0 0 0 0 0",
+                "0 0 0 0 0 1 1 0 ",
+                " 0 0 0 0 1 1 1 0",
+                "0 0 0 1 1 1 1 1 ",
+                " 0 0 1 1 1 1 1 1",
+                "0 0 1 1 1 1 1 1 ",
+                " 0 0 1 1 1 1 1 1",
+                "0 0 0 1 1 1 1 1 ",
+                " 0 0 0 1 1 1 1 0"
             ]
         },
         {
@@ -59,76 +59,85 @@
             "secret": "brntgozxhtkpdgiz1115zagtexda0v0z",
             "health": 10,
             "inventory": {
-                "food": 12,
-                "gold": 13,
-                "research": 9,
-                "weaponry": 7
+                "food": 9,
+                "gold": 9,
+                "research": 8,
+                "weaponry": 12
             },
             "position": [
                 8,
-                6
+                4
             ],
             "visibility": [
+                "0 1 1 1 0 0 0 0 ",
+                " 1 1 1 1 0 0 0 0",
+                "1 1 1 1 1 0 0 0 ",
+                " 1 1 1 1 1 0 0 0",
+                "1 1 1 1 1 1 0 0 ",
+                " 1 1 1 1 1 0 0 0",
+                "0 1 1 1 1 0 0 0 ",
+                " 0 1 1 0 0 0 0 0",
                 "0 0 0 0 0 0 0 0 ",
                 " 0 0 0 0 0 0 0 0",
                 "0 0 0 0 0 0 0 0 ",
-                " 0 0 0 0 0 0 0 0",
-                "0 0 0 0 0 0 0 0 ",
-                " 0 0 0 1 1 1 1 0",
-                "0 0 0 1 1 1 1 1 ",
-                " 0 0 1 1 1 1 1 1",
-                "0 0 1 1 1 1 1 1 ",
-                " 0 0 1 1 1 1 1 1",
-                "0 0 0 1 1 1 1 1 ",
-                " 0 0 0 1 1 1 1 0"
+                " 0 0 0 0 0 0 0 0"
             ]
         }
     ],
     "status": "running",
-    "messages": [],
-    "resources": [
+    "messages": [
         {
-            "age": 43,
-            "position": [
-                4,
-                8
-            ],
-            "type": "food"
+            "player": "ot5ncumzirwzcmie",
+            "text": "Bow before your new master!"
         },
         {
-            "age": 10,
+            "player": "jaiqddmv02txzxig",
+            "text": "I'm not worthy."
+        }
+    ],
+    "resources": [
+        {
+            "age": 55,
             "position": [
-                13,
+                3,
                 9
             ],
             "type": "food"
         },
         {
-            "age": 17,
+            "age": 20,
             "position": [
-                7,
-                5
+                2,
+                4
             ],
             "type": "food"
         },
         {
-            "age": 43,
+            "age": 55,
             "position": [
                 13,
                 1
             ],
-            "type": "gold"
+            "type": "food"
         },
         {
-            "age": 43,
+            "age": 55,
             "position": [
-                4,
+                2,
                 10
             ],
             "type": "gold"
         },
         {
-            "age": 5,
+            "age": 17,
+            "position": [
+                12,
+                6
+            ],
+            "type": "gold"
+        },
+        {
+            "age": 7,
             "position": [
                 3,
                 3
@@ -136,23 +145,15 @@
             "type": "gold"
         },
         {
-            "age": 43,
+            "age": 55,
             "position": [
-                12,
-                4
+                4,
+                10
             ],
             "type": "research"
         },
         {
-            "age": 19,
-            "position": [
-                8,
-                4
-            ],
-            "type": "research"
-        },
-        {
-            "age": 22,
+            "age": 29,
             "position": [
                 7,
                 9
@@ -160,83 +161,128 @@
             "type": "research"
         },
         {
-            "age": 43,
+            "age": 55,
             "position": [
-                11,
-                1
+                9,
+                3
+            ],
+            "type": "research"
+        },
+        {
+            "age": 1,
+            "position": [
+                4,
+                2
             ],
             "type": "weaponry"
         },
         {
-            "age": 15,
-            "position": [
-                6,
-                6
-            ],
-            "type": "weaponry"
-        },
-        {
-            "age": 43,
+            "age": 55,
             "position": [
                 13,
                 3
             ],
             "type": "weaponry"
+        },
+        {
+            "age": 43,
+            "position": [
+                12,
+                8
+            ],
+            "type": "weaponry"
         }
     ],
-    "structures": [],
+    "structures": [
+        {
+            "player": "jaiqddmv02txzxig",
+            "position": [
+                2,
+                2
+            ],
+            "type": "village"
+        },
+        {
+            "player": "ot5ncumzirwzcmie",
+            "position": [
+                9,
+                7
+            ],
+            "type": "factory"
+        }
+    ],
     "turn": {
-        "number": 35,
+        "number": 47,
         "player": "ot5ncumzirwzcmie"
     },
     "turns": [
         {
             "direction": "east",
             "positionFrom": [
-                6,
-                2
+                11,
+                9
             ],
             "positionTo": [
-                8,
-                2
+                13,
+                9
+            ],
+            "type": "move"
+        },
+        {
+            "direction": "northEast",
+            "positionFrom": [
+                11,
+                9
+            ],
+            "positionTo": [
+                12,
+                8
             ],
             "type": "move"
         },
         {
             "direction": "northWest",
             "positionFrom": [
-                6,
-                2
+                11,
+                9
             ],
             "positionTo": [
-                5,
-                1
+                10,
+                8
             ],
             "type": "move"
         },
         {
             "direction": "southEast",
             "positionFrom": [
-                6,
-                2
+                11,
+                9
             ],
             "positionTo": [
-                7,
-                3
+                12,
+                10
             ],
             "type": "move"
         },
         {
-            "direction": "west",
+            "direction": "southWest",
             "positionFrom": [
-                6,
-                2
+                11,
+                9
             ],
             "positionTo": [
-                4,
-                2
+                10,
+                10
             ],
             "type": "move"
+        },
+        {
+            "position": [
+                11,
+                9
+            ],
+            "structure": "village",
+            "type": "build"
         }
     ]
 }
