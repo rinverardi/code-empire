@@ -39,8 +39,6 @@ export class TurnService {
 
         this.#authz.canExecuteTurn(game, player).orThrow();
 
-        this.#startTurn(game);
-
         if (turn) {
             this.#turnManager.executeTurn(game, turn);
         }
@@ -61,8 +59,4 @@ export class TurnService {
     async skipTurn(sessionContext) {
         this.executeTurn(sessionContext, null);
     }
-
-    // TODO Implement me!
-
-    #startTurn(game) { }
 };

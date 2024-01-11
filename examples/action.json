@@ -1,0 +1,9 @@
+{
+    "id": "executeTurn",
+    "turn": {
+        "direction": "southEast",
+        "positionFrom": [7, 3],
+        "positionTo": [8, 4],
+        "type": "move"
+    }
+}

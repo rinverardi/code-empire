@@ -165,7 +165,7 @@ export class TurnManager {
 
     startGame(game) {
         game.turn = {
-            number: 1,
+            number: 0,
             player: game.players[0].id
         }
     }
@@ -173,6 +173,7 @@ export class TurnManager {
     startTurn(game) {
         const positionFrom = this.#gameAccess.getCurrentPlayer(game).position;
 
+        game.turn.number++;
         game.turns = [];
 
         for (const [directionId, direction] of Object.entries(Turn.Direction)) {
