@@ -1,3 +1,15 @@
+import { GlobalContext } from '../lib/global_context.js';
+import { SessionContext } from '../lib/session_context.js';
+
+/**
+ * Provides high-level functions for working with turns; e.g., execute turns,
+ * skip turns.
+ * <p>
+ * Typically, service methods are invoked from controller classes. If you find
+ * yourself calling service methods from repository classes or other service
+ * classes, consider introducing a helper class.
+ */
+
 export class TurnService {
     #authn;
     #authz;
@@ -9,6 +21,13 @@ export class TurnService {
     #structureManager;
     #turnManager;
     #visibilityManager;
+
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the global context.
+     *
+     * @param {GlobalContext} globalContext holds the globally-scoped objects
+     */
 
     constructor(globalContext) {
         this.#authn = globalContext.authn();
@@ -33,6 +52,13 @@ export class TurnService {
         this.#turnManager.startTurn(game);
     }
 
+    /**
+     * Executes a turn and advances the game state.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     * @param {Object} turn the turn to execute
+     */
+
     async executeTurn(sessionContext, turn) {
         const game = await this.#gameRepository.loadGame(sessionContext);
         const player = this.#authn.getPlayer(sessionContext, game);
@@ -55,6 +81,12 @@ export class TurnService {
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
     }
+
+    /**
+     * Skips a turn and advances the game state.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     */
 
     async skipTurn(sessionContext) {
         this.executeTurn(sessionContext, null);
