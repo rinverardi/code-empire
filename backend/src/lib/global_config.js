@@ -1,3 +1,10 @@
+/**
+ * The global configuration settings.
+ * <p>
+ * Settings can be overridden using environment variables; e.g., to override
+ * the port number of the backend, set the 'BACKEND_PORT' variable.
+ */
+
 export const GlobalConfig = Object.freeze(override({
     backend: {
         port: 8001

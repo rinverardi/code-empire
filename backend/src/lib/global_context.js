@@ -28,6 +28,13 @@ import { TurnService } from '../turn/turn_service.js';
 import { VisibilityAccess } from '../visibility/visibility_access.js';
 import { VisibilityManager } from '../visibility/visibility_manager.js';
 
+/**
+ * Holds the globally-scoped objects.
+ * <p>
+ * When writing test cases, you can override the methods of this class to
+ * inject mock objects.
+ */
+
 export class GlobalContext {
     #authn;
     #authz;

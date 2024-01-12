@@ -1,14 +1,34 @@
 import { Game } from '../game/game.js';
 import { Player } from '../player/player.js';
 
+/**
+ * Provides methods for authorizing actions.
+ */
+
 export class Authz {
     #ok = new AuthzResult(true);
+
+    /**
+     * Checks if a player is authorized to abort a game.
+     *
+     * @param {object} game the game state
+     * @param {object} player the player attempting to abort the game
+     * @returns {AuthzResult} whether or not the action is authorized
+     */
 
     canAbortGame(game, player) {
         return this.#checkGame({ game, status: Game.Status.waiting })
             ?? this.#checkPlayer({ player, role: Player.Role.master })
             ?? this.#ok;
     }
+
+    /**
+     * Checks if a player is authorized to execute a turn.
+     *
+     * @param {object} game the game state
+     * @param {object} player the player attempting to execute a turn
+     * @returns {AuthzResult} whether or not the action is authorized
+     */
 
     canExecuteTurn(game, player) {
         return this.#checkGame({ game, status: Game.Status.running })
@@ -17,10 +37,26 @@ export class Authz {
             ?? this.#ok;
     }
 
+    /**
+     * Checks if a player is authorized to forfeit a game.
+     *
+     * @param {object} game the game state
+     * @param {object} player the player attempting to forfeit the game
+     * @returns {AuthzResult} whether or not the action is authorized
+     */
+
     canForfeitGame(game) {
         return this.#checkGame({ game, status: Game.Status.running })
             ?? this.#ok;
     }
+
+    /**
+     * Checks if a player is authorized to join a game.
+     *
+     * @param {object} game the game state
+     * @param {object} player the player attempting to join the game
+     * @returns {AuthzResult} whether or not the action is authorized
+     */
 
     canJoinGame(game, player) {
         return this.#checkGame({ game, status: Game.Status.waiting })
@@ -28,16 +64,40 @@ export class Authz {
             ?? this.#ok;
     }
 
+    /**
+     * Checks if a player is authorized to leave a game.
+     *
+     * @param {object} game the game state
+     * @param {object} player the player attempting to leave the game
+     * @returns {AuthzResult} whether or not the action is authorized
+     */
+
     canLeaveGame(game) {
         return this.#checkGame({ game, status: Game.Status.waiting })
             ?? this.#ok;
     }
+
+    /**
+     * Checks if a player is authorized to send a chat message.
+     *
+     * @param {object} game the game state
+     * @param {object} player the player attempting to send a chat message
+     * @returns {AuthzResult} whether or not the action is authorized
+     */
 
     canSendMessage(game, player) {
         return this.#checkGame({ game, status: Game.Status.running })
             ?? this.#checkPlayer({ player, status: Player.Status.alive })
             ?? this.#ok;
     }
+
+    /**
+     * Checks if a player is authorized to start a game.
+     *
+     * @param {object} game the game state
+     * @param {object} player the player attempting to start the game
+     * @returns {AuthzResult} whether or not the action is authorized
+     */
 
     canStartGame(game, player) {
         return this.#checkGame({ game, status: Game.Status.waiting })
@@ -95,6 +155,12 @@ export class AuthzResult {
         this.#decision = decision;
         this.#message = message;
     }
+
+    /**
+     * Throws an exception unless the authorization result is positive.
+     *
+     * @throws {AuthzError} if the authorization result is negative
+     */
 
     orThrow() {
         if (!this.#decision) {
