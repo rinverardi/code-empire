@@ -1,4 +1,15 @@
 import { Game } from './game.js';
+import { GlobalContext } from '../lib/global_context.js';
+import { SessionContext } from '../lib/session_context.js';
+
+/**
+ * Provides high-level functions for working with games; e.g., abort games,
+ * create games, load games (and watch for changes), start games.
+ * <p>
+ * Typically, service methods are invoked from controller classes. If you find
+ * yourself calling service methods from repository classes or other service
+ * classes, consider introducing a helper class.
+ */
 
 export class GameService {
     #authn;
@@ -8,6 +19,13 @@ export class GameService {
     #gameRepository;
     #turnManager;
 
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the global context.
+     *
+     * @param {GlobalContext} globalContext holds the globally-scoped objects
+     */
+
     constructor(globalContext) {
         this.#authn = globalContext.authn();
         this.#authz = globalContext.authz();
@@ -16,6 +34,12 @@ export class GameService {
         this.#gameRepository = globalContext.gameRepository();
         this.#turnManager = globalContext.turnManager();
     }
+
+    /**
+     * Aborts a game in the pre-game phase.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     */
 
     async abortGame(sessionContext) {
         const game = await this.#gameRepository.loadGame(sessionContext);
@@ -29,12 +53,30 @@ export class GameService {
         await this.#gameRepository.publishGame(sessionContext, game);
     }
 
+    /**
+     * Creates a game in the pre-game phase.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     * @param {number} mapId the map for the game
+     * @param {string} playerName the nickname for the game master
+     */
+
     async createGame(sessionContext, mapId, playerName) {
         const game = this.#gameManager.buildGame(sessionContext, mapId, playerName);
 
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
     }
+
+    /**
+     * Loads a game from the database.
+     * <p>
+     * The session context is used to identity the current player. Only game
+     * elements that are visible to that player are mapped and returned.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     * @returns {Promise} the game state
+     */
 
     async loadGame(sessionContext) {
         const game = await this.#gameRepository.loadGame(sessionContext);
@@ -44,6 +86,13 @@ export class GameService {
             : { status: Game.Status.missing };
     }
 
+    /**
+     * Loads games from the database that are awaiting more players.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     * @returns {Promise} the game states
+     */
+
     async loadGameList(sessionContext) {
         const gameList = await this.#gameRepository.loadGameList(sessionContext);
 
@@ -51,6 +100,13 @@ export class GameService {
             .filter(that => that.status === Game.Status.waiting)
             .map(that => this.#gameMapper.map(sessionContext, that));
     }
+
+    /**
+     * Starts a game and transfers it from the pre-game phase to the in-game
+     * phase.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     */
 
     async startGame(sessionContext) {
         const game = await this.#gameRepository.loadGame(sessionContext);
@@ -65,6 +121,14 @@ export class GameService {
         await this.#gameRepository.publishGame(sessionContext, game);
     }
 
+    /**
+     * Watches a game, detects changes, and invokes a callback for every
+     * change.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     * @param {function} onUpdate called for every change
+     */
+
     async watchGame(sessionContext, onUpdate) {
         await this.#gameRepository.subscribeGame(sessionContext, game => {
             const parsedGame = JSON.parse(game);
@@ -75,6 +139,14 @@ export class GameService {
 
         onUpdate(await this.loadGame(sessionContext));
     }
+
+    /**
+     * Watches games that are awaiting more players, detects changes, and
+     * invokes a callback for every change.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     * @param {function} onUpdate called for every change
+     */
 
     async watchGameList(sessionContext, onUpdate) {
         await this.#gameRepository.subscribeGameList(sessionContext, game => {

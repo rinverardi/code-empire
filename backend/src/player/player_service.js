@@ -1,6 +1,17 @@
 import { Game } from '../game/game.js';
 import { GlobalConfig } from '../lib/global_config.js';
+import { GlobalContext } from '../lib/global_context.js';
 import { Player } from './player.js';
+import { SessionContext } from '../lib/session_context.js';
+
+/**
+ * Provides high-level functions for working with players; e.g., forfeit games,
+ * join games, leave games.
+ * <p>
+ * Typically, service methods are invoked from controller classes. If you find
+ * yourself calling service methods from repository classes or other service
+ * classes, consider introducing a helper class.
+ */
 
 export class PlayerService {
     #authn;
@@ -10,6 +21,13 @@ export class PlayerService {
     #highscoreService;
     #playerManager;
     #turnManager;
+
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the global context.
+     *
+     * @param {GlobalContext} globalContext holds the globally-scoped objects
+     */
 
     constructor(globalContext) {
         this.#authn = globalContext.authn();
@@ -29,6 +47,14 @@ export class PlayerService {
             this.#turnManager.startTurn(game);
         }
     }
+
+    /**
+     * Removes a player from the game when the player forfeits.
+     * <p>
+     * This action is only possible during the in-game phase.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     */
 
     async forfeitGame(sessionContext) {
         const game = await this.#gameRepository.loadGame(sessionContext);
@@ -57,6 +83,12 @@ export class PlayerService {
         await this.#gameRepository.publishGame(sessionContext, game);
     }
 
+    /**
+     * Adds a player to the game when the player joins.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     */
+
     async joinGame(sessionContext, playerName) {
         const game = await this.#gameRepository.loadGame(sessionContext);
 
@@ -73,6 +105,14 @@ export class PlayerService {
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
     }
+
+    /**
+     * Removes a player from the game when the player leaves.
+     * <p>
+     * This action is only possible during the pre-game phase.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     */
 
     async leaveGame(sessionContext) {
         const game = await this.#gameRepository.loadGame(sessionContext);

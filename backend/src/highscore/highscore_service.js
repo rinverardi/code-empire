@@ -1,13 +1,40 @@
 import { GlobalConfig } from '../lib/global_config.js';
+import { GlobalContext } from '../lib/global_context.js';
+import { SessionContext } from '../lib/session_context.js';
+
+/**
+ * Provides high-level functions for working with highscores; e.g., submit
+ * scores, load highscores (and watch for changes).
+ * <p>
+ * Typically, service methods are invoked from controller classes. If you find
+ * yourself calling service methods from repository classes or other service
+ * classes, consider introducing a helper class.
+ */
 
 export class HighscoreService {
     #gameRepository;
     #highscoreRepository;
 
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the global context.
+     *
+     * @param {GlobalContext} globalContext holds the globally-scoped objects
+     */
+
     constructor(globalContext) {
         this.#gameRepository = globalContext.gameRepository();
         this.#highscoreRepository = globalContext.highscoreRepository();
     }
+
+    /**
+     * Submits a new score for possible inclusion in the highscores.
+     * <p>
+     * Only the top ten scores are kept.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     * @param {Object} winner the winner of the game
+     */
 
     async submitScore(sessionContext, winner) {
         const game = await this.#gameRepository.loadGame(sessionContext);
@@ -37,6 +64,14 @@ export class HighscoreService {
         await this.#highscoreRepository.saveHighscores(sessionContext, highscores);
         await this.#highscoreRepository.publishHighscores(sessionContext, highscores);
     }
+
+    /**
+     * Watches the highscores, detects changes, and invokes a callback for
+     * every change.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     * @param {function} onUpdate called for every change
+     */
 
     async watchHighscores(sessionContext, onUpdate) {
         await this.#highscoreRepository.subscribeHighscores(sessionContext, highscores => {
