@@ -5,7 +5,7 @@ import { Player } from './player.js';
 import { SessionContext } from '../lib/session_context.js';
 
 /**
- * Provides high-level functions for working with players; e.g., forfeit games,
+ * Provides high-level methods for working with players; e.g., forfeit games,
  * join games, leave games.
  * <p>
  * Typically, service methods are invoked from controller classes. If you find

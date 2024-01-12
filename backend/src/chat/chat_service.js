@@ -2,8 +2,8 @@ import { GlobalContext } from '../lib/global_context.js';
 import { SessionContext } from '../lib/session_context.js';
 
 /**
- * Provides high-level functions for working with chat messages; e.g., send
- * chat messages.
+ * Provides high-level methods for working with chat messages; e.g., send chat
+ * messages.
  * <p>
  * Typically, service methods are invoked from controller classes. If you find
  * yourself calling service methods from repository classes or other service

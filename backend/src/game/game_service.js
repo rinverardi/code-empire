@@ -3,7 +3,7 @@ import { GlobalContext } from '../lib/global_context.js';
 import { SessionContext } from '../lib/session_context.js';
 
 /**
- * Provides high-level functions for working with games; e.g., abort games,
+ * Provides high-level methods for working with games; e.g., abort games,
  * create games, load games (and watch for changes), start games.
  * <p>
  * Typically, service methods are invoked from controller classes. If you find
