@@ -3,7 +3,7 @@ import { GlobalContext } from '../lib/global_context.js';
 import { SessionContext } from '../lib/session_context.js';
 
 /**
- * Provides high-level functions for working with highscores; e.g., submit
+ * Provides high-level methods for working with highscores; e.g., submit
  * scores, load highscores (and watch for changes).
  * <p>
  * Typically, service methods are invoked from controller classes. If you find

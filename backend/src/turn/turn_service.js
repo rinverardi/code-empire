@@ -2,7 +2,7 @@ import { GlobalContext } from '../lib/global_context.js';
 import { SessionContext } from '../lib/session_context.js';
 
 /**
- * Provides high-level functions for working with turns; e.g., execute turns,
+ * Provides high-level methods for working with turns; e.g., execute turns,
  * skip turns.
  * <p>
  * Typically, service methods are invoked from controller classes. If you find
