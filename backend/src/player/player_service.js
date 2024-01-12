@@ -87,13 +87,6 @@ export class PlayerService {
             status: Player.Status.left
         });
 
-        if (!game.players.some(that => that.status === Player.Status.alive)) {
-            game.status = Game.Status.aborted;
-        } else if (game.status === Game.Status.running) {
-            this.#turnManager.endTurn(game);
-            this.#turnManager.startTurn(game);
-        }
-
         await this.#gameRepository.saveGame(sessionContext, game);
         await this.#gameRepository.publishGame(sessionContext, game);
     }
