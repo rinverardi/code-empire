@@ -1,4 +1,12 @@
+.PHONY: doc
+
 run: npm-start
+
+clean:
+	rm -fr doc
+
+doc:
+	jsdoc -d doc src/*.js src/*/*.js
 
 docker-build:
 	docker build -t empire-backend .
