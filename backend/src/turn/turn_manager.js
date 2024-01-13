@@ -150,7 +150,7 @@ export class TurnManager {
     /**
      * Handles the end of a turn.
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      */
 
     endTurn(game) {
@@ -162,7 +162,7 @@ export class TurnManager {
     /**
      * Executes a turn.
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      * @param {object} turn the turn
      */
 
@@ -192,7 +192,7 @@ export class TurnManager {
     /**
      * Handles the start of a game.
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      */
 
     startGame(game) {
@@ -205,7 +205,7 @@ export class TurnManager {
     /**
      * Handles the start of a turn.
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      */
 
     startTurn(game) {

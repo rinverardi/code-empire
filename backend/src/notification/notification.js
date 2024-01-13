@@ -6,7 +6,7 @@
 export class Notification {
 
     /**
-     * The notification types that are supported.
+     * Defines the notification types.
      */
 
     static get Type() {

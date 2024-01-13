@@ -1,12 +1,12 @@
 /**
- * This is not a data structure that represents a structure! Rather, it is a
- * container class for structure-related things.
+ * This is not a data structure that represents a structure (e.g., city,
+ * factory)! Rather, it is a container class for structure-related things.
  */
 
 export class Structure {
 
     /**
-     * The structure types that are supported.
+     * Defines the structure types.
      */
 
     static get Type() {

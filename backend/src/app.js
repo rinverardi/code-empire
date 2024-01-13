@@ -59,9 +59,9 @@ class App extends GlobalContext {
    * Acts as the entry point of the game:
    *
    * <ol>
-   *   <li> Starts a WebSocket servcer.
-   *   <li> Listens for WebSocket connections.
-   *   <li> Dispatches WebSocket connections to controller classes.
+   *   <li>Starts a WebSocket server.
+   *   <li>Listens for WebSocket connections.
+   *   <li>Dispatches WebSocket connections to controller classes.
    * </ol>
    */
 

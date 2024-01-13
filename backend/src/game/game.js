@@ -6,7 +6,7 @@
 export class Game {
 
     /**
-     * Constants for constructing the database keys for games.
+     * Defines the game-related database keys.
      */
 
     static get Key() {
@@ -17,7 +17,7 @@ export class Game {
     }
 
     /**
-     * The game objectives that are supported.
+     * Defines the game objectives.
      */
 
     static get Objective() {
@@ -29,7 +29,7 @@ export class Game {
     }
 
     /**
-     * The game statuses that are supported.
+     * Defines the game statuses.
      */
 
     static get Status() {

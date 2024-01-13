@@ -105,8 +105,8 @@ export class GameManager {
     /**
      * Handles the end of a game.
      *
-     * @param {object} game the game 
-     * @param {object} winner the winner 
+     * @param {object} game the game
+     * @param {object} winner the winner
      */
 
     endGame(game, winner) {
@@ -117,8 +117,8 @@ export class GameManager {
     /**
      * Handles the start of a game.
      *
-     * @param {object} game the game 
-     * @param {object} winner the winner 
+     * @param {object} game the game
+     * @param {object} winner the winner
      */
 
     startGame(game) {

@@ -6,8 +6,8 @@ import { SessionContext } from '../lib/session_context.js';
  * logic:
  *
  * <ul>
- *   <li> Inbound messages are not supported.
- *   <li> Outbound messages notify clients about changes to the highscores.
+ *   <li>Inbound messages are not supported.
+ *   <li>Outbound messages notify clients about changes to the highscores.
  * </ul>
  */
 

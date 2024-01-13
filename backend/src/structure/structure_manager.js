@@ -66,7 +66,7 @@ export class StructureManager {
     /**
      * Handles the start of a turn.
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      */
 
     startTurn(game) {

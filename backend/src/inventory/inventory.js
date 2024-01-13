@@ -6,7 +6,7 @@
 export class Inventory {
 
     /**
-     * The inventory items that are supported.
+     * Defines the inventory items.
      */
 
     static get Item() {

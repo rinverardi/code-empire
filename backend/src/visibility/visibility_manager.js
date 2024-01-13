@@ -40,7 +40,7 @@ export class VisibilityManager {
     /**
      * Handles the end of a turn.
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      */
 
     endTurn(game) {
@@ -52,7 +52,7 @@ export class VisibilityManager {
     /**
      * Handles the start of a game.
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      */
 
     startGame(game) {
