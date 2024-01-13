@@ -2,10 +2,10 @@ import { Map } from './map.js';
 import { Player } from '../player/player.js';
 
 /**
- * Provides helper methods for accessing specific elements of a map; e.g.,
+ * Provides helper methods for accessing specific elements of a map (e.g.,
  * getting the map dimensions, retrieving a player given its position,
  * retrieving a resource given its position, retrieving a structure given its
- * position.
+ * position).
  */
 
 export class MapAccess {
