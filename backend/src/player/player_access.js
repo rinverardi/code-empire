@@ -2,8 +2,8 @@ import { Resource } from '../resource/resource.js';
 import { Structure } from '../structure/structure.js';
 
 /**
- * Provides helper methods for accessing specific elements of a player; e.g.,
- * counting the gold, counting the metropolises.
+ * Provides helper methods for accessing specific elements of a player (e.g.,
+ * counting the gold, counting the metropolises).
  */
 
 export class PlayerAccess {

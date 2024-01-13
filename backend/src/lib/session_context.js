@@ -44,7 +44,8 @@ export class SessionContext {
     }
 
     /**
-     * A string that uniquely identifies the current player.
+     * A string that uniquely identifies the connected player (i.e., the player
+     * on the other side of the WebSocket connection).
      */
 
     get playerId() {
@@ -52,7 +53,8 @@ export class SessionContext {
     }
 
     /**
-     * A string that authenticates the current player.
+     * A string that authenticates the connected player (i.e., the player on
+     * the other side of the WebSocket connection).
      */
 
     get playerSecret() {
