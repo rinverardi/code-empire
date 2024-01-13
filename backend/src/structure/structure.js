@@ -1,4 +1,14 @@
+/**
+ * This is not a data structure that represents a structure! Rather, it is a
+ * container class for structure-related things.
+ */
+
 export class Structure {
+
+    /**
+     * The structure types that are supported.
+     */
+
     static get Type() {
         return Object.freeze({
             city: {

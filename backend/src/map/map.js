@@ -1,4 +1,14 @@
+/**
+ * This is not a data structure that represents an map! Rather, it is a
+ * container class for map-related things.
+ */
+
 export class Map {
+
+    /**
+     * The map templates that are supported.
+     */
+
     static get Template() {
         return Object.freeze({
 
@@ -54,6 +64,10 @@ export class Map {
             ]
         });
     }
+
+    /**
+     * The map tiels that are supported.
+     */
 
     static get Tile() {
         return Object.freeze({
