@@ -1,5 +1,11 @@
 import { Player } from '../player/player.js';
 
+/**
+ * Provides helper methods for accessing specific elements of a game; e.g.,
+ * getting the current player, getting the next player, getting the visibility
+ * of a player.
+ */
+
 export class GameAccess {
     getCurrentPlayer(game) {
         for (const player of game.players) {
