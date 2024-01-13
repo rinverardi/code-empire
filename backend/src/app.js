@@ -5,6 +5,10 @@ import { GlobalContext } from './lib/global_context.js';
 import { Logger } from './lib/logger.js';
 import { SessionContext } from './lib/session_context.js';
 
+/**
+ * Acts as the main class of the game.
+ */
+
 class App extends GlobalContext {
   #routes = [
     {
@@ -50,6 +54,16 @@ class App extends GlobalContext {
       Logger.e('App.handleHighscores()', exception);
     }
   }
+
+  /**
+   * Acts as the entry point of the game:
+   *
+   * <ol>
+   *   <li> Starts a WebSocket servcer.
+   *   <li> Listens for WebSocket connections.
+   *   <li> Dispatches WebSocket connections to controller classes.
+   * </ol>
+   */
 
   run() {
     const wsServer = new WebSocketServer({ port: GlobalConfig.backend.port });
