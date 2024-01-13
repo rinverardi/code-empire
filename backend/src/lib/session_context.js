@@ -88,7 +88,7 @@ export class SessionContext {
     /**
      * Returns the current WebSockets connection.
      *
-     * @returns the WebSockets connection
+     * @returns {object} the WebSockets connection
      */
 
     wsConnection() {

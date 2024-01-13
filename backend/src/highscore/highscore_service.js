@@ -33,7 +33,7 @@ export class HighscoreService {
      * Only the top ten scores are kept.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
-     * @param {object} winner the winner of the game
+     * @param {object} winner the winner
      */
 
     async submitScore(sessionContext, winner) {

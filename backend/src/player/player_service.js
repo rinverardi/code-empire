@@ -1,4 +1,3 @@
-import { Game } from '../game/game.js';
 import { GlobalConfig } from '../lib/global_config.js';
 import { GlobalContext } from '../lib/global_context.js';
 import { Player } from './player.js';

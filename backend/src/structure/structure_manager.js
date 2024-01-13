@@ -1,12 +1,25 @@
 import { ArrayHelper } from '../lib/array_helper.js';
 import { GlobalConfig } from '../lib/global_config.js';
+import { GlobalContext } from '../lib/global_context.js';
 import { Resource } from '../resource/resource.js';
 import { Structure } from './structure.js';
 import { Turn } from '../turn/turn.js';
 
+/**
+ * Implement the structure-related aspects of the game logic (i.e., the rules
+ * of the game).
+ */
+
 export class StructureManager {
     #gameAccess;
     #mapAccess;
+
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the global context.
+     *
+     * @param {GlobalContext} globalContext holds the globally-scoped objects
+     */
 
     constructor(globalContext) {
         this.#gameAccess = globalContext.gameAccess();
@@ -49,6 +62,12 @@ export class StructureManager {
             player.inventory[resource]++;
         }
     }
+
+    /**
+     * Handles the start of a turn.
+     *
+     * @param {object} game the game 
+     */
 
     startTurn(game) {
         this.#collectResources(game);

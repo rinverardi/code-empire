@@ -1,7 +1,14 @@
 import { Game } from './game.js';
 import { GlobalConfig } from '../lib/global_config.js';
+import { GlobalContext } from '../lib/global_context.js';
 import { Map } from '../map/map.js';
 import { Player } from '../player/player.js';
+import { SessionContext } from '../lib/session_context.js';
+
+/**
+ * Collaborates with the other manager classes to implement the actual game
+ * logic (i.e., the rules of the game).
+ */
 
 export class GameManager {
     #playerAccess;
@@ -10,6 +17,13 @@ export class GameManager {
     #turnManager;
     #visibilityManager;
 
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the global context.
+     *
+     * @param {GlobalContext} globalContext holds the globally-scoped objects
+     */
+
     constructor(globalContext) {
         this.#playerAccess = globalContext.playerAccess();
         this.#playerManager = globalContext.playerManager();
@@ -17,6 +31,15 @@ export class GameManager {
         this.#turnManager = globalContext.turnManager();
         this.#visibilityManager = globalContext.visibilityManager();
     }
+
+    /**
+     * Builds a new game.
+     *
+     * @param {SessionContext} sessionContext holds the session-scoped objects
+     * @param {number} mapId the map for the game
+     * @param {string} playerName the nickname for the game master
+     * @returns {object} the game
+     */
 
     buildGame(sessionContext, mapId, playerName) {
         const game = {
@@ -35,6 +58,13 @@ export class GameManager {
 
         return game;
     }
+
+    /**
+     * Determines if a player has reached a game objective.
+     *
+     * @param {object} game the game
+     * @returns {object} the winner or null
+     */
 
     determineWinner(game) {
         const players = game.players.filter(that => that.status === Player.Status.alive);
@@ -72,10 +102,24 @@ export class GameManager {
         }
     }
 
+    /**
+     * Handles the end of a game.
+     *
+     * @param {object} game the game 
+     * @param {object} winner the winner 
+     */
+
     endGame(game, winner) {
         game.status = Game.Status.ended;
         game.winner = winner;
     }
+
+    /**
+     * Handles the start of a game.
+     *
+     * @param {object} game the game 
+     * @param {object} winner the winner 
+     */
 
     startGame(game) {
         game.map.tiles = Map.Template[game.map.id];
