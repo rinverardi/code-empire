@@ -7,8 +7,8 @@ import { SessionContext } from '../lib/session_context.js';
  * scores, load highscores (and watch for changes).
  * <p>
  * Typically, service methods are invoked from controller classes. If you find
- * yourself calling service methods from repository classes or other service
- * classes, consider introducing a helper class.
+ * yourself calling service methods from other classes, consider introducing a
+ * helper class.
  */
 
 export class HighscoreService {

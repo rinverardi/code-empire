@@ -47,7 +47,7 @@ export class GameRepository {
     /**
      * Publishes a game state.
      * <p>
-     * This method is called by the provider in a publish/subscribe scenario.
+     * This method is called by the producer in a publish/subscribe scenario.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
      * @param {object} game the game state

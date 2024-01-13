@@ -3,10 +3,10 @@
 run: npm-start
 
 clean:
-	rm -fr doc
+	rm -fr ../docs/backend
 
-doc:
-	jsdoc -d doc src/*.js src/*/*.js
+docs:
+	jsdoc -d ../docs/backend src/*.js src/*/*.js
 
 docker-build:
 	docker build -t empire-backend .
