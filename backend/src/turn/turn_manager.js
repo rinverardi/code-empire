@@ -1,3 +1,4 @@
+import { GlobalContext } from '../lib/global_context.js';
 import { Inventory } from '../inventory/inventory.js';
 import { Map } from '../map/map.js';
 import { Notification } from '../notification/notification.js';
@@ -5,9 +6,21 @@ import { Player } from '../player/player.js';
 import { Structure } from '../structure/structure.js';
 import { Turn } from './turn.js';
 
+/**
+ * Implement the turn-related aspects of the game logic (i.e., the rules of the
+ * game).
+ */
+
 export class TurnManager {
     #gameAccess;
     #mapAccess;
+
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the global context.
+     *
+     * @param {GlobalContext} globalContext holds the globally-scoped objects
+     */
 
     constructor(globalContext) {
         this.#gameAccess = globalContext.gameAccess();
@@ -134,11 +147,24 @@ export class TurnManager {
         player.position = turn.positionTo;
     }
 
+    /**
+     * Handles the end of a turn.
+     *
+     * @param {object} game the game 
+     */
+
     endTurn(game) {
         const player = this.#gameAccess.getNextPlayer(game);
 
         game.turn.player = player.id;
     }
+
+    /**
+     * Executes a turn.
+     *
+     * @param {object} game the game 
+     * @param {object} turn the turn
+     */
 
     executeTurn(game, turn) {
         game.notifications = [];
@@ -163,12 +189,24 @@ export class TurnManager {
         }
     }
 
+    /**
+     * Handles the start of a game.
+     *
+     * @param {object} game the game 
+     */
+
     startGame(game) {
         game.turn = {
             number: 0,
             player: game.players[0].id
         }
     }
+
+    /**
+     * Handles the start of a turn.
+     *
+     * @param {object} game the game 
+     */
 
     startTurn(game) {
         const positionFrom = this.#gameAccess.getCurrentPlayer(game).position;
