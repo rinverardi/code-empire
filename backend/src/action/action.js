@@ -1,3 +1,7 @@
+/**
+ * The actions that are supported.
+ */
+
 export const Action = Object.freeze({
     abortGame: 'abortGame',
     createGame: 'createGame',

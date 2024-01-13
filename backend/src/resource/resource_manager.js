@@ -1,3 +1,4 @@
+import { GlobalConfig } from '../lib/global_config.js';
 import { Map } from '../map/map.js';
 import { Resource } from './resource.js';
 
@@ -28,7 +29,7 @@ export class ResourceManager {
         for (const type in Resource.Type) {
             for (let count = 0; count < 3; count++) {
                 const resource = {
-                    age: Resource.Constants.respawnTime,
+                    age: GlobalConfig.resources.respawnAfter,
                     position: this.#pickPosition(game),
                     type: type
                 };
