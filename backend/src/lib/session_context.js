@@ -22,7 +22,7 @@ export class SessionContext {
     /**
      * Constructs a session context.
      *
-     * @param {Object} wsConnection the connection from the frontend
+     * @param {object} wsConnection the connection from the frontend
      * @param {Array} wsParams the parameters from the frontend
      */
 

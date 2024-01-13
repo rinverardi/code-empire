@@ -56,7 +56,7 @@ export class TurnService {
      * Executes a turn and advances the game state.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
-     * @param {Object} turn the turn to execute
+     * @param {object} turn the turn to execute
      */
 
     async executeTurn(sessionContext, turn) {

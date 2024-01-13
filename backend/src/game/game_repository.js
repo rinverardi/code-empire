@@ -12,7 +12,7 @@ export class GameRepository {
      * Loads the current game from the database.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
-     * @returns {Object} the game state
+     * @returns {object} the game
      */
 
     async loadGame(sessionContext) {
@@ -26,7 +26,7 @@ export class GameRepository {
      * Loads all games from the database.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
-     * @returns {Array} the game states
+     * @returns {Array} the game
      */
 
     async loadGameList(sessionContext) {
@@ -64,7 +64,7 @@ export class GameRepository {
      * Saves a game in the Redis database.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
-     * @returns {Object} the game state
+     * @returns {object} the game
      */
 
     async saveGame(sessionContext, game) {

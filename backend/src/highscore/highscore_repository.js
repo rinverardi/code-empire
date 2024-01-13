@@ -12,7 +12,7 @@ export class HighscoreRepository {
      * Loads the highscores from the database.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
-     * @returns {Object} the highscores
+     * @returns {object} the highscores
      */
 
     async loadHighscores(sessionContext) {
@@ -40,7 +40,7 @@ export class HighscoreRepository {
      * Saves a game in the Redis database.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
-     * @returns {Object} the game state
+     * @returns {object} the game
      */
 
     async saveHighscores(sessionContext, highscores) {

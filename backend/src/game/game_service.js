@@ -75,7 +75,7 @@ export class GameService {
      * elements that are visible to that player are mapped and returned.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
-     * @returns {Promise} the game state
+     * @returns {Promise} the game
      */
 
     async loadGame(sessionContext) {
@@ -90,7 +90,7 @@ export class GameService {
      * Loads games from the database that are awaiting more players.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
-     * @returns {Promise} the game states
+     * @returns {Promise} the game
      */
 
     async loadGameList(sessionContext) {
