@@ -1,6 +1,17 @@
+import { Context } from './context.js';
 import { Structure } from './structure.js';
 
+/**
+ * This is not a data structure that represents a turn! Rather, it is a
+ * container class for turn-related things.
+ */
+
 export class Turn {
+
+    /**
+     * Defines the turn types.
+     */
+
     static get Type() {
         return Object.freeze({
             build: 'build',
@@ -8,10 +19,31 @@ export class Turn {
     }
 };
 
+
+/**
+ * Provides turn-related helper methods.
+ */
+
 export class TurnHelper {
+
+    /**
+     * Checks if the current player can build a certain type of structure.
+     *
+     * @param {object} game the game
+     * @param {string} structure the structure type
+     * @returns {boolean} whether or not the player can build the structure
+     */
+
     canBuild(game, structure) {
-        return game.turns.some(that => that.structure == structure && that.type === Turn.Type.build);
+        return game.turns.some(that => that.structure === structure && that.type === Turn.Type.build);
     }
+
+    /**
+     * Returns the current player.
+     *
+     * @param {object} game the game
+     * @returns {object} the player
+     */
 
     getPlayer(game) {
         const playerId = game.turn.player;
@@ -23,6 +55,14 @@ export class TurnHelper {
         }
     }
 
+    /**
+     * Looks up a turn, given its position on the map.
+     *
+     * @param {number} x the x-coordinate of the position
+     * @param {number} y the y-coordinate of the position
+     * @returns {object} the turn
+     */
+
     getTurn(game, x, y) {
         for (const turn of game.turns || []) {
             if (turn.positionTo && turn.positionTo[0] === x && turn.positionTo[1] === y) {
@@ -32,14 +72,31 @@ export class TurnHelper {
     }
 }
 
+/**
+ * Updates the turn-related portion of the user interface.
+ */
+
 export class TurnView {
     #playerHelper;
     #turnHelper;
+
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the context.
+     *
+     * @param {Context} context holds the globally-scoped objects
+     */
 
     constructor(context) {
         this.#playerHelper = context.playerHelper();
         this.#turnHelper = context.turnHelper();
     }
+
+    /**
+     * Updates the user inteface, given the current state of the game.
+     *
+     * @param {object} game the game
+     */
 
     bindGame(game) {
         const positions = [];

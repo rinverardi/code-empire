@@ -1,6 +1,17 @@
+import { Context } from './context.js';
 import { Html } from './util.js';
 
+/**
+ * This is not a data structure that represents a notification! Rather, it is a
+ * container class for notification-related things.
+ */
+
 export class Notification {
+
+    /**
+     * Defines the notification types.
+     */
+
     static get Type() {
         return Object.freeze({
             attack: 'attack',
@@ -9,8 +20,16 @@ export class Notification {
     }
 }
 
+/**
+ * Provides notification-related helper methods.
+ */
+
 export class NotificationHelper {
     #notifications = [];
+
+    /**
+     * Removes all notifications.
+     */
 
     clear() {
         this.#notifications = [];
@@ -52,18 +71,40 @@ export class NotificationHelper {
         }
     }
 
+    /**
+     * Shows a notification for an error event.
+     *
+     * @param {string} message the error message
+     */
+
     showError(message) {
         this.#show(message, 'notification-error');
     }
+
+    /**
+     * Shows a notification for an information event.
+     *
+     * @param {string} message the information message
+     */
 
     showInformation(message) {
         this.#show(message, 'notification-information');
     }
 
+    /**
+     * Shows a notification for a chat message.
+     *
+     * @param {string} message the chat message
+     */
+
     showMessage(message) {
         this.#show(message, 'chat-bubble');
     }
 }
+
+/**
+ * Updates the notification-related portion of the user interface.
+ */
 
 export class NotificationView {
     #currentMessage = -1;
@@ -74,6 +115,13 @@ export class NotificationView {
     #translation;
     #turnHelper;
 
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the context.
+     *
+     * @param {Context} context holds the globally-scoped objects
+     */
+
     constructor(context) {
         this.#navigation = context.navigation();
         this.#notificationHelper = context.notificationHelper();
@@ -81,6 +129,12 @@ export class NotificationView {
         this.#translation = context.translation();
         this.#turnHelper = context.turnHelper();
     }
+
+    /**
+     * Updates the user inteface, given the current state of the game.
+     *
+     * @param {object} game the game
+     */
 
     bindGame(game) {
         if (this.#currentPlayer !== game.turn.player) {

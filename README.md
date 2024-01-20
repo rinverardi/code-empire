@@ -2,6 +2,24 @@
 
 In this game, players build up their empires by exploring a map, collecting resources, founding towns and building factories. Opponents can be attacked and destroyed.
 
+## Documentation
+
+The project documentation can be found in the `docs` folder:
+
+    $ xdg-open docs/empire_iteration4_inverardi.pdf
+
+If you have JSDoc installed, the documentation for the JavaScript code can be auto-generated.
+
+Generate and view the documentation for the backend code as follows:
+
+    $ make -C backend docs
+    $ xdg-open docs/backend/index.html
+
+Generate and view the documentation for the frontend code as follows:
+
+    $ make -C frontend docs
+    $ xdg-open docs/frontend/index.html
+
 ## Installation
 
 The following tools must be installed:

@@ -1,4 +1,10 @@
 import { Config } from './config.js';
+import { Context } from './context.js';
+
+/**
+ * Manages a web socket connection, allowing for the reception of messages from
+ * the backend and the transmission of messages to the backend.
+ */
 
 export class Communication {
     #connection;
@@ -9,6 +15,13 @@ export class Communication {
     #playerHelper;
     #translation;
     #url;
+
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the context.
+     *
+     * @param {Context} context holds the globally-scoped objects
+     */
 
     constructor(context) {
         this.#gameHelper = context.gameHelper();
@@ -26,6 +39,19 @@ export class Communication {
         this.#connection.onopen = () => this.#handleOpen();
     }
 
+    /**
+     * Connects to the current game as the current player.
+     * <ul>
+     *   <li>The current game is identified by the game ID.
+     *   <li>The current player is identified by the player ID.
+     *   <li>The player secret is used for authentication.
+     * </ul>
+     * All of these values are retrieved from the session storage of the browser.
+     *
+     * @param {function} onMessage invoked when a message is received
+     * @param {function} onOpen invoked once the connection is established
+     */
+
     connectGame(onMessage, onOpen) {
         this.#onMessage = onMessage;
         this.#onOpen = onOpen;
@@ -37,6 +63,13 @@ export class Communication {
         this.#connect();
     }
 
+    /**
+     * Opens a connection to the backend, asking for game updates.
+     *
+     * @param {function} onMessage invoked when a message is received
+     * @param {function} onOpen invoked once the connection is established
+     */
+
     connectGameList(onMessage, onOpen) {
         this.#onMessage = onMessage;
         this.#onOpen = onOpen;
@@ -44,6 +77,13 @@ export class Communication {
 
         this.#connect();
     }
+
+    /**
+     * Opens a connection to the backend, asking for highscore updates.
+     *
+     * @param {function} onMessage invoked when a message is received
+     * @param {function} onOpen invoked once the connection is established
+     */
 
     connectHighscores(onMessage, onOpen) {
         this.#onMessage = onMessage;
@@ -78,6 +118,12 @@ export class Communication {
             this.#onOpen();
         }
     }
+
+    /**
+     * Sends a message using the current connection.
+     *
+     * @param {object} message the message to send
+     */
 
     sendMessage(message) {
         const messageData = JSON.stringify(message);

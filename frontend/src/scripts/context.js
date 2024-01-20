@@ -16,6 +16,13 @@ import { Translation, TranslationView } from './translation.js';
 import { TurnHelper, TurnView } from './turn.js';
 import { WinnerView } from './winner.js';
 
+/**
+ * Holds the globally-scoped objects.
+ * <p>
+ * When writing test cases, you can override the methods of this class to
+ * inject mock objects.
+ */
+
 export class Context {
     #chatView;
     #communication;

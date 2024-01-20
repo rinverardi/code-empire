@@ -1,5 +1,10 @@
+import { Context } from './context.js';
 import { Game } from './game.js';
 import { Html } from './util.js';
+
+/**
+ * Updates the winner-related portion of the user interface.
+ */
 
 export class WinnerView {
     #elements = {
@@ -8,9 +13,22 @@ export class WinnerView {
 
     #translation;
 
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the context.
+     *
+     * @param {Context} context holds the globally-scoped objects
+     */
+
     constructor(context) {
         this.#translation = context.translation();
     }
+
+    /**
+     * Updates the user inteface, given the current state of the game.
+     *
+     * @param {object} game the game
+     */
 
     bindGame(game) {
         const player = game.players.find(that => that.id === game.winner.player);

@@ -60,7 +60,7 @@ export class PlayerManager {
     /**
      * Handles the end of a turn.
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      */
 
     endTurn(game) {
@@ -85,8 +85,8 @@ export class PlayerManager {
     /**
      * Handles the start of a game.
      *
-     * @param {object} game the game 
-     * @param {object} winner the winner 
+     * @param {object} game the game
+     * @param {object} winner the winner
      */
 
     startGame(game) {

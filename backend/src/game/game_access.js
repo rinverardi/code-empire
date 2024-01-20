@@ -27,7 +27,7 @@ export class GameAccess {
     /**
      * Gets the next player (i.e., the player whose turn it is next).
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      * @returns {object} the player
      */
 

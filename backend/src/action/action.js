@@ -1,5 +1,5 @@
 /**
- * The actions that are supported.
+ * Defines the actions.
  */
 
 export const Action = Object.freeze({

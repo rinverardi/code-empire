@@ -1,5 +1,5 @@
 /**
- * The visibilities that are supported.
+ * Defines the visibility levels.
  */
 
 export const Visibility = Object.freeze({

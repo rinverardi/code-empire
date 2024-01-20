@@ -6,7 +6,7 @@
 export class Player {
 
     /**
-     * The player roles that are supported.
+     * Defines the player roles.
      */
 
     static get Role() {
@@ -17,7 +17,7 @@ export class Player {
     }
 
     /**
-     * The player statuses that are supported.
+     * Defines the player statuses.
      */
 
     static get Status() {

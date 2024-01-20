@@ -6,7 +6,7 @@
 export class Highscore {
 
     /**
-     * The database key for the highscores.
+     * Defines the highscore-related database keys.
      */
 
     static get key() {

@@ -6,7 +6,7 @@
 export class Map {
 
     /**
-     * The map templates that are supported.
+     * Defines the map templates.
      */
 
     static get Template() {
@@ -66,7 +66,7 @@ export class Map {
     }
 
     /**
-     * The map tiels that are supported.
+     * Defines the map tiles.
      */
 
     static get Tile() {

@@ -1,5 +1,9 @@
 import { String } from './util.js';
 
+/**
+ * Provides the translations for German and English.
+ */
+
 export class Translation {
     #buttons = {
         de: {
@@ -360,12 +364,24 @@ export class Translation {
     }
 };
 
+/**
+ * Updates the chat-related portion of the user interface.
+ * <p>
+ * Scans for HTML elements that have one of the supported data attributes. For
+ * each element, the content and the placeholder are replaced with a translated
+ * value.
+ */
+
 export class TranslationView {
     #translation;
 
     constructor(context) {
         this.#translation = context.translation();
     }
+
+    /**
+     * Updates the user inteface, based on the preferred language of the user.
+     */
 
     translate() {
         const types = ['button', 'entity', 'instruction', 'label', 'resource', 'title', 'turn', 'value'];

@@ -41,7 +41,7 @@ export class ResourceManager {
     /**
      * Handles the start of a game.
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      */
 
     startGame(game) {
@@ -61,7 +61,7 @@ export class ResourceManager {
     /**
      * Handles the start of a turn.
      *
-     * @param {object} game the game 
+     * @param {object} game the game
      */
 
     startTurn(game) {

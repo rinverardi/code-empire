@@ -1,4 +1,14 @@
+/**
+ * This is not a data structure that represents a structure (e.g., city,
+ * factory)! Rather, it is a container class for resource-related things.
+ */
+
 export class Structure {
+
+    /**
+     * Defines the structure types.
+     */
+
     static get Type() {
         return Object.freeze({
             city: 'city',
@@ -8,19 +18,43 @@ export class Structure {
         });
     }
 
+    /**
+     * Looks up an HTML element, given a structure.
+     *
+     * @param {object} player the structure
+     * @returns {object} the HTML element
+     */
+
     static element(structure) {
         return document.getElementById(Structure.elementId(structure));
     }
+
+    /**
+     * Looks up an HTML element ID, given a structure.
+     *
+     * @param {object} player the structure
+     * @returns {object} the HTML element
+     */
 
     static elementId(structure) {
         return `structure-${structure.position[0]}-${structure.position[1]}`;
     }
 };
 
+/**
+ * Updates the structure-related portion of the user interface.
+ */
+
 export class StructureView {
     #elements = {
         structureLayer: document.getElementById('structure-layer')
     }
+
+    /**
+     * Updates the user inteface, given the current state of the game.
+     *
+     * @param {object} game the game
+     */
 
     bindGame(game) {
         for (let structure of game.structures) {

@@ -6,7 +6,7 @@
 export class Turn {
 
     /**
-     * The turn directions that are supported.
+     * Defines the turn directions.
      */
 
     static get Direction() {
@@ -21,7 +21,7 @@ export class Turn {
     }
 
     /**
-     * The turn types that are supported.
+     * Defines the turn types.
      */
 
     static get Type() {
