@@ -1,10 +1,22 @@
+import { Context } from './context.js';
 import { Html } from './util.js';
 import { MapTile } from './map.js';
 import { Player } from './player.js';
 import { Structure } from './structure.js';
 
+/**
+ * Manages tooltips.
+ */
+
 export class TipManager {
     #tips = {};
+
+    /**
+     * Adds a tooltip to an HTML element.
+     *
+     * @param {id} id the HTML element ID
+     * @param {message} title the title of the tooltip
+     */
 
     addTip(id, title) {
         this.removeTip(id);
@@ -16,11 +28,21 @@ export class TipManager {
         });
     }
 
+    /**
+     * Removes all tooltips.
+     */
+
     clearTips() {
         Object.values(this.#tips).forEach(that => that.dispose());
 
         this.#tips = {};
     }
+
+    /**
+     * Removes the tooltip from an HTML element.
+     *
+     * @param {string} id the HTML element ID
+     */
 
     removeTip(id) {
         if (this.#tips[id]) {
@@ -31,16 +53,33 @@ export class TipManager {
     }
 }
 
+/**
+ * Updates the tooltip-related portion of the user interface.
+ */
+
 export class TipView {
     #playerHelper;
     #tipManager;
     #translation;
+
+    /**
+     * Avoid calling this constructor directly! Instead, use the globally-scoped
+     * object from the context.
+     *
+     * @param {Context} context holds the globally-scoped objects
+     */
 
     constructor(context) {
         this.#playerHelper = context.playerHelper();
         this.#tipManager = context.tipManager();
         this.#translation = context.translation();
     }
+
+    /**
+     * Updates the user inteface, given the current state of the game.
+     *
+     * @param {object} game the game
+     */
 
     bindGame(game) {
         this.#tipManager.clearTips();

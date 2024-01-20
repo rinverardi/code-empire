@@ -1,3 +1,7 @@
+/**
+ * Provides helper methods for generating random values.
+ */
+
 export class Random {
     #generate(length) {
         const alphabet = 'abcdefghijklmnopqrstuvwxyz012345';
@@ -8,13 +12,31 @@ export class Random {
         return Array.from(integers, that => alphabet[that & 31]).join('');
     }
 
+    /**
+     * Generates a random identifier.
+     *
+     * @returns {string} the generated identifier
+     */
+
     generateId() {
         return this.#generate(16);
     }
 
+    /**
+     * Generates a random secret.
+     *
+     * @returns {string} the generated secret
+     */
+
     generateSecret() {
         return this.#generate(32);
     }
+
+    /**
+     * Picks a random entry from a hard-coded list of adjectives.
+     *
+     * @returns {string} the resulting adjective
+     */
 
     pickAdjective() {
         const adjectives = [
@@ -154,6 +176,12 @@ export class Random {
 
         return adjectives[Math.floor(Math.random() * adjectives.length)];
     }
+
+    /**
+     * Picks a random entry from a hard-coded list of animals.
+     *
+     * @returns {string} the resulting animal
+     */
 
     pickAnimal() {
         const animals = [

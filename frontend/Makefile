@@ -1,5 +1,10 @@
+.PHONY: doc
+
 run:
 	cd src && python3 -m http.server
+
+docs:
+	jsdoc -d ../docs/frontend src/scripts/*.js
 
 docker-build:
 	docker build -t empire-frontend .

@@ -1,9 +1,19 @@
 import { Player } from './player.js';
 
+/**
+ * Updates the ranking-related portion of the user interface.
+ */
+
 export class RankingView {
     #elements = {
         rankingList: document.getElementById('ranking-list')
     };
+
+    /**
+     * Updates the user inteface, given the current state of the game.
+     *
+     * @param {object} game the game
+     */
 
     bindGame(game) {
         this.#elements.rankingList.textContent = '';

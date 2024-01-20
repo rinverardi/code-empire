@@ -1,4 +1,8 @@
-// TODO Override values using a dot file or environment variables!
+/**
+ * The global configuration settings.
+ */
+
+// TODO Refactor me!
 
 export const Config = Object.freeze({
     slots: 4,

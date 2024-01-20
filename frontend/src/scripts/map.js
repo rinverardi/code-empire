@@ -1,12 +1,37 @@
+/**
+ * Provides helper functions for looking up tile elements or element IDs.
+ */
+
 export class MapTile {
+
+    /**
+     * Looks up an HTML element, given its position on the map.
+     *
+     * @param {number} x the x-coordinate of the position
+     * @param {number} y the y-coordinate of the position
+     * @returns {object} the HTML element
+     */
+
     static element(x, y) {
         return document.getElementById(MapTile.elementId(x, y));
     }
+
+    /**
+     * Looks up an HTML element ID, given its position on the map.
+     *
+     * @param {number} x the x-coordinate of the position
+     * @param {number} y the y-coordinate of the position
+     * @returns {object} the HTML element
+     */
 
     static elementId(x, y) {
         return `tile-${x}-${y}`;
     }
 }
+
+/**
+ * Updates the map-related portion of the user interface.
+ */
 
 export class MapView {
     #built = false;
@@ -15,6 +40,12 @@ export class MapView {
         map: document.getElementById('map'),
         resourceLayer: document.getElementById('resource-layer')
     };
+
+    /**
+     * Updates the user inteface, given the current state of the game.
+     *
+     * @param {object} game the game
+     */
 
     bindGame(game) {
         if (!this.#built) {
@@ -65,8 +96,6 @@ export class MapView {
 
         return tileElement;
     }
-
-    // TODO Optimize me!
 
     #update(game) {
         const tiles = game.map.tiles;

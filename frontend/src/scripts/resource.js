@@ -1,9 +1,21 @@
+/**
+ * This is not a data structure that represents a resource (e.g., food, gold)!
+ * Rather, it is a container class for resource-related things.
+ */
+
 export class Resource {
+
+    // TODO Refactor me!
+
     static get Constants() {
         return Object.freeze({
             respawnTime: 9
         });
     }
+
+    /**
+     * Defines the resource types.
+     */
 
     static get Type() {
         return Object.freeze({
@@ -14,19 +26,43 @@ export class Resource {
         });
     }
 
+    /**
+     * Looks up an HTML element, given a resource.
+     *
+     * @param {object} player the resource
+     * @returns {object} the HTML element
+     */
+
     static element(resource) {
         return document.getElementById(Resource.elementId(resource));
     }
+
+    /**
+     * Looks up an HTML element ID, given a resource.
+     *
+     * @param {object} player the resource
+     * @returns {object} the HTML element
+     */
 
     static elementId(resource) {
         return `resource-${resource.position[0]}-${resource.position[1]}`;
     }
 };
 
+/**
+ * Updates the resource-related portion of the user interface.
+ */
+
 export class ResourceView {
     #elements = {
         resourceLayer: document.getElementById('resource-layer')
     }
+
+    /**
+     * Updates the user inteface, given the current state of the game.
+     *
+     * @param {object} game the game
+     */
 
     bindGame(game) {
         for (let resource of game.resources) {

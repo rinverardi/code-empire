@@ -1,7 +1,17 @@
+/**
+ * Updates the highscore-related portion of the user interface.
+ */
+
 export class HighscoreView {
     #elements = {
         highscoreList: document.getElementById('highscore-list')
     };
+
+    /**
+     * Updates the user inteface, given the current state of the highscores.
+     *
+     * @param {object} highscores the highscores
+     */
 
     bindHighscores(highscores) {
         this.#elements.highscoreList.textContent = '';
