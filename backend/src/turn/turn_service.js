@@ -56,7 +56,7 @@ export class TurnService {
      * Executes a turn and advances the game state.
      *
      * @param {SessionContext} sessionContext holds the session-scoped objects
-     * @param {object} turn the turn to execute
+     * @param {number} turn the turn index
      */
 
     async executeTurn(sessionContext, turn) {
@@ -65,8 +65,8 @@ export class TurnService {
 
         this.#authz.canExecuteTurn(game, player).orThrow();
 
-        if (turn) {
-            this.#turnManager.executeTurn(game, turn);
+        if (typeof turn === 'number') {
+            this.#turnManager.executeTurn(game, game.turns[turn]);
         }
 
         this.#endTurn(game);
