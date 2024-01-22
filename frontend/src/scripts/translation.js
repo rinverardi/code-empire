@@ -235,7 +235,6 @@ export class Translation {
             gameOver: 'Spielende',
             joinGame1: 'Partie beitreten',
             joinGame2: 'Auf Gegner warten',
-            ranking: 'Rangliste',
             showHighscores: 'Highscores',
             showInstructions: 'Anleitung'
         },
@@ -245,7 +244,6 @@ export class Translation {
             gameOver: 'Game Over',
             joinGame1: 'Join Game',
             joinGame2: 'Waiting for Oponents',
-            ranking: 'Ranking',
             showHighscores: 'Highscores',
             showInstructions: 'Instructions'
         }
