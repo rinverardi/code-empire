@@ -71,7 +71,7 @@ export class ChatView {
     #buildRow(message, player) {
         const element = document.createElement('div');
 
-        element.classList.add('mb-2');
+        element.classList.add('mt-2');
         element.classList.add('row');
 
         element.appendChild(this.#buildColumn(message, player));

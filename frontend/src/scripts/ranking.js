@@ -57,7 +57,7 @@ export class RankingView {
     #buildRow(rank) {
         const element = document.createElement('div');
 
-        element.classList.add('mb-2');
+        element.classList.add('mt-2');
         element.classList.add('row');
 
         element.appendChild(this.#buildColumn1(rank));
