@@ -27,15 +27,18 @@ export class Turn {
 export class TurnHelper {
 
     /**
-     * Checks if the current player can build a certain type of structure.
+     * Returns the index of a turn.
+     * <p>
+     * If no turn with the given criteria exists, the returned value is -1.
      *
      * @param {object} game the game
-     * @param {string} structure the structure type
-     * @returns {boolean} whether or not the player can build the structure
+     * @param {string} structure the desired type of structure
+     * @param {string} type the desired type of turn
+     * @returns {number} the turn index or -1
      */
 
-    canBuild(game, structure) {
-        return game.turns.some(that => that.structure === structure && that.type === Turn.Type.build);
+    findTurn(game, structure, type) {
+        return game.turns.findIndex(that => that.structure === structure && that.type === type);
     }
 
     /**
@@ -64,9 +67,13 @@ export class TurnHelper {
      */
 
     getTurn(game, x, y) {
-        for (const turn of game.turns || []) {
+        let turnCount = game.turns ? game.turns.length : 0;
+
+        for (let turnIndex = 0; turnIndex < turnCount; turnIndex++) {
+            let turn = game.turns[turnIndex];
+
             if (turn.positionTo && turn.positionTo[0] === x && turn.positionTo[1] === y) {
-                return turn;
+                return turnIndex;
             }
         }
     }
@@ -195,7 +202,9 @@ export class TurnView {
         ];
 
         for (const {id, structure} of buttons) {
-            document.getElementById(id).disabled = !this.#turnHelper.canBuild(game, structure);
+            let turn = this.#turnHelper.findTurn(game, structure, Turn.Type.build);
+
+            document.getElementById(id).disabled = turn < 0;
         }
     }
 }

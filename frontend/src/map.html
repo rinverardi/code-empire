@@ -249,16 +249,11 @@
         function wireButtonBuild(structure) {
             document.getElementById(`button-build-${structure}`).addEventListener('click', () => {
                 context.navigation().closePopup('actions', () => {
-                    const me = context.playerHelper().getMe(game);
+                    const turn = context.turnHelper().findTurn(game, structure, Turn.Type.build);
 
-                    context.communication().sendMessage({
-                        id: Action.executeTurn,
-                        turn: {
-                            position: me.position,
-                            structure,
-                            type: Turn.Type.build
-                        }
-                    });
+                    if (turn > 0) {
+                        context.communication().sendMessage({ id: Action.executeTurn, turn: turn });
+                    }
                 });
             });
         }
@@ -311,7 +306,7 @@
 
                     const turn = context.turnHelper().getTurn(game, parseInt(x), parseInt(y));
 
-                    if (turn) {
+                    if (typeof turn === 'number') {
                         context.communication().sendMessage({
                             id: Action.executeTurn,
                             turn
