@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
+
+    <link rel="stylesheet" href="styles/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/empire.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>Empire</title>
+</head>
+
+<body>
+    <div id="map-container">
+        <div id="map">
+        </div>
+    </div>
+
+    <div class="absolute-nw can-click control link" id="button-copy">
+        Copy
+    </div>
+
+    <div class="absolute-ne can-click control link" id="button-open">
+        Help
+    </div>
+
+    <div class="popup-holder" id="help">
+        <div class="popup">
+            <div class="container">
+                <div class="mt-2 row">
+                    <div class="col-1">
+                        F
+                    </div>
+                    <div class="col-11">
+                        make forest
+                    </div>
+                    <div class="col-1">
+                        G
+                    </div>
+                    <div class="col-11">
+                        make grass
+                    </div>
+                    <div class="col-1">
+                        H
+                    </div>
+                    <div class="col-11">
+                        make hill
+                    </div>
+                    <div class="col-1">
+                        M
+                    </div>
+                    <div class="col-11">
+                        make mountain
+                    </div>
+                    <div class="col-1">
+                        W
+                    </div>
+                    <div class="col-11">
+                        make water
+                    </div>
+                </div>
+                <div class="my-2 row">
+                    <div class="col-12">
+                        <button class="can-click control full-width link" id="button-close">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { Context } from './scripts/context.js';
+        import { MapTile } from './scripts/map.js';
+
+        function setTile(x, y, type) {
+            const tileElement = MapTile.element(x, y);
+
+            for (const tileStyle of tileStyles) {
+                tileElement.classList.remove(tileStyle);
+            }
+
+            const tileLayout = game.map.tiles;
+
+            tileLayout[y] = tileLayout[y].substring(0, x) + type + tileLayout[y].substring(x + 1);
+
+            updateMap();
+        }
+
+        function updateMap() {
+            context.mapView().bindGame(game);
+        }
+
+        function wireMap() {
+            const mapElement = document.getElementById('map');
+
+            let x, y;
+
+            addEventListener('keydown', ({ key }) => {
+                if (tileCodes.includes(key) && typeof x === 'number') {
+                    setTile(x, y, key);
+                }
+            });
+
+            mapElement.addEventListener('mouseout', ({ target: tileElement }) => {
+                tileElement.classList.remove('active');
+
+                x = y = null;
+            });
+
+            mapElement.addEventListener('mouseover', ({ target: tileElement }) => {
+                tileElement.classList.add('active');
+
+                x = parseInt(tileElement.dataset.x);
+                y = parseInt(tileElement.dataset.y);
+            });
+        }
+
+        const context = new Context();
+
+        const game = {
+            map: {
+                tiles: [
+                    "w m m w m m w w w w w ",
+                    " m f h h g h w m h w w",
+                    "w f g h g g h m g g w ",
+                    " w g g m g g h g g g w",
+                    "w g g h m g g g g h w ",
+                    " w g g h m g g g g m w",
+                    "w h g g h g g f f g m ",
+                    " m g g g g g g f g g m",
+                    "m g f f g g g g g g m ",
+                    " m g f g g h g g g h w",
+                    "w h g g g m h g g g w ",
+                    " w g g g g m h g g f w",
+                    "w h g g g g m g g f w ",
+                    " m g g g w g h g g h w",
+                    "w h f f w w g g h h m ",
+                    " w w w w w w w w m m w"
+                ]
+            }
+        };
+
+        const tileCodes = ['f', 'g', 'h', 'm', 'w'];
+        const tileStyles = ['tile-forest', 'tile-grass', 'tile-hill', 'tile-mountain', 'tile-water'];
+
+        context.navigation().wireClick({
+            id: 'button-copy',
+            onClick: () => {
+                navigator.clipboard.writeText(JSON.stringify(game.map.tiles, null, 4));
+
+                context.notificationHelper().clear();
+                context.notificationHelper().showInformation('Copied to clipboard!');
+            }
+        });
+
+        context.navigation().wirePopup({
+            controlClose: 'button-close',
+            controlOpen: 'button-open',
+            id: 'help'
+        });
+
+        updateMap();
+        wireMap();
+    </script>
+</body>
+
+</html>
