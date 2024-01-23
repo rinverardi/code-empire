@@ -281,7 +281,7 @@ export class Translation {
 
     constructor() {
         const preferredLanguages = navigator.languages;
-        const supportedLanguages = ['de'];
+        const supportedLanguages = ['de', 'en'];
 
         for (const preferredLanguage of preferredLanguages) {
             for (const supportedLanguage of supportedLanguages) {
