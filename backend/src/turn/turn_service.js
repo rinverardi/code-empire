@@ -69,13 +69,13 @@ export class TurnService {
             this.#turnManager.executeTurn(game, game.turns[turn]);
         }
 
-        this.#endTurn(game);
-
         const winner = this.#gameManager.determineWinner(game);
 
         if (winner) {
             this.#gameManager.endGame(game, winner);
             this.#highscoreService.submitScore(sessionContext, winner);
+        } else {
+            this.#endTurn(game);
         }
 
         await this.#gameRepository.saveGame(sessionContext, game);

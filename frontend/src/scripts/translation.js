@@ -17,7 +17,7 @@ export class Translation {
             next: 'Weiter',
             openChat: 'Nachrichten',
             openMenu: 'Menü',
-            openRanking: 'Ranglist',
+            openRanking: 'Rangliste',
             resumeGame: 'Partie fortsetzen',
             sendMessage: 'Senden',
             showHighscores: 'Highscores anzeigen',
@@ -281,7 +281,7 @@ export class Translation {
 
     constructor() {
         const preferredLanguages = navigator.languages;
-        const supportedLanguages = ['de', 'en'];
+        const supportedLanguages = ['de'];
 
         for (const preferredLanguage of preferredLanguages) {
             for (const supportedLanguage of supportedLanguages) {
