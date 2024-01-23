@@ -14,11 +14,11 @@ export const GlobalConfig = Object.freeze(override({
         haveMetropolises: 3
     },
     players: {
-        initialFood: 0,
-        initialGold: 0,
+        initialFood: 10,
+        initialGold: 10,
         initialHealth: 10,
-        initialResearch: 0,
-        initialWeaponry: 0,
+        initialResearch: 10,
+        initialWeaponry: 10
     },
     resources: {
         respawnAfter: 9
