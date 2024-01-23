@@ -38,7 +38,9 @@ export class TurnHelper {
      */
 
     findTurn(game, structure, type) {
-        return game.turns.findIndex(that => that.structure === structure && that.type === type);
+        const turns = game.turns ?? [];
+
+        return turns.findIndex(that => that.structure === structure && that.type === type);
     }
 
     /**
@@ -123,11 +125,11 @@ export class TurnView {
             this.#styleResources(positions);
             this.#styleStructures(positions);
             this.#styleTiles(positions);
-
-            this.#toggleButtons(game);
         } else {
             this.#reset();
         }
+
+        this.#toggleButtons(game);
     }
 
     #reset() {
