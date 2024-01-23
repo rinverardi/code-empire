@@ -291,6 +291,7 @@ h1 {
     display: flex;
     left: 0;
     overflow: auto;
+    padding: 60px;
     position: absolute;
     right: 0;
     scroll-behavior: smooth;
