@@ -169,8 +169,6 @@ export class TurnManager {
     executeTurn(game, turn) {
         game.notifications = [];
 
-        // TODO Validate moves!
-
         switch (turn.type) {
             case Turn.Type.attack:
                 this.#doAttack(game, turn);
