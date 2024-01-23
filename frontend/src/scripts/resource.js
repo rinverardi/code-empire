@@ -1,17 +1,11 @@
+import { Config } from './config.js';
+
 /**
  * This is not a data structure that represents a resource (e.g., food, gold)!
  * Rather, it is a container class for resource-related things.
  */
 
 export class Resource {
-
-    // TODO Refactor me!
-
-    static get Constants() {
-        return Object.freeze({
-            respawnTime: 9
-        });
-    }
 
     /**
      * Defines the resource types.
@@ -93,7 +87,7 @@ export class ResourceView {
     }
 
     #update(resource, resourceElement) {
-        for (let age = 0; age <= Resource.Constants.respawnTime; age++) {
+        for (let age = 0; age <= Config.respawnTime; age++) {
             if (resource.age === age) {
                 resourceElement.classList.add('age-' + age);
             } else {
