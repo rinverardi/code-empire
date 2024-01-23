@@ -63,6 +63,12 @@
         import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
 
+        // Handles messages received on the web socket.
+        //
+        // In the happy case, the user clicks on 'next' and continues to the
+        // 'create_game_2' page. In the other cases, this function tries to
+        // recover by redirecting to the appropriate page.
+
         function onMessage(game) {
             switch (game.status) {
                 case Game.Status.aborted:
@@ -89,6 +95,10 @@
             }
         }
 
+        /**
+         * Enables or disables the link to the next page.
+         */
+
         function updateLink() {
             const input = document.getElementById('input');
             const link = document.getElementById('link-next');
@@ -109,8 +119,6 @@
 
             if (!input.value) {
                 input.value = context.playerHelper().loadName();
-
-                context.playerHelper().saveName(input.value);
             }
 
             input.addEventListener('input', () => {
