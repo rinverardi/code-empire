@@ -90,6 +90,13 @@
             context.gameHelper().removeId();
         }
 
+        // Handles messages received on the web socket and updates the user
+        // interface accordingly.
+        //
+        // In the happy case, the game starts and the user is redirected to the
+        // 'map' page. In the other cases, this function tries to recover by
+        // redirecting to the appropriate page.
+
         function onMessage(game) {
             switch (game.status) {
                 case Game.Status.aborted:

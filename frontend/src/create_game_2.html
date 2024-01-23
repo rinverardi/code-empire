@@ -78,6 +78,13 @@
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
+        // Handles messages received on the web socket and updates the user
+        // interface accordingly.
+        //
+        // In the happy case, the user clicks on 'next' and continues to the
+        // 'map' page. In the other cases, this function tries to recover by
+        // redirecting to the appropriate page.
+
         function onMessage(game) {
             switch (game.status) {
                 case Game.Status.aborted:

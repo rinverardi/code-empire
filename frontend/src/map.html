@@ -186,6 +186,13 @@
         import { Structure } from './scripts/structure.js';
         import { Turn } from './scripts/turn.js';
 
+        // Handles messages received on the web socket and updates the user
+        // interface accordingly.
+        //
+        // As long as the game is in the 'running' status, the user stays on
+        // this page. If the status changes, the user is redirected to the
+        // appropriate page.
+
         function onMessage(gameMessage) {
             game = gameMessage;
 
