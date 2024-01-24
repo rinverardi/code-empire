@@ -239,6 +239,8 @@
             }
         }
 
+        // Adds and removes the menu items from the menu.
+
         function updateMenu() {
             for (const elementId of ['button-forfeit', 'button-skip']) {
                 const element = document.getElementById(elementId);
@@ -250,6 +252,8 @@
                 }
             }
         }
+
+        // Sets up the event handling for the 'build' buttons.
 
         function wireButtonBuild(structure) {
             document.getElementById(`button-build-${structure}`).addEventListener('click', () => {
@@ -263,6 +267,8 @@
             });
         }
 
+        // Sets up the event handling for the 'forfeit game' button.
+
         function wireButtonForfeit() {
             document.getElementById('button-forfeit').addEventListener('click', () => {
                 const action = { id: Action.forfeitGame };
@@ -271,6 +277,8 @@
                 context.gameHelper().removeId();
             });
         }
+
+        // Sets up the event handling for the 'send message' button.
 
         function wireButtonSend() {
             document.getElementById('button-send').addEventListener('click', () => {
@@ -289,6 +297,8 @@
             });
         }
 
+        // Sets up the event handling for the 'skip turn' button.
+
         function wireButtonSkip() {
             context.navigation().wireClick({
                 id: 'button-skip',
@@ -301,6 +311,8 @@
                 }
             });
         }
+
+        // Sets up the event handling for the map.
 
         function wireMap() {
             const mapElement = document.getElementById('map');

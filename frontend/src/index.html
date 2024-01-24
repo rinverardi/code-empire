@@ -82,12 +82,16 @@
             }
         }
 
+        // Sets up the event handling for the 'create game' button.
+
         function wireLinkCreate() {
             context.navigation().wireClick({
                 id: 'link-create',
                 onClick: () => 'create_game_1.html'
             });
         }
+
+        // Sets up the event handling for the 'join game' button.
 
         function wireLinkJoin() {
             context.navigation().wireClick({
@@ -96,12 +100,16 @@
             });
         }
 
+        // Sets up the event handling for the 'show highscores' button.
+
         function wireLinkShowHighscores() {
             context.navigation().wireClick({
                 id: 'link-show-highscores',
                 onClick: () => 'show_highscores.html'
             });
         }
+
+        // Sets up the event handling for the 'show instructions' button.
 
         function wireLinkShowInstructions() {
             context.navigation().wireClick({

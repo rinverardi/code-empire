@@ -63,6 +63,8 @@
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
+        // Adds a game to the 'game' drop-down.
+
         function addGame(gameId, gameName) {
             const select = document.getElementById('select');
             const selectOption = new Option(gameName, gameId);
@@ -75,11 +77,15 @@
             updateSelect();
         }
 
+        // Checks if a game was selected.
+
         function checkGame() {
             const select = document.getElementById('select');
 
             return !!select.value;
         }
+
+        // Checks if the player name is available.
 
         function checkNameAvailable() {
             const gameId = document.getElementById('select').value;
@@ -89,6 +95,8 @@
                 .filter(that => that.status = Player.Status.alive)
                 .some(that => that.name === document.getElementById('input').value);
         }
+
+        // Checks if the player name is non-empty.
 
         function checkNameEntered() {
             const input = document.getElementById('input');
@@ -118,6 +126,8 @@
             }
         }
 
+        // Removes a game from the 'game' drop-down.
+
         function removeGame(gameId) {
             const select = document.getElementById('select');
 
@@ -131,6 +141,11 @@
             updateLink();
             updateSelect();
         }
+
+        // Enables or disables the 'next' button.
+        //
+        // If the button is disabled, a tooltip with further information is
+        // shown.
 
         function updateLink() {
             let tip = null;
@@ -156,6 +171,11 @@
             }
         }
 
+        // Show either the 'game' drop-down or its placeholder.
+        //
+        // The placeholder is shown if there are no games in the waiting
+        // status.
+
         function updateSelect() {
             const select = document.getElementById('select');
             const selectPlaceholder = document.getElementById('select-placeholder');
@@ -168,6 +188,8 @@
                 selectPlaceholder.classList.remove('hidden');
             }
         }
+
+        // Sets up the event handling for the 'nickname' input.
 
         function wireInput() {
             const input = document.getElementById('input');
@@ -183,12 +205,16 @@
             });
         }
 
+        // Sets up the event handling for the 'back' button.
+
         function wireLinkBack() {
             context.navigation().wireClick({
                 id: 'link-back',
                 onClick: () => 'index.html'
             });
         }
+
+        // Sets up the event handling for the 'next' button.
 
         function wireLinkNext() {
             context.navigation().wireClick({
@@ -200,6 +226,8 @@
                 }
             });
         }
+
+        // Sets up the event handling for the 'game' drop-down.
 
         function wireSelect() {
             const link = document.getElementById('link-next');
@@ -219,7 +247,7 @@
         context.communication().connectGameList(onMessage);
         context.translationView().translate();
 
-        let games = {};
+        const games = {};
 
         updateLink();
         wireInput();

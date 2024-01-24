@@ -110,6 +110,11 @@
             }
         }
 
+        // Enables or disables the 'start game' button.
+        //
+        // If the button is disabled, a tooltip with further information is
+        // shown.
+
         function updateLink(game) {
             const link = document.getElementById('link-start');
             const players = game.players.filter(that => that.status === Player.Status.alive);
@@ -124,6 +129,8 @@
                 context.tipManager().addTip('link-start-container', context.translation().tip('missingPlayer'));
             }
         }
+
+        // Adds and removes the player names from the slots.
 
         function updateSlots(game) {
             const players = game.players.filter(that => that.status === Player.Status.alive);
@@ -140,6 +147,8 @@
             }
         }
 
+        // Sets up the event handling for the 'abort game' button.
+
         function wireLinkAbort() {
             context.navigation().wireClick({
                 id: 'link-abort',
@@ -151,6 +160,8 @@
                 }
             });
         }
+
+        // Sets up the event handling for the 'start game' button.
 
         function wireLinkStart() {
             context.navigation().wireClick({
