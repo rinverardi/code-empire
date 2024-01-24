@@ -95,9 +95,10 @@
             }
         }
 
-        /**
-         * Enables or disables the link to the next page.
-         */
+        // Enables or disables the 'next' button.
+        //
+        // If the button is disabled, a tooltip with further information is
+        // shown.
 
         function updateLink() {
             const input = document.getElementById('input');
@@ -114,6 +115,8 @@
             }
         }
 
+        // Sets up the event handling for the 'nickname' input.
+
         function wireInput() {
             const input = document.getElementById('input');
 
@@ -128,12 +131,16 @@
             });
         }
 
+        // Sets up the event handling for the 'back' button.
+
         function wireLinkBack() {
             context.navigation().wireClick({
                 id: 'link-back',
                 onClick: () => 'index.html'
             });
         }
+
+        // Sets up the event handling for the 'next' button.
 
         function wireLinkNext() {
             context.navigation().wireClick({
@@ -149,6 +156,8 @@
                 }
             });
         }
+
+        // Sets up the event handling for the 'map' drop-down.
 
         function wireSelect() {
             const input = document.getElementById('select');

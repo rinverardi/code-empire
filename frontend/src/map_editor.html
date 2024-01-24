@@ -79,7 +79,9 @@
         import { Context } from './scripts/context.js';
         import { MapTile } from './scripts/map.js';
 
-        function setTile(x, y, type) {
+        // Changes the type of a tile, given its position on the map.
+
+        function updateMap(x, y, type) {
             const tileElement = MapTile.element(x, y);
 
             for (const tileStyle of tileStyles) {
@@ -90,12 +92,24 @@
 
             tileLayout[y] = tileLayout[y].substring(0, x) + type + tileLayout[y].substring(x + 1);
 
-            updateMap();
-        }
-
-        function updateMap() {
             context.mapView().bindGame(game);
         }
+
+        // Sets up the event handling for the 'copy' button.
+
+        function wireButton() {
+            context.navigation().wireClick({
+                id: 'button-copy',
+                onClick: () => {
+                    navigator.clipboard.writeText(JSON.stringify(game.map.tiles, null, 4));
+
+                    context.notificationHelper().clear();
+                    context.notificationHelper().showInformation('Copied to clipboard!');
+                }
+            });
+        }
+
+        // Sets up the event handling for the map.
 
         function wireMap() {
             const mapElement = document.getElementById('map');
@@ -104,7 +118,7 @@
 
             addEventListener('keydown', ({ key }) => {
                 if (tileCodes.includes(key) && typeof x === 'number') {
-                    setTile(x, y, key);
+                    updateMap(x, y, key);
                 }
             });
 
@@ -119,6 +133,16 @@
 
                 x = parseInt(tileElement.dataset.x);
                 y = parseInt(tileElement.dataset.y);
+            });
+        }
+
+        // Sets up the event handling for the 'help' popup.
+
+        function wirePopup() {
+            context.navigation().wirePopup({
+                controlClose: 'button-close',
+                controlOpen: 'button-open',
+                id: 'help'
             });
         }
 
@@ -150,23 +174,10 @@
         const tileCodes = ['f', 'g', 'h', 'm', 'w'];
         const tileStyles = ['tile-forest', 'tile-grass', 'tile-hill', 'tile-mountain', 'tile-water'];
 
-        context.navigation().wireClick({
-            id: 'button-copy',
-            onClick: () => {
-                navigator.clipboard.writeText(JSON.stringify(game.map.tiles, null, 4));
+        context.mapView().bindGame(game);
 
-                context.notificationHelper().clear();
-                context.notificationHelper().showInformation('Copied to clipboard!');
-            }
-        });
-
-        context.navigation().wirePopup({
-            controlClose: 'button-close',
-            controlOpen: 'button-open',
-            id: 'help'
-        });
-
-        updateMap();
+        wireButton();
+        wirePopup();
         wireMap();
     </script>
 </body>

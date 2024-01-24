@@ -72,24 +72,6 @@
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
 
-        function joinGame() {
-            const action = {
-                id: Action.joinGame,
-                player: { name: context.playerHelper().loadName() }
-            };
-
-            context.communication().sendMessage(action);
-        }
-
-        function leaveGame() {
-            isLeaving = true;
-
-            const action = { id: Action.leaveGame };
-
-            context.communication().sendMessage(action);
-            context.gameHelper().removeId();
-        }
-
         // Handles messages received on the web socket and updates the user
         // interface accordingly.
         //
@@ -130,9 +112,18 @@
             }
         }
 
+        // Joins the game once the web socket connection is established.
+
         function onOpen() {
-            joinGame();
+            const action = {
+                id: Action.joinGame,
+                player: { name: context.playerHelper().loadName() }
+            };
+
+            context.communication().sendMessage(action);
         }
+
+        // Adds and removes the player names from the slots.
 
         function updateSlots(game) {
             const players = game.players.filter(that => that.status === Player.Status.alive);
@@ -149,8 +140,20 @@
             }
         }
 
+        // Sets up the event handling for the 'leave game' button.
+
         function wireLink() {
-            context.navigation().wireClick({ id: 'link', onClick: leaveGame });
+            context.navigation().wireClick({
+                id: 'link',
+                onClick: () => {
+                    isLeaving = true;
+
+                    const action = { id: Action.leaveGame };
+
+                    context.communication().sendMessage(action);
+                    context.gameHelper().removeId();
+                }
+            });
         }
 
         const context = new Context();
