@@ -163,7 +163,7 @@ export class Translation {
             food: 'Nahrung',
             gold: 'Gold',
             research: 'Forschung',
-            weaponry: 'Waffer'
+            weaponry: 'Waffen'
         },
         en: {
             food: 'Food',
