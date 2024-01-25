@@ -180,6 +180,7 @@
 
     <script type="module">
         import { Action } from './scripts/action.js';
+        import { Config } from './scripts/config.js';
         import { Context } from './scripts/context.js';
         import { Game } from './scripts/game.js';
         import { Player } from './scripts/player.js';
@@ -229,6 +230,8 @@
                         }
 
                         updateMenu();
+
+                        playAsMonkey(me);
                     } else {
                         context.navigation().startOver();
                     }
@@ -236,6 +239,19 @@
 
                 default:
                     throw new RangeError('No such status');
+            }
+        }
+
+        // Executes a random turn, if monkey mode is enabled.
+
+        function playAsMonkey(me) {
+            if (Config.monkeyMode) {
+                const turn = Math.floor(Math.random() * game.turns.length);
+
+                context.communication().sendMessage({
+                    id: Action.executeTurn,
+                    turn
+                });
             }
         }
 
