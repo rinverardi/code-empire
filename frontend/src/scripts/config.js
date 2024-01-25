@@ -3,7 +3,7 @@
  */
 
 export const Config = Object.freeze({
-    monkeyMode: true,
+    monkeyMode: false,
     respawnTime: 9,
     slots: 4,
     urlForGames: 'ws://localhost:8001/games/',
