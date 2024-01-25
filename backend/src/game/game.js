@@ -18,6 +18,9 @@ export class Game {
 
     /**
      * Defines the game objectives.
+     * <p>
+     * These constants are also defined in the frontend code. If you change any
+     * of them, ensure that you apply the same modifications in both places.
      */
 
     static get Objective() {
@@ -30,6 +33,9 @@ export class Game {
 
     /**
      * Defines the game statuses.
+     * <p>
+     * These constants are also defined in the frontend code. If you change any
+     * of them, ensure that you apply the same modifications in both places.
      */
 
     static get Status() {
