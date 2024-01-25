@@ -7,6 +7,10 @@ export class Structure {
 
     /**
      * Defines the structure types.
+     * <p>
+     * These constants are also defined in the backend code, albeit in a more
+     * complex form. If you change any of them, ensure that you apply the
+     * corresponding modifications in both places.
      */
 
     static get Type() {

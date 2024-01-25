@@ -23,6 +23,9 @@ export class Player {
 
     /**
      * Defines the player roles.
+     * <p>
+     * These constants are also defined in the backend code. If you change any
+     * of them, ensure that you apply the same modifications in both places.
      */
 
     static get Role() {
@@ -33,6 +36,9 @@ export class Player {
 
     /**
      * Defines the player statuses.
+     * <p>
+     * These constants are also defined in the backend code. If you change any
+     * of them, ensure that you apply the same modifications in both places.
      */
 
     static get Status() {

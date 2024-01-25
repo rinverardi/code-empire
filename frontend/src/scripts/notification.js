@@ -10,6 +10,9 @@ export class Notification {
 
     /**
      * Defines the notification types.
+     * <p>
+     * These constants are also defined in the backend code. If you change any
+     * of them, ensure that you apply the same modifications in both places.
      */
 
     static get Type() {
