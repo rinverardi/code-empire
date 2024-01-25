@@ -24,7 +24,10 @@ test('Can move', () => {
                 ' g g '
             ]
         },
-        players: []
+        players: [],
+        turn: {
+            number: 0
+        }
     };
 
     testContext.turnManager().startTurn(game);
@@ -50,7 +53,10 @@ test('Cannot step on opponent', () => {
         players: [{
             position: [0, 1],
             status: Player.Status.alive
-        }]
+        }],
+        turn: {
+            number: 0
+        }
     };
 
     testContext.turnManager().startTurn(game);
@@ -73,7 +79,10 @@ test('Cannot walk on mountain', () => {
                 ' g g '
             ]
         },
-        players: []
+        players: [],
+        turn: {
+            number: 0
+        }
     };
 
     textContext.turnManager().startTurn(game);
@@ -96,7 +105,10 @@ test('Cannot walk on water', () => {
                 ' g g '
             ]
         },
-        players: []
+        players: [],
+        turn: {
+            number: 0
+        }
     };
 
     testContext.turnManager().startTurn(game);
