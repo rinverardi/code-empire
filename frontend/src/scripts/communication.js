@@ -2,7 +2,7 @@ import { Config } from './config.js';
 import { Context } from './context.js';
 
 /**
- * Manages a web socket connection, allowing for the reception of messages from
+ * Manages a WebSocket connection, allowing for the reception of messages from
  * the backend and the transmission of messages to the backend.
  */
 
