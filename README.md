@@ -81,7 +81,7 @@ You can run the three services with or without Docker Compose.
 
 If you prefer to use Docker Compose, start the Docker containers with:
 
-    $ docker-compose up
+    $ docker-compose up [--build]
 
 If you prefer _not_ to use Docker Compose, follow the instruction in the following sections.
 
