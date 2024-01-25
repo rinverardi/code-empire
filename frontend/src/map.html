@@ -244,8 +244,8 @@
 
         // Executes a random turn, if monkey mode is enabled.
 
-        function playAsMonkey(me) {
-            if (Config.monkeyMode) {
+        function playAsMonkey() {
+            if (Config.monkeyMode && context.playerHelper().isMe(game)) {
                 const turn = Math.floor(Math.random() * game.turns.length);
 
                 context.communication().sendMessage({
